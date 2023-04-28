@@ -1,7 +1,6 @@
 .button {
     -fx-background-radius: 3px;
     -fx-background-color:  #F2F2F2;
-    -fx-background-repeat: 5px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 2, 2);
     -fx-text-fill: #1a0d00;
     -fx-pref-height: 55px;
