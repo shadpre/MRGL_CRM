@@ -12,14 +12,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LogInController">
+<AnchorPane prefHeight="441.0" prefWidth="600.0" stylesheets="@../StyleSheet/Styleguide.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LogInController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="#333333" strokeType="INSIDE" width="600.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="360.0" stroke="#333333" strokeType="INSIDE" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="89.0" layoutY="360.0" stroke="#333333" strokeType="INSIDE" width="600.0" />
       <ImageView fitHeight="118.0" fitWidth="191.0" layoutX="372.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/images/Wuavlogoprg.JPG" />
+            <Image url="@../../data/images/Wuavlogoprg.JPG" />
          </image>
       </ImageView>
       <VBox layoutY="159.0" prefHeight="118.0" prefWidth="240.0">
@@ -62,7 +61,7 @@
             </TextField>
          </children>
       </VBox>
-      <HBox layoutX="379.0" layoutY="289.0" prefHeight="72.0" prefWidth="200.0">
+      <HBox layoutX="362.0" layoutY="290.0" prefHeight="60.0" prefWidth="224.0">
          <children>
             <Button fx:id="btnLogin" mnemonicParsing="false" text="Login">
                <font>
