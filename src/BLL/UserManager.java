@@ -4,24 +4,47 @@
  **/
 package BLL;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import BE.Exptions.UserValidationExeption;
 import BE.User;
 import DAL.db.UserDAO_DB;
 
+import java.util.ArrayList;
+
 public class UserManager {
-    private UserDAO_DB userDAO_db;
 
-    public UserManager() throws SQLException, IOException {
-        userDAO_db = new UserDAO_DB();
+    public static User getUser(String LoginName, String Password) throws Exception {
+        //Hardcoded Admin
+        if(LoginName == "SYS" && Password == "King_Mrgl"){
+            return new User(0,"SYS","Admin", "Bruger", "", 0);
+        }
 
+        if (validateUser(LoginName, Password)){
+            return UserDAO_DB.getUser(LoginName);
+        }
+        else {
+            throw new UserValidationExeption("Invalid Username or Password");
+        }
     }
-    public List<User> getAllUsers() throws Exception {
-        return userDAO_db.getAllUsers();
+
+    private static boolean validateUser(String LoginName, String Password) throws Exception {
+        String hash = UserDAO_DB.getUserHash(LoginName);
+        return PasswordHash.chkPassword(Password, hash);
     }
 
-    public void deleteUser(User deletedUser) throws Exception{
-        userDAO_db.deleteUser(deletedUser);
+    public static User createUser(User user, String Password) throws Exception{
+        String hash = PasswordHash.encryptPassword(Password);
+        if (UserDAO_DB.loginNameAvailible(user.getLoginName())){
+            return UserDAO_DB.createUser(user, hash);
+        }
+        else throw new RuntimeException("User not created");
+    }
+
+    public static void resetPassword(User user, String Password) throws Exception{
+        String hash = PasswordHash.encryptPassword(Password);
+        UserDAO_DB.resetPassword(user.getId(), hash);
+    }
+
+    public static ArrayList<User> getAllUsers() throws Exception{
+        return UserDAO_DB.getAllUsers();
     }
 }

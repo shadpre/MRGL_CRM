@@ -1,12 +1,51 @@
+import BE.User;
+import BLL.UserManager;
+import DAL.db.DBLogin;
+import DAL.db.DatabaseConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class Main extends Application{
 
-        public static void main(String[] args){ launch(args);
+        public static void main(String[] args) throws IOException {
+            var url = Main.class.getResource("config.properties");
+
+            Properties props = new Properties();
+            if (url != null) {
+                try (InputStream input = url.openStream()) {
+                    props.load(input);
+                }
+            }
+
+            var dbServer = props.getProperty("DB_IP");
+            var dbPort = Integer.parseInt(props.getProperty("DB_PORT"));
+            var dbName= props.getProperty("DB_NAME");
+            var dbUsername = props.getProperty("DB_USERNAME");
+            var dbPassword = props.getProperty("DB_PASSWORD");
+
+            DBLogin.init(dbServer,dbPort,dbName,dbUsername,dbPassword);
+            DatabaseConnector.init(DBLogin.getInstance());
+
+            //TEST
+            User user = new User(-1, "kte", "Klavs", "Tranborg", "klavs@tranborg.eu", 1);
+            try {
+                //UserManager.createUser(user, "Abcd1234");
+                System.out.println(
+                UserManager.getUser("kte", "Abcd1234").getFirstName());
+            }
+            catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+
+
+            launch(args);
         }
 
         @Override
