@@ -3,6 +3,7 @@ package GUI.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
@@ -42,6 +43,8 @@ public class MainViewController {
 
     @FXML
     private TextField txtSearch;
+    @FXML
+    private TableView<?> tbwAllUsers;
 
     @FXML
     void btnHandleAddUser(ActionEvent event) {
