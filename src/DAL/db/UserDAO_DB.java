@@ -123,6 +123,7 @@ public class UserDAO_DB {
                 PreparedStatement statement = conn.prepareStatement(query);
                 statement.setInt(1, Id);
 
+                // Delete relations
 
                 conn.commit();
             }
