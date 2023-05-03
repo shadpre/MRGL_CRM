@@ -20,3 +20,32 @@
     -fx-text-fill: #FFFFFF;
     -fx-effect: dropshadow(gaussian, rgba(290,180,90,0.9), 10, 0, 2, 2);
 }
+
+.smbutton {
+    -fx-background-radius: 15px;
+    -fx-background-color:  #F2F2F2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 2, 2);
+    -fx-text-fill: #1a0d00;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 130px;
+}
+
+.smbutton:hover {
+    -fx-background-color: #E83D00;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, rgba(290,180,90,0.9), 10, 0, 2, 2);
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}
+
+.smbutton:selected{
+    -fx-background-color: #E83D00;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, rgba(290,180,90,0.9), 10, 0, 2, 2);
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+

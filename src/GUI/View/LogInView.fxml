@@ -14,8 +14,8 @@
 
 <AnchorPane prefHeight="441.0" prefWidth="600.0" stylesheets="@../StyleSheet/Styleguide.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LogInController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="#333333" strokeType="INSIDE" width="600.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="89.0" layoutY="360.0" stroke="#333333" strokeType="INSIDE" width="600.0" />
+      <Rectangle fill="#333333" height="80.0" stroke="#333333" strokeType="INSIDE" styleClass="topbar" width="600.0" />
+      <Rectangle fill="#333333" height="40.0" layoutY="412.0" stroke="#333333" strokeType="INSIDE" width="600.0" />
       <ImageView fitHeight="118.0" fitWidth="191.0" layoutX="372.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../data/images/Wuavlogoprg.JPG" />
@@ -63,15 +63,18 @@
       </VBox>
       <HBox layoutX="362.0" layoutY="290.0" prefHeight="60.0" prefWidth="224.0">
          <children>
-            <Button fx:id="btnLogin" mnemonicParsing="false" text="Login">
+            <Button fx:id="btnLogin" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Login">
                <font>
                   <Font size="22.0" />
                </font>
                <HBox.margin>
-                  <Insets left="85.0" top="12.0" />
+                  <Insets left="80.0" top="12.0" />
                </HBox.margin>
             </Button>
          </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </HBox>
    </children>
 </AnchorPane>
