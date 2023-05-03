@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="941.0" stylesheets="@../StyleSheet/Styleguide.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainViewController">
+   <left>
+      <VBox prefHeight="679.0" prefWidth="245.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="udfyldDocu" mnemonicParsing="false" prefHeight="78.0" prefWidth="256.0" text="Udfyld Dokumentation">
+               <VBox.margin>
+                  <Insets bottom="25.0" top="50.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="uploadBillag" mnemonicParsing="false" prefHeight="78.0" prefWidth="256.0" text="Upload Billag">
+               <VBox.margin>
+                  <Insets bottom="25.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="netværk" mnemonicParsing="false" prefHeight="78.0" prefWidth="256.0" text="Order Information">
+               <VBox.margin>
+                  <Insets bottom="25.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane prefHeight="679.0" prefWidth="745.0" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <HBox prefHeight="202.0" prefWidth="730.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="202.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox prefHeight="202.0" prefWidth="387.0">
+                           <children>
+                              <Button fx:id="orderInfo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="348.0" style="-fx-background-color: darkorange; -fx-text-fill: white;" text="Tilføj Netværks oplysninger" textFill="WHITE">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="2.0" />
+                                 </VBox.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </top>
+               <left>
+                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="482.0" prefWidth="231.0" BorderPane.alignment="TOP_LEFT">
+                     <children>
+                        <ButtonBar prefHeight="98.0" prefWidth="231.0">
+                          <buttons>
+                            <Button fx:id="too" mnemonicParsing="false" prefHeight="50.0" prefWidth="126.0" text="Upload Sketch">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="me" layoutX="134.0" layoutY="34.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="107.0" text="Upload Sketch">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="13.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </Button>
+                          </buttons>
+                           <padding>
+                              <Insets top="15.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="5.0" />
+                           </VBox.margin>
+                        </ButtonBar>
+                     </children>
+                  </VBox>
+               </left>
+               <center>
+                  <VBox prefHeight="482.0" prefWidth="461.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="463.0" text="Beskrivelse af Sketch" textAlignment="CENTER" textFill="#518dd1">
+                           <font>
+                              <Font name="Gill Sans MT" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="momma" prefHeight="172.0" prefWidth="499.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                  </VBox>
+               </center>
+               <bottom>
+                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="yes" mnemonicParsing="false" prefHeight="59.0" prefWidth="134.0" text="Forrige Side">
+                           <HBox.margin>
+                              <Insets left="250.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="no" mnemonicParsing="false" prefHeight="59.0" prefWidth="133.0" text="Næste Side">
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="89.0" prefWidth="976.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <HBox prefHeight="66.0" prefWidth="942.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="116.0" fitWidth="182.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../data/images/Wuavlogoprg.JPG" />
+               </image>
+            </ImageView>
+            <MenuBar prefHeight="65.0" prefWidth="764.0" style="-fx-background-color: black;">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
