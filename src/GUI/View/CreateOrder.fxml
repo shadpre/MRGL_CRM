@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.View.CreateOrder">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="#333333" strokeType="INSIDE" width="1440.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="984.0" stroke="#333333" strokeType="INSIDE" width="1440.0" />
+      <HBox prefHeight="250.0" prefWidth="450.0">
+         <children>
+            <ImageView fitHeight="187.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../data/images/Wuavlogoprg.JPG" />
+               </image>
+               <HBox.margin>
+                  <Insets left="50.0" top="25.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox layoutY="250.0" prefHeight="30.0" prefWidth="450.0">
+         <children>
+            <Label text="Opret Ordre" textFill="#90aed6">
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <Pane layoutY="281.0" prefHeight="30.0" prefWidth="450.0" />
+      <HBox layoutY="311.0" prefHeight="30.0" prefWidth="450.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="100.0" text="Ordre Nr:" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblOrderNbr" prefHeight="30.0" prefWidth="250.0" text="23-00001" textFill="#90aed6">
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <VBox layoutY="341.0" prefHeight="643.0" prefWidth="500.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="250.0" text="Kunde Informationer" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="125.0" text="Navn:" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="30.0" prefWidth="300.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="125.0" text="Firma:" textFill="#90aed6">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField prefHeight="30.0" prefWidth="300.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="125.0" text="Adresse:" textFill="#90aed6">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField prefHeight="30.0" prefWidth="300.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="125.0" text="Telefon:" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="30.0" prefWidth="300.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="125.0" text="E-mail:" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="30.0" prefWidth="300.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="450.0" />
+            <HBox prefHeight="30.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="250.0" text="Opgave Type" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="150.0" text="Installation" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" prefHeight="30.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="150.0" text="Reparation" textFill="#90aed6">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" prefHeight="30.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="150.0" text="Service" textFill="#90aed6">
+                     <font>
+                        <Font name="Cambria Bold Italic" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" prefHeight="30.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="500.0" layoutY="341.0" prefHeight="643.0" prefWidth="650.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="450.0">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="300.0" text="Opgave beskrivelse" textFill="#90aed6">
+                     <font>
+                        <Font name="Cambria Bold" size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <TextField alignment="TOP_LEFT" maxHeight="225.0" maxWidth="550.0" prefHeight="250.0" prefWidth="550.0" promptText="Opgavebeskrivelse/fejlmeddelese">
+               <VBox.margin>
+                  <Insets left="50.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <HBox prefHeight="30.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="250.0" text="Noter" textFill="#90aed6">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <TextField alignment="TOP_LEFT" maxHeight="105.0" maxWidth="550.0" prefHeight="105.0" prefWidth="550.0" promptText="Noter">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="50.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <HBox layoutX="1090.0" layoutY="845.0" prefHeight="179.0" prefWidth="350.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Ordre">
+               <font>
+                  <Font name="Cambria Bold" size="21.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="70.0" top="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
