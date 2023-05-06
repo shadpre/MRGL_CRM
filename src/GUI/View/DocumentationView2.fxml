@@ -15,7 +15,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.DocumentationViewController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="984.0" stroke="#333333" strokeType="INSIDE" width="1440.0" />
@@ -51,7 +50,7 @@
                   <Font name="Cambria Bold" size="25.0" />
                </font>
             </Label>
-            <Label prefHeight="40.0" prefWidth="150.0" text="23-00001" textFill="#90aed6">
+            <Label fx:id="lblOrderNbr" prefHeight="40.0" prefWidth="150.0" text="23-00001" textFill="#90aed6">
                <font>
                   <Font name="Cambria Bold" size="25.0" />
                </font>
@@ -72,7 +71,7 @@
       </HBox>
       <HBox layoutY="351.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Skitse">
+            <Button fx:id="btnAddSketch" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Skitse">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -96,7 +95,7 @@
       </HBox>
       <HBox layoutY="462.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Dokumentation">
+            <Button fx:id="btnAddDocumentation" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Dokumentation">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -120,7 +119,7 @@
       </HBox>
       <HBox layoutY="573.0" prefHeight="80.0" prefWidth="350.0" stylesheets="@../StyleSheet/Styleguide.css">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Billeder">
+            <Button fx:id="btnUploadPictures" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Billeder">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -144,7 +143,7 @@
       </HBox>
       <HBox layoutY="684.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Kommentar">
+            <Button fx:id="benAddComment" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Kommentar">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -156,16 +155,16 @@
       </HBox>
       <Pane layoutX="400.0" layoutY="250.0" prefHeight="670.0" prefWidth="975.0">
          <children>
-            <StackPane layoutX="-1.0" layoutY="-2.0" prefHeight="670.0" prefWidth="975.0">
+            <StackPane fx:id="StackPane" layoutX="-1.0" layoutY="-2.0" prefHeight="670.0" prefWidth="975.0">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane id="Add Sketch" fx:id="paneAddSketch" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox prefHeight="80.0" prefWidth="87.0" />
                      </children>
                   </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Pane fx:id="paneAddDocumentation" prefHeight="200.0" prefWidth="200.0" />
+                  <Pane fx:id="paneUploadPictures" prefHeight="200.0" prefWidth="200.0" />
+                  <Pane fx:id="paneAddComments" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </StackPane>
          </children>
@@ -186,7 +185,7 @@
       </HBox>
       <HBox layoutY="794.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+            <Button fx:id="btnExit" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>

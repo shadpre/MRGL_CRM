@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddUserController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="#333333" strokeType="INSIDE" width="800.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="560.0" stroke="#333333" strokeType="INSIDE" width="800.0" />
+      <HBox prefHeight="180.0" prefWidth="250.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="50.0" top="40.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../data/images/Wuavlogoprg.JPG" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="250.0" layoutY="40.0" prefHeight="130.0" prefWidth="300.0">
+         <children>
+            <Label prefHeight="38.0" prefWidth="186.0" text="Opret Bruger" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets top="100.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Pane layoutY="178.0" prefHeight="30.0" prefWidth="800.0" />
+      <HBox layoutY="280.0" prefHeight="30.0" prefWidth="800.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="200.0" text="Efternavn:" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldLastName" prefHeight="30.0" prefWidth="490.0" promptText="Efternavn">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+      <HBox layoutY="239.0" prefHeight="30.0" prefWidth="800.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="200.0" text="Fornavn:" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldFirstName" prefHeight="30.0" prefWidth="490.0" promptText="Fornavn">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+      <HBox layoutY="208.0" prefHeight="30.0" prefWidth="800.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="200.0" text="Initialer:" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldLoginName" promptText="maks 3 bogstaver">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox layoutY="321.0" prefHeight="30.0" prefWidth="800.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="200.0" text="E-mail:" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldEmail" prefHeight="30.0" prefWidth="490.0" promptText="Arbejds Mail">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+      <HBox layoutY="362.0" prefHeight="30.0" prefWidth="800.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="200.0" text="Rolle:" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+      <HBox layoutY="408.0" prefHeight="40.0" prefWidth="800.0">
+         <children>
+            <Label text="Tekniker" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+            <CheckBox fx:id="chkBoxTech" mnemonicParsing="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Label text="CEO" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="60.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="chkBoxCeo" mnemonicParsing="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Label text="Sælger" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="60.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="chkBoxSales" mnemonicParsing="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Label text="Admin" textFill="#90aed6">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="60.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="25.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="chkBoxAdmin" mnemonicParsing="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+      <HBox layoutX="550.0" layoutY="464.0" prefHeight="95.0" prefWidth="250.0">
+         <children>
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnHandleSave" prefHeight="60.0" prefWidth="220.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
