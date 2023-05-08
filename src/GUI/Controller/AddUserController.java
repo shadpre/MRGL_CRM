@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import BLL.UserManager;
+import DAL.db.UserDAO_DB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +15,8 @@ import java.util.ResourceBundle;
 public class AddUserController {
 
     private UserManager userManager;
+
+    private UserDAO_DB userDAO_db;
     @FXML
     private Button btnSave;
 
@@ -41,6 +44,9 @@ public class AddUserController {
     @FXML
     private TextField txtFieldLoginName;
 
+    private LogInController logInController;
+    private MainViewController mainViewController;
+
     @FXML
     void btnHandleSave(ActionEvent event) {
 
@@ -49,13 +55,28 @@ public class AddUserController {
         String firstName = txtFieldFirstName.getText();
         String lastName = txtFieldLastName.getText();
         String email = txtFieldEmail.getText();
-        int role = 0;
+        int RoleValue = 4;
+        int role = RoleValue;
 
 
-        chkBoxTech.isSelected();
-        chkBoxCeo.isSelected();
-        chkBoxSales.isSelected();
-        chkBoxAdmin.isSelected();
+        //chkBoxTech.setUserData(0);
+        //chkBoxCeo.setUserData(2);
+        //chkBoxSales.setUserData(3);
+        //chkBoxAdmin.setUserData(1);
+
+        if (chkBoxTech.isSelected()) {
+            RoleValue = 0;
+        } else if (chkBoxAdmin.isSelected()) {
+            RoleValue = 1;
+        } else if (chkBoxCeo.isSelected()) {
+            RoleValue = 2;
+        } else if (chkBoxSales.isSelected()) {
+            RoleValue = 3;
+        } else { System.out.println("Du skal vælge en Rolle til Medarbejderen");
+
+
+
+        };
 
 
 
@@ -63,7 +84,14 @@ public class AddUserController {
     public void initialize (URL location, ResourceBundle resources){
         try {
             userManager = new UserManager();
+            userDAO_db = new UserDAO_DB();
+            mainViewController = new MainViewController();
+            logInController = new LogInController();
+
+
             this.userManager = userManager;
+            this.userDAO_db = userDAO_db;
+            this.mainViewController = new MainViewController();
 
         } catch (Exception e) {
             throw new RuntimeException(e);

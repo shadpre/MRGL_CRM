@@ -19,6 +19,7 @@ public class UserModel {
         return userManager.getUser(LoginName, Password);
     }
 
+
     public User getSelectedUser(User selectedUser){return selectedUser;}
 
     public void setSelectedUser(User selectedUser){this.selectedUser = selectedUser;}
