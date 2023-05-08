@@ -3,7 +3,7 @@ import BE.User;
 import BLL.UserManager;
 
 public class UserModel {
-    private User selectedUser;
+    public User selectedUser;
 
     private UserManager userManager;
 

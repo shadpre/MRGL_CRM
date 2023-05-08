@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,6 +18,72 @@
 
 <AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.DocumentationViewController">
    <children>
+      <StackPane fx:id="førBilledePane" layoutX="343.0" layoutY="176.0" prefHeight="693.0" prefWidth="951.0">
+         <children>
+            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="En fed løsning til den manglende social nærvær i kontoret">
+               <StackPane.margin>
+                  <Insets bottom="150.0" left="550.0" right="20.0" top="85.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Button fx:id="btnEfterBillede" mnemonicParsing="false" prefHeight="60.0" prefWidth="226.0" stylesheets="@../StyleSheet/Styleguide.css" text="Sæt Før Billede">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="310.0" top="160.0" />
+               </StackPane.margin>
+            </Button>
+            <ImageView fitHeight="240.0" fitWidth="391.0" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets bottom="250.0" right="300.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../data/images/førBillede.jpg" />
+               </image>
+            </ImageView>
+            <Label text="Beskrivelse af Før billede" textFill="#1d79b2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="550.0" left="480.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+      <StackPane fx:id="sketchPane" layoutX="353.0" layoutY="186.0" prefHeight="693.0" prefWidth="951.0">
+         <children>
+            <Label prefHeight="40.0" prefWidth="229.0" text="Beskrivelse af Sketch" textFill="#35a1e4">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="565.0" left="485.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fitHeight="340.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../data/images/Wuavlogoprg.JPG" />
+               </image>
+               <StackPane.margin>
+                  <Insets bottom="300.0" right="350.0" />
+               </StackPane.margin>
+            </ImageView>
+            <Button fx:id="btnSketch" mnemonicParsing="false" prefHeight="60.0" prefWidth="226.0" stylesheets="@../StyleSheet/Styleguide.css" text="Sæt Sketch">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="330.0" top="140.0" />
+               </StackPane.margin>
+            </Button>
+            <TextArea fx:id="sketchBeskrivelse" prefHeight="470.0" prefWidth="951.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="100.0" left="500.0" right="25.0" top="80.0" />
+               </StackPane.margin>
+            </TextArea>
+         </children>
+      </StackPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="984.0" stroke="#333333" strokeType="INSIDE" width="1440.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="BLACK" strokeType="INSIDE" width="1440.0" />
       <MenuButton layoutX="1284.0" layoutY="17.0" mnemonicParsing="false" text="Menu" textFill="#90aed6">
@@ -59,7 +126,7 @@
       </HBox>
       <HBox layoutY="320.0" prefHeight="30.0" prefWidth="350.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="250.0" text="Skitse" textFill="#90aed6">
+            <Label prefHeight="30.0" prefWidth="250.0" text="Dokument" textFill="#90aed6">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -71,7 +138,7 @@
       </HBox>
       <HBox layoutY="351.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button fx:id="btnAddSketch" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Skitse">
+            <Button fx:id="btnUdfyldDocu" mnemonicParsing="false" onAction="#handleDocumenation" prefHeight="60.0" prefWidth="226.0" stylesheets="@../StyleSheet/Styleguide.css" text="Udfyld Dokumentaiton">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -83,7 +150,7 @@
       </HBox>
       <HBox layoutY="431.0" prefHeight="30.0" prefWidth="350.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="250.0" text="Dokumentation" textFill="#90aed6">
+            <Label prefHeight="30.0" prefWidth="250.0" text="Billag" textFill="#90aed6">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -95,7 +162,7 @@
       </HBox>
       <HBox layoutY="462.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button fx:id="btnAddDocumentation" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Dokumentation">
+            <Button fx:id="btnAttachment" mnemonicParsing="false" onAction="#handleAttachment" prefHeight="60.0" prefWidth="226.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Ekstra Billag">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -107,7 +174,7 @@
       </HBox>
       <HBox layoutY="542.0" prefHeight="30.0" prefWidth="350.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="350.0" text="Billede Dokumentation" textFill="#90aed6">
+            <Label prefHeight="30.0" prefWidth="350.0" text="Order" textFill="#90aed6">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -119,7 +186,7 @@
       </HBox>
       <HBox layoutY="573.0" prefHeight="80.0" prefWidth="350.0" stylesheets="@../StyleSheet/Styleguide.css">
          <children>
-            <Button fx:id="btnUploadPictures" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Billeder">
+            <Button fx:id="btnOrderInfo" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Order Information">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -131,7 +198,7 @@
       </HBox>
       <HBox layoutY="653.0" prefHeight="30.0" prefWidth="350.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="250.0" text="Kommentarer" textFill="#90aed6">
+            <Label prefHeight="30.0" prefWidth="250.0" text="Afslut" textFill="#90aed6">
                <font>
                   <Font name="Cambria Bold" size="20.0" />
                </font>
@@ -143,7 +210,7 @@
       </HBox>
       <HBox layoutY="684.0" prefHeight="80.0" prefWidth="350.0">
          <children>
-            <Button fx:id="benAddComment" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Kommentar">
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleExit" prefHeight="60.0" prefWidth="233.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
@@ -153,27 +220,21 @@
             </Button>
          </children>
       </HBox>
-      <Pane layoutX="400.0" layoutY="250.0" prefHeight="670.0" prefWidth="975.0">
-         <children>
-            <StackPane fx:id="StackPane" layoutX="-1.0" layoutY="-2.0" prefHeight="670.0" prefWidth="975.0">
-               <children>
-                  <Pane id="Add Sketch" fx:id="paneAddSketch" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <HBox prefHeight="80.0" prefWidth="87.0" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="paneAddDocumentation" prefHeight="200.0" prefWidth="200.0" />
-                  <Pane fx:id="paneUploadPictures" prefHeight="200.0" prefWidth="200.0" />
-                  <Pane fx:id="paneAddComments" prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </StackPane>
-         </children>
-      </Pane>
       <Pane layoutY="290.0" prefHeight="30.0" prefWidth="350.0" />
-      <HBox layoutX="1105.0" layoutY="774.0" prefHeight="250.0" prefWidth="335.0" />
+      <HBox layoutX="1105.0" layoutY="774.0" prefHeight="250.0" prefWidth="335.0">
+         <children>
+            <Button fx:id="btnFærdig" mnemonicParsing="false" onAction="#handleDone" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Færdigør">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" top="125.0" />
+               </HBox.margin>
+            </Button>
+         </children></HBox>
       <HBox layoutY="764.0" prefHeight="30.0" prefWidth="350.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="250.0" text="Afslut Ordre" textFill="#90aed6">
+            <Label prefHeight="30.0" prefWidth="250.0" textFill="#90aed6">
                <font>
                   <Font name="Cambria Bold" size="20.0" />
                </font>
@@ -183,17 +244,82 @@
             </Label>
          </children>
       </HBox>
-      <HBox layoutY="794.0" prefHeight="80.0" prefWidth="350.0">
+      <HBox layoutY="794.0" prefHeight="80.0" prefWidth="350.0" />
+      <Button fx:id="btnNæsteSide" layoutX="788.0" layoutY="899.0" mnemonicParsing="false" onAction="#handleNext" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Næste Side">
+         <font>
+            <Font name="Cambria Bold" size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnForrigeSide" layoutX="549.0" layoutY="899.0" mnemonicParsing="false" onAction="#handleLast" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Forrige Side">
+         <font>
+            <Font name="Cambria Bold" size="19.0" />
+         </font>
+      </Button>
+      <StackPane fx:id="efterBilledePane" layoutX="333.0" layoutY="166.0" prefHeight="693.0" prefWidth="951.0">
          <children>
-            <Button fx:id="btnExit" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
-               <HBox.margin>
-                  <Insets left="50.0" top="10.0" />
-               </HBox.margin>
+            <Label text="Beskrivelse af efter billede" textFill="#2088c9">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="540.0" left="480.0" />
+               </StackPane.margin>
+            </Label>
+            <Button fx:id="btnFørBillede" mnemonicParsing="false" prefHeight="60.0" prefWidth="226.0" stylesheets="@../StyleSheet/Styleguide.css" text="Sæt Efter Billede">
                <font>
                   <Font name="Cambria Bold" size="19.0" />
                </font>
+               <StackPane.margin>
+                  <Insets right="280.0" top="180.0" />
+               </StackPane.margin>
             </Button>
+            <ImageView fitHeight="324.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../data/images/efterBillede.jpg" />
+               </image>
+               <StackPane.margin>
+                  <Insets bottom="200.0" right="300.0" />
+               </StackPane.margin>
+            </ImageView>
+            <TextArea prefHeight="200.0" prefWidth="200.0">
+               <StackPane.margin>
+                  <Insets bottom="100.0" left="530.0" right="25.0" top="100.0" />
+               </StackPane.margin>
+            </TextArea>
          </children>
-      </HBox>
+      </StackPane>
+      <StackPane fx:id="billagPane" layoutX="409.0" layoutY="91.0" prefHeight="776.0" prefWidth="895.0">
+         <children>
+            <ImageView fitHeight="334.0" fitWidth="394.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../data/images/billag.jpg" />
+               </image>
+               <StackPane.margin>
+                  <Insets bottom="150.0" right="400.0" />
+               </StackPane.margin>
+            </ImageView>
+            <Button fx:id="btnUdfyldDocu1" mnemonicParsing="false" onAction="#handleDocumenation" prefHeight="60.0" prefWidth="226.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Billede Billag">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="400.0" top="250.0" />
+               </StackPane.margin>
+            </Button>
+            <TextArea prefHeight="200.0" prefWidth="200.0">
+               <StackPane.margin>
+                  <Insets bottom="100.0" left="450.0" right="20.0" top="150.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Tilføj ekstra note" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="500.0" left="400.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

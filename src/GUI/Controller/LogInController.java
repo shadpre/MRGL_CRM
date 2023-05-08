@@ -48,6 +48,8 @@ public class LogInController extends BaseController implements Initializable {
         if (selectedUser != null){
             userModel.setSelectedUser(selectedUser);
 
+            userModel = getModel();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
