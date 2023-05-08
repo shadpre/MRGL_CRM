@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 
 import BE.User;
 import GUI.Model.UserModel;
@@ -18,9 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -72,7 +69,14 @@ public class MainViewController extends BaseController implements Initializable 
     @FXML
     private TextField txtSearch;
     @FXML
-    private TableView<?> tbwAllUsers;
+    private TableView<User> tbwAllUsers;
+    @FXML
+    private TableColumn<User, String> columnLastName;
+    @FXML
+    private TableColumn<User, String> columnFirstName;
+    @FXML
+    private TableColumn<User, String> columnEmail;
+    
     private UserDAO_DB userDAO_db;
     private UserManager userManager;
     private AddUserController addUserController;

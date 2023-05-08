@@ -28,14 +28,6 @@ public class DocumentationViewController extends BaseController implements Initi
     @FXML
     private Button btnAddSketch;
 
-    @FXML
-    private TableView<User> tbwAllUsers;
-    @FXML
-    private TableColumn<User, String> columnLastName;
-    @FXML
-    private TableColumn<User, String> columnFirstName;
-    @FXML
-    private TableColumn<User, String> columnEmail;
 
     @FXML
     private Button btnExit;
