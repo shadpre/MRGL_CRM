@@ -5,7 +5,7 @@ import BLL.UserManager;
 import DAL.db.UserDAO_DB;
 
 public class UserModel {
-    private User selectedUser;
+    public User selectedUser;
 
     private UserManager userManager;
 

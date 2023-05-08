@@ -1,14 +1,20 @@
 package GUI.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-public class DocumentationViewController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class DocumentationViewController extends BaseController implements Initializable {
     @FXML
-    private StackPane StackPane;
+    private StackPane sketchPane, førBilledePane, efterBilledePane, billagPane;
 
     @FXML
     private Button benAddComment;
@@ -23,7 +29,7 @@ public class DocumentationViewController {
     private Button btnExit;
 
     @FXML
-    private Button btnUploadPictures;
+    private Button btnForrigeSide, btnNæsteSide;
 
     @FXML
     private Label lblOrderNbr;
@@ -39,4 +45,74 @@ public class DocumentationViewController {
 
     @FXML
     private Pane paneUploadPictures;
+
+    public void handleDocumenation(ActionEvent actionEvent) {
+        billagPane.setVisible(false);
+        btnNæsteSide.setVisible(true);
+        btnForrigeSide.setVisible(true);
+        sketchPane.setVisible(true);
+    }
+
+    public void handleDone(ActionEvent actionEvent) {
+    }
+
+    public void handleLast(ActionEvent actionEvent) {
+        if (sketchPane.isVisible() == true){
+            efterBilledePane.setVisible(true);
+            sketchPane.setVisible(false);
+        }
+        else if (førBilledePane.isVisible() == true) {
+            sketchPane.setVisible(true);
+            førBilledePane.setVisible(false);
+        }
+        else if (efterBilledePane.isVisible() == true) {
+            førBilledePane.setVisible(true);
+            efterBilledePane.setVisible(false);
+
+        }
+    }
+
+    public void handleNext(ActionEvent actionEvent) {
+        if (sketchPane.isVisible() == true){
+            førBilledePane.setVisible(true);
+            sketchPane.setVisible(false);
+        }
+        else if (førBilledePane.isVisible() == true) {
+            efterBilledePane.setVisible(true);
+            førBilledePane.setVisible(false);
+        }
+        else if (efterBilledePane.isVisible() == true) {
+            sketchPane.setVisible(true);
+            efterBilledePane.setVisible(false);
+
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        sketchPane.setVisible(false);
+        førBilledePane.setVisible(false);
+        efterBilledePane.setVisible(false);
+        btnForrigeSide.setVisible(false);
+        btnNæsteSide.setVisible(false);
+        billagPane.setVisible(false);
+    }
+
+    public void handleAttachment(ActionEvent actionEvent) {
+        sketchPane.setVisible(false);
+        førBilledePane.setVisible(false);
+        efterBilledePane.setVisible(false);
+        btnForrigeSide.setVisible(false);
+        btnNæsteSide.setVisible(false);
+
+        billagPane.setVisible(true);
+
+    }
+
+    public void handleExit(ActionEvent actionEvent) {
+
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
+    }
 }

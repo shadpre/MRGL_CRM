@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+
 import BLL.UserManager;
 import DAL.db.UserDAO_DB;
 import javafx.event.ActionEvent;
@@ -8,6 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+
+import BE.User;
+import GUI.Model.UserModel;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -18,7 +28,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainViewController {
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainViewController extends BaseController implements Initializable {
+
+    private UserModel userModel;
     @FXML
     private Button btnAddUser;
 
@@ -85,7 +102,17 @@ public class MainViewController {
     }
 
     @FXML
-    void btnHandleCreateOrder(ActionEvent event) {
+    void btnHandleCreateOrder(ActionEvent event) throws IOException {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("adm");
+        stage.show();
+
+
 
     }
 
@@ -129,5 +156,13 @@ public class MainViewController {
 
     }
 
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        UserModel userModel = getModel();
+        this.userModel = userModel;
+
+    }
 
 }
