@@ -37,7 +37,7 @@ public class Main extends Application{
             DatabaseConnector.init(DBLogin.getInstance());
 
             //TEST
-
+            launch(args);
         }
 
         @Override
