@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -76,7 +77,7 @@ public class MainViewController extends BaseController implements Initializable 
     private TableColumn<User, String> columnFirstName;
     @FXML
     private TableColumn<User, String> columnEmail;
-    
+
     private UserDAO_DB userDAO_db;
     private UserManager userManager;
     private AddUserController addUserController;
@@ -164,8 +165,19 @@ public class MainViewController extends BaseController implements Initializable 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        UserModel userModel = getModel();
+        UserModel userModel = new UserModel();
         this.userModel = userModel;
+
+        columnFirstName.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        columnLastName.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+        columnEmail.setCellValueFactory(new PropertyValueFactory<User, String>("EMail"));
+
+
+        try {
+            tbwAllUsers.setItems(userModel.getAllUsers());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
