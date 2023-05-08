@@ -1,4 +1,6 @@
+import BE.Document;
 import BE.User;
+import BLL.DocumentManager;
 import BLL.UserManager;
 import DAL.db.DBLogin;
 import DAL.db.DatabaseConnector;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.time.LocalDateTime;
 
 public class Main extends Application{
 
@@ -26,24 +29,15 @@ public class Main extends Application{
 
             var dbServer = props.getProperty("DB_IP");
             var dbPort = Integer.parseInt(props.getProperty("DB_PORT"));
-            var dbName= props.getProperty("DB_NAME");
+            var dbName = props.getProperty("DB_NAME");
             var dbUsername = props.getProperty("DB_USERNAME");
             var dbPassword = props.getProperty("DB_PASSWORD");
 
-            DBLogin.init(dbServer,dbPort,dbName,dbUsername,dbPassword);
+            DBLogin.init(dbServer, dbPort, dbName, dbUsername, dbPassword);
             DatabaseConnector.init(DBLogin.getInstance());
 
             //TEST
-           // User user = new User(-1, "adm", "admin", "admin", "", 1);
-            try {
-               // UserManager.createUser(user, "admin");
-                System.out.println(
-                UserManager.getUser("adm", "admin").toString());
-            }
-            catch (Exception ex){
-                System.out.println(ex.getMessage());
-            }
-            launch(args);
+
         }
 
         @Override

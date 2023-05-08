@@ -96,7 +96,7 @@ public class DocumentDAO_DB {
     public static Document saveDocument(Document doc, int UserID) throws Exception{
         int newID = 0;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "INSERT INTO Documents (SketchIMG, SketchDescription, ImgBefore, DescriptionVefore, ImgAfter, CreatedDate, UserID) VALUES (?,?,?,?,?,GETDATE(),?)";
+            String query = "INSERT INTO Documents (SketchIMG, SketchDescription, ImgBefore, DescriptionBefore, ImgAfter, CreatedDate, UserID) VALUES (?,?,?,?,?,GETDATE(),?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setBytes(1, doc.getSketchIMG());
             statement.setString(2, doc.getSketchDescription());
