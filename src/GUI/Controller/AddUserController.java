@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.User;
 import BLL.UserManager;
 import DAL.db.UserDAO_DB;
 import javafx.event.ActionEvent;
@@ -74,10 +75,13 @@ public class AddUserController {
             RoleValue = 3;
         } else { System.out.println("Du skal vælge en Rolle til Medarbejderen");
 
-
-
-        };
-
+        }
+        User user = new User(0, loginName, firstName, lastName, email, role);
+        try {
+            userManager.createUser(user, "123" );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
 
     }

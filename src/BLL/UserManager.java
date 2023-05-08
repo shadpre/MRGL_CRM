@@ -47,4 +47,5 @@ public class UserManager {
     public static ArrayList<User> getAllUsers() throws Exception{
         return UserDAO_DB.getAllUsers();
     }
+
 }

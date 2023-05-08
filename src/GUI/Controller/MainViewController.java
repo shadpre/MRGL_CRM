@@ -58,35 +58,22 @@ public class MainViewController {
     private TableView<?> tbwAllUsers;
     private UserDAO_DB userDAO_db;
     private UserManager userManager;
+    private AddUserController addUserController;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        try {
-            userManager = new UserManager();
-
-
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @FXML
     void btnHandleAddUser(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI/View/AddUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddUser.fxml"));
+            //AddUserController + new AddUserController(); // create an instance of your controller class
+            loader.setController(addUserController); // set the controller for the loader
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Tilføj en bruger");
             stage.show();
 
-            //setting controller and model for new window.
-
-            BaseController controller = loader.getController();
-            controller.(userMnanger);
 
 
         } catch (IOException e) {
@@ -141,4 +128,6 @@ public class MainViewController {
     void btnHandleUpdateUser(ActionEvent event) {
 
     }
+
+
 }
