@@ -46,4 +46,66 @@
     -fx-background-color: rgba(0,0,0,0);
 }
 
+TableView {
+    -fx-background-color: transparent;
+
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: white;
+}
+
+
+.table-view .column-header-background {
+    -fx-pref-height: 35px;
+    -fx-background-radius: 8px;
+    -fx-background-color: linear-gradient(to bottom, #404040, #333333);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 2, 2);
+}
+
+
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Gill Sans MT";
+}
+.table-row-cell:hover > .table-cell {
+    -fx-background-color: #333333 !important;
+    -fx-text-fill: #FFFFFF !important;
+}
+
+.table-row-cell:selected > .table-cell {
+    -fx-background-color: #333333 !important;
+    -fx-text-fill: #FFFFFF !important;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+    -fx-pref-height: 30px;
+}
+.table-row-cell:even{
+    -fx-background-color: snow;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+    -fx-pref-height: 30px;
+}
+
 

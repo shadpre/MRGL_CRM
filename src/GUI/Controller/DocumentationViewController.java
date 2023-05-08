@@ -1,10 +1,13 @@
 package GUI.Controller;
 
+import BE.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -24,6 +27,15 @@ public class DocumentationViewController extends BaseController implements Initi
 
     @FXML
     private Button btnAddSketch;
+
+    @FXML
+    private TableView<User> tbwAllUsers;
+    @FXML
+    private TableColumn<User, String> columnLastName;
+    @FXML
+    private TableColumn<User, String> columnFirstName;
+    @FXML
+    private TableColumn<User, String> columnEmail;
 
     @FXML
     private Button btnExit;
