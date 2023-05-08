@@ -34,17 +34,15 @@ public class Main extends Application{
             DatabaseConnector.init(DBLogin.getInstance());
 
             //TEST
-            User user = new User(-1, "kte", "Klavs", "Tranborg", "klavs@tranborg.eu", 1);
+           // User user = new User(-1, "adm", "admin", "admin", "", 1);
             try {
-                //UserManager.createUser(user, "Abcd1234");
+               // UserManager.createUser(user, "admin");
                 System.out.println(
-                UserManager.getUser("kte", "Abcd1234").getFirstName());
+                UserManager.getUser("adm", "admin").toString());
             }
             catch (Exception ex){
                 System.out.println(ex.getMessage());
             }
-
-
             launch(args);
         }
 
