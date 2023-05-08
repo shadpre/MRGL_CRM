@@ -57,7 +57,7 @@ public class AddUserController {
         String lastName = txtFieldLastName.getText();
         String email = txtFieldEmail.getText();
         int RoleValue = 4;
-        int role = RoleValue;
+
 
 
         //chkBoxTech.setUserData(0);
@@ -76,7 +76,7 @@ public class AddUserController {
         } else { System.out.println("Du skal vælge en Rolle til Medarbejderen");
 
         }
-        User user = new User(0, loginName, firstName, lastName, email, role);
+        User user = new User(0, loginName, firstName, lastName, email, RoleValue);
         try {
             userManager.createUser(user, "123" );
         } catch (Exception e) {
