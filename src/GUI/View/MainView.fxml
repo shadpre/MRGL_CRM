@@ -198,10 +198,11 @@
          <children>
             <StackPane fx:id="stackpane" prefHeight="648.0" prefWidth="750.0">
                <children>
-                  <TableView fx:id="tbwAllUsers" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tbwAllUsers" prefHeight="200.0" prefWidth="200.0" stylesheets="@../StyleSheet/Styleguide.css">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="columnFirstName" prefWidth="224.0" text="Fornavn" />
+                      <TableColumn fx:id="columnLastName" prefWidth="242.0" text="Efternavn" />
+                        <TableColumn fx:id="columnEmail" prefWidth="283.0" text="Email" />
                     </columns>
                   </TableView>
                </children></StackPane>
