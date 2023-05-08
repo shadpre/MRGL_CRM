@@ -4,6 +4,8 @@
  **/
 package BE;
 
+import BE.Enums.UserRole;
+
 public class User {
 
     private int Id;

@@ -18,7 +18,7 @@ public class UserModel {
     }
 
     public User getUser(String LoginName, String Password) throws Exception {
-        return userManager.getUser(LoginName, Password);
+        return UserManager.getUser(LoginName, Password);
     }
     public static User createUser(User user, String Password) throws Exception{
         String hash = PasswordHash.encryptPassword(Password);

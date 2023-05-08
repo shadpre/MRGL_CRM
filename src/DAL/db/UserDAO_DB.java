@@ -83,7 +83,7 @@ public class UserDAO_DB {
             String query = "INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) Values (?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, user.getLoginName());
+            statement.setString(1, user.getLoginName().toUpperCase());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, user.getEMail());
