@@ -122,7 +122,7 @@ public class CustomerDAO_DB {
         return getCustomerByID(customer.getId());
     }
 
-    public static void anonymizeCustomer(){
+    public static void anonymizeCustomer(int ID){
         throw new RuntimeException("Not Implemented");
     }
 

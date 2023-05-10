@@ -1,3 +1,4 @@
+import BE.CustomerTask;
 import DAL.db.DBLogin;
 import DAL.db.DatabaseConnector;
 import javafx.application.Application;
@@ -8,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 public class Main extends Application{

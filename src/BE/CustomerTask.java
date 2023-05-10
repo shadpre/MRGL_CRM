@@ -27,6 +27,27 @@ public class CustomerTask {
         return Date;
     }
 
+    public String GetDateString(){
+        int y = Date.getYear();
+        int m = Date.getMonthValue();
+        int d = Date.getDayOfMonth();
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(y + "-");
+
+        if (m<10){
+            sb.append(0);
+        }
+        sb.append(m +"-");
+
+        if (d< 10){
+            sb.append(0);
+        }
+        sb.append(d);
+
+        return sb.toString();
+    }
+
     public String getDescription() {
         return Description;
     }
