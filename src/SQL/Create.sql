@@ -15,7 +15,6 @@ CREATE TABLE Users(
 	[Role] TINYINT NOT NULL
 );
 
-
 CREATE TABLE Customers(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[Name] NVARCHAR(60) NOT NULL,
@@ -23,82 +22,100 @@ CREATE TABLE Customers(
 	[Address2] NVARCHAR(60) NOT NULL,
 	[Address3] NVARCHAR(60) NOT NULL,
 	[Zipcode] NVARCHAR(20) NOT NULL,
+	[City] NVARCHAR(60) NOT NULL,
 	[Country] NVARCHAR(40) NOT NULL,
 	[Phone] NVARCHAR(20) NOT NULL,
 	[Category] NVARCHAR(20) NOT NULL,
 	[TaxNo] NVARCHAR(20) NOT NULL
 );
 
-CREATE TABLE Orders(
+CREATE TABLE CustomerTasks(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[OrderDate] DATETIME NOT NULL,
-	[StartDelivery] DATETIME NOT NULL,
-	[EndDelivery] DATETIME NOT NULL,
-	[OrderDescription] NVARCHAR(255) NOT NULL,
-	[OrderRemarks] NVARCHAR(MAX) NOT NULL,
-	[OrderStatus] TINYINT NOT NULL,
+	[Date] DATETIME NOT NULL,
+	[Description] NVARCHAR(255) NULL,
+	[Remarks] NVARCHAR(MAX) NULL,
+	[Status] TINYINT NOT NULL,
 	[CustomerId] INT FOREIGN KEY REFERENCES Customers(Id)
 );
 
-CREATE TABLE OrderUserRel(
+CREATE TABLE UserCustomerTasksRel(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[UserId] INT FOREIGN KEY REFERENCES Users(Id),
-	[OrderId] INT FOREIGN KEY REFERENCES Orders(Id)
-);
-
-CREATE TABLE Attachment(
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[UserId] INT FOREIGN KEY REFERENCES Users(ID),
-	[Tittle] NVARCHAR(40) NOT NULL,
-	[Description] NVARCHAR(MAX) NOT NULL,
-	[ImageData] VARBINARY(MAX) NULL,
-	[ImageType] TINYINT NOT NULL,
-	[Placement] INT NOT NULL
-);
-
-CREATE TABLE AttachmentOrderRel(
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[AttachmentId] INT FOREIGN KEY REFERENCES Users(Id),
-	[OrderId] INT FOREIGN KEY REFERENCES Attachment(Id)
+	[CustomerTaskId] INT FOREIGN KEY REFERENCES CustomerTasks(Id)
 );
 
 CREATE TABLE Documents(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[SketchIMG] VARBINARY(MAX) NOT NULL,
-	[SketchDescription] NVARCHAR(MAX) NOT NULL,
-	[ImgBefore] VARBINARY(MAX) NOT NULL,
-	[DescriptionBefore] NVARCHAR(MAX) NOT NULL,
-	[ImgAfter] VARBINARY(MAX) NOT NULL,
-	[CreatedDate] DATETIME NOT NULL,
-	[UserID] INT FOREIGN KEY REFERENCES Users(Id)
+	[CustomerTaskId] INT FOREIGN KEY REFERENCES CustomerTasks(Id),
+	[Description] NVARCHAR(255) NOT NULL,
+	[Remarks] NVARCHAR(MAX) NOT NULL
 );
 
-CREATE TABLE OrderDocumentRel(
+CREATE TABLE Installations(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[OrderId] INT FOREIGN KEY REFERENCES Orders(Id),
-	[CustomerId] INT FOREIGN KEY REFERENCES Customers(Id)
-);
-
-CREATE TABLE Networks(
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[Network] NVARCHAR(100) NOT NULL,
-	[IsIPv4] BIT NOT NULL,
-	[HasPOE] BIT NOT NULL,
-	[CustomerId] INT FOREIGN KEY REFERENCES Customers(Id)
-);
-
-CREATE TABLE WLAN(
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[SSID] NVARCHAR(255) NOT NULL,
-	[PSK] NVARCHAR(255) NOT NULL,
-	[NetworkId] INT FOREIGN KEY REFERENCES Networks(Id)
+	[DocumentId] INT FOREIGN KEY REFERENCES Documents(Id),
+	[Description] NVARCHAR(255) NOT NULL,
+	[Remarks] NVARCHAR(MAX) NOT NULL
 );
 
 CREATE TABLE Devices(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[IP] NVARCHAR(100) NOT NULL,
-	[LoginUser] NVARCHAR(100),
-	[LoginPass] NVARCHAR(100),
-	[IsPOE] BIT NOT NULL,
-	[NetworkId] INT FOREIGN KEY REFERENCES Networks(Id)
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[Description] NVARCHAR(255) NOT NULL,
+	[Remarks] NVARCHAR(MAX) NOT NULL,
+	[IP] NVARCHAR(15) NOT NULL,
+	[SubnetMask] NVARCHAR(15) NOT NULL,
+	[UserName] NVARCHAR(255) NOT NULL,
+	[Password] NVARCHAR(255) NOT NULL,
+	[IsPOE] BIT NOT NULL
 );
+
+CREATE TABLE Networks(
+	[Id] INT PRIMARY KEY IDENTITY(1,1),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[Description] NVARCHAR(255) NOT NULL,
+	[Remarks] NVARCHAR(MAX) NOT NULL,
+	[NetworkIP] NVARCHAR(255) NOT NULL,
+	[SubnetMask] NVARCHAR(255) NOT NULL,
+	[DefaultGateway] NVARCHAR(255) NOT NULL,
+	[HasPOE] BIT NOT NULL
+);
+
+CREATE TABLE WiFis(
+	[Id] INT PRIMARY KEY IDENTITY(1,1),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[Description] NVARCHAR(255) NOT NULL,
+	[Remarks] NVARCHAR(MAX) NOT NULL,
+	[SSID] NVARCHAR(255) NOT NULL,
+	[PSK] NVARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Images(
+	[Id] INT PRIMARY KEY IDENTITY(1,1),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[Description] NVARCHAR(255) NOT NULL,
+	[Remarks] NVARCHAR(MAX) NOT NULL,
+	[Data] VARBINARY(MAX) NOT NULL,
+	[ImageType] TINYINT NOT NULL,
+);
+
+GO
+
+CREATE PROCEDURE spResetDB AS
+DELETE Images
+DELETE WiFis
+DELETE Networks
+DELETE Devices
+DELETE Installations
+DELETE Documents
+DELETE UserCustomerTasksRel
+DELETE CustomerTasks
+DELETE Customers
+DELETE Users
+
+INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('ADM', 'Admin', 'Admin', 'admin@wuav.dk', '$2a$10$o2rPhDPzNtmPo9mVNuohVOHkHP0uLau8XFaleRsulSk0XXU0fVjPO', 1)
+
+Go
+
+exec spResetDB
+
