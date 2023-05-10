@@ -17,100 +17,48 @@ import java.util.ResourceBundle;
 
 public class DocumentationViewController extends BaseController implements Initializable {
     @FXML
-    private StackPane sketchPane, førBilledePane, efterBilledePane, billagPane;
+    private StackPane  paneSketch, paneWiFi, paneNetwork;
 
-    @FXML
-    private Button benAddComment;
 
-    @FXML
-    private Button btnAddDocumentation;
 
-    @FXML
-    private Button btnAddSketch;
 
 
     @FXML
     private Button btnExit;
 
-    @FXML
-    private Button btnForrigeSide, btnNæsteSide;
 
-    @FXML
-    private Label lblOrderNbr;
 
-    @FXML
-    private Pane paneAddComments;
+    public void handleNetwork(ActionEvent actionEvent) {
+        paneSketch.setVisible(false);
+        paneWiFi.setVisible(false);
+        paneNetwork.setVisible(true);
+    }
 
-    @FXML
-    private Pane paneAddDocumentation;
-
-    @FXML
-    private Pane paneAddSketch;
-
-    @FXML
-    private Pane paneUploadPictures;
-
-    public void handleDocumenation(ActionEvent actionEvent) {
-        billagPane.setVisible(false);
-        btnNæsteSide.setVisible(true);
-        btnForrigeSide.setVisible(true);
-        sketchPane.setVisible(true);
+    public void handleWiFi(ActionEvent actionEvent) {
+        paneSketch.setVisible(false);
+        paneWiFi.setVisible(true);
+        paneNetwork.setVisible(false);
     }
 
     public void handleDone(ActionEvent actionEvent) {
     }
 
-    public void handleLast(ActionEvent actionEvent) {
-        if (sketchPane.isVisible() == true){
-            efterBilledePane.setVisible(true);
-            sketchPane.setVisible(false);
-        }
-        else if (førBilledePane.isVisible() == true) {
-            sketchPane.setVisible(true);
-            førBilledePane.setVisible(false);
-        }
-        else if (efterBilledePane.isVisible() == true) {
-            førBilledePane.setVisible(true);
-            efterBilledePane.setVisible(false);
 
-        }
-    }
 
-    public void handleNext(ActionEvent actionEvent) {
-        if (sketchPane.isVisible() == true){
-            førBilledePane.setVisible(true);
-            sketchPane.setVisible(false);
-        }
-        else if (førBilledePane.isVisible() == true) {
-            efterBilledePane.setVisible(true);
-            førBilledePane.setVisible(false);
-        }
-        else if (efterBilledePane.isVisible() == true) {
-            sketchPane.setVisible(true);
-            efterBilledePane.setVisible(false);
-
-        }
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        sketchPane.setVisible(false);
-        førBilledePane.setVisible(false);
-        efterBilledePane.setVisible(false);
-        btnForrigeSide.setVisible(false);
-        btnNæsteSide.setVisible(false);
-        billagPane.setVisible(false);
+        paneWiFi.setVisible(false);
+        paneNetwork.setVisible(false);
+        paneSketch.setVisible(true);
     }
 
-    public void handleAttachment(ActionEvent actionEvent) {
-        sketchPane.setVisible(false);
-        førBilledePane.setVisible(false);
-        efterBilledePane.setVisible(false);
-        btnForrigeSide.setVisible(false);
-        btnNæsteSide.setVisible(false);
+    public void handleSketch(ActionEvent actionEvent) {
+        paneSketch.setVisible(true);
+        paneNetwork.setVisible(false);
+        paneWiFi.setVisible(false);
 
-        billagPane.setVisible(true);
 
     }
 

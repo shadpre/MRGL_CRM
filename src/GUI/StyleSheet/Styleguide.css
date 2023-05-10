@@ -108,4 +108,32 @@ TableView {
     -fx-pref-height: 30px;
 }
 
+.text-area
+{
+    -fx-text-fill: #333333;
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 16px;
+    -fx-control-inner-background: white;
+    -fx-border-color: rgba(20, 20, 220, 0.3);
+    -fx-border-width: medium;
+    -fx-border-radius: 7px;
+    -fx-border-style: solid solid solid solid;
+    -fx-background-radius: 7px;
+    -fx-effect: dropshadow(gaussian, rgba(20,20,220,0.3), 10, 0, 3, 3);
+}
+
+.text-field {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 16px;
+    -fx-wrap-text: true;
+    -fx-control-inner-background: white;
+    -fx-border-color: rgba(20, 20, 220, 0.3);
+    -fx-border-width: medium;
+    -fx-border-radius: 7px;
+    -fx-border-style: solid solid solid solid;
+    -fx-background-radius: 7px;
+    -fx-effect: dropshadow(gaussian, rgba(20,20,220,0.3), 10, 0, 3, 3);
+}
+
 
