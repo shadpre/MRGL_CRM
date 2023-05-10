@@ -1,7 +1,3 @@
-import BE.Document;
-import BE.User;
-import BLL.DocumentManager;
-import BLL.UserManager;
 import DAL.db.DBLogin;
 import DAL.db.DatabaseConnector;
 import javafx.application.Application;
@@ -13,7 +9,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.time.LocalDateTime;
 
 public class Main extends Application{
 

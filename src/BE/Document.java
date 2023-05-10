@@ -1,49 +1,33 @@
 package BE;
 
-import java.time.LocalDateTime;
-
 public class Document {
     private int Id;
-    private byte[] SketchIMG;
-    private String SketchDescription;
-    private byte[] ImgBefore;
-    private String DescriptionBefore;
-    private byte[] ImgAfter;
-    private LocalDateTime CreatedDate;
-    private int UserID;
+    private int CustomerTaskId;
+    private String Description;
+    private String Remarks;
 
-    public Document(int id, byte[] sketchIMG, String sketchDescription, byte[] imgBefore, String descriptionBefore, byte[] imgAfter, LocalDateTime createdDate, int userID) {
-        Id = id;
-        SketchIMG = sketchIMG;
-        SketchDescription = sketchDescription;
-        ImgBefore = imgBefore;
-        DescriptionBefore = descriptionBefore;
-        ImgAfter = imgAfter;
-        CreatedDate = createdDate;
-        UserID = userID;
-    }
     public int getId() {
         return Id;
     }
-    public byte[] getSketchIMG() {
-        return SketchIMG;
+
+    public int getCustomerTaskId() {
+        return CustomerTaskId;
     }
-    public String getSketchDescription() {
-        return SketchDescription;
+
+    public String getDescription() {
+        return Description;
     }
-    public byte[] getImgBefore() {
-        return ImgBefore;
+
+    public String getRemarks() {
+        return Remarks;
     }
-    public String getDescriptionBefore() {
-        return DescriptionBefore;
-    }
-    public byte[] getImgAfter() {
-        return ImgAfter;
-    }
-    public LocalDateTime getCreatedDate() {
-        return CreatedDate;
-    }
-    public int getUserID() {
-        return UserID;
+
+    public Document(int id, int customerTaskId, String description, String remarks) {
+        Id = id;
+        CustomerTaskId = customerTaskId;
+        Description = description;
+        Remarks = remarks;
+
+
     }
 }

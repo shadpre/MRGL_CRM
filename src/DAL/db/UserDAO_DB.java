@@ -4,6 +4,7 @@
  **/
 package DAL.db;
 
+import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BE.Exptions.UserValidationExeption;
 import BE.User;
 
@@ -12,24 +13,28 @@ import java.util.ArrayList;
 
 public class UserDAO_DB {
 
-    public static String getUserHash(String loginName) throws Exception {
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "SELECT Hash FROM Users WHERE LoginName = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1,loginName);
+    public static User createUser(User user, String hash) throws  SQLException,UserNotFoundExeption{
+        int ID;
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) Values (?,?,?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, user.getLoginName().toUpperCase());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, user.getEMail());
+            statement.setString(5,hash);
+            statement.setInt(6, user.getRole());
 
             var rs = statement.executeQuery();
-
             if (rs.next()){
-                return rs.getString("Hash");
+                ID = rs.getInt(1);
             }
-            else {
-                throw new UserValidationExeption("Invalid Username or Password");
-            }
+            else throw new SQLDataException("User not saved");
         }
+        return getUser(ID);
     }
-
-    public static User getUser(String LoginName) throws Exception {
+    public static User getUser(String LoginName) throws SQLException, UserValidationExeption {
         User output = null;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, FirstName, LastName, Email, Role FROM Users WHERE LoginName = ?";
@@ -53,7 +58,7 @@ public class UserDAO_DB {
         }
     }
 
-    public static User getUser(int Id) throws Exception {
+    public static User getUser(int Id) throws SQLException, UserNotFoundExeption {
         User output = null;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT LoginName, FirstName, LastName, Email, Role FROM Users WHERE Id = ?";
@@ -72,78 +77,7 @@ public class UserDAO_DB {
                 );
             }
             else {
-                throw new UserValidationExeption("Invalid Username or Password");
-            }
-        }
-    }
-
-    public static User createUser(User user, String hash) throws  Exception{
-        int ID;
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) Values (?,?,?,?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-            statement.setString(1, user.getLoginName().toUpperCase());
-            statement.setString(2, user.getFirstName());
-            statement.setString(3, user.getLastName());
-            statement.setString(4, user.getEMail());
-            statement.setString(5,hash);
-            statement.setInt(6, user.getRole());
-
-            var rs = statement.executeQuery();
-            if (rs.next()){
-                ID = rs.getInt(1);
-            }
-            else throw new SQLDataException("Something went wrong");
-        }
-        return getUser(ID);
-    }
-
-    public static boolean loginNameAvailible(String LoginName) throws Exception{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "SELECT COUNT(ID) FROM Users WHERE LoginName = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1,LoginName);
-
-            var rs = statement.executeQuery();
-            rs.next();
-
-            if( rs.getInt(1) == 0){
-                return true;
-            }
-            else throw new UserValidationExeption("LoginName not availeble");
-        }
-    }
-
-    public static void deleteUser(int Id) throws Exception{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            try {
-                conn.setAutoCommit(false);
-                String query = "DELETE Users where Id = ?";
-                PreparedStatement statement = conn.prepareStatement(query);
-                statement.setInt(1, Id);
-
-                // Delete relations
-
-                conn.commit();
-            }
-            catch (Exception ex){
-                conn.rollback();
-                throw ex;
-            }
-        }
-    }
-
-    public static void resetPassword(int id, String hash) throws Exception{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "UPDATE Users SET Hash = ? WHERE Id = ?";
-
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1, id);
-            statement.setString(2, hash);
-
-            if (statement.executeUpdate() != 1){
-                throw new RuntimeException("Nothing is updated");
+                throw new UserNotFoundExeption("There is no user with that ID");
             }
         }
     }
@@ -168,6 +102,76 @@ public class UserDAO_DB {
             }
         }
         return output;
+    }
+
+    public static String getUserHash(String loginName) throws SQLException, UserValidationExeption{
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Hash FROM Users WHERE LoginName = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1,loginName);
+
+            var rs = statement.executeQuery();
+
+            if (rs.next()){
+                return rs.getString("Hash");
+            }
+            else {
+                throw new UserValidationExeption("Invalid Username or Password");
+            }
+        }
+    }
+
+    public static boolean loginNameAvailible(String LoginName) throws UserValidationExeption, SQLException{
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT COUNT(ID) FROM Users WHERE LoginName = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1,LoginName);
+
+            var rs = statement.executeQuery();
+            rs.next();
+
+            if( rs.getInt(1) == 0){
+                return true;
+            }
+            else throw new UserValidationExeption("LoginName not availeble");
+        }
+    }
+
+    public static void resetPassword(int id, String hash) throws Exception{
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "UPDATE Users SET Hash = ? WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.setString(2, hash);
+
+            if (statement.executeUpdate() != 1){
+                throw new RuntimeException("Nothing is updated");
+            }
+        }
+    }
+
+    public static void anonymizeUser(int Id) throws  SQLException, UserNotFoundExeption{
+        throw new RuntimeException("Not implemented");
+    }
+
+    public static void deleteUser(int Id) throws SQLException, UserNotFoundExeption{
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            try {
+                conn.setAutoCommit(false);
+                String query = "DELETE Users where Id = ?";
+                PreparedStatement statement = conn.prepareStatement(query);
+                statement.setInt(1, Id);
+
+                // Delete relations
+
+                conn.commit();
+            }
+            catch (Exception ex){
+                conn.rollback();
+                throw ex;
+            }
+        }
     }
 
 }
