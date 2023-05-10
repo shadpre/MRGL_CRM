@@ -22,6 +22,7 @@ CREATE TABLE Customers(
 	[Address2] NVARCHAR(60) NOT NULL,
 	[Address3] NVARCHAR(60) NOT NULL,
 	[Zipcode] NVARCHAR(20) NOT NULL,
+	[City] NVARCHAR(60) NOT NULL,
 	[Country] NVARCHAR(40) NOT NULL,
 	[Phone] NVARCHAR(20) NOT NULL,
 	[Category] NVARCHAR(20) NOT NULL,
@@ -59,7 +60,7 @@ CREATE TABLE Installations(
 
 CREATE TABLE Devices(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[InatallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
 	[Description] NVARCHAR(255) NOT NULL,
 	[Remarks] NVARCHAR(MAX) NOT NULL,
 	[IP] NVARCHAR(15) NOT NULL,
@@ -71,31 +72,31 @@ CREATE TABLE Devices(
 
 CREATE TABLE Networks(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[InatallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
 	[Description] NVARCHAR(255) NOT NULL,
 	[Remarks] NVARCHAR(MAX) NOT NULL,
 	[NetworkIP] NVARCHAR(255) NOT NULL,
 	[SubnetMask] NVARCHAR(255) NOT NULL,
+	[DefaultGateway] NVARCHAR(255) NOT NULL,
 	[HasPOE] BIT NOT NULL
 );
 
 CREATE TABLE WiFis(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[InatallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
 	[Description] NVARCHAR(255) NOT NULL,
 	[Remarks] NVARCHAR(MAX) NOT NULL,
-	[NetworkIP] NVARCHAR(255) NOT NULL,
-	[SubnetMask] NVARCHAR(255) NOT NULL,
 	[SSID] NVARCHAR(255) NOT NULL,
 	[PSK] NVARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Images(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[InatallationId] INT FOREIGN KEY REFERENCES Installations(Id),
+	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
 	[Description] NVARCHAR(255) NOT NULL,
 	[Remarks] NVARCHAR(MAX) NOT NULL,
-	[Data] VARBINARY(MAX) NOT NULL
+	[Data] VARBINARY(MAX) NOT NULL,
+	[ImageType] TINYINT NOT NULL,
 );
 
 GO
@@ -115,3 +116,6 @@ DELETE Users
 INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('ADM', 'Admin', 'Admin', 'admin@wuav.dk', '$2a$10$o2rPhDPzNtmPo9mVNuohVOHkHP0uLau8XFaleRsulSk0XXU0fVjPO', 1)
 
 Go
+
+exec spResetDB
+
