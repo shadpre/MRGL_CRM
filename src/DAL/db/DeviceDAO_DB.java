@@ -1,6 +1,7 @@
 package DAL.db;
 
 import BE.Device;
+import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BE.InstallationUnit;
 
@@ -87,8 +88,51 @@ public class DeviceDAO_DB {
     }
 
     public static Device updateDevice(Device device) throws SQLException, DeviceNotFoundExeption {
-        try(Connection connection = DatabaseConnector.getInstance().getConnection()){
-            throw new RuntimeException("Not implemented yet");
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query =
+                    "UPDATE Devices" +
+                    "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ?" +
+                    "WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, device.getInstallationId());
+            statement.setString(2, device.getDescription());
+            statement.setString(3, device.getRemarks());
+            statement.setString(4, device.getIP());
+            statement.setString(5, device.getSubnetMask());
+            statement.setString(6, device.getUserName());
+            statement.setString(7, device.getPassword());
+            statement.setBoolean(8, device.isPOE());
+            statement.setInt(9,device.getId());
+
+            var rs = statement.executeUpdate();
+
+            if (rs == 0) throw new DeviceNotFoundExeption("Device not found");
+        }
+        return getDevice(device.getId());
+    }
+
+    public static void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "DELETE Devices WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+
+            var rs = statement.executeUpdate();
+            if (rs == 0) throw new DeviceNotFoundExeption("Device not found");
+        }
+    }
+    public static int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption{
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "DELETE Devices WHERE InstallationId = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, installationId);
+
+            var rs = statement.executeUpdate();
+            if (rs == 0) throw new DeviceNotFoundExeption("No devices found");
+            return rs;
         }
     }
 }
