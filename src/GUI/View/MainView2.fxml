@@ -58,15 +58,15 @@
             </HBox>
          </children>
       </VBox>
-      <StackPane fx:id="stackPaneAllUsersCeo" layoutX="480.0" layoutY="295.0" prefHeight="600.0" prefWidth="910.0">
+      <StackPane fx:id="stackPaneAllUsersCeo" layoutX="480.0" layoutY="295.0" prefHeight="576.0" prefWidth="910.0">
          <children>
             <HBox prefHeight="580.0" prefWidth="913.0">
                <children>
                   <TableView fx:id="tableViewAllUsersCeo" prefHeight="580.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
                     <columns>
-                      <TableColumn prefWidth="149.0" text="Fornavn" />
-                      <TableColumn prefWidth="176.0" text="Efternavn" />
-                        <TableColumn minWidth="0.0" prefWidth="584.0" text="E-mail adresse" />
+                      <TableColumn fx:id="columnFirstName" prefWidth="149.0" text="Fornavn" />
+                      <TableColumn fx:id="columnLastName" prefWidth="176.0" text="Efternavn" />
+                        <TableColumn fx:id="columnEmail" minWidth="0.0" prefWidth="584.0" text="E-mail adresse" />
                     </columns>
                   </TableView>
                </children>
@@ -394,7 +394,7 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackViewAllCustomersCeo" layoutX="480.0" layoutY="296.0" prefHeight="609.0" prefWidth="920.0">
+      <StackPane fx:id="stackPaneViewAllCustomersCeo" layoutX="480.0" layoutY="296.0" prefHeight="609.0" prefWidth="920.0">
          <children>
             <HBox prefHeight="580.0" prefWidth="913.0">
                <children>
@@ -568,9 +568,9 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackViewAllTasks1" layoutX="480.0" layoutY="295.0" prefHeight="620.0" prefWidth="930.0">
+      <StackPane fx:id="stackPaneViewAllCustomersSales" layoutX="480.0" layoutY="295.0" prefHeight="600.0" prefWidth="930.0">
          <children>
-            <HBox prefHeight="580.0" prefWidth="913.0">
+            <HBox prefHeight="616.0" prefWidth="930.0">
                <children>
                   <TableView fx:id="tableViewAllTasksCeo" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
@@ -635,7 +635,7 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackPaneTechBtn1" layoutX="1.0" layoutY="291.0" prefHeight="724.0" prefWidth="394.0">
+      <StackPane fx:id="stackPaneSalesBtn" layoutX="1.0" layoutY="291.0" prefHeight="724.0" prefWidth="394.0">
          <children>
             <VBox prefHeight="705.0" prefWidth="375.0">
                <children>
@@ -688,7 +688,7 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackPaneTechBtn11" layoutY="292.0" prefHeight="733.0" prefWidth="405.0">
+      <StackPane fx:id="stackPanePManagerBtn" layoutY="292.0" prefHeight="733.0" prefWidth="405.0">
          <children>
             <VBox prefHeight="705.0" prefWidth="375.0">
                <children>
@@ -739,6 +739,46 @@
                   </HBox>
                </children>
             </VBox>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stackpaneBtnEditUser" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
+         <children>
+            <ImageView fx:id="btnUpdateUser" fitHeight="61.0" fitWidth="80.0" onMouseClicked="#btnHandleUpdateUser" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../Editbtn01.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="430.0" />
+               </StackPane.margin>
+            </ImageView>
+            <ImageView fx:id="btnDeleteUser" fitHeight="64.0" fitWidth="81.0" onMouseClicked="#btnHandleDeleteUser" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets left="650.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../../../../Trashbtn01.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stackpaneBtnEditCustomer" layoutX="610.0" layoutY="888.0" prefHeight="107.0" prefWidth="758.0">
+         <children>
+            <ImageView fx:id="btnUpdateCustomer" fitHeight="61.0" fitWidth="80.0" onMouseClicked="#btnHandleUpdateCustomer" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../data/images/Editbtn01.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="430.0" />
+               </StackPane.margin>
+            </ImageView>
+            <ImageView fx:id="btnDeleteCustomer" fitHeight="64.0" fitWidth="81.0" onMouseClicked="#btnHandleDeleteCustomer" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets left="650.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../data/images/Trashbtn01.png" />
+               </image>
+            </ImageView>
          </children>
       </StackPane>
    </children>
