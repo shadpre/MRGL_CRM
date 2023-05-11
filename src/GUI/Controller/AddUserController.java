@@ -61,13 +61,6 @@ public class AddUserController {
         String email = txtFieldEmail.getText();
         int RoleValue = 4;
 
-
-
-        //chkBoxTech.setUserData(0);
-        //chkBoxCeo.setUserData(2);
-        //chkBoxSales.setUserData(3);
-        //chkBoxAdmin.setUserData(1);
-
         if (chkBoxTech.isSelected()) {
             RoleValue = 0;
         } else if (chkBoxAdmin.isSelected()) {
@@ -79,10 +72,14 @@ public class AddUserController {
         } else { System.out.println("Du skal vælge en Rolle til Medarbejderen");
 
         }
+
         User user = new User(0, loginName, firstName, lastName, email, RoleValue);
         try {
+
             userManager.createUser(user, password );
+
         } catch (Exception e) {
+
             throw new RuntimeException(e);
         }
 
