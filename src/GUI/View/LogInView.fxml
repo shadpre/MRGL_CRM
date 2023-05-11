@@ -24,41 +24,38 @@
       </ImageView>
       <VBox layoutY="159.0" prefHeight="118.0" prefWidth="240.0">
          <children>
-            <Label text="Brugernavn:">
+            <Label text="Brugernavn:" textFill="#90aed6">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Cambria Bold" size="30.0" />
                </font>
                <VBox.margin>
-                  <Insets left="45.0" top="20.0" />
+                  <Insets left="25.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <Label text="Adgangskode:">
+            <Label text="Adgangskode:" textFill="#90aed6">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Cambria Bold" size="30.0" />
                </font>
                <VBox.margin>
-                  <Insets left="45.0" top="20.0" />
+                  <Insets left="25.0" top="20.0" />
                </VBox.margin>
             </Label>
          </children>
       </VBox>
       <VBox layoutX="250.0" layoutY="159.0" prefHeight="140.0" prefWidth="350.0">
          <children>
-            <TextField fx:id="txtUsername" promptText="Indtast Brugernavn">
-               <font>
-                  <Font name="System Italic" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets right="25.0" top="20.0" />
-               </VBox.margin>
-            </TextField>
-            <PasswordField fx:id="txtPassword" maxWidth="325.0" prefHeight="44.0" prefWidth="271.0" promptText="Indtast Adgangskode">
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
+            <TextField fx:id="txtUsername" promptText="Indtast Brugernavn" styleClass="text-field" stylesheets="@../StyleSheet/Styleguide.css">
                <font>
                   <Font size="20.0" />
                </font>
+               <VBox.margin>
+                  <Insets right="25.0" top="27.0" />
+               </VBox.margin>
+            </TextField>
+            <PasswordField fx:id="txtPassword" maxHeight="30.0" maxWidth="325.0" prefHeight="31.0" prefWidth="300.0">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </PasswordField>
          </children>
       </VBox>
