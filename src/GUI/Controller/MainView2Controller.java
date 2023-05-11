@@ -1,7 +1,9 @@
 package GUI.Controller;
 
+import BE.Customer;
 import BE.User;
 import DAL.db.UserDAO_DB;
+import GUI.Model.CustomerModel;
 import GUI.Model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -108,7 +110,6 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private TableView<User> tableViewAllUsersCeo;
-
     @FXML
     private TableColumn<User, String> columnLastName;
     @FXML
@@ -117,30 +118,56 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<User, String> columnEmail;
 
     @FXML
+    private TableView<Customer> tableViewAllCustomersCeo;
+    @FXML
+    private TableColumn<Customer, String> columnCustomerName;
+    @FXML
+    private TableColumn<Customer, String> columnCustomerAddress;
+    @FXML
+    private TableColumn<Customer, String> columnCustomerPhone;
+    @FXML
+    private TableColumn<Customer, String> columnCustomerZipCode;
+    @FXML
+    private TableColumn<Customer, String> columnCustomerCity;
+
+
+    @FXML
     private TextField txtSearch;
 
     private UserModel userModel;
+    private CustomerModel customerModel;
 
 
 
     @FXML
     void btnHandleAddCustomer(ActionEvent event) {
 
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneCeoBtn.setVisible(true);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(true);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPanePManagerBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(false);
+        stackPaneViewAllCustomersSales.setVisible(false);
+        stackPaneTechBtn.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+
     }
 
     @FXML
     void btnHandleAddUser(ActionEvent event) {
 
-        //stackPaneBtnEditUser.setVisible(true);
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneAddCustomerCeo.setVisible(false);
         stackPaneCeoBtn.setVisible(true);
-        //stackPaneAddUserCeo.setVisible(true);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPaneAddUserCeo.setVisible(true);
         stackPaneAddCustomerCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
-        //stackPaneBtnEditCustomer.setVisible(false);
         stackPanePManagerBtn.setVisible(false);
         stackPaneSalesBtn.setVisible(false);
         stackPaneViewAllCustomersSales.setVisible(false);
@@ -165,6 +192,38 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     void btnHandleShowAllCustomers(ActionEvent event) {
+
+
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneCeoBtn.setVisible(true);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(true);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPanePManagerBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(false);
+        stackPaneViewAllCustomersSales.setVisible(false);
+        stackPaneTechBtn.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(true);
+
+        CustomerModel customerModel = new CustomerModel();
+        this.customerModel = customerModel;
+
+        columnCustomerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("Name"));
+        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("Address"));
+        columnCustomerPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("Phone"));
+        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("ZipCode"));
+        columnCustomerCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("City"));
+
+
+        try {
+            tableViewAllCustomersCeo.setItems(CustomerModel.getAllCustomers());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -196,7 +255,6 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleShowAllUsers(ActionEvent event) {
 
-        //stackPaneBtnEditUser.setVisible(true);
         stackPaneAllUsersCeo.setVisible(true);
         stackPaneAddCustomerCeo.setVisible(false);
         stackPaneCeoBtn.setVisible(true);
@@ -205,7 +263,6 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAddUserCeo.setVisible(false);
         stackPaneAddCustomerCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
-        //stackPaneBtnEditCustomer.setVisible(false);
         stackPanePManagerBtn.setVisible(false);
         stackPaneSalesBtn.setVisible(false);
         stackPaneViewAllCustomersSales.setVisible(false);
@@ -227,11 +284,6 @@ public class MainView2Controller extends BaseController implements Initializable
         }
 
     }
-
-
-
-
-
 
     @FXML
     void btnHandleUpdateCustomer(MouseEvent event) {
@@ -259,8 +311,7 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneCeoBtn.setVisible(true);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
-        tableViewAllCustomersCeo1.setVisible(false);
-        //stackPaneBtnEditCustomer.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
         stackPaneViewAllCustomersSales.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPanePManagerBtn.setVisible(false);
@@ -269,7 +320,6 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneAddUserCeo.setVisible(false);
         stackPaneAddCustomerCeo.setVisible(false);
-        //stackPaneBtnEditUser.setVisible(false);
 
     }
 

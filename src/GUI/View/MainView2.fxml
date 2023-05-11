@@ -99,7 +99,7 @@
                      <children>
                         <Label prefHeight="30.0" prefWidth="150.0" text="Login Navn:" textFill="#90aed6">
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
@@ -119,7 +119,7 @@
                      <children>
                         <Label prefHeight="30.0" prefWidth="150.0" text="Fornavn:" textFill="#90aed6">
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
@@ -142,7 +142,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -162,7 +162,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -182,7 +182,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -202,7 +202,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -222,7 +222,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <ChoiceBox prefHeight="30.0" prefWidth="200.0">
@@ -398,12 +398,13 @@
          <children>
             <HBox prefHeight="580.0" prefWidth="913.0">
                <children>
-                  <TableView fx:id="tableViewAllCustomersCeo1" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
+                  <TableView fx:id="tableViewAllCustomersCeo" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
-                        <TableColumn prefWidth="195.0" text="Navn" />
-                        <TableColumn prefWidth="261.0" text="Adresse" />
-                        <TableColumn minWidth="0.0" prefWidth="157.0" text="Telefon" />
-                        <TableColumn minWidth="0.0" prefWidth="293.0" text="E-mail" />
+                        <TableColumn fx:id="columnCustomerName" prefWidth="195.0" text="Navn" />
+                        <TableColumn fx:id="columnCustomerAddress" prefWidth="285.0" text="Adresse" />
+                        <TableColumn fx:id="columnCustomerPhone" minWidth="0.0" prefWidth="171.0" text="Telefon" />
+                        <TableColumn fx:id="columnCustomerZipCode" minWidth="0.0" prefWidth="76.0" text="Post nr" />
+                        <TableColumn fx:id="columnCustomerCity" minWidth="0.0" prefWidth="180.0" text="By" />
                      </columns>
                   </TableView>
                </children>
@@ -436,7 +437,7 @@
                      <children>
                         <Label prefHeight="30.0" prefWidth="150.0" text="Firma:" textFill="#90aed6">
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
@@ -456,7 +457,7 @@
                      <children>
                         <Label prefHeight="30.0" prefWidth="150.0" text="Navn:" textFill="#90aed6">
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
@@ -479,7 +480,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -499,7 +500,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -519,7 +520,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
@@ -539,7 +540,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
                         <TextField prefHeight="30.0" prefWidth="300.0">
