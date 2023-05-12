@@ -1,12 +1,12 @@
 package BE;
 
-public class Installations {
+public class Installation {
     private int Id;
     private int DocumentId;
     private String Description;
     private String Remarks;
 
-    public Installations(int id, int documentId, String description, String remarks) {
+    public Installation(int id, int documentId, String description, String remarks) {
         Id = id;
         DocumentId = documentId;
         Description = description;

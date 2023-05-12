@@ -1,6 +1,5 @@
 package DAL.db;
 
-import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BE.Image;
 
