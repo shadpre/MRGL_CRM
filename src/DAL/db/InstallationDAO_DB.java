@@ -21,7 +21,7 @@ public class InstallationDAO_DB {
 
             if (rs.next()) {
                 ID = rs.getInt(1);
-            } else throw new SQLDataException("Device not saved");
+            } else throw new SQLDataException("Installation not saved");
         }
         return getInstallation(ID);
     }
