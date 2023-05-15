@@ -1,15 +1,14 @@
 package GUI.Controller;
 
 
+import BE.DBEnteties.Device;
+import BLL.Managers.DeviceManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-import BE.Device;
-import BE.User;
-import BLL.DeviceManager;
-import BLL.UserManager;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
