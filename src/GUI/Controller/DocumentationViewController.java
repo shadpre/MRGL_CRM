@@ -1,9 +1,21 @@
 package GUI.Controller;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+
+import BE.Device;
+import BE.User;
+import BLL.DeviceManager;
+import BLL.UserManager;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -16,6 +28,26 @@ public class DocumentationViewController extends BaseController implements Initi
 
     @FXML
     private Button btnExit;
+
+    @FXML
+    private TextArea txtDeviceDescription;
+
+    @FXML
+    private TextField txtDeviceIp;
+
+    @FXML
+    private CheckBox txtDevicePOE;
+
+    @FXML
+    private TextField txtDevicePassword;
+
+    @FXML
+    private TextField txtDeviceSubnet;
+
+    @FXML
+    private TextField txtDeviceUsername;
+
+    private DeviceManager deviceManager;
 
 
 
@@ -79,5 +111,31 @@ public class DocumentationViewController extends BaseController implements Initi
         paneNetwork.setVisible(false);
         paneAttachment.setVisible(false);
         paneDevice.setVisible(true);
+    }
+
+    public void handleAddDevice(ActionEvent actionEvent) {
+        // Get User Information
+        String description = txtDeviceDescription.getText();
+        String remarks = "txtFieldFirstName.getText();";
+        String IP = txtDeviceIp.getText();
+        String password = txtDevicePassword.getText();
+        String subnetMask = txtDeviceSubnet.getText();
+        int installationID = 1;
+        String userName = txtDeviceUsername.getText();
+        Boolean isPOE = false;
+
+        if (txtDevicePOE.isSelected()) {
+            Boolean isPoe = true;
+        }
+
+        Device device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
+        try {
+
+            deviceManager.createDevice(device);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
     }
 }
