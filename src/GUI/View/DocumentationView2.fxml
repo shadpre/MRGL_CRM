@@ -496,106 +496,7 @@
             </Button>
          </children>
       </StackPane>
-      <StackPane fx:id="paneAttachment" layoutX="357.0" layoutY="88.0" prefHeight="809.0" prefWidth="977.0" style="-fx-background-color: #f2f2f2;">
-         <children>
-            <TextArea prefHeight="333.0" prefWidth="335.0" promptText="Kommentar til billede" stylesheets="@../StyleSheet/Styleguide.css">
-               <StackPane.margin>
-                  <Insets bottom="470.0" left="500.0" right="20.0" top="85.0" />
-               </StackPane.margin>
-            </TextArea>
-            <Label text="Tilføj note eller kommentar til billede" textFill="#318bb2">
-               <font>
-                  <Font name="Gill Sans MT" size="24.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="680.0" left="490.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
-               <font>
-                  <Font name="Gill Sans MT" size="24.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="280.0" right="450.0" />
-               </StackPane.margin>
-            </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
-               <StackPane.margin>
-                  <Insets bottom="350.0" top="440.0" />
-               </StackPane.margin>
-            </HBox>
-            <Button fx:id="btnSaveAttachment" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem/Opdater Billede/Billag" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="25.0" left="480.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="btnCloseAttachment" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="10.0" left="480.0" top="700.0" />
-               </StackPane.margin>
-            </Button>
-            <Label layoutX="373.0" layoutY="474.0" text="Ekstra Billag" textFill="#c34f0d">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="28.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="740.0" />
-               </StackPane.margin>
-            </Label>
-            <TableView prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
-               <columns>
-                  <TableColumn prefWidth="448.0" text="Alle Billag knyttet til opgaven">
-                     <columns>
-                        <TableColumn prefWidth="293.0" text="Note" />
-                        <TableColumn prefWidth="225.0" text="ID" />
-                     </columns>
-                  </TableColumn>
-               </columns>
-               <StackPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="450.0" top="470.0" />
-               </StackPane.margin>
-            </TableView>
-            <Button fx:id="btnShowAttachment" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Billag">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="480.0" top="500.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="btnRemoveAttachment" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Billag">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="480.0" top="300.0" />
-               </StackPane.margin>
-            </Button>
-            <ImageView fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
-               <StackPane.margin>
-                  <Insets bottom="400.0" right="450.0" />
-               </StackPane.margin>
-               <image>
-                  <Image url="@../../data/images/Billag.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnOrderInfo1111211" layoutX="391.0" layoutY="381.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="190.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Billede/Billag" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="25.0" right="280.0" />
-               </StackPane.margin>
-            </Button>
-         </children>
-      </StackPane>
-      <StackPane fx:id="paneDevice" layoutX="363.0" layoutY="89.0" prefHeight="809.0" prefWidth="951.0" style="-fx-background-color: #f2f2f2;">
+      <StackPane fx:id="paneDevice" layoutX="355.0" layoutY="89.0" prefHeight="809.0" prefWidth="959.0" style="-fx-background-color: #f2f2f2;">
          <children>
             <TextArea fx:id="txtDeviceDescription" prefHeight="333.0" prefWidth="335.0" promptText="Enheds type: TV, Lydsystem, Projector etc." stylesheets="@../StyleSheet/Styleguide.css">
                <StackPane.margin>
@@ -730,6 +631,105 @@
                   <Insets bottom="145.0" right="450.0" />
                </StackPane.margin>
             </Label>
+         </children>
+      </StackPane>
+      <StackPane fx:id="paneAttachment" layoutX="357.0" layoutY="88.0" prefHeight="809.0" prefWidth="977.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <TextArea fx:id="billagKommentar" prefHeight="333.0" prefWidth="335.0" promptText="Kommentar til billede" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="500.0" right="20.0" top="85.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Tilføj note eller kommentar til billede" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="680.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="280.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="350.0" top="440.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="billagSaveUpdate" mnemonicParsing="false" onAction="#handleBillagSaveUpdate" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem/Opdater Billede/Billag" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" left="480.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnCloseAttachment" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="480.0" top="700.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="373.0" layoutY="474.0" text="Ekstra Billag" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <columns>
+                  <TableColumn prefWidth="448.0" text="Alle Billag knyttet til opgaven">
+                     <columns>
+                        <TableColumn prefWidth="293.0" text="Note" />
+                        <TableColumn prefWidth="225.0" text="ID" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="450.0" top="470.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnShowAttachment" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Billag">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnRemoveAttachment" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Billag">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <ImageView fx:id="billagBillede" fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets bottom="400.0" right="450.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../data/images/Billag.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="billagUpload" layoutX="391.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleBillagUpload" prefHeight="60.0" prefWidth="190.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Billede/Billag" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" right="280.0" />
+               </StackPane.margin>
+            </Button>
          </children>
       </StackPane>
    </children>

@@ -3,6 +3,7 @@ package GUI.Controller;
 
 import BE.DBEnteties.Device;
 import BLL.Managers.DeviceManager;
+import BLL.Managers.ImageManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,23 +14,33 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DocumentationViewController extends BaseController implements Initializable {
+
+    private File imgFile;
     @FXML
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
     @FXML
-    private Button btnExit;
+    private Button btnExit, billagUpload;
 
     @FXML
-    private TextArea txtDeviceDescription;
+    private TextArea txtDeviceDescription, billagKommentar;
 
     @FXML
     private TextField txtDeviceIp;
@@ -45,6 +56,11 @@ public class DocumentationViewController extends BaseController implements Initi
 
     @FXML
     private TextField txtDeviceUsername;
+
+    @FXML
+    private ImageView billagBillede;
+
+
 
     private DeviceManager deviceManager;
 
@@ -136,5 +152,45 @@ public class DocumentationViewController extends BaseController implements Initi
 
             throw new RuntimeException(e);
         }
+    }
+
+    public void handleBillagSaveUpdate(ActionEvent actionEvent) throws IOException {
+        billagKommentar.setWrapText(true);
+
+        int installationId = 1;
+        String description = "testing";
+        String remarks = billagKommentar.getText();
+        BufferedImage bImage = ImageIO.read(imgFile);
+        int imageType = 1;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(bImage,"jpg", bos);
+        byte[] data = bos.toByteArray();
+
+
+        BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
+
+        try {
+
+            ImageManager.createImage(image);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+
+        billagKommentar.setText("");
+
+        billagBillede.setImage(null);
+    }
+
+    public void handleBillagUpload(ActionEvent actionEvent) {
+
+        FileChooser fc = new FileChooser();
+        Stage stage = (Stage) billagBillede.getScene().getWindow();
+        imgFile = fc.showOpenDialog(stage);
+        javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
+        billagBillede.setImage(image);
+
     }
 }

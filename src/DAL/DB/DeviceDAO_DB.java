@@ -2,6 +2,7 @@ package DAL.DB;
 
 import BE.DBEnteties.Device;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
+import javafx.scene.paint.Stop;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class DeviceDAO_DB {
                 ID = rs.getInt(1);
             } else throw new SQLDataException("Device not saved");
         }
+
         return getDevice(ID);
     }
 
@@ -59,7 +61,7 @@ public class DeviceDAO_DB {
     public static ArrayList<Device> getDeviceList(int installationId) throws SQLException, DeviceNotFoundExeption{
         ArrayList<Device> out = new ArrayList<>();
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "SELECT Id, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE WHERE InstallationId = ?";
+            String query = "SELECT Id, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, installationId);
