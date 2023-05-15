@@ -15,7 +15,7 @@ public class DatabaseConnector {
         private static DatabaseConnector instance;
         private SQLServerDataSource dataSource;
 
-        private DatabaseConnector(DAL.db.DBLogin dbLogin) {
+        private DatabaseConnector(DBLogin dbLogin) {
 
             dataSource = new SQLServerDataSource();
             dataSource.setServerName(dbLogin.getServer());
@@ -26,7 +26,7 @@ public class DatabaseConnector {
             dataSource.setTrustServerCertificate(true);
         }
 
-        public static void init(DAL.db.DBLogin dbLogin){
+        public static void init(DBLogin dbLogin){
             if (instance!=null) return;
 
             instance = new DatabaseConnector(dbLogin);

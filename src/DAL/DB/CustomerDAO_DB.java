@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class CustomerDAO_DB {
     public static Customer createCustomer(Customer customer) throws SQLException, CustomerNotFoundExeption {
         int ID;
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
 
             String query = "INSERT INTO CUSTOMERS (Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category,TaxNo) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -35,7 +35,7 @@ public class CustomerDAO_DB {
     }
 
     public static Customer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption{
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
 
             String query = "SELECT Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers WHERE ID = ?";
 
@@ -64,7 +64,7 @@ public class CustomerDAO_DB {
 
     public static ArrayList<Customer> getAllCustomers() throws SQLException, CustomerNotFoundExeption{
         ArrayList<Customer> out = new ArrayList<>();
-        try( Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try( Connection conn = DatabaseConnector.getInstance().getConnection()){
 
             String query = "SELECT Id, Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers";
 
@@ -95,7 +95,7 @@ public class CustomerDAO_DB {
     }
 
     public static Customer updateCustomer(Customer customer) throws CustomerNotFoundExeption, SQLException{
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query =
                     "UPDATE Customers " +
                     "SET Name = ?, Address1 = ?, Address2 = ?, Address3 = ?, Zipcode = ?, City = ?, Country = ?, Phone = ?, Category = ?, TaxNo = ? " +

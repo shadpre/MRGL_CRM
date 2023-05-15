@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class DeviceDAO_DB {
     public static Device createDevice(Device device) throws SQLException, DeviceNotFoundExeption {
         int ID;
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()) {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO Devices (InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE) VALUES (?,?,?,?,?,?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -32,7 +32,7 @@ public class DeviceDAO_DB {
     }
 
     public static Device getDevice(int id) throws SQLException, DeviceNotFoundExeption {
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -58,7 +58,7 @@ public class DeviceDAO_DB {
 
     public static ArrayList<Device> getDeviceList(int installationId) throws SQLException, DeviceNotFoundExeption{
         ArrayList<Device> out = new ArrayList<>();
-        try(Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -86,7 +86,7 @@ public class DeviceDAO_DB {
     }
 
     public static Device updateDevice(Device device) throws SQLException, DeviceNotFoundExeption {
-        try(Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query =
                     "UPDATE Devices" +
                     "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ?" +
@@ -111,7 +111,7 @@ public class DeviceDAO_DB {
     }
 
     public static void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Devices WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -122,7 +122,7 @@ public class DeviceDAO_DB {
         }
     }
     public static int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption{
-        try (Connection conn = DAL.db.DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Devices WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
