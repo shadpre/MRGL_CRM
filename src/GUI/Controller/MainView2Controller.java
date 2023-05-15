@@ -1,8 +1,7 @@
 package GUI.Controller;
 
-import BE.Customer;
-import BE.User;
-import DAL.db.UserDAO_DB;
+import BE.DBEnteties.Customer;
+import BE.DBEnteties.User;
 import GUI.Model.CustomerModel;
 import GUI.Model.UserModel;
 import javafx.event.ActionEvent;

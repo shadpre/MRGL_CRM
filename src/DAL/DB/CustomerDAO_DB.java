@@ -1,6 +1,6 @@
-package DAL.db;
+package DAL.DB;
 
-import BE.Customer;
+import BE.DBEnteties.Customer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 
 import java.sql.*;

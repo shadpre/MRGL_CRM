@@ -1,7 +1,7 @@
 package GUI.Controller;
 
 import BE.Exptions.UserValidationExeption;
-import BE.User;
+import BE.DBEnteties.User;
 import GUI.Model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

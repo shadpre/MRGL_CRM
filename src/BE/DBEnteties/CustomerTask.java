@@ -1,4 +1,4 @@
-package BE;
+package BE.DBEnteties;
 
 import java.time.LocalDateTime;
 

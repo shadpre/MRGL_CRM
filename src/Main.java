@@ -1,6 +1,5 @@
-import BE.CustomerTask;
-import DAL.db.DBLogin;
-import DAL.db.DatabaseConnector;
+import DAL.DB.DBLogin;
+import DAL.DB.DatabaseConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
 import java.util.Properties;
 
 public class Main extends Application{

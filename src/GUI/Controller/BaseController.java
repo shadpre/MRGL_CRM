@@ -1,7 +1,6 @@
 package GUI.Controller;
 
 
-import BE.User;
 import GUI.Model.UserModel;
 
 public class BaseController {

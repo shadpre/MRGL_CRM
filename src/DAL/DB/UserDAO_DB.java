@@ -2,11 +2,11 @@
  * Gruppe bagrækken
  * Klavs, Alexander og Jesper
  **/
-package DAL.db;
+package DAL.DB;
 
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BE.Exptions.UserValidationExeption;
-import BE.User;
+import BE.DBEnteties.User;
 
 import java.sql.*;
 import java.util.ArrayList;
