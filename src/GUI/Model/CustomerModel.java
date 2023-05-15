@@ -1,7 +1,7 @@
 package GUI.Model;
 
-import BE.Customer;
-import BLL.CustomerManager;
+import BE.DBEnteties.Customer;
+import BLL.Managers.CustomerManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

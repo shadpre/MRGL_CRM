@@ -1,4 +1,4 @@
-package BE;
+package BE.DBEnteties;
 
 public class Device extends InstallationUnit{
 

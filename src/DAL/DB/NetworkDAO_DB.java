@@ -1,7 +1,7 @@
-package DAL.db;
+package DAL.DB;
 
 import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
-import BE.Network;
+import BE.DBEnteties.Network;
 
 import java.sql.*;
 import java.util.ArrayList;

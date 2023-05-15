@@ -2,7 +2,7 @@
  * Gruppe bagrækken
  * Klavs, Alexander og Jesper
  **/
-package BE;
+package BE.DBEnteties;
 
 import BE.Enums.UserRole;
 

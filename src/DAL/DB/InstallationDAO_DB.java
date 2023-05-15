@@ -1,7 +1,7 @@
-package DAL.db;
+package DAL.DB;
 
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
-import BE.Installation;
+import BE.DBEnteties.Installation;
 
 import java.sql.*;
 import java.util.ArrayList;

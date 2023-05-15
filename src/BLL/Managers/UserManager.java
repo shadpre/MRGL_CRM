@@ -2,11 +2,12 @@
  * Gruppe bagrækken
  * Klavs, Alexander og Jesper
  **/
-package BLL;
+package BLL.Managers;
 
 import BE.Exptions.UserValidationExeption;
-import BE.User;
-import DAL.db.UserDAO_DB;
+import BE.DBEnteties.User;
+import BLL.PasswordHash;
+import DAL.DB.UserDAO_DB;
 
 import java.util.ArrayList;
 

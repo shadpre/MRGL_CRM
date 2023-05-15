@@ -1,9 +1,7 @@
-package DAL.db;
+package DAL.DB;
 
-import BE.Device;
-import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundExeption;
+import BE.DBEnteties.Device;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
-import BE.InstallationUnit;
 
 import java.sql.*;
 import java.util.ArrayList;

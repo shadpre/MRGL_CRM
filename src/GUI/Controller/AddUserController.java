@@ -1,15 +1,14 @@
 package GUI.Controller;
 
-import BE.User;
-import BLL.UserManager;
-import DAL.db.UserDAO_DB;
+import BE.DBEnteties.User;
+import BLL.Managers.UserManager;
+import DAL.DB.UserDAO_DB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
-import javax.print.DocFlavor;
 import java.net.URL;
 import java.util.ResourceBundle;
 

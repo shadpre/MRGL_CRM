@@ -1,4 +1,4 @@
-package BE;
+package BE.DBEnteties;
 
 public class WiFi extends InstallationUnit{
     private String SSID;

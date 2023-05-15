@@ -1,8 +1,7 @@
-package DAL.db;
+package DAL.DB;
 
-import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
-import BE.WiFi;
+import BE.DBEnteties.WiFi;
 
 import java.sql.*;
 import java.util.ArrayList;

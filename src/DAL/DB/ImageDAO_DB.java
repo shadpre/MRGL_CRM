@@ -1,7 +1,7 @@
-package DAL.db;
+package DAL.DB;
 
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
-import BE.Image;
+import BE.DBEnteties.Image;
 
 import java.sql.*;
 import java.util.ArrayList;
