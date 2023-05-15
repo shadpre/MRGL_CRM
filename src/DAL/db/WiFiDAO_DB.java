@@ -81,7 +81,7 @@ public class WiFiDAO_DB {
 
     public static WiFi updateWiFi(WiFi wifi) throws SQLException, WiFiNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String
+            String query = "";
         }
     }
 }
