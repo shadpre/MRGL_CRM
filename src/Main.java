@@ -1,5 +1,6 @@
 import DAL.DB.DBLogin;
 import DAL.DB.DatabaseConnector;
+import DAL.DB.TESTDB_DAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +33,14 @@ public class Main extends Application{
             DatabaseConnector.init(DBLogin.getInstance());
 
             //TEST
+
+            try {
+                TESTDB_DAO.test();
+            }
+            catch (Exception x){
+                System.out.println(x.getMessage());
+            }
+
             launch(args);
         }
 

@@ -33,7 +33,7 @@ public class DeviceDAO_DB {
 
     public static Device getDevice(int id) throws SQLException, DeviceNotFoundExeption {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "SELECT InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE WHERE Id = ?";
+            String query = "SELECT InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, id);
