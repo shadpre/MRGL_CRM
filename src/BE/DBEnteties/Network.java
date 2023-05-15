@@ -1,4 +1,4 @@
-package BE;
+package BE.DBEnteties;
 
 public class Network extends InstallationUnit{
    private String NetworkIP;

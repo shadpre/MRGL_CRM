@@ -1,9 +1,8 @@
 package GUI.Model;
-import BE.User;
+import BE.DBEnteties.User;
 import BLL.PasswordHash;
-import BLL.UserManager;
-import DAL.db.UserDAO_DB;
-import javafx.beans.Observable;
+import BLL.Managers.UserManager;
+import DAL.DB.UserDAO_DB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

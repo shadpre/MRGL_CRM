@@ -1,4 +1,4 @@
-package BE;
+package BE.DBEnteties;
 
 public abstract class InstallationUnit {
     private int Id;

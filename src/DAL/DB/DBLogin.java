@@ -1,6 +1,4 @@
-package DAL.db;
-
-import java.security.PublicKey;
+package DAL.DB;
 
 public class DBLogin {
     //Designpattern: Singleton
