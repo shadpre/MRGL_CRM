@@ -46,6 +46,8 @@ public class AddUserController {
     private TextField txtFieldLoginName;
     @FXML
     private TextField txtFieldPassword;
+    @FXML
+    private TextField txtFieldPasswordRetype;
 
     private LogInController logInController;
     private MainViewController mainViewController;
@@ -58,6 +60,7 @@ public class AddUserController {
         String firstName = txtFieldFirstName.getText();
         String lastName = txtFieldLastName.getText();
         String password = txtFieldPassword.getText();
+        String passwordRetype = txtFieldPasswordRetype.getText();
         String email = txtFieldEmail.getText();
         int RoleValue = 4;
 
@@ -76,7 +79,7 @@ public class AddUserController {
         User user = new User(0, loginName, firstName, lastName, email, RoleValue);
         try {
 
-            userManager.createUser(user, password );
+            userManager.createUser(user, password, passwordRetype );
 
         } catch (Exception e) {
 
