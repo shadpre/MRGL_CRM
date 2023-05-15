@@ -82,6 +82,29 @@ public class NetworkDAO_DB {
         }
     }
 
+    public static Network updateNetwork(Network network) throws SQLException, NetworkNotFoundExeption{
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            String query = "UPDATE Networks" +
+                    "SET InstallationId = ?, Description = ?, Remarks = ?, NetworkIP = ?, SubnetMask =?, DefaultGateway = ?, HasPOE =?" +
+                    "WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, network.getInstallationId());
+            statement.setString(2, network.getDescription());
+            statement.setString(3, network.getRemarks());
+            statement.setString(4, network.getNetworkIP());
+            statement.setString(5, network.getSubnetMask());
+            statement.setString(6, network.getDefaultGateway());
+            statement.setBoolean(7, network.isHasPOE());
+            statement.setInt(8, network.getId());
+
+            var rs = statement.executeUpdate();
+
+            if (rs == 0) throw new NetworkNotFoundExeption("Network not found");
+        }
+        return getNetwork(network.getId());
+    }
+
     public static void deleteNetwork(int id) throws SQLException, NetworkNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Networks WHERE Id = ?";

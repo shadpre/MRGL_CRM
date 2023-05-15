@@ -53,7 +53,7 @@ public class WiFiDAO_DB {
         }
     }
 
-    public static ArrayList<WiFi> getWifis(int installationId) throws SQLException, WiFiNotFoundExeption{
+    public static ArrayList<WiFi> getWiFis(int installationId) throws SQLException, WiFiNotFoundExeption{
         ArrayList<WiFi> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "Select Id, Description, Remarks, SSID, PSK FROM WiFi WHERE InstallationId = ?";
@@ -81,7 +81,49 @@ public class WiFiDAO_DB {
 
     public static WiFi updateWiFi(WiFi wifi) throws SQLException, WiFiNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "";
+            String query = "UPDATE WiFi" +
+                    "SET  InstallationId = ?, Description = ?, Remarks = ?, SSID =?, PSK =?" +
+                    "WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, wifi.getInstallationId());
+            statement.setString(2, wifi.getDescription());
+            statement.setString(3, wifi.getRemarks());
+            statement.setString(4, wifi.getSSID());
+            statement.setString(5, wifi.getPSK());
+            statement.setInt(6, wifi.getId());
+
+            var rs = statement.executeUpdate();
+
+            if (rs == 0) throw new WiFiNotFoundExeption("WiFi not found");
+        }
+        return getWifi(wifi.getId());
+    }
+
+    public static void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption{
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "DELETE WiFi WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+
+            var rs = statement.executeUpdate();
+
+            if(rs == 0) throw new WiFiNotFoundExeption("WiFi not found");
+        }
+    }
+
+    public static int deleteWiFis(int installationId) throws SQLException, WiFiNotFoundExeption{
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "DELETE WiFi WHERE InstallationId = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1,installationId);
+
+            var rs = statement.executeUpdate();
+
+            if(rs == 0) throw new WiFiNotFoundExeption("No WiFis found");
+            else return rs;
         }
     }
 }
