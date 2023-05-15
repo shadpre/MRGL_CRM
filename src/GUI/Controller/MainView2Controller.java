@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+
 import BE.DBEnteties.Customer;
 import BE.DBEnteties.User;
 import GUI.Model.CustomerModel;
@@ -7,14 +8,12 @@ import GUI.Model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import BLL.Managers.UserManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +27,9 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private Button btnBeginTask;
+
+    @FXML
+    private Button btnSaveUserCeo;
 
     @FXML
     private ImageView btnDeleteCustomer;
@@ -129,11 +131,32 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private TableColumn<Customer, String> columnCustomerCity;
 
-
     @FXML
     private TextField txtSearch;
 
+    @FXML
+    private TextField txtFieldEmail;
+
+    @FXML
+    private TextField txtFieldFirstName;
+
+    @FXML
+    private TextField txtFieldLastName;
+
+    @FXML
+    private TextField txtFieldLoginName;
+
+    @FXML
+    private TextField txtFieldPassword;
+
+    @FXML
+    private TextField txtFieldPasswordRetype;
+
+    @FXML
+    private ChoiceBox<String> choiceBoxRoleCeo;
+
     private UserModel userModel;
+    private UserManager userManager;
     private CustomerModel customerModel;
 
 
@@ -175,6 +198,42 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
+    void btnHandleSaveUserCeo(ActionEvent event) {
+
+        // Get User Information
+        String loginName = txtFieldLoginName.getText();
+        String firstName = txtFieldFirstName.getText();
+        String lastName = txtFieldLastName.getText();
+        String password = txtFieldPassword.getText();
+        String passwordRetype = txtFieldPasswordRetype.getText();
+        String email = txtFieldEmail.getText();
+        int roleValue = getRoleValue();
+
+        User user = new User(-1, loginName, firstName, lastName, email, roleValue);
+        try {
+
+            userManager.createUser(user, password, passwordRetype );
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private int getRoleValue() {
+
+        switch (choiceBoxRoleCeo.getValue()){
+            case "Tekniker": return 0;
+            case "CEO": return 1;
+            case "Projekt Manager": return 2;
+            case "Salg": return 3;
+            default: throw new RuntimeException("Rolle ikke gyldig");
+        }
+
+    }
+
+    @FXML
     void btnHandleBeginTask(ActionEvent event) {
 
     }
@@ -200,7 +259,7 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneViewAllCustomersCeo.setVisible(true);
         stackPaneAddUserCeo.setVisible(false);
         stackPaneAddCustomerCeo.setVisible(false);
-        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(true);
         stackPanePManagerBtn.setVisible(false);
         stackPaneSalesBtn.setVisible(false);
         stackPaneViewAllCustomersSales.setVisible(false);
@@ -212,9 +271,9 @@ public class MainView2Controller extends BaseController implements Initializable
         this.customerModel = customerModel;
 
         columnCustomerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("Name"));
-        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("Address"));
+        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("Address1"));
         columnCustomerPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("Phone"));
-        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("ZipCode"));
+        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("Zipcode"));
         columnCustomerCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("City"));
 
 
@@ -319,6 +378,10 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneAddUserCeo.setVisible(false);
         stackPaneAddCustomerCeo.setVisible(false);
+
+
+         choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
+
 
     }
 
