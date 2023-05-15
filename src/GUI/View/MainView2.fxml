@@ -105,7 +105,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldLoginName" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="90.0" />
                            </HBox.margin>
@@ -125,7 +125,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldFirstName" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="90.0" />
                            </HBox.margin>
@@ -145,7 +145,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldLastName" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="135.0" />
                            </HBox.margin>
@@ -165,7 +165,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldPassword" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="98.0" />
                            </HBox.margin>
@@ -185,7 +185,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldPasswordRetype" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="23.0" />
                            </HBox.margin>
@@ -205,7 +205,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldEmail" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="170.0" />
                            </HBox.margin>
@@ -225,7 +225,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <ChoiceBox prefHeight="30.0" prefWidth="200.0">
+                        <ChoiceBox fx:id="choiceBoxRoleCeo" prefHeight="30.0" prefWidth="200.0">
                            <HBox.margin>
                               <Insets left="282.0" />
                            </HBox.margin>
@@ -237,7 +237,7 @@
                         <Insets top="40.0" />
                      </VBox.margin>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
+                        <Button fx:id="btnSaveUserCeo" mnemonicParsing="false" onAction="#btnHandleSaveUserCeo" prefHeight="50.0" prefWidth="120.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
                            <font>
                               <Font name="Cambria Bold" size="20.0" />
                            </font>
@@ -742,45 +742,7 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackpaneBtnEditUser" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
-         <children>
-            <ImageView fx:id="btnUpdateUser" fitHeight="61.0" fitWidth="80.0" onMouseClicked="#btnHandleUpdateUser" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../Editbtn01.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="430.0" />
-               </StackPane.margin>
-            </ImageView>
-            <ImageView fx:id="btnDeleteUser" fitHeight="64.0" fitWidth="81.0" onMouseClicked="#btnHandleDeleteUser" pickOnBounds="true" preserveRatio="true">
-               <StackPane.margin>
-                  <Insets left="650.0" />
-               </StackPane.margin>
-               <image>
-                  <Image url="@../../../../../Trashbtn01.png" />
-               </image>
-            </ImageView>
-         </children>
-      </StackPane>
-      <StackPane fx:id="stackpaneBtnEditCustomer" layoutX="610.0" layoutY="888.0" prefHeight="107.0" prefWidth="758.0">
-         <children>
-            <ImageView fx:id="btnUpdateCustomer" fitHeight="61.0" fitWidth="80.0" onMouseClicked="#btnHandleUpdateCustomer" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../data/images/Editbtn01.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="430.0" />
-               </StackPane.margin>
-            </ImageView>
-            <ImageView fx:id="btnDeleteCustomer" fitHeight="64.0" fitWidth="81.0" onMouseClicked="#btnHandleDeleteCustomer" pickOnBounds="true" preserveRatio="true">
-               <StackPane.margin>
-                  <Insets left="650.0" />
-               </StackPane.margin>
-               <image>
-                  <Image url="@../../data/images/Trashbtn01.png" />
-               </image>
-            </ImageView>
-         </children>
-      </StackPane>
+      <StackPane fx:id="stackpaneBtnEditUser" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0" />
+      <StackPane fx:id="stackpaneBtnEditCustomer" layoutX="610.0" layoutY="888.0" prefHeight="107.0" prefWidth="758.0" />
    </children>
 </AnchorPane>

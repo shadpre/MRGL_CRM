@@ -32,7 +32,7 @@ public class UserManager {
         return PasswordHash.chkPassword(Password, hash);
     }
 
-    public static User createUser(User user, String Password) throws Exception{
+    public static User createUser(User user, String Password, String PasswordRetype) throws Exception{
         String hash = PasswordHash.encryptPassword(Password);
         if (UserDAO_DB.loginNameAvailible(user.getLoginName())){
             return UserDAO_DB.createUser(user, hash);
