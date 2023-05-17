@@ -160,9 +160,19 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private ChoiceBox<String> choiceBoxRoleCeo;
 
+    public User selectedUser;
+
     private UserModel userModel;
     private UserManager userManager;
     private CustomerModel customerModel;
+
+    public void mainView2Controller(User selectedUser){
+
+        this.selectedUser = selectedUser;
+
+    }
+
+
 
 
 
@@ -355,6 +365,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     void btnHandleUpdateTask(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
@@ -377,6 +388,29 @@ public class MainView2Controller extends BaseController implements Initializable
 @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+
+    userModel.getSelectedUser(selectedUser);
+
+
+
+        if (selectedUser.getRole() == 0){
+
+            stackPaneCeoBtn.setVisible(false);
+            tableViewAllUsersCeo.setVisible(false);
+            tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCustomersCeo.setVisible(false);
+            stackPaneViewAllCustomersSales.setVisible(false);
+            stackPaneViewAllCustomersCeo.setVisible(false);
+            stackPanePManagerBtn.setVisible(false);
+            stackPaneSalesBtn.setVisible(false);
+            stackPaneTechBtn.setVisible(true);
+            stackPaneAllUsersCeo.setVisible(false);
+            stackPaneAddUserCeo.setVisible(false);
+            stackPaneAddCustomerCeo.setVisible(false);
+
+        } if(selectedUser.getRole() == 1) {
+
         stackPaneCeoBtn.setVisible(true);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
@@ -391,8 +425,41 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAddCustomerCeo.setVisible(false);
 
 
-         choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
+        choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
 
+    } if (selectedUser.getRole() == 2){
+
+        stackPaneCeoBtn.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersSales.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPanePManagerBtn.setVisible(true);
+        stackPaneSalesBtn.setVisible(false);
+        stackPaneTechBtn.setVisible(false);
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+
+
+    } if (selectedUser.getRole() == 3){
+
+        stackPaneCeoBtn.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersSales.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPanePManagerBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(true);
+        stackPaneTechBtn.setVisible(false);
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+
+
+    }
 
     }
 

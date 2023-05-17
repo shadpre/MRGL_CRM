@@ -12,7 +12,10 @@ public class BaseController {
 
     private UserModel userModel;
 
-    public UserModel getModel(){return userModel;}
+    public UserModel getModel(){
 
-    public void setUserModel(UserModel userModel){this.userModel = userModel;}
+        return userModel;}
+
+    public void setUserModel(UserModel userModel){
+        this.userModel = userModel;}
 }

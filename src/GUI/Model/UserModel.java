@@ -40,7 +40,11 @@ public class UserModel {
         return out;
     }
 
-    public User getSelectedUser(User selectedUser){return selectedUser;}
+    public User getSelectedUser(User selectedUser){
 
-    public void setSelectedUser(User selectedUser){this.selectedUser = selectedUser;}
+        return selectedUser;}
+
+    public void setSelectedUser(User selectedUser){
+
+        this.selectedUser = selectedUser;}
 }
