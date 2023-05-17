@@ -20,6 +20,10 @@ import java.util.ResourceBundle;
 public class LogInController extends BaseController implements Initializable {
     private UserModel userModel;
 
+    private MainView2Controller mainView2Controller;
+
+    private User selectedUser;
+
     @FXML
     private Button btnLogin;
 
@@ -33,23 +37,22 @@ public class LogInController extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
             userModel = new UserModel();
             this.userModel = userModel;
-
-
+            mainView2Controller = new MainView2Controller();
+            this.mainView2Controller = mainView2Controller;
 
     }
 
     public void handleLogging(ActionEvent actionEvent) throws Exception {
 
-        String LoginName = txtUsername.getText();
-        String Password = txtPassword.getText();
+        String loginName = txtUsername.getText();
+        String password = txtPassword.getText();
 
-        User selectedUser = userModel.getUser(LoginName, Password);
-        userModel.setSelectedUser(selectedUser);
+        User selectedUser = userModel.getUser(loginName, password);
 
-        if (selectedUser != null){
+        if (selectedUser != null) {
+
             userModel.setSelectedUser(selectedUser);
 
-            userModel = getModel();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView2.fxml"));
             Parent root = loader.load();
@@ -57,10 +60,13 @@ public class LogInController extends BaseController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle(selectedUser.getLoginName());
             stage.show();
-        }
 
-        else{
-            throw new UserValidationExeption("Invalid Username or password");
+            MainView2Controller controller = loader.getController();
+            controller.setUserModel(userModel);
+            controller.Setup(userModel);
+
+        } else {
+            throw new Exception("Invalid Username or password");
         }
     }
 }

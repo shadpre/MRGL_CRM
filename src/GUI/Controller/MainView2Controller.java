@@ -27,6 +27,8 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private Button btnAddCustomer;
 
+    private User selectedUser;
+
     @FXML
     private Button btnAddUser;
 
@@ -160,7 +162,6 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private ChoiceBox<String> choiceBoxRoleCeo;
 
-    public User selectedUser;
 
     private UserModel userModel;
     private UserManager userManager;
@@ -389,9 +390,13 @@ public class MainView2Controller extends BaseController implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
 
 
+    }
 
-    userModel.getSelectedUser(selectedUser);
 
+
+    public void Setup(UserModel userModel){
+
+        this.userModel = userModel;
 
 
         if (selectedUser.getRole() == 0){
@@ -411,56 +416,55 @@ public class MainView2Controller extends BaseController implements Initializable
 
         } if(selectedUser.getRole() == 1) {
 
-        stackPaneCeoBtn.setVisible(true);
-        tableViewAllUsersCeo.setVisible(false);
-        tableViewAllTasksCeo.setVisible(false);
-        tableViewAllCustomersCeo.setVisible(false);
-        stackPaneViewAllCustomersSales.setVisible(false);
-        stackPaneViewAllCustomersCeo.setVisible(false);
-        stackPanePManagerBtn.setVisible(false);
-        stackPaneSalesBtn.setVisible(false);
-        stackPaneTechBtn.setVisible(false);
-        stackPaneAllUsersCeo.setVisible(false);
-        stackPaneAddUserCeo.setVisible(false);
-        stackPaneAddCustomerCeo.setVisible(false);
+            stackPaneCeoBtn.setVisible(true);
+            tableViewAllUsersCeo.setVisible(false);
+            tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCustomersCeo.setVisible(false);
+            stackPaneViewAllCustomersSales.setVisible(false);
+            stackPaneViewAllCustomersCeo.setVisible(false);
+            stackPanePManagerBtn.setVisible(false);
+            stackPaneSalesBtn.setVisible(false);
+            stackPaneTechBtn.setVisible(false);
+            stackPaneAllUsersCeo.setVisible(false);
+            stackPaneAddUserCeo.setVisible(false);
+            stackPaneAddCustomerCeo.setVisible(false);
 
 
-        choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
+            choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
 
-    } if (selectedUser.getRole() == 2){
+        } if (selectedUser.getRole() == 2){
 
-        stackPaneCeoBtn.setVisible(false);
-        tableViewAllUsersCeo.setVisible(false);
-        tableViewAllTasksCeo.setVisible(false);
-        tableViewAllCustomersCeo.setVisible(false);
-        stackPaneViewAllCustomersSales.setVisible(false);
-        stackPaneViewAllCustomersCeo.setVisible(false);
-        stackPanePManagerBtn.setVisible(true);
-        stackPaneSalesBtn.setVisible(false);
-        stackPaneTechBtn.setVisible(false);
-        stackPaneAllUsersCeo.setVisible(false);
-        stackPaneAddUserCeo.setVisible(false);
-        stackPaneAddCustomerCeo.setVisible(false);
-
-
-    } if (selectedUser.getRole() == 3){
-
-        stackPaneCeoBtn.setVisible(false);
-        tableViewAllUsersCeo.setVisible(false);
-        tableViewAllTasksCeo.setVisible(false);
-        tableViewAllCustomersCeo.setVisible(false);
-        stackPaneViewAllCustomersSales.setVisible(false);
-        stackPaneViewAllCustomersCeo.setVisible(false);
-        stackPanePManagerBtn.setVisible(false);
-        stackPaneSalesBtn.setVisible(true);
-        stackPaneTechBtn.setVisible(false);
-        stackPaneAllUsersCeo.setVisible(false);
-        stackPaneAddUserCeo.setVisible(false);
-        stackPaneAddCustomerCeo.setVisible(false);
+            stackPaneCeoBtn.setVisible(false);
+            tableViewAllUsersCeo.setVisible(false);
+            tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCustomersCeo.setVisible(false);
+            stackPaneViewAllCustomersSales.setVisible(false);
+            stackPaneViewAllCustomersCeo.setVisible(false);
+            stackPanePManagerBtn.setVisible(true);
+            stackPaneSalesBtn.setVisible(false);
+            stackPaneTechBtn.setVisible(false);
+            stackPaneAllUsersCeo.setVisible(false);
+            stackPaneAddUserCeo.setVisible(false);
+            stackPaneAddCustomerCeo.setVisible(false);
 
 
-    }
+        } if (selectedUser.getRole() == 3){
 
+            stackPaneCeoBtn.setVisible(false);
+            tableViewAllUsersCeo.setVisible(false);
+            tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCustomersCeo.setVisible(false);
+            stackPaneViewAllCustomersSales.setVisible(false);
+            stackPaneViewAllCustomersCeo.setVisible(false);
+            stackPanePManagerBtn.setVisible(false);
+            stackPaneSalesBtn.setVisible(true);
+            stackPaneTechBtn.setVisible(false);
+            stackPaneAllUsersCeo.setVisible(false);
+            stackPaneAddUserCeo.setVisible(false);
+            stackPaneAddCustomerCeo.setVisible(false);
+
+
+        }
     }
 
 }
