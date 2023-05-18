@@ -4,6 +4,8 @@ package GUI.Controller;
 import BE.DBEnteties.Device;
 import BLL.Managers.DeviceManager;
 import BLL.Managers.ImageManager;
+import GUI.Model.CustomerModel;
+import GUI.Model.DeviceModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -37,7 +40,7 @@ public class DocumentationViewController extends BaseController implements Initi
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
     @FXML
-    private Button btnExit, billagUpload;
+    private Button btnExit, billagUpload,btnDeviceShow, btnAddDevice;
 
     @FXML
     private TextArea txtDeviceDescription, billagKommentar;
@@ -59,6 +62,13 @@ public class DocumentationViewController extends BaseController implements Initi
 
     @FXML
     private ImageView billagBillede;
+
+    private DeviceModel deviceModel;
+
+    @FXML
+    private TableView<Device> tableDevice;
+    @FXML
+    private TableColumn<Device, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet;
 
 
 
@@ -121,37 +131,43 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void handleDevice(ActionEvent actionEvent) {
+
         paneSketch.setVisible(false);
         paneWiFi.setVisible(false);
         paneNetwork.setVisible(false);
         paneAttachment.setVisible(false);
         paneDevice.setVisible(true);
+
+        setTableDevice();
     }
 
     public void handleAddDevice(ActionEvent actionEvent) {
-        // Get User Information
-        String description = txtDeviceDescription.getText();
-        String remarks = "txtFieldFirstName.getText();";
-        String IP = txtDeviceIp.getText();
-        String password = txtDevicePassword.getText();
-        String subnetMask = txtDeviceSubnet.getText();
-        int installationID = 1;
-        String userName = txtDeviceUsername.getText();
-        Boolean isPOE = false;
 
-        if (txtDevicePOE.isSelected()) {
-            Boolean isPoe = true;
+        if (btnAddDevice.getText().equals("Gem Enhed")) {
+
+            creatingDevice();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDevicePOE.setSelected(false);
+
+
+        } else if (btnAddDevice.getText().equals("Opdater Enhed")) {
+
+            updatingDevice();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDevicePOE.setSelected(false);
+            btnAddDevice.setText("Gem Enhed");
         }
 
-        Device device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
-        try {
-
-            deviceManager.createDevice(device);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException(e);
-        }
     }
 
     public void handleBillagSaveUpdate(ActionEvent actionEvent) throws IOException {
@@ -193,4 +209,126 @@ public class DocumentationViewController extends BaseController implements Initi
         billagBillede.setImage(image);
 
     }
+
+
+    public void setTableDevice(){
+
+        DeviceModel deviceModel = new DeviceModel();
+        this.deviceModel = deviceModel;
+
+        columnDeviceIP.setCellValueFactory(new PropertyValueFactory<Device, String>("IP"));
+        columnDeviceSubnet.setCellValueFactory(new PropertyValueFactory<Device, String>("SubnetMask"));
+        columnDeviceUsername.setCellValueFactory(new PropertyValueFactory<Device, String>("UserName"));
+        columnDevicePassword.setCellValueFactory(new PropertyValueFactory<Device, String>("Password"));
+        try {
+            tableDevice.setItems(DeviceModel.getDeviceList(1));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void handleDeviceShow(ActionEvent actionEvent) {
+
+                // Retrieve the selected device
+                Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
+
+                // Populate the UI elements with the selected device's data
+                txtDeviceDescription.setText(selectedDevice.getRemarks());
+                txtDeviceIp.setText(selectedDevice.getIP());
+                txtDevicePassword.setText(selectedDevice.getPassword());
+                txtDeviceSubnet.setText(selectedDevice.getSubnetMask());
+                txtDeviceUsername.setText(selectedDevice.getUserName());
+
+                if (selectedDevice.isPOE() == true) {
+                    txtDevicePOE.setSelected(true);
+                } else {
+                    txtDevicePOE.setSelected(false);
+                }
+            updateButtonAndFields();
+    }
+
+    public void updateButtonAndFields() {
+        if (btnDeviceShow.getText().equals("Vis Enhed")) {
+            // Run current method
+            btnAddDevice.setText("Opdater Enhed");
+            btnDeviceShow.setText("Stop Visning");
+        } else if (btnDeviceShow.getText().equals("Stop Visning")) {
+
+            tableDevice.getSelectionModel().clearSelection();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDevicePOE.setSelected(false);
+            btnAddDevice.setText("Gem Enhed");
+            btnDeviceShow.setText("Vis Enhed");
+        }
+    }
+
+    public void creatingDevice(){
+        // Get User Information
+        String description = txtDeviceDescription.getText();
+        String remarks = "txtFieldFirstName.getText();";
+        String IP = txtDeviceIp.getText();
+        String password = txtDevicePassword.getText();
+        String subnetMask = txtDeviceSubnet.getText();
+        int installationID = 1;
+        String userName = txtDeviceUsername.getText();
+        Boolean isPOE = false;
+
+        if (txtDevicePOE.isSelected()) {
+            Boolean isPoe = true;
+        }
+
+        Device device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
+
+
+        try {
+
+            deviceManager.createDevice(device);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+        setTableDevice();
+    }
+
+    public void updatingDevice(){
+        // Get User Information
+
+        Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
+
+        String description = txtDeviceDescription.getText();
+        String remarks = "txtFieldFirstName.getText();";
+        String IP = txtDeviceIp.getText();
+        String password = txtDevicePassword.getText();
+        String subnetMask = txtDeviceSubnet.getText();
+        int installationID = selectedDevice.getInstallationId();
+        String userName = txtDeviceUsername.getText();
+        Boolean isPOE = false;
+        int Id = selectedDevice.getId();
+
+        if (txtDevicePOE.isSelected()) {
+            Boolean isPoe = true;
+        }
+
+        Device device = new Device(Id, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
+
+
+        try {
+
+            deviceManager.updateDevice(device);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+        setTableDevice();
+    }
+
 }

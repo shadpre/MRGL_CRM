@@ -90,9 +90,11 @@ public class DeviceDAO_DB {
     public static Device updateDevice(Device device) throws SQLException, DeviceNotFoundExeption {
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query =
-                    "UPDATE Devices" +
-                    "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ?" +
+                    "UPDATE Devices " +
+                    "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ? " +
                     "WHERE Id = ?";
+
+
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, device.getInstallationId());
