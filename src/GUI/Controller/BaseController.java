@@ -17,5 +17,6 @@ public class BaseController {
         return userModel;}
 
     public void setUserModel(UserModel userModel){
+
         this.userModel = userModel;}
 }

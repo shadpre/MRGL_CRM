@@ -65,6 +65,7 @@ public class LogInController extends BaseController implements Initializable {
             controller.setUserModel(userModel);
             controller.Setup(userModel);
 
+
         } else {
             throw new Exception("Invalid Username or password");
         }

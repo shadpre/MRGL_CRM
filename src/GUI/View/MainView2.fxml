@@ -365,7 +365,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="btnShowAllTasks" mnemonicParsing="false" onAction="#btnHandleShowAllTasks" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Alle Opgaver">
+                        <Button fx:id="btnShowAllTasksCeo" mnemonicParsing="false" onAction="#btnHandleShowAllTasksCeo" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Alle Opgaver">
                            <HBox.margin>
                               <Insets left="50.0" top="5.0" />
                            </HBox.margin>
@@ -435,26 +435,6 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                      <children>
-                        <Label prefHeight="30.0" prefWidth="150.0" text="Firma:" textFill="#90aed6">
-                           <HBox.margin>
-                              <Insets left="100.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Cambria Bold" size="22.0" />
-                           </font>
-                        </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
-                           <HBox.margin>
-                              <Insets left="90.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="30.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <children>
                         <Label prefHeight="30.0" prefWidth="150.0" text="Navn:" textFill="#90aed6">
                            <HBox.margin>
                               <Insets left="100.0" />
@@ -463,7 +443,7 @@
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldCustomerName" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="90.0" />
                            </HBox.margin>
@@ -475,7 +455,47 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Label text="Adresse:" textFill="#90aed6">
+                        <Label prefHeight="30.0" prefWidth="150.0" text="Addresse:" textFill="#90aed6">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Cambria Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtFieldCustomerAddress" prefHeight="30.0" prefWidth="300.0">
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="161.0" prefHeight="30.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="150.0" text="Addresse:" textFill="#90aed6">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Cambria Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtFieldCustomerAddress2" prefHeight="30.0" prefWidth="300.0">
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="30.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label text="Addresse:" textFill="#90aed6">
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
@@ -483,9 +503,9 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldCustomerAddress3" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
-                              <Insets left="152.0" />
+                              <Insets left="140.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -495,7 +515,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Label text="Telefon:" textFill="#90aed6">
+                        <Label text="Post nr:" textFill="#90aed6">
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
@@ -503,9 +523,9 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldCustomerZipCode" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
-                              <Insets left="157.0" />
+                              <Insets left="162.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -514,6 +534,63 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
+                     <children>
+                        <Label text="By:" textFill="#90aed6">
+                           <font>
+                              <Font name="Cambria Bold" size="22.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="txtFieldCustomerCity" prefHeight="30.0" prefWidth="300.0">
+                           <HBox.margin>
+                              <Insets left="208.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="30.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label text="Land:" textFill="#90aed6">
+                           <font>
+                              <Font name="Cambria Bold" size="22.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="txtFieldCustomerCountry" prefHeight="30.0" prefWidth="300.0">
+                           <HBox.margin>
+                              <Insets left="184.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="191.0" prefHeight="30.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="150.0" text="Telefon:" textFill="#90aed6">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Cambria Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtFieldCustomerTelephone" prefHeight="30.0" prefWidth="300.0">
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="321.0" prefHeight="30.0" prefWidth="200.0">
                      <children>
                         <Label text="E-mail:" textFill="#90aed6">
                            <font>
@@ -523,19 +600,19 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldCustomerEmail" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="168.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
-                  </HBox>
-                  <HBox prefHeight="30.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="441.0" prefHeight="30.0" prefWidth="200.0">
                      <children>
-                        <Label text="CVR-nr:" textFill="#90aed6">
+                        <Label text="CVR nr:" textFill="#90aed6">
                            <font>
                               <Font name="Cambria Bold" size="22.0" />
                            </font>
@@ -543,19 +620,22 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldCustomerTaxNo" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
-                              <Insets left="163.0" />
+                              <Insets left="166.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox prefHeight="50.0" prefWidth="200.0">
                      <VBox.margin>
-                        <Insets top="80.0" />
+                        <Insets top="30.0" />
                      </VBox.margin>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
+                        <Button fx:id="btnSaveCustomerCeo" mnemonicParsing="false" onAction="#btnHandleSaveCustomerCeo" prefHeight="50.0" prefWidth="120.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
                            <font>
                               <Font name="Cambria Bold" size="20.0" />
                            </font>
@@ -569,14 +649,17 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackPaneViewAllCustomersSales" layoutX="480.0" layoutY="295.0" prefHeight="600.0" prefWidth="930.0">
+      <StackPane fx:id="stackPaneViewAllCustomersTasks" layoutX="480.0" layoutY="295.0" prefHeight="576.0" prefWidth="930.0">
          <children>
             <HBox prefHeight="616.0" prefWidth="930.0">
                <children>
                   <TableView fx:id="tableViewAllTasksCeo" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
-                        <TableColumn prefWidth="195.0" text="Opgave nr:" />
-                        <TableColumn prefWidth="261.0" text="Navn/Firma" />
+                        <TableColumn fx:id="columnTaskNo" prefWidth="117.0" text="Opgave nr:" />
+                        <TableColumn fx:id="columnCompanyName" prefWidth="197.0" text="Navn/Firma" />
+                        <TableColumn fx:id="columnDate" prefWidth="111.0" text="Dato:" />
+                        <TableColumn fx:id="columnDescription" prefWidth="377.0" text="Beskrivelse:" />
+                        <TableColumn fx:id="columnStatus" prefWidth="103.0" text="Status:" />
                      </columns>
                   </TableView>
                </children>
