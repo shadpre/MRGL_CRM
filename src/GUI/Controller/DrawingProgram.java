@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.DBEnteties.LineSegment;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,15 +10,19 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DrawingProgram extends BaseController implements Initializable {
@@ -29,14 +34,22 @@ public class DrawingProgram extends BaseController implements Initializable {
 
     private Image canvasImage;
 
+    private List<LineSegment> lines = new ArrayList<>();
+    private LineSegment currentLine;
+
+
+    private GraphicsContext gc;
+    private double startX, startY, endX, endY;
+    @FXML
+    private ColorPicker colorPicker;
+
     @FXML
     private Button closeButton;
 
     @FXML
     private Canvas canvas;
 
-    public void handleAddLineButtonClicked(ActionEvent actionEvent) {
-    }
+
 
     public void handleSymbol2ButtonClicked(ActionEvent actionEvent) {
     }
@@ -110,6 +123,8 @@ public class DrawingProgram extends BaseController implements Initializable {
         symbol1.setOnMouseEntered(event -> mouseEnterSymbol(event));
         canvas.setOnDragOver(event -> dragOverCanvas(event));
         canvas.setOnDragDropped(event -> dragDroppedCanvas(event));
+        
+        gc = canvas.getGraphicsContext2D();
     }
 
     public void dragOverCanvas(DragEvent event) {
@@ -179,5 +194,61 @@ public class DrawingProgram extends BaseController implements Initializable {
         Image canvasImage = SwingFXUtils.toFXImage(bufferedImage, null);
 
         return canvasImage;
+    }
+
+
+
+    public void onAddLineButtonClicked(ActionEvent actionEvent) {
+        startX = 0;
+        startY = 0;
+    }
+
+    public void onMouseDragged(MouseEvent event) {
+
+        if (event.isPrimaryButtonDown() && currentLine != null) {
+            double currentX = event.getX();
+            double currentY = event.getY();
+
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());  // Clear the canvas
+
+            gc.setStroke(colorPicker.getValue());
+            gc.setLineWidth(2.0);  // Adjust the line width as desired
+
+            redrawCanvas();  // Redraw all the previously stored lines
+
+            gc.strokeLine(currentLine.getStartX(), currentLine.getStartY(), currentX, currentY);  // Draw the current line
+        }
+    }
+
+    public void onMousePressed(MouseEvent event) {
+
+        if (event.isPrimaryButtonDown()) {  // Check if the left mouse button is pressed
+            startX = event.getX();
+            startY = event.getY();
+            currentLine = new LineSegment(startX, startY, startX, startY);
+        }
+    }
+
+    public void onMouseReleased(MouseEvent event) {
+
+        if (event.isPrimaryButtonDown() && currentLine != null) {  // Check if the left mouse button is released
+            double endX = event.getX();
+            double endY = event.getY();
+            currentLine.setEndX(endX);
+            currentLine.setEndY(endY);
+            currentLine = null;
+        }
+
+    }
+
+    private void redrawCanvas() {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        gc.setStroke(colorPicker.getValue());
+        gc.setLineWidth(2.0);  // Adjust the line width as desired
+
+        for (LineSegment line : lines) {
+            gc.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+        }
     }
 }

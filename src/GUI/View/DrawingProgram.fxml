@@ -13,7 +13,7 @@
     <center>
         <AnchorPane>
             <children>
-                <Canvas fx:id="canvas" height="853.0" onDragDropped="#dragDroppedCanvas" onDragOver="#dragOverCanvas" width="1264.0" />
+                <Canvas fx:id="canvas" height="853.0" onDragDropped="#dragDroppedCanvas" onDragOver="#dragOverCanvas" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="1264.0" />
             </children>
         </AnchorPane>
     </center>
@@ -33,7 +33,7 @@
     <bottom>
         <AnchorPane prefHeight="51.0" prefWidth="1350.0">
             <children>
-                <Button layoutX="10" layoutY="10" onAction="#handleAddLineButtonClicked" text="Add Line" />
+                <Button fx:id="addLineButton" layoutX="10" layoutY="10" onAction="#onAddLineButtonClicked" text="Add Line" />
                 <ColorPicker fx:id="colorPicker" layoutX="90" layoutY="10" />
             </children>
         </AnchorPane>
