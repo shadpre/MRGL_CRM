@@ -6,6 +6,10 @@ import BLL.Managers.DeviceManager;
 import BLL.Managers.ImageManager;
 import GUI.Model.CustomerModel;
 import GUI.Model.DeviceModel;
+import GUI.Model.ImageModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.Parent;
@@ -28,6 +32,7 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -36,49 +41,58 @@ import java.util.ResourceBundle;
 
 public class DocumentationViewController extends BaseController implements Initializable {
 
-    private File imgFile;
+
 
     @FXML
-    private ImageView canvasImageView;
+    private ImageView canvasImageView, billagBillede;
+
     @FXML
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
     @FXML
-    private Button btnExit, billagUpload,btnDeviceShow, btnAddDevice;
+    private Button btnExit, billagUpload,btnDeviceShow, btnAddDevice, btnShowSketch, btnSaveSketch;
 
     @FXML
-    private TextArea txtDeviceDescription, billagKommentar;
+    private TextArea txtDeviceDescription, billagKommentar, txtAreaSketch;
 
     @FXML
-    private TextField txtDeviceIp;
+    private TextField txtDevicePassword, txtDeviceSubnet, txtDeviceUsername, txtDeviceIp;
 
     @FXML
-    private CheckBox txtDevicePOE;
+    private TextField txtTitleSketch;
 
-    @FXML
-    private TextField txtDevicePassword;
-
-    @FXML
-    private TextField txtDeviceSubnet;
-
-    @FXML
-    private TextField txtDeviceUsername;
-
-    @FXML
-    private ImageView billagBillede;
-
-    private DeviceModel deviceModel;
-
+    @FXML CheckBox txtDevicePOE;
     @FXML
     private TableView<Device> tableDevice;
+
+    @FXML TableView<BE.DBEnteties.Image> tableSketch;
+
+    @FXML
+    private TableColumn<BE.DBEnteties.Image, String> columnSketchTitle;
+
+    @FXML
+    private TableColumn<BE.DBEnteties.Image, Integer> columnSketchID;
+
     @FXML
     private TableColumn<Device, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet;
 
-
-
     private DeviceManager deviceManager;
+    private DeviceModel deviceModel;
+    private ImageModel imageModel;
 
+    private File imgFile;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        paneWiFi.setVisible(false);
+        paneNetwork.setVisible(false);
+        paneSketch.setVisible(true);
+        paneDevice.setVisible(false);
+        paneAttachment.setVisible(false);
+
+        setSketchTable();
+    }
 
     public void handleNetwork(ActionEvent actionEvent) {
         paneSketch.setVisible(false);
@@ -96,42 +110,26 @@ public class DocumentationViewController extends BaseController implements Initi
         paneAttachment.setVisible(false);
     }
 
-    public void handleDone(ActionEvent actionEvent) {
-    }
-
-
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        paneWiFi.setVisible(false);
-        paneNetwork.setVisible(false);
-        paneSketch.setVisible(true);
-        paneDevice.setVisible(false);
-        paneAttachment.setVisible(false);
-    }
-
-    public void handleSketch(ActionEvent actionEvent) {
-        paneSketch.setVisible(true);
-        paneNetwork.setVisible(false);
-        paneWiFi.setVisible(false);
-        paneAttachment.setVisible(false);
-        paneDevice.setVisible(false);
-    }
-
-    public void handleExit(ActionEvent actionEvent) {
-
-        Stage stage = (Stage) btnExit.getScene().getWindow();
-        stage.close();
-    }
-
     public void handleAttachment(ActionEvent actionEvent) {
+
         paneSketch.setVisible(false);
         paneWiFi.setVisible(false);
         paneNetwork.setVisible(false);
         paneAttachment.setVisible(true);
         paneDevice.setVisible(false);
+
+    }
+
+    public void handleSketch(ActionEvent actionEvent) {
+
+        paneSketch.setVisible(true);
+        paneWiFi.setVisible(false);
+        paneNetwork.setVisible(false);
+        paneAttachment.setVisible(false);
+        paneDevice.setVisible(false);
+
+        setSketchTable();
+
     }
 
     public void handleDevice(ActionEvent actionEvent) {
@@ -144,6 +142,14 @@ public class DocumentationViewController extends BaseController implements Initi
 
         setTableDevice();
     }
+
+    public void handleExit(ActionEvent actionEvent) {
+
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
+    }
+
+
 
     public void handleAddDevice(ActionEvent actionEvent) {
 
@@ -175,6 +181,7 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void handleBillagSaveUpdate(ActionEvent actionEvent) throws IOException {
+
         billagKommentar.setWrapText(true);
 
         int installationId = 1;
@@ -205,15 +212,7 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void handleBillagUpload(ActionEvent actionEvent) {
-
-        FileChooser fc = new FileChooser();
-        Stage stage = (Stage) billagBillede.getScene().getWindow();
-        imgFile = fc.showOpenDialog(stage);
-
-        if(imgFile != null) {
-            javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
-            billagBillede.setImage(image);
-        }
+        uploadImage();
     }
 
 
@@ -251,32 +250,13 @@ public class DocumentationViewController extends BaseController implements Initi
                 } else {
                     txtDevicePOE.setSelected(false);
                 }
-            updateButtonAndFields();
+            updateButtonAndFieldsDevice();
     }
 
-    public void updateButtonAndFields() {
 
-        if (btnDeviceShow.getText().equals("Vis Enhed")) {
-            // Run current method
-            btnAddDevice.setText("Opdater Enhed");
-            btnDeviceShow.setText("Stop Visning");
-
-        } else if (btnDeviceShow.getText().equals("Stop Visning")) {
-
-            tableDevice.getSelectionModel().clearSelection();
-
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDevicePOE.setSelected(false);
-            btnAddDevice.setText("Gem Enhed");
-            btnDeviceShow.setText("Vis Enhed");
-        }
-    }
 
     public void creatingDevice(){
+
         // Get User Information
         String description = txtDeviceDescription.getText();
         String remarks = "txtFieldFirstName.getText();";
@@ -306,6 +286,65 @@ public class DocumentationViewController extends BaseController implements Initi
         setTableDevice();
     }
 
+
+
+    public void handleAddSketch(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DrawingProgram.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        DrawingProgram drawingProgram = loader.getController();
+        drawingProgram.setDocumentationController(this);
+
+        stage.setTitle("Tegne Program");
+        stage.show();
+
+    }
+
+    public void setCanvasImage(Image canvasImage) {canvasImageView.setImage(canvasImage);}
+
+    public void handleUploadSketch(ActionEvent actionEvent) {uploadImage();}
+
+    public void handleFinishSketch(ActionEvent actionEvent) {
+    }
+
+    public void handleSaveSketch(ActionEvent actionEvent) throws IOException {
+    if(btnSaveSketch.getText().equals("Gem Tegning"))
+        saveSketch();
+        setSketchTable();
+    }
+
+    public void handleShowSketch(ActionEvent actionEvent) {
+
+        txtAreaSketch.setWrapText(true);
+
+        BE.DBEnteties.Image selectedImage = tableSketch.getSelectionModel().getSelectedItem();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(selectedImage.getData());
+
+        Image sketchForShow = new Image(inputStream);
+
+        canvasImageView.setImage(sketchForShow);
+
+        txtTitleSketch.setText(selectedImage.getDescription());
+        txtAreaSketch.setText(selectedImage.getRemarks());
+
+        updateButtonsSketch();
+    }
+
+    public void handleRemoveSketch(ActionEvent actionEvent) {
+    }
+    public void uploadImage() {
+
+        FileChooser fc = new FileChooser();
+        Stage stage = (Stage) billagBillede.getScene().getWindow();
+        imgFile = fc.showOpenDialog(stage);
+
+        if(imgFile != null) {
+            javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
+            billagBillede.setImage(image);
+        }
+    }
     public void updatingDevice(){
         // Get User Information
 
@@ -339,21 +378,111 @@ public class DocumentationViewController extends BaseController implements Initi
 
         setTableDevice();
     }
+    public void updateButtonAndFieldsDevice() {
 
-    public void handleAddSketch(ActionEvent actionEvent) throws IOException {
+        if (btnDeviceShow.getText().equals("Vis Enhed")) {
+            // Run current method
+            btnAddDevice.setText("Opdater Enhed");
+            btnDeviceShow.setText("Stop Visning");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DrawingProgram.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        DrawingProgram drawingProgram = loader.getController();
-        drawingProgram.setDocumentationController(this);
-        stage.setTitle("electedUser.getLoginName()");
-        stage.show();
+        } else if (btnDeviceShow.getText().equals("Stop Visning")) {
 
+            tableDevice.getSelectionModel().clearSelection();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDevicePOE.setSelected(false);
+            btnAddDevice.setText("Gem Enhed");
+            btnDeviceShow.setText("Vis Enhed");
+        }
     }
 
-    public void setCanvasImage(Image canvasImage) {
-        canvasImageView.setImage(canvasImage);
+    public void updateButtonsSketch(){
+
+        if (btnDeviceShow.getText().equals("Vis Tegning")) {
+
+            // Run current method
+            btnAddDevice.setText("Opdater Tegning");
+            btnDeviceShow.setText("Stop Visning");
+
+        }
+
+        else if (btnDeviceShow.getText().equals("Stop Visning")) {
+
+            tableSketch.getSelectionModel().clearSelection();
+
+            txtTitleSketch.setText("");
+            txtAreaSketch.setText("");
+
+            canvasImageView.setImage(null);
+
+            btnAddDevice.setText("Gem Tegning");
+            btnDeviceShow.setText("Vis Tegning");
+        }
     }
+    public void saveSketch(){
+
+        txtAreaSketch.setWrapText(true);
+
+        int installationId = 1;
+        String description = txtTitleSketch.getText();
+        String remarks = txtAreaSketch.getText();
+        int imageType = 2;
+
+        Image imageCanvas = canvasImageView.getImage();
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imageCanvas, null);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(bufferedImage, "jpg", bos);
+        } catch (IOException e) {
+
+        }
+
+        byte[] data = bos.toByteArray();
+
+        BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
+
+        try {
+            ImageManager.createImage(image);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+        txtAreaSketch.setText("");
+        txtTitleSketch.setText("");
+
+        canvasImageView.setImage(null);
+    }
+
+    public void setSketchTable(){
+
+        ImageModel imageModel = new ImageModel();
+        this.imageModel = imageModel;
+
+        columnSketchID.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, Integer>("Id"));
+        columnSketchTitle.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, String>("Description"));
+
+        ObservableList<BE.DBEnteties.Image> allImages = imageModel.getImageList(1);
+        ObservableList<BE.DBEnteties.Image> filteredImages = FXCollections.observableArrayList();
+
+        for (BE.DBEnteties.Image imageListing: allImages){
+            if (imageListing.getImageType() == 2){
+                filteredImages.add(imageListing);
+            }
+
+        }
+        try {
+            tableSketch.setItems(filteredImages);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

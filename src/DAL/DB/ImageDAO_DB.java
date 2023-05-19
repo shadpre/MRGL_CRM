@@ -78,8 +78,8 @@ public class ImageDAO_DB {
 
     public static Image updateImage(Image image) throws SQLException, ImageNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "UPDATE Images" +
-                    "SET Installation Id = ?, Description = ?, Remarks = ?, Data = ?, Imagetype = ?" +
+            String query = "UPDATE Images " +
+                    "SET Installation Id = ?, Description = ?, Remarks = ?, Data = ?, Imagetype = ? " +
                     "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
