@@ -71,7 +71,7 @@ TableView {
 
 
 .table-view .column-header-background {
-    -fx-pref-height: 35px;
+    -fx-pref-height: 45px;
     -fx-background-radius: 8px;
     -fx-background-color: linear-gradient(to bottom, #404040, #333333);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 2, 2);
@@ -108,6 +108,51 @@ TableView {
     -fx-pref-height: 30px;
 }
 
+/* Scrollbar track */
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-min-width: 16px;
+}
+
+/* Scrollbar thumb */
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #333333;
+    -fx-background-radius: 8px;
+    -fx-min-width: 16px; /* Adjust width as desired */
+}
+
+/* Scrollbar thumb on hover */
+.table-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #555555;
+}
+
+/* Scrollbar thumb when pressed */
+.table-view .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #111111;
+}
+
+/* Scrollbar corner */
+.table-view .scroll-bar:vertical .corner {
+    -fx-background-color: transparent;
+}
+
+/* Scrollbar track background */
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+/* Scrollbar increment and decrement buttons */
+.table-view .scroll-bar:vertical .increment-arrow,
+.table-view .scroll-bar:vertical .decrement-arrow {
+    -fx-shape: " ";
+    -fx-background-color: transparent;
+}
+
+
+
+
 .text-area
 {
     -fx-text-fill: #333333;
@@ -136,4 +181,14 @@ TableView {
     -fx-effect: dropshadow(gaussian, rgba(20,20,220,0.3), 10, 0, 3, 3);
 }
 
+
+.symbol-button {
+    -fx-background-image: url('/data/images/Editbtn01.png');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 5px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
 

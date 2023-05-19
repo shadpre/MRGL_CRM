@@ -7,8 +7,9 @@ import BLL.Managers.ImageManager;
 import GUI.Model.CustomerModel;
 import GUI.Model.DeviceModel;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 
@@ -220,6 +221,7 @@ public class DocumentationViewController extends BaseController implements Initi
         columnDeviceSubnet.setCellValueFactory(new PropertyValueFactory<Device, String>("SubnetMask"));
         columnDeviceUsername.setCellValueFactory(new PropertyValueFactory<Device, String>("UserName"));
         columnDevicePassword.setCellValueFactory(new PropertyValueFactory<Device, String>("Password"));
+
         try {
             tableDevice.setItems(DeviceModel.getDeviceList(1));
         } catch (Exception e) {
@@ -331,4 +333,13 @@ public class DocumentationViewController extends BaseController implements Initi
         setTableDevice();
     }
 
+    public void handleAddSketch(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DrawingProgram.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("electedUser.getLoginName()");
+        stage.show();
+    }
 }
