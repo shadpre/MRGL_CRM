@@ -11,6 +11,8 @@ public class UserModel {
 
     private UserManager userManager;
 
+    private int role;
+
     public UserManager getUserManager() {
         return userManager;
     }
@@ -22,25 +24,34 @@ public class UserModel {
     public User getUser(String LoginName, String Password) throws Exception {
         return UserManager.getUser(LoginName, Password);
     }
-    public static User createUser(User user, String Password) throws Exception{
+
+    public static User createUser(User user, String Password) throws Exception {
         String hash = PasswordHash.encryptPassword(Password);
-        if (UserDAO_DB.loginNameAvailible(user.getLoginName())){
+        if (UserDAO_DB.loginNameAvailible(user.getLoginName())) {
             return UserDAO_DB.createUser(user, hash);
-        }
-        else throw new RuntimeException("User not created");
+        } else throw new RuntimeException("User not created");
     }
 
-    public ObservableList<User> getAllUsers(){
-        ObservableList<User>  out;
+    public ObservableList<User> getAllUsers() {
+        ObservableList<User> out;
         try {
-            out =  FXCollections.observableArrayList(UserManager.getAllUsers());
+            out = FXCollections.observableArrayList(UserManager.getAllUsers());
         } catch (Exception e) {
             throw new RuntimeException("404");
         }
         return out;
     }
 
-    public User getSelectedUser(User selectedUser){return selectedUser;}
+    public User getSelectedUser(User selectedUser) {
 
-    public void setSelectedUser(User selectedUser){this.selectedUser = selectedUser;}
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+
+        this.selectedUser = selectedUser;
+    }
+
+
 }
+
