@@ -472,13 +472,8 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
 
-    public void Setup(UserModel userModel){
+    public void Setup(UserModel userModel, int role){
 
-        this.userModel = userModel;
-
-        int role = 3;
-
-        System.out.println("Role Value" + role);
 
         if (role == 0){
 
