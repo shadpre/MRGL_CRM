@@ -212,9 +212,9 @@ public class DrawingProgram extends BaseController implements Initializable {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());  // Clear the canvas
 
             gc.setStroke(colorPicker.getValue());
-            gc.setLineWidth(2.0);  // Adjust the line width as desired
+            gc.setLineWidth(4.0);
 
-            redrawCanvas();  // Redraw all the previously stored lines
+            redrawCanvas();
 
             gc.strokeLine(currentLine.getStartX(), currentLine.getStartY(), currentX, currentY);  // Draw the current line
         }
@@ -231,24 +231,34 @@ public class DrawingProgram extends BaseController implements Initializable {
 
     public void onMouseReleased(MouseEvent event) {
 
-        if (event.isPrimaryButtonDown() && currentLine != null) {  // Check if the left mouse button is released
-            double endX = event.getX();
-            double endY = event.getY();
-            currentLine.setEndX(endX);
-            currentLine.setEndY(endY);
-            currentLine = null;
-        }
-
+        double endX = event.getX();
+        double endY = event.getY();
+        LineSegment newLine = new LineSegment(startX, startY, endX, endY);
+        lines.add(newLine);
+        redrawCanvas();
+        startX = endX; // Update the startX and startY for the next line
+        startY = endY;
     }
 
     private void redrawCanvas() {
+
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         gc.setStroke(colorPicker.getValue());
-        gc.setLineWidth(2.0);  // Adjust the line width as desired
+        gc.setLineWidth(4.0);
 
         for (LineSegment line : lines) {
             gc.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
-        }
+        }}
+
+    public void handleRemoveLines(ActionEvent actionEvent) {
+        lines.clear();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    public void handleRemoveLastLine(ActionEvent actionEvent) {
+        int max = lines.size();
+        lines.remove(max-1);
+        redrawCanvas();
     }
 }
