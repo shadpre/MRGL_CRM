@@ -209,9 +209,11 @@ public class DocumentationViewController extends BaseController implements Initi
         FileChooser fc = new FileChooser();
         Stage stage = (Stage) billagBillede.getScene().getWindow();
         imgFile = fc.showOpenDialog(stage);
-        javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
-        billagBillede.setImage(image);
 
+        if(imgFile != null) {
+            javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
+            billagBillede.setImage(image);
+        }
     }
 
 
@@ -253,10 +255,12 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void updateButtonAndFields() {
+
         if (btnDeviceShow.getText().equals("Vis Enhed")) {
             // Run current method
             btnAddDevice.setText("Opdater Enhed");
             btnDeviceShow.setText("Stop Visning");
+
         } else if (btnDeviceShow.getText().equals("Stop Visning")) {
 
             tableDevice.getSelectionModel().clearSelection();

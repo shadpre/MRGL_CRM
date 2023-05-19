@@ -160,7 +160,7 @@ TableView {
     -fx-font-size: 16px;
     -fx-control-inner-background: white;
     -fx-border-color: rgba(20, 20, 220, 0.3);
-    -fx-border-width: medium;
+    -fx-border-width: 2px;
     -fx-border-radius: 7px;
     -fx-border-style: solid solid solid solid;
     -fx-background-radius: 7px;
@@ -174,7 +174,7 @@ TableView {
     -fx-wrap-text: true;
     -fx-control-inner-background: white;
     -fx-border-color: rgba(20, 20, 220, 0.3);
-    -fx-border-width: medium;
+    -fx-border-width: 2px;
     -fx-border-radius: 7px;
     -fx-border-style: solid solid solid solid;
     -fx-background-radius: 7px;
