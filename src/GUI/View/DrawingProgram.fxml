@@ -21,7 +21,7 @@
     <right>
         <VBox spacing="10" style="-fx-padding: 10px;">
             <Button onAction="#handleSymbol2ButtonClicked" text="Symbol 2" />
-            <Button onAction="#handleSymbol3ButtonClicked" text="Symbol 3" />
+            <Button fx:id="closeButton" onAction="#handleCloseWindow" text="Symbol 3" />
          <ImageView fx:id="symbol1" fitHeight="72.0" fitWidth="99.0" onDragDetected="#dragSymbolOne" onDragDone="#dragDoneSymbolOne" onMouseEntered="#mouseEnterSymbol" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../data/images/Editbtn01.png" />

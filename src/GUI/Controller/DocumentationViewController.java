@@ -37,6 +37,9 @@ import java.util.ResourceBundle;
 public class DocumentationViewController extends BaseController implements Initializable {
 
     private File imgFile;
+
+    @FXML
+    private ImageView canvasImageView;
     @FXML
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
@@ -339,7 +342,14 @@ public class DocumentationViewController extends BaseController implements Initi
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        DrawingProgram drawingProgram = loader.getController();
+        drawingProgram.setDocumentationController(this);
         stage.setTitle("electedUser.getLoginName()");
         stage.show();
+
+    }
+
+    public void setCanvasImage(Image canvasImage) {
+        canvasImageView.setImage(canvasImage);
     }
 }

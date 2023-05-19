@@ -1,23 +1,36 @@
 package GUI.Controller;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DrawingProgram extends BaseController implements Initializable {
 
-
+    private DocumentationViewController documentationViewController;
 
     @FXML
     private ImageView symbol1;
+
+    private Image canvasImage;
+
+    @FXML
+    private Button closeButton;
 
     @FXML
     private Canvas canvas;
@@ -31,10 +44,23 @@ public class DrawingProgram extends BaseController implements Initializable {
     public void handleSymbol1ButtonClicked(ActionEvent actionEvent) {
     }
 
-    public void handleSymbol3ButtonClicked(ActionEvent actionEvent) {
+    public void handleCloseWindow(ActionEvent actionEvent) {
+
+            // Create the canvas image
+            Image canvasImage = createCanvasImage();
+
+            // Set the image in the documentation controller
+            documentationViewController.setCanvasImage(canvasImage);
+
+            // Close the drawing program window
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+
     }
 
-
+    public void setCanvasImage(Image canvasImage) {
+        documentationViewController.setCanvasImage(canvasImage);
+    }
 
     public void dragSymbolOne(MouseEvent event) {
 
@@ -130,5 +156,28 @@ public class DrawingProgram extends BaseController implements Initializable {
 
     public void mouseEnterSymbol(MouseEvent event) {
         attachSymbolEventHandlers(symbol1);
+    }
+
+    public void saveCanvasAsImage() {
+        WritableImage writableImage = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+        canvas.snapshot(null, writableImage);
+        canvasImage = writableImage;
+    }
+
+    public void setDocumentationController(DocumentationViewController documentationController) {
+        this.documentationViewController = documentationController;
+    }
+
+    public Image createCanvasImage() {
+        // Get the current snapshot of the canvas
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT); // Set transparent background
+        WritableImage snapshot = canvas.snapshot(params, null);
+
+        // Convert the snapshot to a JavaFX Image
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(snapshot, null);
+        Image canvasImage = SwingFXUtils.toFXImage(bufferedImage, null);
+
+        return canvasImage;
     }
 }

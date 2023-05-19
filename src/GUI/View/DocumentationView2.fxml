@@ -706,7 +706,7 @@
                   <Insets left="480.0" top="300.0" />
                </StackPane.margin>
             </Button>
-            <ImageView fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="canvasImageView" fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
                <StackPane.margin>
                   <Insets bottom="400.0" right="450.0" />
                </StackPane.margin>
