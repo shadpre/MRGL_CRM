@@ -189,6 +189,8 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
     private UserModel userModel;
+
+    private User selectedUSer;
     private UserManager userManager;
     private CustomerModel customerModel;
     private CustomerManager customerManager;
@@ -472,7 +474,10 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
 
-    public void Setup(UserModel userModel, int role){
+    public void Setup(User selectedUser, LogInController logInController, UserModel userModel, int role){
+
+        this.selectedUSer = selectedUser;
+        this.userModel = userModel;
 
 
         if (role == 0){
@@ -540,6 +545,9 @@ public class MainView2Controller extends BaseController implements Initializable
             stackPaneAddCustomerCeo.setVisible(false);
 
         }
+
+
+        System.out.println(selectedUser.getRole() + "");
 
     }
 

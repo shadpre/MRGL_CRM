@@ -63,11 +63,13 @@ public class LogInController extends BaseController implements Initializable {
 
             MainView2Controller controller = loader.getController();
             controller.setUserModel(userModel);
-            controller.Setup(userModel, selectedUser.getRole());
+            controller.Setup(selectedUser, this, userModel, selectedUser.getRole());
 
 
         } else {
             throw new Exception("Invalid Username or password");
         }
     }
+
+    public User setSelectedUser(User selectedUser){return selectedUser;}
 }
