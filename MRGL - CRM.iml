@@ -12,5 +12,13 @@
     <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="project" />
     <orderEntry type="library" name="mindrot.jbcrypt" level="project" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
+    <orderEntry type="library" name="itextpdf.kernel" level="project" />
+    <orderEntry type="library" name="itextpdf.io" level="project" />
+    <orderEntry type="library" name="itextpdf.forms" level="project" />
+    <orderEntry type="library" name="itextpdf.hyph" level="project" />
+    <orderEntry type="library" name="itextpdf.layout" level="project" />
+    <orderEntry type="library" name="itextpdf.pdfa" level="project" />
+    <orderEntry type="library" name="itextpdf.sign" level="project" />
+    <orderEntry type="library" name="slf4j.simple" level="project" />
   </component>
 </module>
