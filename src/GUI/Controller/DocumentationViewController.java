@@ -310,7 +310,13 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void handleSaveSketch(ActionEvent actionEvent) throws IOException {
+
+        Image imageCanvas = canvasImageView.getImage();
+        System.out.println("imageCanvas: " + imageCanvas);
+
     if(btnSaveSketch.getText().equals("Gem Tegning"))
+
+
         saveSketch();
         setSketchTable();
     }
@@ -433,31 +439,65 @@ public class DocumentationViewController extends BaseController implements Initi
         int imageType = 2;
 
         Image imageCanvas = canvasImageView.getImage();
+
+        // Convert JavaFX Image to BufferedImage
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imageCanvas, null);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        // Write BufferedImage to a temporary file
+        File tempFile;
+        try {
+            tempFile = File.createTempFile("temp", ".jpg");
+            ImageIO.write(bufferedImage, "jpg", tempFile);
+        } catch (IOException e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return;
+        }
 
+        // Read the temporary file back into a BufferedImage for verification
+        BufferedImage verificationImage;
+        try {
+            verificationImage = ImageIO.read(tempFile);
+        } catch (IOException e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return;
+        }
+
+        // Check if the verification image is intact
+        if (verificationImage != null) {
+            System.out.println("Verification image is intact.");
+        } else {
+            System.out.println("Verification image is null. There might be an issue with the conversion.");
+        }
+
+        // Write the BufferedImage to a ByteArrayOutputStream
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             ImageIO.write(bufferedImage, "jpg", bos);
         } catch (IOException e) {
-
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return;
         }
 
+        // Get the byte[] data from the ByteArrayOutputStream
         byte[] data = bos.toByteArray();
 
+        // Create the Image object
         BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
 
+        // Save the image using ImageManager.createImage(image) or your corresponding logic
         try {
             ImageManager.createImage(image);
-
         } catch (Exception e) {
-
+            // Handle the exception appropriately
             throw new RuntimeException(e);
         }
 
+        // Clear fields and reset the canvasImageView
         txtAreaSketch.setText("");
         txtTitleSketch.setText("");
-
         canvasImageView.setImage(null);
     }
 
