@@ -1,5 +1,9 @@
 package BLL;
 
+import BE.DBEnteties.Customer;
+import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
+import DAL.DB.DatabaseConnector;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.color.Color;
@@ -15,16 +19,45 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DocumentGeneration {
-    public static void documentGeneration (String[] args) throws FileNotFoundException, MalformedURLException {
+    public static void documentGeneration(String[] args) throws FileNotFoundException, MalformedURLException, SQLException, DocumentNotFoundExeption {
 
         String path = "data/documents/Invtest.pdf";
+
+        ArrayList<BE.DBEnteties.Document> out = new ArrayList<>();
+
+        Connection conn = DatabaseConnector.getInstance().getConnection();{
+            String query =
+                    "SELECT Id, CustomerTaskId, Description, Remarks, FROM Documents";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            var rs = statement.executeQuery();
+
+            while(rs.next()){
+                out.add(new BE.DBEnteties.Document(
+                        rs.getInt("Id"),
+                        rs.getInt("CustomerTaskId"),
+                        rs.getString("Description"),
+                        rs.getString("Remarks")
+                ));
+            }
+            if (out.size() == 0){
+                throw new DocumentNotFoundExeption("No Document Found");
+            }
+        }
+
         String sketchDescription = "";
-        String taskDescription = "Tekst bliver i daglig tale tit identificeret med det medie, de fremstår i, og som sådan er begrebet en meget flertydig størrelse. En tekst er her f.eks. en bog, et brev eller en avis. Den kan også være en del af en større tekst, f.eks. en nærmere afgrænset del af bogen (i forskellige former for antologier og samlinger) et bestemt afsnit i brevet (eller f.eks. et bilag til brevet) eller en enkelt artikel i avisen.";
+        String taskDescription = conn.getSchema();
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);

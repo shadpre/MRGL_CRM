@@ -14,15 +14,15 @@ public class CustomerManager {
         return CustomerDAO_DB.getAllCustomers();
     }
 
-    public static Customer createCustomer(Customer customer) throws Exception{
+    public static Customer createCustomer(Customer customer) throws Exception {
 
-            return CustomerDAO_DB.createCustomer(customer);
-        }
+        return CustomerDAO_DB.createCustomer(customer);
+    }
 
-       // public static deleteCustomer(Customer selectedCustomer) throws Exception{
+   // public static Customer deleteCustomer(Customer selectedCustomer) throws Exception {
 
-
-        //}
+    //    return CustomerDAO_DB.deleteCustomer();
+    //}
 
     }
 
