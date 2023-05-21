@@ -19,5 +19,10 @@ public class CustomerManager {
             return CustomerDAO_DB.createCustomer(customer);
         }
 
+       // public static deleteCustomer(Customer selectedCustomer) throws Exception{
+
+
+        //}
+
     }
 

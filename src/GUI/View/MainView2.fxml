@@ -897,7 +897,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="txtFieldRemarksTasks" prefHeight="30.0" prefWidth="300.0">
+                        <TextField fx:id="txtFieldRemarksTask" prefHeight="30.0" prefWidth="300.0">
                            <HBox.margin>
                               <Insets left="80.0" />
                            </HBox.margin>
@@ -917,7 +917,7 @@
                               <Insets left="100.0" />
                            </HBox.margin>
                         </Label>
-                        <DatePicker fx:id="datePickerTasks" prefHeight="30.0" prefWidth="200.0">
+                        <DatePicker fx:id="datePickerTask" prefHeight="30.0" prefWidth="200.0">
                            <HBox.margin>
                               <Insets left="287.0" />
                            </HBox.margin>
@@ -929,7 +929,7 @@
                         <Insets top="40.0" />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="btnSaveUserCeo1" mnemonicParsing="false" onAction="#btnHandleSaveUserCeo" prefHeight="50.0" prefWidth="120.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
+                        <Button fx:id="btnSaveTaskCeo" mnemonicParsing="false" onAction="#btnHandleSaveTaskCeo" prefHeight="50.0" prefWidth="120.0" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Gem">
                            <font>
                               <Font name="Cambria Bold" size="20.0" />
                            </font>
@@ -955,7 +955,7 @@
                         <Insets left="210.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnUpdateUser" mnemonicParsing="false" onAction="#btnHandleUpdateUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
+                  <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
                      <font>
                         <Font name="Cambria Bold" size="20.0" />
                      </font>
@@ -963,7 +963,7 @@
                         <Insets left="40.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#btnHandleDeleteUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
+                  <Button fx:id="btnDeleteTask" mnemonicParsing="false" onAction="#btnHandleDeleteTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
                      <HBox.margin>
                         <Insets left="40.0" top="20.0" />
                      </HBox.margin>
@@ -1002,7 +1002,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
+                  <Button fx:id="btnUpdateUser" mnemonicParsing="false" onAction="#btnHandleUpdateUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
                      <font>
                         <Font name="Cambria Bold" size="20.0" />
                      </font>
@@ -1010,7 +1010,7 @@
                         <Insets left="380.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnDeleteTask" mnemonicParsing="false" onAction="#btnHandleDeleteTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
+                  <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#btnHandleDeleteUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
                      <font>
                         <Font name="Cambria Bold" size="20.0" />
                      </font>

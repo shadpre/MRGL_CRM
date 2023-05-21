@@ -17,4 +17,5 @@ public class CustomerTaskModel {
         }
         return out;
     }
+
 }
