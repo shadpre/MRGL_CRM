@@ -686,7 +686,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void updateFieldsWiFi(){
 
-        if (btnDeviceShow.getText().equals("Vis Enhed")) {
+        if (btnDeviceShow.getText().equals("Vis WiFi")) {
             // Run current method
             btnAddDevice.setText("Opdater Enhed");
             btnDeviceShow.setText("Stop Visning");

@@ -98,9 +98,9 @@
                   <Insets bottom="740.0" />
                </StackPane.margin>
             </Label>
-            <TableView prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
+            <TableView fx:id="tableWiFi" prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
                <columns>
-                  <TableColumn fx:id="tableWiFi" prefWidth="448.0" text="Alle WiFi knyttede til opgave">
+                  <TableColumn prefWidth="448.0" text="Alle WiFi knyttede til opgave">
                      <columns>
                         <TableColumn fx:id="columnWiFiSSID" prefWidth="210.0" text="SSID" />
                         <TableColumn fx:id="columnWiFiPassword" prefWidth="175.0" text="Password" />
