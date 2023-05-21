@@ -1,6 +1,5 @@
 package GUI.Controller;
 
-import BE.Exptions.UserValidationExeption;
 import BE.DBEnteties.User;
 import GUI.Model.UserModel;
 import javafx.event.ActionEvent;
@@ -20,7 +19,7 @@ import java.util.ResourceBundle;
 public class LogInController extends BaseController implements Initializable {
     private UserModel userModel;
 
-    private MainView2Controller mainView2Controller;
+    private MainViewController mainViewController;
 
     private User selectedUser;
 
@@ -37,8 +36,8 @@ public class LogInController extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
             userModel = new UserModel();
             this.userModel = userModel;
-            mainView2Controller = new MainView2Controller();
-            this.mainView2Controller = mainView2Controller;
+            mainViewController = new MainViewController();
+            this.mainViewController = mainViewController;
 
     }
 
@@ -54,14 +53,14 @@ public class LogInController extends BaseController implements Initializable {
             userModel.setSelectedUser(selectedUser);
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView2.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(selectedUser.getLoginName());
             stage.show();
 
-            MainView2Controller controller = loader.getController();
+            MainViewController controller = loader.getController();
             controller.setUserModel(userModel);
             controller.Setup(selectedUser, this, userModel, selectedUser.getRole());
 

@@ -2,12 +2,17 @@ package GUI.Controller;
 
 
 import BE.DBEnteties.Device;
+import BE.DBEnteties.Network;
+import BE.DBEnteties.WiFi;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BLL.Managers.DeviceManager;
 import BLL.Managers.ImageManager;
+import BLL.Managers.WiFiManager;
 import GUI.Model.CustomerModel;
 import GUI.Model.DeviceModel;
 import GUI.Model.ImageModel;
+import GUI.Model.WiFiModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -52,36 +57,54 @@ public class DocumentationViewController extends BaseController implements Initi
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
     @FXML
-    private Button btnExit, billagUpload,btnDeviceShow, btnAddDevice, btnShowSketch, btnSaveSketch;
+    private Button btnExit, billagUpload, btnDeviceShow, btnAddDevice, btnShowSketch, btnSaveSketch, btnSave;
 
     @FXML
-    private TextArea txtDeviceDescription, billagKommentar, txtAreaSketch;
+    private TextArea txtDeviceDescription, billagKommentar, txtAreaSketch, txtAreaWiFi, txtAreaNetwork;
 
     @FXML
-    private TextField txtDevicePassword, txtDeviceSubnet, txtDeviceUsername, txtDeviceIp;
+    private TextField txtDevicePassword, txtDeviceSubnet, txtDeviceUsername, txtDeviceIp, txtDeviceName;
 
     @FXML
-    private TextField txtTitleSketch;
+    private TextField txtWiFiPassword, txtWiFiSSID, txtWiFiName, txtNetworkIP, txtNetworkName, txtNetworkDefault, txtNetworkSubnet;
 
-    @FXML CheckBox txtDevicePOE;
+    @FXML
+    private TextField txtTitleSketch, txtBillagNavn;
+
+    @FXML CheckBox txtDevicePOE, networkPOE;
+
+    @FXML
+    private TableView<WiFi> tableWiFi;
+
+    @FXML
+    private TableColumn<WiFi, String> columnWiFiSSID, columnWiFiName, columnWiFiPassword;
+
+    @FXML
+    private TableView<Network> tableNetwork;
+
+    @FXML
+    private TableColumn<Network, String> columnNetworkSubnet, columnNetworkName, columnNetworkIP, columnNetworkPOE, columnNetworkDefault;
+
+    @FXML
+    private TableView<BE.DBEnteties.Image> tableSketch, tableBillag;
+
+    @FXML
+    private TableColumn<BE.DBEnteties.Image, String> columnSketchTitle, columnBillagNavn;
+
+    @FXML
+    private TableColumn<BE.DBEnteties.Image, Integer> columnSketchID, columnBillagID;
+
     @FXML
     private TableView<Device> tableDevice;
 
-    @FXML TableView<BE.DBEnteties.Image> tableSketch;
-
     @FXML
-    private TableColumn<BE.DBEnteties.Image, String> columnSketchTitle;
-
-    @FXML
-    private TableColumn<BE.DBEnteties.Image, Integer> columnSketchID;
-
-    @FXML
-    private TableColumn<Device, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet;
+    private TableColumn<Device, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet, columnDeviceName;
 
     private DeviceManager deviceManager;
     private DeviceModel deviceModel;
     private ImageModel imageModel;
 
+    private WiFiModel wiFiModel;
     private File imgFile;
 
     @Override
@@ -151,38 +174,6 @@ public class DocumentationViewController extends BaseController implements Initi
         stage.close();
     }
 
-
-
-    public void handleAddDevice(ActionEvent actionEvent) {
-
-        if (btnAddDevice.getText().equals("Gem Enhed")) {
-
-            creatingDevice();
-
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDevicePOE.setSelected(false);
-
-
-        } else if (btnAddDevice.getText().equals("Opdater Enhed")) {
-
-            updatingDevice();
-
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDevicePOE.setSelected(false);
-            btnAddDevice.setText("Gem Enhed");
-            btnDeviceShow.setText("Vis Enhed");
-        }
-
-    }
-
     public void handleBillagSaveUpdate(ActionEvent actionEvent) throws IOException {
 
         billagKommentar.setWrapText(true);
@@ -218,23 +209,47 @@ public class DocumentationViewController extends BaseController implements Initi
         uploadImage();
     }
 
-
-    public void setTableDevice(){
-
-        DeviceModel deviceModel = new DeviceModel();
-        this.deviceModel = deviceModel;
-
-        columnDeviceIP.setCellValueFactory(new PropertyValueFactory<Device, String>("IP"));
-        columnDeviceSubnet.setCellValueFactory(new PropertyValueFactory<Device, String>("SubnetMask"));
-        columnDeviceUsername.setCellValueFactory(new PropertyValueFactory<Device, String>("UserName"));
-        columnDevicePassword.setCellValueFactory(new PropertyValueFactory<Device, String>("Password"));
-
-        try {
-            tableDevice.setItems(DeviceModel.getDeviceList(1));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void handleCloseBillag(ActionEvent actionEvent) {
     }
+
+    public void handleShowBillag(ActionEvent actionEvent) {
+    }
+
+    public void handleDeleteBillag(ActionEvent actionEvent) {
+    }
+    public void handleAddDevice(ActionEvent actionEvent) {
+
+        if (btnAddDevice.getText().equals("Gem Enhed")) {
+
+            creatingDevice();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDeviceName.setText("");
+            txtDevicePOE.setSelected(false);
+
+
+        } else if (btnAddDevice.getText().equals("Opdater Enhed")) {
+
+            updatingDevice();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDeviceName.setText("");
+            txtDevicePOE.setSelected(false);
+            btnAddDevice.setText("Gem Enhed");
+            btnDeviceShow.setText("Vis Enhed");
+        }
+
+    }
+
+
 
     public void handleDeviceShow(ActionEvent actionEvent) {
 
@@ -247,6 +262,7 @@ public class DocumentationViewController extends BaseController implements Initi
                 txtDevicePassword.setText(selectedDevice.getPassword());
                 txtDeviceSubnet.setText(selectedDevice.getSubnetMask());
                 txtDeviceUsername.setText(selectedDevice.getUserName());
+                txtDeviceName.setText(selectedDevice.getDescription());
 
                 if (selectedDevice.isPOE() == true) {
                     txtDevicePOE.setSelected(true);
@@ -256,40 +272,34 @@ public class DocumentationViewController extends BaseController implements Initi
             updateButtonAndFieldsDevice();
     }
 
+    public void handleCancelDevice(ActionEvent actionEvent) {
+        handleSketch(null);
 
+        tableDevice.getSelectionModel().clearSelection();
 
-    public void creatingDevice(){
+        txtDeviceDescription.setText("");
+        txtDeviceIp.setText("");
+        txtDevicePassword.setText("");
+        txtDeviceSubnet.setText("");
+        txtDeviceUsername.setText("");
+        txtDevicePOE.setSelected(false);
+        txtDeviceName.setText("");
+        btnAddDevice.setText("Gem Enhed");
+        btnDeviceShow.setText("Vis Enhed");
+    }
 
-        // Get User Information
-        String description = txtDeviceDescription.getText();
-        String remarks = "txtFieldFirstName.getText();";
-        String IP = txtDeviceIp.getText();
-        String password = txtDevicePassword.getText();
-        String subnetMask = txtDeviceSubnet.getText();
-        int installationID = 1;
-        String userName = txtDeviceUsername.getText();
-        Boolean isPOE = false;
+    public void handleDeleteDevice(ActionEvent actionEvent) throws DeviceNotFoundExeption {
 
-        if (txtDevicePOE.isSelected()) {
-            Boolean isPoe = true;
-        }
+        Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
 
-        Device device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
-
-
-        try {
-
-            deviceManager.createDevice(device);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException(e);
+        try{
+            deviceManager.deleteDevice(selectedDevice.getId());
+        } catch (SQLException e) {
+            throw new DeviceNotFoundExeption("device not found");
         }
 
         setTableDevice();
     }
-
-
 
     public void handleAddSketch(ActionEvent actionEvent) throws IOException {
 
@@ -319,7 +329,6 @@ public class DocumentationViewController extends BaseController implements Initi
 
     if(btnSaveSketch.getText().equals("Gem Tegning"))
 
-
         saveSketch();
         setSketchTable();
     }
@@ -341,17 +350,103 @@ public class DocumentationViewController extends BaseController implements Initi
         updateButtonsSketch();
     }
 
-    public void handleRemoveSketch(ActionEvent actionEvent) {
+    public void handleRemoveSketch(ActionEvent actionEvent)  {
+        BE.DBEnteties.Image selectedImage = tableSketch.getSelectionModel().getSelectedItem();
+        try{
+            ImageManager.deleteImage(selectedImage.getId());
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ImageNotFoundExeption e) {
+            throw new RuntimeException(e);
+        }
     }
-    public void uploadImage() {
+    public void handleCreateWiFi(ActionEvent actionEvent) {
+    }
 
-        FileChooser fc = new FileChooser();
-        Stage stage = (Stage) billagBillede.getScene().getWindow();
-        imgFile = fc.showOpenDialog(stage);
+    public void handleCancelWiFi(ActionEvent actionEvent) {
+    }
 
-        if(imgFile != null) {
-            javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
-            billagBillede.setImage(image);
+    public void handleShowWiFi(ActionEvent actionEvent) {
+    }
+
+    public void handleDeleteWiFi(ActionEvent actionEvent) {
+    }
+
+    public void handleSaveNetwork(ActionEvent actionEvent) {
+    }
+
+    public void handleCancelNetwork(ActionEvent actionEvent) {
+    }
+
+    public void handleShowNetwork(ActionEvent actionEvent) {
+    }
+
+    public void handleDeleteNetwork(ActionEvent actionEvent) {
+    }
+
+    public void createBillag(){
+
+    }
+
+    public void updateBillag(){
+
+    }
+
+    public void updateFieldsBillag(){
+
+    }
+
+    public void setTableBillag(){
+
+    }
+
+
+    public void creatingDevice(){
+
+        // Get User Information
+        String description = txtDeviceName.getText();
+        String remarks = txtDeviceDescription.getText();
+        String IP = txtDeviceIp.getText();
+        String password = txtDevicePassword.getText();
+        String subnetMask = txtDeviceSubnet.getText();
+        int installationID = 1;
+        String userName = txtDeviceUsername.getText();
+        Boolean isPOE = false;
+
+        if (txtDevicePOE.isSelected()) {
+            Boolean isPoe = true;
+        }
+
+        Device device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
+
+
+        try {
+
+            deviceManager.createDevice(device);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+        setTableDevice();
+    }
+    public void setTableDevice(){
+
+        DeviceModel deviceModel = new DeviceModel();
+        this.deviceModel = deviceModel;
+
+        columnDeviceIP.setCellValueFactory(new PropertyValueFactory<Device, String>("IP"));
+        columnDeviceSubnet.setCellValueFactory(new PropertyValueFactory<Device, String>("SubnetMask"));
+        columnDeviceUsername.setCellValueFactory(new PropertyValueFactory<Device, String>("UserName"));
+        columnDevicePassword.setCellValueFactory(new PropertyValueFactory<Device, String>("Password"));
+        columnDeviceName.setCellValueFactory(new PropertyValueFactory<Device, String>("Description"));
+
+        try {
+            tableDevice.setItems(DeviceModel.getDeviceList(1));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
     public void updatingDevice(){
@@ -359,8 +454,8 @@ public class DocumentationViewController extends BaseController implements Initi
 
         Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
 
-        String description = txtDeviceDescription.getText();
-        String remarks = "txtFieldFirstName.getText();";
+        String description = txtDeviceName.getText();
+        String remarks = txtDeviceDescription.getText();
         String IP = txtDeviceIp.getText();
         String password = txtDevicePassword.getText();
         String subnetMask = txtDeviceSubnet.getText();
@@ -403,6 +498,7 @@ public class DocumentationViewController extends BaseController implements Initi
             txtDevicePassword.setText("");
             txtDeviceSubnet.setText("");
             txtDeviceUsername.setText("");
+            txtDeviceName.setText("");
             txtDevicePOE.setSelected(false);
             btnAddDevice.setText("Gem Enhed");
             btnDeviceShow.setText("Vis Enhed");
@@ -443,51 +539,44 @@ public class DocumentationViewController extends BaseController implements Initi
 
         Image imageCanvas = canvasImageView.getImage();
 
-        // Convert JavaFX Image to BufferedImage
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imageCanvas, null);
 
-        // Write BufferedImage to a temporary file
         File tempFile;
         try {
             tempFile = File.createTempFile("temp", ".jpg");
             ImageIO.write(bufferedImage, "jpg", tempFile);
         } catch (IOException e) {
-            // Handle the exception appropriately
+
             e.printStackTrace();
             return;
         }
 
-        // Read the temporary file back into a BufferedImage for verification
         BufferedImage verificationImage;
         try {
             verificationImage = ImageIO.read(tempFile);
         } catch (IOException e) {
-            // Handle the exception appropriately
+
             e.printStackTrace();
             return;
         }
 
-        // Check if the verification image is intact
         if (verificationImage != null) {
             System.out.println("Verification image is intact.");
         } else {
             System.out.println("Verification image is null. There might be an issue with the conversion.");
         }
 
-        // Write the BufferedImage to a ByteArrayOutputStream
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             ImageIO.write(bufferedImage, "jpg", bos);
         } catch (IOException e) {
-            // Handle the exception appropriately
             e.printStackTrace();
             return;
         }
 
-        // Get the byte[] data from the ByteArrayOutputStream
+
         byte[] data = bos.toByteArray();
 
-        // Create the Image object
         BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
 
         // Save the image using ImageManager.createImage(image) or your corresponding logic
@@ -528,32 +617,130 @@ public class DocumentationViewController extends BaseController implements Initi
         }
     }
 
-    public void handleDeleteDevice(ActionEvent actionEvent) throws DeviceNotFoundExeption {
+    public void uploadImage() {
 
-        Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
+        FileChooser fc = new FileChooser();
+        Stage stage = (Stage) billagBillede.getScene().getWindow();
+        imgFile = fc.showOpenDialog(stage);
 
-        try{
-            deviceManager.deleteDevice(selectedDevice.getId());
-        } catch (SQLException e) {
-            throw new DeviceNotFoundExeption("device not found");
+        if (imgFile != null) {
+            javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
+            billagBillede.setImage(image);
+        }
+    }
+
+    public void createWiFi(){
+
+        // Get User Information
+        String description = txtWiFiName.getText();
+        String remarks = txtAreaWiFi.getText();
+        String PSK = txtWiFiPassword.getText();
+        String SSID = txtWiFiSSID.getText();
+        int installationID = 1;
+
+
+
+        WiFi wifi = new WiFi(0, installationID, description, remarks, SSID, PSK);
+
+        try {
+
+            WiFiManager.createWiFi(wifi);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
         }
 
-        setTableDevice();
-    }
-
-    public void handleCancelDevice(ActionEvent actionEvent) {
-        handleSketch(null);
-
-        tableDevice.getSelectionModel().clearSelection();
-
-        txtDeviceDescription.setText("");
-        txtDeviceIp.setText("");
-        txtDevicePassword.setText("");
-        txtDeviceSubnet.setText("");
-        txtDeviceUsername.setText("");
-        txtDevicePOE.setSelected(false);
-        btnAddDevice.setText("Gem Enhed");
-        btnDeviceShow.setText("Vis Enhed");
+        setTableWiFi();
 
     }
+    public void updateWiFi(){
+
+        WiFi selectedWiFi = tableWiFi.getSelectionModel().getSelectedItem();
+
+        String description = txtWiFiName.getText();
+        String remarks = txtAreaWiFi.getText();
+        String PSK = txtWiFiPassword.getText();
+        String SSID = txtWiFiSSID.getText();
+        int installationID = selectedWiFi.getInstallationId();
+        int Id = selectedWiFi.getId();
+
+        if (txtDevicePOE.isSelected()) {
+            Boolean isPoe = true;
+        }
+
+        WiFi wifi = new WiFi(Id, installationID, description, remarks, SSID, PSK);
+
+
+        try {
+
+            WiFiManager.updateWiFi(wifi);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+        setTableWiFi();
+    }
+
+    public void updateFieldsWiFi(){
+
+        if (btnDeviceShow.getText().equals("Vis Enhed")) {
+            // Run current method
+            btnAddDevice.setText("Opdater Enhed");
+            btnDeviceShow.setText("Stop Visning");
+
+        } else if (btnDeviceShow.getText().equals("Stop Visning")) {
+
+            tableDevice.getSelectionModel().clearSelection();
+
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDeviceName.setText("");
+            txtDevicePOE.setSelected(false);
+            btnAddDevice.setText("Gem Enhed");
+            btnDeviceShow.setText("Vis Enhed");
+        }
+
+    }
+
+    public void setTableWiFi(){
+
+
+        WiFiModel wiFiModel = new WiFiModel();
+        this.wiFiModel = new WiFiModel();
+
+
+        columnWiFiName.setCellValueFactory(new PropertyValueFactory<WiFi, String>("PSK"));
+        columnWiFiPassword.setCellValueFactory(new PropertyValueFactory<WiFi, String>("Description"));
+        columnWiFiSSID.setCellValueFactory(new PropertyValueFactory<WiFi, String>("SSID"));
+
+        try {
+            tableWiFi.setItems(WiFiModel.getWiFis(1));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void createNetwork(){
+
+    }
+    public void updateNetwork(){
+
+    }
+
+    public void updateFieldsNetwork(){
+
+    }
+
+    public void setTableNetwork(){
+
+    }
+
+
 }

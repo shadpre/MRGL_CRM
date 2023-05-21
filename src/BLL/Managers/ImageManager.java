@@ -25,4 +25,8 @@ public class ImageManager {
     public static ArrayList<Image> getImageList(int installationID) throws SQLException, ImageNotFoundExeption {
         return ImageDAO_DB.getImageList(installationID);
     }
+
+    public static void deleteImage(int id) throws SQLException, ImageNotFoundExeption{
+        ImageManager.deleteImage(id);
+    }
 }

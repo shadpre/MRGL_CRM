@@ -2,168 +2,803 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="941.0" stylesheets="@../StyleSheet/Styleguide.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainViewController">
-   <left>
-      <VBox prefHeight="679.0" prefWidth="245.0" BorderPane.alignment="CENTER">
+<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.DocumentationViewController">
+   <children>
+      <StackPane fx:id="paneWiFi" layoutX="329.0" layoutY="85.0" prefHeight="792.0" prefWidth="1005.0" style="-fx-background-color: #f2f2f2;">
          <children>
-            <Button fx:id="udfyldDocu" mnemonicParsing="false" prefHeight="78.0" prefWidth="256.0" text="Udfyld Dokumentation">
-               <VBox.margin>
-                  <Insets bottom="25.0" top="50.0" />
-               </VBox.margin>
+            <TextArea fx:id="txtAreaWiFi" prefHeight="333.0" prefWidth="335.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="500.0" right="20.0" top="85.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Tilføj kommentar til WiFi" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="650.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="556.0" layoutY="319.0" text="SSID" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="470.0" right="490.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtWiFiSSID" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="400.0" left="20.0" right="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="280.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="345.0" top="435.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="btnCreateWiFi" mnemonicParsing="false" onAction="#handleCreateWiFi" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem WiFi">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" />
+               </StackPane.margin>
             </Button>
-            <Button fx:id="uploadBillag" mnemonicParsing="false" prefHeight="78.0" prefWidth="256.0" text="Upload Billag">
-               <VBox.margin>
-                  <Insets bottom="25.0" top="10.0" />
-               </VBox.margin>
+            <Button fx:id="btnCancelWiFi" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleCancelWiFi" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="480.0" top="700.0" />
+               </StackPane.margin>
             </Button>
-            <Button fx:id="netværk" mnemonicParsing="false" prefHeight="78.0" prefWidth="256.0" text="Order Information">
-               <VBox.margin>
-                  <Insets bottom="25.0" top="10.0" />
-               </VBox.margin>
+            <Label layoutX="171.0" layoutY="219.0" text="Password" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="270.0" right="490.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtWiFiPassword" layoutX="30.0" layoutY="283.0" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="185.0" left="20.0" right="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="373.0" layoutY="474.0" text="WiFi Information" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <columns>
+                  <TableColumn fx:id="tableWiFi" prefWidth="448.0" text="Alle WiFi knyttede til opgave">
+                     <columns>
+                        <TableColumn fx:id="columnWiFiSSID" prefWidth="210.0" text="SSID" />
+                        <TableColumn fx:id="columnWiFiPassword" prefWidth="175.0" text="Password" />
+                        <TableColumn fx:id="columnWiFiName" prefWidth="154.0" text="Titel" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="450.0" top="465.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnShowWiFi" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleShowWiFi" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis WiFi">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="500.0" />
+               </StackPane.margin>
             </Button>
-         </children>
-      </VBox>
-   </left>
-   <center>
-      <StackPane prefHeight="679.0" prefWidth="745.0" BorderPane.alignment="CENTER">
-         <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <top>
-                  <HBox prefHeight="202.0" prefWidth="730.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER">
-                     <children>
-                        <ImageView fitHeight="202.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <VBox prefHeight="202.0" prefWidth="387.0">
-                           <children>
-                              <Button fx:id="orderInfo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="348.0" style="-fx-background-color: darkorange; -fx-text-fill: white;" text="Tilføj Netværks oplysninger" textFill="WHITE">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" top="2.0" />
-                                 </VBox.margin>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </top>
-               <left>
-                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="482.0" prefWidth="231.0" BorderPane.alignment="TOP_LEFT">
-                     <children>
-                        <ButtonBar prefHeight="98.0" prefWidth="231.0">
-                          <buttons>
-                            <Button fx:id="too" mnemonicParsing="false" prefHeight="50.0" prefWidth="126.0" text="Upload Sketch">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="13.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="me" layoutX="134.0" layoutY="34.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="107.0" text="Upload Sketch">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="13.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets right="5.0" />
-                                 </padding>
-                              </Button>
-                          </buttons>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets right="5.0" />
-                           </VBox.margin>
-                        </ButtonBar>
-                     </children>
-                  </VBox>
-               </left>
-               <center>
-                  <VBox prefHeight="482.0" prefWidth="461.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="463.0" text="Beskrivelse af Sketch" textAlignment="CENTER" textFill="#518dd1">
-                           <font>
-                              <Font name="Gill Sans MT" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextArea fx:id="momma" prefHeight="172.0" prefWidth="499.0">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </TextArea>
-                     </children>
-                  </VBox>
-               </center>
-               <bottom>
-                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="yes" mnemonicParsing="false" prefHeight="59.0" prefWidth="134.0" text="Forrige Side">
-                           <HBox.margin>
-                              <Insets left="250.0" right="10.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="no" mnemonicParsing="false" prefHeight="59.0" prefWidth="133.0" text="Næste Side">
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </bottom>
-            </BorderPane>
+            <Button fx:id="btnDeleteWiFi" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleDeleteWiFi" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern WiFi">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="txtWiFiName" layoutX="30.0" layoutY="191.0" minHeight="-Infinity" prefHeight="30.0" promptText="fx WiFi stue 4" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="590.0" left="20.0" right="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="241.0" layoutY="257.0" text="Titel til WiFi" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="650.0" right="490.0" />
+               </StackPane.margin>
+            </Label>
          </children>
       </StackPane>
-   </center>
-   <bottom>
-      <HBox prefHeight="89.0" prefWidth="976.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER" />
-   </bottom>
-   <top>
-      <HBox prefHeight="66.0" prefWidth="942.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <StackPane fx:id="paneAttachment" layoutX="329.0" layoutY="88.0" prefHeight="809.0" prefWidth="1005.0" style="-fx-background-color: #f2f2f2;">
          <children>
-            <ImageView fitHeight="116.0" fitWidth="182.0" pickOnBounds="true" preserveRatio="true">
+            <TextArea fx:id="billagKommentar" prefHeight="166.0" prefWidth="457.0" promptText="Kommentar til billede" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="500.0" right="20.0" top="145.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Tilføj Beskrivelse af Billede" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="550.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="280.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="350.0" top="440.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="billagSaveUpdate" mnemonicParsing="false" onAction="#handleBillagSaveUpdate" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Billag" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" left="480.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnCloseAttachment" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleCloseBillag" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="480.0" top="700.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="373.0" layoutY="474.0" text="Ekstra Billag" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="tableBillag" prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <columns>
+                  <TableColumn prefWidth="530.0" text="Alle Billag knyttet til opgaven">
+                     <columns>
+                        <TableColumn fx:id="columnBillagNavn" prefWidth="293.0" text="titel" />
+                        <TableColumn fx:id="columnBillagID" prefWidth="225.0" text="ID" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="450.0" top="470.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnShowAttachment" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleShowBillag" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Billag">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnRemoveAttachment" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleDeleteBillag" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Billag">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <ImageView fx:id="billagBillede" fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets bottom="400.0" right="450.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../data/images/Billag.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="billagUpload" layoutX="391.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleBillagUpload" prefHeight="60.0" prefWidth="190.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Billede/Billag" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" right="280.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="614.0" layoutY="155.0" text="Giv titel til billede" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="680.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtBillagNavn" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="620.0" left="500.0" right="20.0" />
+               </StackPane.margin>
+            </TextField>
+         </children>
+      </StackPane>
+      <StackPane fx:id="paneSketch" layoutX="339.0" layoutY="86.0" prefHeight="801.0" prefWidth="985.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <TextArea fx:id="txtAreaSketch" prefHeight="333.0" prefWidth="335.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="500.0" right="20.0" top="155.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Giv en title til Installations Tegning" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="680.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="280.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="350.0" top="440.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="btnSaveSketch" mnemonicParsing="false" onAction="#handleSaveSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Tegning" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" left="480.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnCloseSketch" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleFinishSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="480.0" top="700.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="373.0" layoutY="474.0" text="Installations Tegning" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="tableSketch" prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <columns>
+                  <TableColumn prefWidth="448.0" text="Alle Installations Tegninger knyttet til opgaven">
+                     <columns>
+                        <TableColumn fx:id="columnSketchTitle" prefWidth="378.0" text="Titel" />
+                        <TableColumn fx:id="columnSketchID" prefWidth="100.0" text="ID" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="450.0" top="460.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnShowSketch" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleShowSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Tegning">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnRemoveSketch" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleRemoveSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Tegning">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <ImageView fx:id="canvasImageView" fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets bottom="400.0" right="450.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../data/images/Installations.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnAddSketch" layoutX="610.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleAddSketch" prefHeight="60.0" prefWidth="143.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Ny Tegning" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" right="670.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnUploadSketch" layoutX="391.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleUploadSketch" prefHeight="60.0" prefWidth="190.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Tegning" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" right="280.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="txtTitleSketch" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="620.0" left="500.0" right="20.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="562.0" layoutY="56.0" text="Kommentar til Installations Tegning" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="530.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+      <StackPane fx:id="paneDevice" layoutX="343.0" layoutY="89.0" prefHeight="809.0" prefWidth="985.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <TextArea fx:id="txtDeviceDescription" prefHeight="230.0" prefWidth="399.0" promptText="Enheds type: TV, Lydsystem, Projector etc." stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="430.0" left="500.0" right="20.0" top="200.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Giv enhed et navn" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="620.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="556.0" layoutY="319.0" text="IP" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="620.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtDeviceIp" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="550.0" left="20.0" right="490.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="173.0" layoutY="109.0" text="Username" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="300.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtDeviceUsername" layoutX="30.0" layoutY="143.0" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="230.0" left="20.0" right="490.0" />
+               </StackPane.margin>
+            </TextField>
+            <CheckBox fx:id="txtDevicePOE" mnemonicParsing="false" text="POE på netværk" textFill="#2b89bf">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="450.0" />
+               </StackPane.margin>
+            </CheckBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="330.0" top="465.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="btnCancelDevice" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleCancelDevice" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="510.0" top="700.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="171.0" layoutY="219.0" text="Subnet mask" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="460.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtDeviceSubnet" layoutX="30.0" layoutY="283.0" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="385.0" left="20.0" right="490.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="373.0" layoutY="474.0" text="Enheds Information" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="tableDevice" minWidth="-Infinity" prefHeight="309.0" prefWidth="585.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <columns>
+                  <TableColumn prefWidth="580.0" text="Alle Enheder knyttede til opgave">
+                     <columns>
+                        <TableColumn fx:id="columnDeviceIP" prefWidth="129.0" text="IP" />
+                        <TableColumn fx:id="columnDeviceSubnet" prefWidth="126.0" text="Subnet Mask" />
+                        <TableColumn fx:id="columnDeviceName" prefWidth="136.0" text="Name" />
+                        <TableColumn fx:id="columnDeviceUsername" prefWidth="108.0" text="Username" />
+                        <TableColumn fx:id="columnDevicePassword" prefWidth="106.0" text="Password" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="350.0" top="495.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnDeviceShow" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleDeviceShow" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Enhed">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="510.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnDeleteDevice" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleDeleteDevice" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Enhed">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="510.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="txtDevicePassword" layoutX="30.0" layoutY="300.0" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="80.0" left="20.0" right="490.0" />
+               </StackPane.margin>
+            </TextField>
+            <Button fx:id="btnAddDevice" mnemonicParsing="false" onAction="#handleAddDevice" prefHeight="60.0" prefWidth="205.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Enhed" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="510.0" top="30.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="211.0" layoutY="260.0" text="Password" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="145.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="615.0" layoutY="75.0" text="Tilføj beskrivelse af enhed" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="460.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtDeviceName" layoutX="30.0" layoutY="115.0" minHeight="-Infinity" prefHeight="30.0" promptText="fx. Tv stue nr 34" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="550.0" left="500.0" right="20.0" />
+               </StackPane.margin>
+            </TextField>
+         </children>
+      </StackPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="984.0" stroke="#333333" strokeType="INSIDE" width="1440.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="BLACK" strokeType="INSIDE" width="1440.0" />
+      <VBox prefHeight="250.0" prefWidth="450.0">
+         <children>
+            <ImageView fitHeight="187.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets left="50.0" top="25.0" />
+               </VBox.margin>
                <image>
                   <Image url="@../../data/images/Wuavlogoprg.JPG" />
                </image>
             </ImageView>
-            <MenuBar prefHeight="65.0" prefWidth="764.0" style="-fx-background-color: black;">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
+         </children>
+      </VBox>
+      <HBox layoutY="320.0" prefHeight="30.0" prefWidth="350.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="250.0" text="Billeder og Beskrivelser" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
-   </top>
-</BorderPane>
+      <HBox layoutY="359.0" prefHeight="80.0" prefWidth="350.0">
+         <children>
+            <Button fx:id="btnSketch" mnemonicParsing="false" onAction="#handleSketch" prefHeight="60.0" prefWidth="225.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Installations - Tegning" textAlignment="CENTER" wrapText="true">
+               <HBox.margin>
+                  <Insets left="50.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutY="533.0" prefHeight="30.0" prefWidth="350.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="250.0" text="Internet" textFill="#90aed6">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutY="566.0" prefHeight="80.0" prefWidth="350.0">
+         <children>
+            <Button fx:id="btnNetwork" mnemonicParsing="false" onAction="#handleNetwork" prefHeight="60.0" prefWidth="225.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Netværk">
+               <HBox.margin>
+                  <Insets left="50.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutY="646.0" prefHeight="80.0" prefWidth="350.0" stylesheets="@../StyleSheet/Styleguide.css">
+         <children>
+            <Button fx:id="btnWiFi" mnemonicParsing="false" onAction="#handleWiFi" prefHeight="60.0" prefWidth="225.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj WiFi">
+               <HBox.margin>
+                  <Insets left="50.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutY="744.0" prefHeight="30.0" prefWidth="350.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="250.0" text="Enheder" textFill="#90aed6">
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="-12.0" layoutY="774.0" prefHeight="80.0" prefWidth="350.0">
+         <children>
+            <Button fx:id="btnDevice" mnemonicParsing="false" onAction="#handleDevice" prefHeight="60.0" prefWidth="225.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Enhed">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Pane layoutY="290.0" prefHeight="30.0" prefWidth="350.0" />
+      <HBox layoutY="439.0" prefHeight="80.0" prefWidth="350.0">
+         <children>
+            <Button fx:id="btnAttachment" mnemonicParsing="false" onAction="#handleAttachment" prefHeight="60.0" prefWidth="225.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Billag">
+               <HBox.margin>
+                  <Insets left="50.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+         </children></HBox>
+      <HBox alignment="CENTER" layoutX="-12.0" layoutY="907.0" prefHeight="80.0" prefWidth="350.0">
+         <children>
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleExit" prefHeight="60.0" prefWidth="225.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut Dokumentation">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutY="877.0" prefHeight="30.0" prefWidth="350.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="250.0" text="Afslut" textFill="#90aed6">
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <StackPane fx:id="paneNetwork" layoutX="326.0" layoutY="91.0" prefHeight="792.0" prefWidth="1005.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <Label text="Giv netværk et Navn" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="650.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="556.0" layoutY="319.0" text="Netværks IP " textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="650.0" right="480.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtNetworkIP" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="580.0" left="20.0" right="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="173.0" layoutY="109.0" text="Default gateway" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="280.0" right="480.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtNetworkDefault" layoutX="30.0" layoutY="143.0" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="200.0" left="20.0" right="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label fx:id="labelNetworkIP" layoutX="169.0" layoutY="109.0" text="/24" textFill="#333333">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="582.0" left="15.0" />
+               </StackPane.margin>
+            </Label>
+            <CheckBox fx:id="networkPOE" mnemonicParsing="false" text="POE på netværk" textFill="#2b89bf">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="450.0" />
+               </StackPane.margin>
+            </CheckBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="342.0" top="435.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="btnSaveNetwork" mnemonicParsing="false" onAction="#handleSaveNetwork" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Netværk">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnCancelNetwork" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleCancelNetwork" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="500.0" top="700.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="171.0" layoutY="219.0" text="Subnet mask" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="470.0" right="480.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtNetworkSubnet" layoutX="30.0" layoutY="283.0" minHeight="-Infinity" prefHeight="30.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="385.0" left="20.0" right="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="373.0" layoutY="474.0" text="Netværks Information" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="tableNetwork" prefHeight="200.0" prefWidth="200.0" stylesheets="@../StyleSheet/Styleguide.css">
+              <columns>
+                <TableColumn prefWidth="636.0" text="Alle Netværk knyttede til opgave">
+                     <columns>
+                        <TableColumn fx:id="columnNetworkIP" prefWidth="129.0" text="Netværks IP" />
+                      <TableColumn fx:id="columnNetworkSubnet" prefWidth="133.0" text="Subnet Mask" />
+                        <TableColumn fx:id="columnNetworkDefault" prefWidth="139.0" text="Default Gateway" />
+                        <TableColumn fx:id="columnNetworkPOE" prefWidth="91.0" text="POE" />
+                        <TableColumn fx:id="columnNetworkName" prefWidth="106.0" text="Navn" />
+                     </columns>
+                  </TableColumn>
+              </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="390.0" top="455.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnShowNetwork" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleShowNetwork" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Netværk">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="500.0" top="450.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnDeleteNetwork" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleDeleteNetwork" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Netværk">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="500.0" top="220.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="611.0" layoutY="74.0" text="Tilføj kommentar om netværk" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="txtNetworkName" layoutX="30.0" layoutY="108.0" minHeight="-Infinity" prefHeight="30.0" promptText="fx Basement Network" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="580.0" left="550.0" right="20.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextArea fx:id="txtAreaNetwork" prefHeight="333.0" prefWidth="335.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="550.0" right="20.0" top="180.0" />
+               </StackPane.margin>
+            </TextArea>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
