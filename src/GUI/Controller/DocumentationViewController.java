@@ -2,6 +2,7 @@ package GUI.Controller;
 
 
 import BE.DBEnteties.Device;
+import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BLL.Managers.DeviceManager;
 import BLL.Managers.ImageManager;
 import GUI.Model.CustomerModel;
@@ -37,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DocumentationViewController extends BaseController implements Initializable {
@@ -176,6 +178,7 @@ public class DocumentationViewController extends BaseController implements Initi
             txtDeviceUsername.setText("");
             txtDevicePOE.setSelected(false);
             btnAddDevice.setText("Gem Enhed");
+            btnDeviceShow.setText("Vis Enhed");
         }
 
     }
@@ -525,4 +528,32 @@ public class DocumentationViewController extends BaseController implements Initi
         }
     }
 
+    public void handleDeleteDevice(ActionEvent actionEvent) throws DeviceNotFoundExeption {
+
+        Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
+
+        try{
+            deviceManager.deleteDevice(selectedDevice.getId());
+        } catch (SQLException e) {
+            throw new DeviceNotFoundExeption("device not found");
+        }
+
+        setTableDevice();
+    }
+
+    public void handleCancelDevice(ActionEvent actionEvent) {
+        handleSketch(null);
+
+        tableDevice.getSelectionModel().clearSelection();
+
+        txtDeviceDescription.setText("");
+        txtDeviceIp.setText("");
+        txtDevicePassword.setText("");
+        txtDeviceSubnet.setText("");
+        txtDeviceUsername.setText("");
+        txtDevicePOE.setSelected(false);
+        btnAddDevice.setText("Gem Enhed");
+        btnDeviceShow.setText("Vis Enhed");
+
+    }
 }

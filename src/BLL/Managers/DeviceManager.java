@@ -21,4 +21,8 @@ public class DeviceManager {
     public static ArrayList<Device> getDeviceList(int installationID) throws SQLException, DeviceNotFoundExeption {
         return DeviceDAO_DB.getDeviceList(installationID);
     }
+
+    public static void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
+         DeviceDAO_DB.deleteDevice(id);
+    }
 }
