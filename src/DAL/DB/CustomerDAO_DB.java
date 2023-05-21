@@ -123,10 +123,13 @@ public class CustomerDAO_DB {
     }
 
     public static void anonymizeCustomer(int ID){
+
+
         throw new RuntimeException("Not Implemented");
     }
 
     public static void deleteCustomer(int ID){
+
         throw new RuntimeException("Not implemented");
     }
 }

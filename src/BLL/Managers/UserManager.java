@@ -7,6 +7,7 @@ package BLL.Managers;
 import BE.Exptions.UserValidationExeption;
 import BE.DBEnteties.User;
 import BLL.PasswordHash;
+import DAL.DB.CustomerDAO_DB;
 import DAL.DB.UserDAO_DB;
 
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ public class UserManager {
     public static ArrayList<User> getAllUsers() throws Exception{
         return UserDAO_DB.getAllUsers();
     }
-
 
 
 }

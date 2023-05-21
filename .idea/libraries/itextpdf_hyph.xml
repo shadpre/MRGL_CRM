@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="itextpdf.hyph" type="repository">
+    <properties maven-id="com.itextpdf:hyph:7.0.4" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/itextpdf/hyph/7.0.4/hyph-7.0.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
