@@ -381,7 +381,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Opgave">
+                        <Button fx:id="btnAddNewTask" mnemonicParsing="false" onAction="#btnHandleAddNewTask" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Opgave">
                            <HBox.margin>
                               <Insets left="50.0" top="5.0" />
                            </HBox.margin>
@@ -657,10 +657,9 @@
                   <TableView fx:id="tableViewAllTasksCeo" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
                         <TableColumn fx:id="columnTaskNo" prefWidth="117.0" text="Opgave nr:" />
-                        <TableColumn fx:id="columnCompanyName" prefWidth="197.0" text="Navn/Firma" />
                         <TableColumn fx:id="columnDate" prefWidth="111.0" text="Dato:" />
-                        <TableColumn fx:id="columnDescription" prefWidth="377.0" text="Beskrivelse:" />
-                        <TableColumn fx:id="columnStatus" prefWidth="103.0" text="Status:" />
+                        <TableColumn fx:id="columnDescription" prefWidth="547.0" text="Beskrivelse:" />
+                        <TableColumn fx:id="columnStatus" minWidth="0.0" prefWidth="129.0" text="Status:" />
                      </columns>
                   </TableView>
                </children>
@@ -944,7 +943,7 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackpaneBtnEditUser" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
+      <StackPane fx:id="stackpaneBtnEditTask" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -999,7 +998,7 @@
             </HBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackpaneBtnEditTask" layoutX="602.0" layoutY="888.0" prefHeight="107.0" prefWidth="794.0">
+      <StackPane fx:id="stackpaneBtnEditUser" layoutX="602.0" layoutY="888.0" prefHeight="107.0" prefWidth="794.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
