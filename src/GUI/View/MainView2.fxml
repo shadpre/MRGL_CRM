@@ -1022,5 +1022,19 @@
             </HBox>
          </children>
       </StackPane>
+      <StackPane fx:id="stackPaneViewAllMyTasksTech" layoutX="480.0" layoutY="296.0" prefHeight="576.0" prefWidth="940.0">
+         <children>
+            <HBox prefHeight="616.0" prefWidth="930.0">
+               <children>
+                  <TableView fx:id="tableViewAllTasksTech" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
+                     <columns>
+                        <TableColumn fx:id="columnAllMyTasksTech" prefWidth="117.0" text="Opgave nr:" />
+                        <TableColumn fx:id="columnDescriptionTasksTech" prefWidth="547.0" text="Beskrivelse:" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

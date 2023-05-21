@@ -41,7 +41,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private StackPane stackPaneAddCustomerCeo, stackPaneAddUserCeo, stackPaneAllUsersCeo, stackPaneCeoBtn, stackPaneTechBtn, stackPaneSalesBtn, stackPanePManagerBtn, stackPaneViewAllCustomersCeo,
-            stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo;
+            stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech;
 
     @FXML
     private Button btnUpdateCustomer;
@@ -97,6 +97,13 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<Customer, String> columnCustomerZipCode;
     @FXML
     private TableColumn<Customer, String> columnCustomerCity;
+
+    @FXML
+    private TableView<CustomerTask> tableViewAllTasksTech;
+    @FXML
+    private TableColumn<Customer, String> columnAllMyTasksTech;
+    @FXML
+    private TableColumn<Customer, String> columnDescriptionTasksTech;
 
     @FXML
     private TextField txtSearch;
@@ -193,6 +200,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
@@ -216,6 +225,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
@@ -241,6 +252,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneSalesBtn.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(false);
         stackPaneTechBtn.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
@@ -343,6 +356,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneSalesBtn.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(false);
         stackPaneTechBtn.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(true);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(true);
@@ -376,6 +391,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(true);
         stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(true);
         tableViewAllTasksCeo.setVisible(false);
@@ -413,6 +430,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(true);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(true);
@@ -478,6 +497,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(true);
         stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(true);
         tableViewAllTasksCeo.setVisible(false);
@@ -518,6 +539,40 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     void btnHandleShowAllMyTasksTech(ActionEvent event) {
+
+        stackPaneCeoBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(false);
+        stackPanePManagerBtn.setVisible(false);
+        stackPaneTechBtn.setVisible(true);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneAddTaskCeo.setVisible(false);
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(true);
+        tableViewAllTasksTech.setVisible(true);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
+        tableViewAllTasksCeo.setVisible(false);
+        stackpaneBtnEditCustomer.setVisible(false);
+        stackpaneBtnEditUser.setVisible(false);
+        stackpaneBtnEditTask.setVisible(false);
+
+        CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+
+        this.customerTaskModel = customerTaskModel;
+
+        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+
+
+
+        try {
+            tableViewAllTasksCeo.setItems(CustomerTaskModel.getAllCustomerTasks());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -568,6 +623,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
@@ -615,6 +672,8 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAllUsersCeo.setVisible(false);
         stackPaneViewAllCustomersCeo.setVisible(false);
         stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
@@ -657,6 +716,8 @@ public class MainView2Controller extends BaseController implements Initializable
             stackPaneAllUsersCeo.setVisible(false);
             stackPaneViewAllCustomersCeo.setVisible(false);
             stackPaneViewAllCustomersTasks.setVisible(false);
+            stackPaneViewAllMyTasksTech.setVisible(false);
+            tableViewAllTasksTech.setVisible(false);
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
@@ -676,6 +737,8 @@ public class MainView2Controller extends BaseController implements Initializable
             stackPaneAllUsersCeo.setVisible(false);
             stackPaneViewAllCustomersCeo.setVisible(false);
             stackPaneViewAllCustomersTasks.setVisible(false);
+            stackPaneViewAllMyTasksTech.setVisible(false);
+            tableViewAllTasksTech.setVisible(false);
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
@@ -698,6 +761,8 @@ public class MainView2Controller extends BaseController implements Initializable
             stackPaneAllUsersCeo.setVisible(false);
             stackPaneViewAllCustomersCeo.setVisible(false);
             stackPaneViewAllCustomersTasks.setVisible(false);
+            stackPaneViewAllMyTasksTech.setVisible(false);
+            tableViewAllTasksTech.setVisible(false);
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
@@ -718,6 +783,8 @@ public class MainView2Controller extends BaseController implements Initializable
             stackPaneAllUsersCeo.setVisible(false);
             stackPaneViewAllCustomersCeo.setVisible(false);
             stackPaneViewAllCustomersTasks.setVisible(false);
+            stackPaneViewAllMyTasksTech.setVisible(false);
+            tableViewAllTasksTech.setVisible(false);
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
