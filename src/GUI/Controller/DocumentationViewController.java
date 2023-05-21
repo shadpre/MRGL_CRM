@@ -57,7 +57,7 @@ public class DocumentationViewController extends BaseController implements Initi
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
     @FXML
-    private Button btnExit, billagUpload, btnDeviceShow, btnAddDevice, btnShowSketch, btnSaveSketch, btnSave;
+    private Button btnExit, billagUpload, btnDeviceShow, btnAddDevice, btnShowSketch, btnSaveSketch, btnSave, btnCreateWiFi, btnShowWiFi;
 
     @FXML
     private TextArea txtDeviceDescription, billagKommentar, txtAreaSketch, txtAreaWiFi, txtAreaNetwork;
@@ -362,12 +362,45 @@ public class DocumentationViewController extends BaseController implements Initi
         }
     }
     public void handleCreateWiFi(ActionEvent actionEvent) {
+
+        if (btnCreateWiFi.getText().equals("Gem WiFi")) {
+
+            createWiFi();
+
+            txtWiFiName.setText("");
+            txtAreaWiFi.setText("");
+            txtWiFiPassword.setText("");
+            txtWiFiSSID.setText("");
+
+
+        } else if (btnCreateWiFi.getText().equals("Opdater WiFi")) {
+
+            updateWiFi();
+
+            txtWiFiSSID.setText("");
+            txtWiFiName.setText("");
+            txtWiFiPassword.setText("");
+            txtAreaWiFi.setText("");
+
+            btnCreateWiFi.setText("Gem Wifi");
+            btnShowWiFi.setText("Vis WiFi");
+        }
     }
 
     public void handleCancelWiFi(ActionEvent actionEvent) {
     }
 
     public void handleShowWiFi(ActionEvent actionEvent) {
+        WiFi selectedWiFi = tableWiFi.getSelectionModel().getSelectedItem();
+
+        // Populate the UI elements with the selected device's data
+        txtWiFiSSID.setText(selectedWiFi.getSSID());
+        txtWiFiName.setText(selectedWiFi.getDescription());
+        txtWiFiPassword.setText(selectedWiFi.getPSK());
+        txtAreaWiFi.setText(selectedWiFi.getRemarks());
+
+
+        updateFieldsWiFi();
     }
 
     public void handleDeleteWiFi(ActionEvent actionEvent) {
@@ -686,24 +719,21 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void updateFieldsWiFi(){
 
-        if (btnDeviceShow.getText().equals("Vis WiFi")) {
+        if (btnShowWiFi.getText().equals("Vis WiFi")) {
             // Run current method
-            btnAddDevice.setText("Opdater Enhed");
-            btnDeviceShow.setText("Stop Visning");
+            btnCreateWiFi.setText("Opdater WiFi");
+            btnShowWiFi.setText("Stop Visning");
 
-        } else if (btnDeviceShow.getText().equals("Stop Visning")) {
+        } else if (btnShowWiFi.getText().equals("Stop Visning")) {
 
             tableDevice.getSelectionModel().clearSelection();
 
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDeviceName.setText("");
-            txtDevicePOE.setSelected(false);
-            btnAddDevice.setText("Gem Enhed");
-            btnDeviceShow.setText("Vis Enhed");
+            txtAreaWiFi.setText("");
+            txtWiFiPassword.setText("");
+            txtWiFiName.setText("");
+            txtWiFiSSID.setText("");;
+            btnCreateWiFi.setText("Gem WiFi");
+            btnShowWiFi.setText("Vis WiFi");
         }
 
     }
@@ -715,8 +745,8 @@ public class DocumentationViewController extends BaseController implements Initi
         this.wiFiModel = new WiFiModel();
 
 
-        columnWiFiName.setCellValueFactory(new PropertyValueFactory<WiFi, String>("PSK"));
-        columnWiFiPassword.setCellValueFactory(new PropertyValueFactory<WiFi, String>("Description"));
+        columnWiFiName.setCellValueFactory(new PropertyValueFactory<WiFi, String>("Description"));
+        columnWiFiPassword.setCellValueFactory(new PropertyValueFactory<WiFi, String>("PSK"));
         columnWiFiSSID.setCellValueFactory(new PropertyValueFactory<WiFi, String>("SSID"));
 
         try {

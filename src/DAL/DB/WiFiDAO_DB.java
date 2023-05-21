@@ -10,7 +10,7 @@ public class WiFiDAO_DB {
     public static WiFi createWiFi(WiFi wifi) throws SQLException, WiFiNotFoundExeption{
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            String query = "INSERT INTO WiFI (InstallationID, Description, Remarks, SSID, PSK VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO WiFis (InstallationID, Description, Remarks, SSID, PSK) VALUES (?,?,?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, wifi.getInstallationId());
@@ -31,7 +31,7 @@ public class WiFiDAO_DB {
 
     public static WiFi getWifi(int id) throws SQLException, WiFiNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "Select InstallationId, Description, Remarks, SSID, PSK FROM WiFi WHERE Id = ?";
+            String query = "Select InstallationId, Description, Remarks, SSID, PSK FROM WiFis WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, id);
@@ -55,7 +55,7 @@ public class WiFiDAO_DB {
     public static ArrayList<WiFi> getWiFis(int installationId) throws SQLException, WiFiNotFoundExeption{
         ArrayList<WiFi> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "Select Id, Description, Remarks, SSID, PSK FROM WiFi WHERE InstallationId = ?";
+            String query = "Select Id, Description, Remarks, SSID, PSK FROM WiFis WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1,installationId);
@@ -80,8 +80,8 @@ public class WiFiDAO_DB {
 
     public static WiFi updateWiFi(WiFi wifi) throws SQLException, WiFiNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "UPDATE WiFi" +
-                    "SET  InstallationId = ?, Description = ?, Remarks = ?, SSID =?, PSK =?" +
+            String query = "UPDATE WiFis " +
+                    "SET  InstallationId = ?, Description = ?, Remarks = ?, SSID =?, PSK =? " +
                     "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -101,7 +101,7 @@ public class WiFiDAO_DB {
 
     public static void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "DELETE WiFi WHERE Id = ?";
+            String query = "DELETE WiFis WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, id);
@@ -114,7 +114,7 @@ public class WiFiDAO_DB {
 
     public static int deleteWiFis(int installationId) throws SQLException, WiFiNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "DELETE WiFi WHERE InstallationId = ?";
+            String query = "DELETE WiFis WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1,installationId);

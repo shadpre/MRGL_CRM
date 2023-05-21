@@ -49,7 +49,7 @@ public class AddUserController {
     private TextField txtFieldPasswordRetype;
 
     private LogInController logInController;
-    private MainViewController mainViewController;
+    private MainView2Controller mainView2Controller;
 
     @FXML
     void btnHandleSave(ActionEvent event) {
@@ -91,13 +91,13 @@ public class AddUserController {
         try {
             userManager = new UserManager();
             userDAO_db = new UserDAO_DB();
-            mainViewController = new MainViewController();
+            mainView2Controller = new MainView2Controller();
             logInController = new LogInController();
 
 
             this.userManager = userManager;
             this.userDAO_db = userDAO_db;
-            this.mainViewController = new MainViewController();
+            this.mainView2Controller = new MainView2Controller();
 
         } catch (Exception e) {
             throw new RuntimeException(e);

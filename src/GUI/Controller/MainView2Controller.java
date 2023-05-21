@@ -101,9 +101,9 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private TableView<CustomerTask> tableViewAllTasksTech;
     @FXML
-    private TableColumn<Customer, String> columnAllMyTasksTech;
+    private TableColumn<CustomerTask, String> columnAllMyTasksTech;
     @FXML
-    private TableColumn<Customer, String> columnDescriptionTasksTech;
+    private TableColumn<CustomerTask, String> columnDescriptionTasksTech;
 
     @FXML
     private TextField txtSearch;
@@ -475,13 +475,12 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleBeginTask(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("selectedUser.getLoginName()");
         stage.show();
-
     }
 
     @FXML
@@ -563,9 +562,8 @@ public class MainView2Controller extends BaseController implements Initializable
 
         this.customerTaskModel = customerTaskModel;
 
-        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerID"));
         columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
-
 
 
         try {

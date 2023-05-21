@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class LogInController extends BaseController implements Initializable {
     private UserModel userModel;
 
-    private MainViewController mainViewController;
+    private MainView2Controller mainView2Controller;
 
     private User selectedUser;
 
@@ -36,8 +36,8 @@ public class LogInController extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
             userModel = new UserModel();
             this.userModel = userModel;
-            mainViewController = new MainViewController();
-            this.mainViewController = mainViewController;
+            mainView2Controller = new MainView2Controller();
+            this.mainView2Controller = mainView2Controller;
 
     }
 
@@ -53,14 +53,14 @@ public class LogInController extends BaseController implements Initializable {
             userModel.setSelectedUser(selectedUser);
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView2.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(selectedUser.getLoginName());
             stage.show();
 
-            MainViewController controller = loader.getController();
+            MainView2Controller controller = loader.getController();
             controller.setUserModel(userModel);
             controller.Setup(selectedUser, this, userModel, selectedUser.getRole());
 
