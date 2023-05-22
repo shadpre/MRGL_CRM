@@ -30,7 +30,7 @@ public class DrawingProgram extends BaseController implements Initializable {
     private DocumentationViewController documentationViewController;
 
     @FXML
-    private ImageView symbol1;
+    private ImageView symbol1, imgTrash;
 
     private Image canvasImage;
 
@@ -51,8 +51,6 @@ public class DrawingProgram extends BaseController implements Initializable {
 
 
 
-    public void handleSymbol2ButtonClicked(ActionEvent actionEvent) {
-    }
 
     public void handleSymbol1ButtonClicked(ActionEvent actionEvent) {
     }
@@ -211,7 +209,7 @@ public class DrawingProgram extends BaseController implements Initializable {
 
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());  // Clear the canvas
 
-            gc.setStroke(colorPicker.getValue());
+            gc.setStroke(currentLine.getColor());
             gc.setLineWidth(4.0);
 
             redrawCanvas();
@@ -225,7 +223,8 @@ public class DrawingProgram extends BaseController implements Initializable {
         if (event.isPrimaryButtonDown()) {  // Check if the left mouse button is pressed
             startX = event.getX();
             startY = event.getY();
-            currentLine = new LineSegment(startX, startY, startX, startY);
+            Color lineColor = colorPicker.getValue();
+            currentLine = new LineSegment(startX, startY, startX, startY, lineColor);
         }
     }
 
@@ -233,7 +232,8 @@ public class DrawingProgram extends BaseController implements Initializable {
 
         double endX = event.getX();
         double endY = event.getY();
-        LineSegment newLine = new LineSegment(startX, startY, endX, endY);
+        Color lineColor = colorPicker.getValue();
+        LineSegment newLine = new LineSegment(startX, startY, endX, endY, lineColor );
         lines.add(newLine);
         redrawCanvas();
         startX = endX; // Update the startX and startY for the next line
@@ -244,21 +244,47 @@ public class DrawingProgram extends BaseController implements Initializable {
 
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        gc.setStroke(colorPicker.getValue());
-        gc.setLineWidth(4.0);
+
 
         for (LineSegment line : lines) {
+            gc.setStroke(line.getColor());
+            gc.setLineWidth(4.0);
             gc.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
         }}
-
-    public void handleRemoveLines(ActionEvent actionEvent) {
-        lines.clear();
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    }
+    
 
     public void handleRemoveLastLine(ActionEvent actionEvent) {
         int max = lines.size();
         lines.remove(max-1);
         redrawCanvas();
+    }
+
+    public void handleRemoveLines(MouseEvent event) {
+        if(imgTrash.isHover()) {
+            lines.clear();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        }
+    }
+
+    public void handleEnterTrash(MouseEvent event) {
+        // Assuming you have the new image file path as a string
+        String newImagePath = "data/images/Trashbtn02.png";
+
+        // Create a new Image object with the new image file
+        Image newImage = new Image(newImagePath);
+
+        // Set the new image to imgTrash
+        imgTrash.setImage(newImage);
+    }
+
+    public void handleExitTrash(MouseEvent event) {
+        // Assuming you have the new image file path as a string
+        String newImagePath = "data/images/Trashbtn01.png";
+
+        // Create a new Image object with the new image file
+        Image newImage = new Image(newImagePath);
+
+        // Set the new image to imgTrash
+        imgTrash.setImage(newImage);
     }
 }
