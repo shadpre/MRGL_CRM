@@ -41,7 +41,8 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private StackPane stackPaneAddCustomerCeo, stackPaneAddUserCeo, stackPaneAllUsersCeo, stackPaneCeoBtn, stackPaneTechBtn, stackPaneSalesBtn, stackPanePManagerBtn, stackPaneViewAllCustomersCeo,
-            stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech;
+            stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech, stackPaneViewAllCompletedTasks,
+            stackPaneViewAllCompletedTasksPm;
 
     @FXML
     private Button btnUpdateCustomer;
@@ -104,6 +105,22 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<CustomerTask, String> columnAllMyTasksTech;
     @FXML
     private TableColumn<CustomerTask, String> columnDescriptionTasksTech;
+    @FXML
+    private TableView<CustomerTask> tableViewAllCompletedTasks;
+    @FXML
+    private TableColumn<CustomerTask, String> columnAllCompletedTasksNo;
+    @FXML
+    private TableColumn<CustomerTask, String> columnAllCompletedTasksDescription;
+    @FXML
+    private TableView<CustomerTask> tableViewAllCompletedTasksPm;
+    @FXML
+    private TableColumn<CustomerTask, String> columnAllCompletedTasksNoPm;
+    @FXML
+    private TableColumn<CustomerTask, String> columnAllCompletedTasksDescriptionPm;
+
+
+
+
 
     @FXML
     private TextField txtSearch;
@@ -205,9 +222,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
     }
     @FXML
@@ -230,9 +251,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
     }
     @FXML
@@ -257,10 +282,14 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
         stackPaneAddTaskCeo.setVisible(true);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
     }
 
@@ -359,9 +388,13 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneViewAllMyTasksTech.setVisible(false);
         tableViewAllTasksTech.setVisible(false);
         tableViewAllUsersCeo.setVisible(true);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(true);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         UserModel userModel = new UserModel();
         this.userModel = userModel;
@@ -396,9 +429,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(true);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(true);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         CustomerModel customerModel = new CustomerModel();
         this.customerModel = customerModel;
@@ -435,9 +472,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(true);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(true);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         CustomerTaskModel customerTaskModel = new CustomerTaskModel();
         this.customerTaskModel = customerTaskModel;
@@ -475,12 +516,13 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleBeginTask(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("selectedUser.getLoginName()");
         stage.show();
+
     }
 
     @FXML
@@ -501,9 +543,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(true);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(true);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         CustomerModel customerModel = new CustomerModel();
         this.customerModel = customerModel;
@@ -529,10 +575,82 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleShowAllFinishedTasksSales(ActionEvent event) {
 
+        stackPaneCeoBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(true);
+        stackPanePManagerBtn.setVisible(false);
+        stackPaneTechBtn.setVisible(false);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneAddTaskCeo.setVisible(false);
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
+        tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(true);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
+        stackpaneBtnEditCustomer.setVisible(false);
+        stackpaneBtnEditUser.setVisible(false);
+        stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(true);
+
+        CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+        this.customerTaskModel = customerTaskModel;
+
+        columnAllCompletedTasksNo.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnAllCompletedTasksDescription.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+
+        try {
+            tableViewAllCompletedTasks.setItems(CustomerTaskModel.getAllCustomerTasks());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void btnHandleShowAllMyTasksPManager(ActionEvent event) {
+
+        stackPaneCeoBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(false);
+        stackPanePManagerBtn.setVisible(true);
+        stackPaneTechBtn.setVisible(false);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneAddTaskCeo.setVisible(false);
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        tableViewAllTasksTech.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
+        tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(true);
+        stackPaneViewAllCompletedTasksPm.setVisible(true);
+        stackpaneBtnEditCustomer.setVisible(false);
+        stackpaneBtnEditUser.setVisible(false);
+        stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
+
+        CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+        this.customerTaskModel = customerTaskModel;
+
+        columnAllCompletedTasksNoPm.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnAllCompletedTasksDescriptionPm.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+
+
+
+        try {
+            tableViewAllCompletedTasksPm.setItems(CustomerTaskModel.getAllCustomerTasks());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -554,23 +672,33 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         CustomerTaskModel customerTaskModel = new CustomerTaskModel();
 
         this.customerTaskModel = customerTaskModel;
 
-        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerID"));
+        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
         columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
 
 
+
         try {
-            tableViewAllTasksCeo.setItems(CustomerTaskModel.getAllCustomerTasks());
+            tableViewAllTasksTech.setItems(CustomerTaskModel.getAllCustomerTasks());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    @FXML
+    void btnHandleShowAllTasks(ActionEvent event) {
 
     }
 
@@ -580,9 +708,17 @@ public class MainView2Controller extends BaseController implements Initializable
     //}
 
     @FXML
-    void btnHandleUpdateTaskPManager(ActionEvent event) {
+    void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("selectedUser.getLoginName()");
+        stage.show();
 
     }
+
 
     @FXML
     void btnHandleAssignUser(ActionEvent event) {
@@ -626,9 +762,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         Customer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
 
@@ -675,9 +815,13 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllUsersCeo.setVisible(false);
         tableViewAllCustomersCeo.setVisible(false);
         tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
         stackpaneBtnEditCustomer.setVisible(false);
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
 
         User selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
 
@@ -719,9 +863,13 @@ public class MainView2Controller extends BaseController implements Initializable
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCompletedTasks.setVisible(false);
+            tableViewAllCompletedTasksPm.setVisible(false);
+            stackPaneViewAllCompletedTasksPm.setVisible(false);
             stackpaneBtnEditCustomer.setVisible(false);
             stackpaneBtnEditUser.setVisible(false);
             stackpaneBtnEditTask.setVisible(false);
+            stackPaneViewAllCompletedTasks.setVisible(false);
 
         } else if(role == 1) {
 
@@ -740,9 +888,13 @@ public class MainView2Controller extends BaseController implements Initializable
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCompletedTasks.setVisible(false);
+            tableViewAllCompletedTasksPm.setVisible(false);
+            stackPaneViewAllCompletedTasksPm.setVisible(false);
             stackpaneBtnEditCustomer.setVisible(false);
             stackpaneBtnEditUser.setVisible(false);
             stackpaneBtnEditTask.setVisible(false);
+            stackPaneViewAllCompletedTasks.setVisible(false);
 
 
             choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
@@ -764,9 +916,13 @@ public class MainView2Controller extends BaseController implements Initializable
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCompletedTasks.setVisible(false);
+            tableViewAllCompletedTasksPm.setVisible(false);
+            stackPaneViewAllCompletedTasksPm.setVisible(false);
             stackpaneBtnEditCustomer.setVisible(false);
             stackpaneBtnEditUser.setVisible(false);
             stackpaneBtnEditTask.setVisible(false);
+            stackPaneViewAllCompletedTasks.setVisible(false);
 
 
         } else if (role == 3) {
@@ -786,9 +942,13 @@ public class MainView2Controller extends BaseController implements Initializable
             tableViewAllUsersCeo.setVisible(false);
             tableViewAllCustomersCeo.setVisible(false);
             tableViewAllTasksCeo.setVisible(false);
+            tableViewAllCompletedTasks.setVisible(false);
+            tableViewAllCompletedTasksPm.setVisible(false);
+            stackPaneViewAllCompletedTasksPm.setVisible(false);
             stackpaneBtnEditCustomer.setVisible(false);
             stackpaneBtnEditUser.setVisible(false);
             stackpaneBtnEditTask.setVisible(false);
+            stackPaneViewAllCompletedTasks.setVisible(false);
 
         }
 

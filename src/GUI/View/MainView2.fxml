@@ -1036,5 +1036,33 @@
             </HBox>
          </children>
       </StackPane>
+      <StackPane fx:id="stackPaneViewAllCompletedTasks" layoutX="481.0" layoutY="295.0" prefHeight="576.0" prefWidth="949.0">
+         <children>
+            <HBox prefHeight="616.0" prefWidth="930.0">
+               <children>
+                  <TableView fx:id="tableViewAllCompletedTasks" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
+                     <columns>
+                        <TableColumn fx:id="columnAllCompletedTasksNo" prefWidth="117.0" text="Opgave nr:" />
+                        <TableColumn fx:id="columnAllCompletedTasksDescription" prefWidth="547.0" text="Beskrivelse:" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stackPaneViewAllCompletedTasksPm" layoutX="480.0" layoutY="296.0" prefHeight="576.0" prefWidth="960.0">
+         <children>
+            <HBox prefHeight="616.0" prefWidth="930.0">
+               <children>
+                  <TableView fx:id="tableViewAllCompletedTasksPm" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
+                     <columns>
+                        <TableColumn fx:id="columnAllCompletedTasksNoPm" prefWidth="117.0" text="Opgave nr:" />
+                        <TableColumn fx:id="columnAllCompletedTasksDescriptionPm" prefWidth="547.0" text="Beskrivelse:" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
