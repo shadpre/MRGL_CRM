@@ -55,7 +55,7 @@ public class NetworkDAO_DB {
         }
     }
 
-    public static ArrayList<Network> getNetworks(int InstallationId) throws SQLException, NetworkNotFoundExeption{
+    public static ArrayList<Network> getNetworks(int InstallationId) throws SQLException{
         ArrayList<Network> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Description, Remarks, NetworkIP, SubnetMask, DefaultGateway, HasPOE FROM Networks WHERE InstallationId = ?";
@@ -77,15 +77,15 @@ public class NetworkDAO_DB {
                         rs.getBoolean("HasPOE")
                 ));
             }
-            if (out.size() == 0) throw new NetworkNotFoundExeption("No networks found");
-            else return  out;
+
+            return  out;
         }
     }
 
     public static Network updateNetwork(Network network) throws SQLException, NetworkNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            String query = "UPDATE Networks" +
-                    "SET InstallationId = ?, Description = ?, Remarks = ?, NetworkIP = ?, SubnetMask =?, DefaultGateway = ?, HasPOE =?" +
+            String query = "UPDATE Networks " +
+                    "SET InstallationId = ?, Description = ?, Remarks = ?, NetworkIP = ?, SubnetMask =?, DefaultGateway = ?, HasPOE =? " +
                     "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -110,7 +110,7 @@ public class NetworkDAO_DB {
             String query = "DELETE Networks WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,id);
+            statement.setInt(1, id);
 
             var rs = statement.executeUpdate();
 

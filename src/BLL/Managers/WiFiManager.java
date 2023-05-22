@@ -19,10 +19,11 @@ public class WiFiManager {
         return WiFiDAO_DB.updateWiFi(wifi);
     }
 
-    public static ArrayList<WiFi> getWiFis(int installationID) throws SQLException, WiFiNotFoundExeption {
+    public static ArrayList<WiFi> getWiFis(int installationID) throws SQLException {
         return WiFiDAO_DB.getWiFis(installationID);
     }
 
     public static void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption {
         WiFiDAO_DB.deleteWiFi(id);
-    }}
+    }
+}

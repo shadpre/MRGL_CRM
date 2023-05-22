@@ -58,7 +58,7 @@ public class DeviceDAO_DB {
         }
     }
 
-    public static ArrayList<Device> getDeviceList(int installationId) throws SQLException, DeviceNotFoundExeption{
+    public static ArrayList<Device> getDeviceList(int installationId) throws SQLException{
         ArrayList<Device> out = new ArrayList<>();
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE InstallationId = ?";
@@ -82,8 +82,7 @@ public class DeviceDAO_DB {
                 ));
             }
 
-            if (out.size() == 0) throw new DeviceNotFoundExeption("No Devices found");
-            else return out;
+           return out;
         }
     }
 

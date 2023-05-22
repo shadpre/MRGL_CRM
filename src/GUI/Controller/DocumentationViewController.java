@@ -6,13 +6,13 @@ import BE.DBEnteties.Network;
 import BE.DBEnteties.WiFi;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
 import BLL.Managers.DeviceManager;
 import BLL.Managers.ImageManager;
+import BLL.Managers.NetworkManager;
 import BLL.Managers.WiFiManager;
-import GUI.Model.CustomerModel;
-import GUI.Model.DeviceModel;
-import GUI.Model.ImageModel;
-import GUI.Model.WiFiModel;
+import GUI.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -57,7 +57,10 @@ public class DocumentationViewController extends BaseController implements Initi
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
 
     @FXML
-    private Button btnExit, billagUpload, btnDeviceShow, btnAddDevice, btnShowSketch, btnSaveSketch, btnSave, btnCreateWiFi, btnShowWiFi;
+    private Button btnExit, btnDeviceShow, btnAddDevice, btnShowSketch, btnSave, btnCreateWiFi, btnShowWiFi, btnSaveNetwork, btnShowNetwork;
+
+    @FXML
+    private Button  btnSaveSketch, billagSaveUpdate, btnShowAttachment, billagUpload, btnUploadSketch;
 
     @FXML
     private TextArea txtDeviceDescription, billagKommentar, txtAreaSketch, txtAreaWiFi, txtAreaNetwork;
@@ -83,7 +86,10 @@ public class DocumentationViewController extends BaseController implements Initi
     private TableView<Network> tableNetwork;
 
     @FXML
-    private TableColumn<Network, String> columnNetworkSubnet, columnNetworkName, columnNetworkIP, columnNetworkPOE, columnNetworkDefault;
+    private TableColumn<Network, String> columnNetworkSubnet, columnNetworkName, columnNetworkIP, columnNetworkDefault;
+
+    @FXML
+    private TableColumn<Network, Boolean> columnNetworkPOE;
 
     @FXML
     private TableView<BE.DBEnteties.Image> tableSketch, tableBillag;
@@ -101,10 +107,17 @@ public class DocumentationViewController extends BaseController implements Initi
     private TableColumn<Device, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet, columnDeviceName;
 
     private DeviceManager deviceManager;
+
     private DeviceModel deviceModel;
+
+    private NetworkModel networkModel;
+
     private ImageModel imageModel;
 
     private WiFiModel wiFiModel;
+
+    private Network network;
+
     private File imgFile;
 
     @Override
@@ -125,6 +138,8 @@ public class DocumentationViewController extends BaseController implements Initi
         paneNetwork.setVisible(true);
         paneAttachment.setVisible(false);
         paneDevice.setVisible(false);
+
+        setTableNetwork();
     }
 
     public void handleWiFi(ActionEvent actionEvent) {
@@ -133,6 +148,8 @@ public class DocumentationViewController extends BaseController implements Initi
         paneNetwork.setVisible(false);
         paneDevice.setVisible(false);
         paneAttachment.setVisible(false);
+
+        setTableWiFi();
     }
 
     public void handleAttachment(ActionEvent actionEvent) {
@@ -142,6 +159,8 @@ public class DocumentationViewController extends BaseController implements Initi
         paneNetwork.setVisible(false);
         paneAttachment.setVisible(true);
         paneDevice.setVisible(false);
+
+        setTableBillag();
 
     }
 
@@ -176,33 +195,26 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void handleBillagSaveUpdate(ActionEvent actionEvent) throws IOException {
 
-        billagKommentar.setWrapText(true);
+        if (billagSaveUpdate.getText().equals("Gem Billag")) {
 
-        int installationId = 1;
-        String description = "testing";
-        String remarks = billagKommentar.getText();
-        BufferedImage bImage = ImageIO.read(imgFile);
-        int imageType = 1;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(bImage,"jpg", bos);
-        byte[] data = bos.toByteArray();
+            createBillag();
+
+            billagBillede.setImage(null);
+            billagKommentar.setText("");
+            txtBillagNavn.setText("");
 
 
-        BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
+        } else if (billagSaveUpdate.getText().equals("Opdater Billag")) {
 
-        try {
+            updateBillag();
 
-            ImageManager.createImage(image);
+            txtBillagNavn.setText("");
+            billagKommentar.setText("");
+            billagBillede.setImage(null);
 
-        } catch (Exception e) {
-
-            throw new RuntimeException(e);
+            billagSaveUpdate.setText("Gem Billag");
+            btnShowAttachment.setText("Vis Billag");
         }
-
-
-        billagKommentar.setText("");
-
-        billagBillede.setImage(null);
     }
 
     public void handleBillagUpload(ActionEvent actionEvent) {
@@ -210,12 +222,49 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void handleCloseBillag(ActionEvent actionEvent) {
+        handleSketch(null);
+
+        tableBillag.getSelectionModel().clearSelection();
+
+        billagKommentar.setText("");
+        billagBillede.setImage(null);
+        imgFile = null;
+        txtBillagNavn.setText("");
+        billagSaveUpdate.setText("Gem Billag");
+        btnShowAttachment.setText("Vis Billag");
     }
 
     public void handleShowBillag(ActionEvent actionEvent) {
+
+        txtAreaSketch.setWrapText(true);
+
+        BE.DBEnteties.Image selectedImage = tableBillag.getSelectionModel().getSelectedItem();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(selectedImage.getData());
+
+        Image billagsBillede = new Image(inputStream);
+
+        billagBillede.setImage(billagsBillede);
+
+        txtBillagNavn.setText(selectedImage.getDescription());
+        billagKommentar.setText(selectedImage.getRemarks());
+
+        updateFieldsBillag();
+        imgFile = null;
     }
 
-    public void handleDeleteBillag(ActionEvent actionEvent) {
+    public void handleDeleteBillag(ActionEvent actionEvent) throws ImageNotFoundExeption {
+
+        BE.DBEnteties.Image selectedImage = tableBillag.getSelectionModel().getSelectedItem();
+
+        try{
+            ImageManager.deleteImage(selectedImage.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ImageNotFoundExeption e) {
+            throw new RuntimeException(e);
+        }
+        setTableBillag();
+
     }
     public void handleAddDevice(ActionEvent actionEvent) {
 
@@ -248,9 +297,6 @@ public class DocumentationViewController extends BaseController implements Initi
         }
 
     }
-
-
-
     public void handleDeviceShow(ActionEvent actionEvent) {
 
                 // Retrieve the selected device
@@ -266,9 +312,10 @@ public class DocumentationViewController extends BaseController implements Initi
 
                 if (selectedDevice.isPOE() == true) {
                     txtDevicePOE.setSelected(true);
-                } else {
+                } else if (selectedDevice.isPOE() == false) {
                     txtDevicePOE.setSelected(false);
                 }
+
             updateButtonAndFieldsDevice();
     }
 
@@ -317,15 +364,13 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void setCanvasImage(Image canvasImage) {canvasImageView.setImage(canvasImage);}
 
-    public void handleUploadSketch(ActionEvent actionEvent) {uploadImage();}
+    public void handleUploadSketch(ActionEvent actionEvent) {uploadSketch();}
 
     public void handleFinishSketch(ActionEvent actionEvent) {
     }
 
     public void handleSaveSketch(ActionEvent actionEvent) throws IOException {
 
-        Image imageCanvas = canvasImageView.getImage();
-        System.out.println("imageCanvas: " + imageCanvas);
 
     if(btnSaveSketch.getText().equals("Gem Tegning"))
 
@@ -350,16 +395,21 @@ public class DocumentationViewController extends BaseController implements Initi
         updateButtonsSketch();
     }
 
-    public void handleRemoveSketch(ActionEvent actionEvent)  {
+    public void handleRemoveSketch(ActionEvent actionEvent)  throws ImageNotFoundExeption{
+
         BE.DBEnteties.Image selectedImage = tableSketch.getSelectionModel().getSelectedItem();
+
         try{
             ImageManager.deleteImage(selectedImage.getId());
 
         } catch (SQLException e) {
+
             throw new RuntimeException(e);
-        } catch (ImageNotFoundExeption e) {
+        } catch (ImageNotFoundExeption e)
+        {
             throw new RuntimeException(e);
         }
+        setSketchTable();
     }
     public void handleCreateWiFi(ActionEvent actionEvent) {
 
@@ -388,6 +438,16 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void handleCancelWiFi(ActionEvent actionEvent) {
+        handleSketch(null);
+
+        tableWiFi.getSelectionModel().clearSelection();
+
+        txtWiFiName.setText("");
+        txtAreaWiFi.setText("");
+        txtWiFiPassword.setText("");
+        txtWiFiSSID.setText("");
+        btnCreateWiFi.setText("Gem WiFi");
+        btnShowWiFi.setText("Vis WiFi");
     }
 
     public void handleShowWiFi(ActionEvent actionEvent) {
@@ -403,41 +463,216 @@ public class DocumentationViewController extends BaseController implements Initi
         updateFieldsWiFi();
     }
 
-    public void handleDeleteWiFi(ActionEvent actionEvent) {
+    public void handleDeleteWiFi(ActionEvent actionEvent) throws WiFiNotFoundExeption{
+        WiFi selectedWiFi = tableWiFi.getSelectionModel().getSelectedItem();
+
+        try{
+            WiFiManager.deleteWiFi(selectedWiFi.getId());
+        } catch (WiFiNotFoundExeption e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        setTableWiFi();
     }
 
     public void handleSaveNetwork(ActionEvent actionEvent) {
+        if (btnSaveNetwork.getText().equals("Gem Netværk")) {
+
+            createNetwork();
+
+            txtNetworkIP.setText("");
+            txtNetworkName.setText("");
+            txtNetworkDefault.setText("");
+            txtNetworkSubnet.setText("");
+            // Assuming you have a checkbox named networkPOE
+            networkPOE.setSelected(false);
+
+
+        } else if (btnSaveNetwork.getText().equals("Opdater Netværk")) {
+
+            updateNetwork();
+
+            txtNetworkIP.setText("");
+            txtNetworkName.setText("");
+            txtNetworkDefault.setText("");
+            txtNetworkSubnet.setText("");
+            // Assuming you have a checkbox named networkPOE
+            networkPOE.setSelected(false);
+
+            btnSaveNetwork.setText("Gem Netværk");
+            btnShowNetwork.setText("Vis Netværk");
+        }
+
     }
 
     public void handleCancelNetwork(ActionEvent actionEvent) {
+        handleSketch(null);
+
+        tableNetwork.getSelectionModel().clearSelection();
+
+        txtNetworkName.setText("");
+        txtAreaNetwork.setText("");
+        txtNetworkIP.setText("");
+        txtNetworkSubnet.setText("");
+        txtNetworkDefault.setText("");
+        networkPOE.setSelected(false);
+        btnSaveNetwork.setText("Gem Netværk");
+        btnShowNetwork.setText("Vis Netværk");
     }
 
     public void handleShowNetwork(ActionEvent actionEvent) {
+        Network selectedNetwork = tableNetwork.getSelectionModel().getSelectedItem();
+
+        // Populate the UI elements with the selected network's data
+        txtNetworkIP.setText(selectedNetwork.getNetworkIP());
+        txtNetworkName.setText(selectedNetwork.getDescription());
+        txtNetworkDefault.setText(selectedNetwork.getDefaultGateway());
+        txtNetworkSubnet.setText(selectedNetwork.getSubnetMask());
+        networkPOE.setSelected(selectedNetwork.isHasPOE());
+
+        updateFieldsNetwork();
     }
 
-    public void handleDeleteNetwork(ActionEvent actionEvent) {
+    public void handleDeleteNetwork(ActionEvent actionEvent) throws NetworkNotFoundExeption {
+        Network selectedNetwork = tableNetwork.getSelectionModel().getSelectedItem();
+
+        try {
+            NetworkManager.deleteNetwork(selectedNetwork.getId());
+        } catch (NetworkNotFoundExeption e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        setTableNetwork();
     }
 
-    public void createBillag(){
+    public void createBillag() throws IOException {
+
+        billagKommentar.setWrapText(true);
+
+        int installationId = 1;
+        String description = txtBillagNavn.getText();
+        String remarks = billagKommentar.getText();
+        BufferedImage bImage = ImageIO.read(imgFile);
+        int imageType = 1;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(bImage,"jpg", bos);
+        byte[] data = bos.toByteArray();
+
+
+        BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
+
+        try {
+
+            ImageManager.createImage(image);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+
+        billagKommentar.setText("");
+
+        billagBillede.setImage(null);
+
+    setTableBillag();
 
     }
 
-    public void updateBillag(){
+    public void updateBillag() throws IOException {
 
+        billagKommentar.setWrapText(true);
+        BE.DBEnteties.Image selectedImage = tableBillag.getSelectionModel().getSelectedItem();
+
+        String description = txtBillagNavn.getText();
+        String remarks = billagKommentar.getText();
+        int imageType = selectedImage.getImageType();
+        byte[] data = selectedImage.getData();
+
+        if (imgFile != null) {
+            BufferedImage bImage = ImageIO.read(imgFile);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos);
+            data = bos.toByteArray();
+        }
+
+        BE.DBEnteties.Image image = new BE.DBEnteties.Image(selectedImage.getId(), selectedImage.getInstallationId(), description, remarks, data, imageType);
+
+        try {
+
+            ImageManager.updateImage(image);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+
+
+        billagKommentar.setText("");
+
+        billagBillede.setImage(null);
+
+
+    setTableBillag();
     }
 
     public void updateFieldsBillag(){
 
+        if (btnShowAttachment.getText().equals("Vis Billag")) {
+
+            // Run current method
+            billagSaveUpdate.setText("Opdater Billag");
+            btnShowAttachment.setText("Stop Visning");
+
+        }
+
+        else if (btnShowAttachment.getText().equals("Stop Visning")) {
+
+            tableBillag.getSelectionModel().clearSelection();
+
+            txtBillagNavn.setText("");
+            billagKommentar.setText("");
+
+            billagBillede.setImage(null);
+
+            billagSaveUpdate.setText("Gem Billag");
+            btnShowAttachment.setText("Vis Billag");
+        }
+
     }
 
     public void setTableBillag(){
+
+        ImageModel imageModel = new ImageModel();
+        this.imageModel = imageModel;
+
+        columnBillagID.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, Integer>("Id"));
+        columnBillagNavn.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, String>("Description"));
+
+        ObservableList<BE.DBEnteties.Image> allImages = imageModel.getImageList(1);
+        ObservableList<BE.DBEnteties.Image> filteredImages = FXCollections.observableArrayList();
+
+        for (BE.DBEnteties.Image imageListing: allImages){
+            if (imageListing.getImageType() == 1){
+                filteredImages.add(imageListing);
+            }
+
+        }
+        try {
+            tableBillag.setItems(filteredImages);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
 
     public void creatingDevice(){
 
-        // Get User Information
+        // Get Device Information
         String description = txtDeviceName.getText();
         String remarks = txtDeviceDescription.getText();
         String IP = txtDeviceIp.getText();
@@ -447,8 +682,8 @@ public class DocumentationViewController extends BaseController implements Initi
         String userName = txtDeviceUsername.getText();
         Boolean isPOE = false;
 
-        if (txtDevicePOE.isSelected()) {
-            Boolean isPoe = true;
+        if (txtDevicePOE.isSelected() == true) {
+             isPOE = true;
         }
 
         Device device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
@@ -483,7 +718,8 @@ public class DocumentationViewController extends BaseController implements Initi
         }
     }
     public void updatingDevice(){
-        // Get User Information
+
+        // Get Device Information
 
         Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
 
@@ -498,7 +734,7 @@ public class DocumentationViewController extends BaseController implements Initi
         int Id = selectedDevice.getId();
 
         if (txtDevicePOE.isSelected()) {
-            Boolean isPoe = true;
+             isPOE = true;
         }
 
         Device device = new Device(Id, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
@@ -540,15 +776,15 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void updateButtonsSketch(){
 
-        if (btnDeviceShow.getText().equals("Vis Tegning")) {
+        if (btnSaveSketch.getText().equals("Vis Tegning")) {
 
             // Run current method
-            btnAddDevice.setText("Opdater Tegning");
-            btnDeviceShow.setText("Stop Visning");
+            btnSaveSketch.setText("Opdater Tegning");
+            btnShowSketch.setText("Stop Visning");
 
         }
 
-        else if (btnDeviceShow.getText().equals("Stop Visning")) {
+        else if (btnSaveSketch.getText().equals("Stop Visning")) {
 
             tableSketch.getSelectionModel().clearSelection();
 
@@ -557,73 +793,97 @@ public class DocumentationViewController extends BaseController implements Initi
 
             canvasImageView.setImage(null);
 
-            btnAddDevice.setText("Gem Tegning");
-            btnDeviceShow.setText("Vis Tegning");
+            btnSaveSketch.setText("Gem Tegning");
+            btnShowSketch.setText("Vis Tegning");
         }
     }
-    public void saveSketch(){
+    public void saveSketch() {
+        if (canvasImageView != null) {
 
-        txtAreaSketch.setWrapText(true);
+            txtAreaSketch.setWrapText(true);
 
-        int installationId = 1;
+            int installationId = 1;
+            String description = txtTitleSketch.getText();
+            String remarks = txtAreaSketch.getText();
+            int imageType = 2;
+
+            javafx.scene.image.Image fxImage = canvasImageView.getImage();
+
+            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(fxImage, null);
+
+            int width = bufferedImage.getWidth();
+            int height = bufferedImage.getHeight();
+            System.out.println("Image dimensions: " + width + "x" + height);
+
+            byte[] data;
+            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                if (!ImageIO.write(bufferedImage, "png", outputStream)) {
+                    throw new IOException("Failed to write the image as Png");
+                }
+                data = outputStream.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            if (data.length == 0) {
+                System.out.println("No data found in the converted image.");
+                return;
+            }
+
+            BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
+
+            try {
+                ImageManager.createImage(image);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            txtAreaSketch.setText("");
+            txtTitleSketch.setText("");
+            canvasImageView.setImage(null);
+        }
+    }
+
+
+
+    public void updateSketch() throws IOException {
+
+        billagKommentar.setWrapText(true);
+        BE.DBEnteties.Image selectedImage = tableSketch.getSelectionModel().getSelectedItem();
+
         String description = txtTitleSketch.getText();
         String remarks = txtAreaSketch.getText();
-        int imageType = 2;
+        int imageType = selectedImage.getImageType();
+        byte[] data = selectedImage.getData();
 
-        Image imageCanvas = canvasImageView.getImage();
+        if (imgFile == null) {
 
-        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imageCanvas, null);
-
-        File tempFile;
-        try {
-            tempFile = File.createTempFile("temp", ".jpg");
-            ImageIO.write(bufferedImage, "jpg", tempFile);
-        } catch (IOException e) {
-
-            e.printStackTrace();
-            return;
+            BufferedImage bImage = ImageIO.read(imgFile);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos);
+            data = bos.toByteArray();
         }
 
-        BufferedImage verificationImage;
+        BE.DBEnteties.Image image = new BE.DBEnteties.Image(selectedImage.getId(), selectedImage.getInstallationId(), description, remarks, data, imageType);
+
         try {
-            verificationImage = ImageIO.read(tempFile);
-        } catch (IOException e) {
 
-            e.printStackTrace();
-            return;
-        }
+            ImageManager.updateImage(image);
 
-        if (verificationImage != null) {
-            System.out.println("Verification image is intact.");
-        } else {
-            System.out.println("Verification image is null. There might be an issue with the conversion.");
-        }
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(bufferedImage, "jpg", bos);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-
-        byte[] data = bos.toByteArray();
-
-        BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
-
-        // Save the image using ImageManager.createImage(image) or your corresponding logic
-        try {
-            ImageManager.createImage(image);
         } catch (Exception e) {
-            // Handle the exception appropriately
+
             throw new RuntimeException(e);
         }
 
-        // Clear fields and reset the canvasImageView
+
         txtAreaSketch.setText("");
         txtTitleSketch.setText("");
+
         canvasImageView.setImage(null);
+
+
+        setSketchTable();
     }
 
     public void setSketchTable(){
@@ -662,6 +922,16 @@ public class DocumentationViewController extends BaseController implements Initi
         }
     }
 
+    public void uploadSketch(){
+        FileChooser fc = new FileChooser();
+        Stage stage = (Stage) btnUploadSketch.getScene().getWindow();
+        imgFile = fc.showOpenDialog(stage);
+
+        if (imgFile != null) {
+            javafx.scene.image.Image image = new Image(imgFile.getAbsolutePath());
+            canvasImageView.setImage(image);
+        }
+    }
     public void createWiFi(){
 
         // Get User Information
@@ -697,10 +967,6 @@ public class DocumentationViewController extends BaseController implements Initi
         String SSID = txtWiFiSSID.getText();
         int installationID = selectedWiFi.getInstallationId();
         int Id = selectedWiFi.getId();
-
-        if (txtDevicePOE.isSelected()) {
-            Boolean isPoe = true;
-        }
 
         WiFi wifi = new WiFi(Id, installationID, description, remarks, SSID, PSK);
 
@@ -759,18 +1025,88 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void createNetwork(){
 
+        String description = txtNetworkName.getText();
+        String remarks = txtAreaNetwork.getText();
+        String networkIP = txtNetworkIP.getText();
+        String subnetMask = txtNetworkSubnet.getText();
+        String defaultGateway = txtNetworkDefault.getText();
+        boolean hasPOE = networkPOE.isSelected();
+        int installationID = 1;
+
+        Network network = new Network(0, installationID, description, remarks, networkIP, subnetMask, defaultGateway, hasPOE);
+
+        try {
+            NetworkManager.createNetwork(network);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        setTableNetwork();
+
     }
     public void updateNetwork(){
 
+            Network selectedNetwork = tableNetwork.getSelectionModel().getSelectedItem();
+
+            String description = txtNetworkName.getText();
+            String remarks = txtAreaNetwork.getText();
+            String networkIP = txtNetworkIP.getText();
+            String subnetMask = txtNetworkSubnet.getText();
+            String defaultGateway = txtNetworkDefault.getText();
+            int installationID = selectedNetwork.getInstallationId();
+            int id = selectedNetwork.getId();
+            Boolean hasPOE = networkPOE.isSelected();
+
+            Network network = new Network(id, installationID, description, remarks, networkIP, subnetMask, defaultGateway, hasPOE);
+
+            try {
+                NetworkManager.updateNetwork(network);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            setTableNetwork();
     }
 
     public void updateFieldsNetwork(){
 
+            if (btnShowNetwork.getText().equals("Vis Netværk")) {
+                // Run current method
+                btnSaveNetwork.setText("Opdater Netværk");
+                btnShowNetwork.setText("Stop Visning");
+            } else if (btnShowNetwork.getText().equals("Stop Visning")) {
+                tableNetwork.getSelectionModel().clearSelection();
+
+                txtAreaNetwork.setText("");
+                txtNetworkIP.setText("");
+                txtNetworkName.setText("");
+                txtNetworkDefault.setText("");
+                txtNetworkSubnet.setText("");
+                btnSaveNetwork.setText("Gem Netværk");
+                btnShowNetwork.setText("Vis Netværk");
+            }
+
+
     }
 
-    public void setTableNetwork(){
 
-    }
+    public void setTableNetwork() {
 
+            NetworkModel networkModel = new NetworkModel();
+            this.networkModel = new NetworkModel();
+
+            columnNetworkName.setCellValueFactory(new PropertyValueFactory<Network, String>("Description"));
+            columnNetworkIP.setCellValueFactory(new PropertyValueFactory<Network, String>("NetworkIP"));
+            columnNetworkSubnet.setCellValueFactory(new PropertyValueFactory<Network, String>("SubnetMask"));
+            columnNetworkDefault.setCellValueFactory(new PropertyValueFactory<Network, String>("DefaultGateway"));
+            columnNetworkPOE.setCellValueFactory(new PropertyValueFactory<Network, Boolean>("hasPOE"));
+
+            try {
+                tableNetwork.setItems(NetworkModel.getNetworks(1));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
 
 }

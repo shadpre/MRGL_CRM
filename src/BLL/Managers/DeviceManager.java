@@ -18,7 +18,7 @@ public class DeviceManager {
         return DeviceDAO_DB.updateDevice(device);
     }
 
-    public static ArrayList<Device> getDeviceList(int installationID) throws SQLException, DeviceNotFoundExeption {
+    public static ArrayList<Device> getDeviceList(int installationID) throws SQLException {
         return DeviceDAO_DB.getDeviceList(installationID);
     }
 

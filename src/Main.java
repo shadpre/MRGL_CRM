@@ -7,8 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
 //cleo
 public class Main extends Application{
@@ -32,15 +34,6 @@ public class Main extends Application{
             DBLogin.init(dbServer, dbPort, dbName, dbUsername, dbPassword);
             DatabaseConnector.init(DBLogin.getInstance());
 
-            //TEST
-
-            try {
-                TESTDB_DAO.test();
-            }
-            catch (Exception x){
-                System.out.println(x.getMessage());
-            }
-
             launch(args);
         }
 
@@ -52,6 +45,10 @@ public class Main extends Application{
             primaryStage.setScene(new Scene(root));
             primaryStage.setResizable(true);
             primaryStage.show();
+
+            String[] supportedFormats = ImageIO.getWriterFileSuffixes();
+            System.out.println(Arrays.toString(supportedFormats));
+
         }
 
     }

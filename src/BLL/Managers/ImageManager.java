@@ -22,11 +22,11 @@ public class ImageManager {
         return ImageDAO_DB.updateImage(image);
     }
 
-    public static ArrayList<Image> getImageList(int installationID) throws SQLException, ImageNotFoundExeption {
+    public static ArrayList<Image> getImageList(int installationID) throws SQLException {
         return ImageDAO_DB.getImageList(installationID);
     }
 
     public static void deleteImage(int id) throws SQLException, ImageNotFoundExeption{
-        ImageManager.deleteImage(id);
+        ImageDAO_DB.deleteImage(id);
     }
 }

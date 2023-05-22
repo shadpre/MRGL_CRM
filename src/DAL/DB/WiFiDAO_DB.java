@@ -52,7 +52,7 @@ public class WiFiDAO_DB {
         }
     }
 
-    public static ArrayList<WiFi> getWiFis(int installationId) throws SQLException, WiFiNotFoundExeption{
+    public static ArrayList<WiFi> getWiFis(int installationId) throws SQLException{
         ArrayList<WiFi> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "Select Id, Description, Remarks, SSID, PSK FROM WiFis WHERE InstallationId = ?";
@@ -73,8 +73,7 @@ public class WiFiDAO_DB {
                 ));
             }
 
-            if (out.size() == 0) throw new WiFiNotFoundExeption("No WiFis found");
-            else return out;
+            return out;
         }
     }
 
@@ -117,7 +116,7 @@ public class WiFiDAO_DB {
             String query = "DELETE WiFis WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,installationId);
+            statement.setInt(1, installationId);
 
             var rs = statement.executeUpdate();
 

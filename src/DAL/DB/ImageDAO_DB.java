@@ -43,7 +43,7 @@ public class ImageDAO_DB {
                         rs.getInt("InstallationId"),
                         rs.getString("Description"),
                         rs.getString("Remarks"),
-                        rs.getBytes("data"),
+                        rs.getBytes("Data"),
                         rs.getInt("ImageType")
                 );
             }
@@ -51,7 +51,7 @@ public class ImageDAO_DB {
         }
     }
 
-    public static ArrayList<Image> getImageList(int installationId) throws SQLException, ImageNotFoundExeption{
+    public static ArrayList<Image> getImageList(int installationId) throws SQLException{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             ArrayList<Image> out = new ArrayList<>();
 
@@ -67,32 +67,38 @@ public class ImageDAO_DB {
                         installationId,
                         rs.getString("Description"),
                         rs.getString("Remarks"),
-                        rs.getBytes("data"),
+                        rs.getBytes("Data"),
                         rs.getInt("ImageType")
                 ));
             }
-            if (out.size()==0) throw new ImageNotFoundExeption("No images found");
-            else return out;
+            return out;
         }
     }
 
-    public static Image updateImage(Image image) throws SQLException, ImageNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public static Image updateImage(Image image) throws SQLException, ImageNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "UPDATE Images " +
-                    "SET Installation Id = ?, Description = ?, Remarks = ?, Data = ?, Imagetype = ? " +
+                    "SET InstallationId = ?, Description = ?, Remarks = ?, Data = CONVERT(varbinary(max), ?), ImageType = ? " +
                     "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,image.getId());
+            statement.setInt(1, image.getInstallationId());
+            statement.setString(2, image.getDescription());
+            statement.setString(3, image.getRemarks());
+            statement.setBytes(4, image.getData());
+            statement.setInt(5, image.getImageType());
+            statement.setInt(6, image.getId()); // Use index 6 for the Id parameter
 
-            var rs = statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
 
-            if(rs == 0){
+            if (rowsAffected == 0) {
                 throw new ImageNotFoundExeption("Image not found");
             }
         }
+
         return getImage(image.getId());
     }
+
 
     public static void deleteImage(int id) throws SQLException, ImageNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
