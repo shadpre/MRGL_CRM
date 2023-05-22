@@ -21,6 +21,8 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.sql.Connection;
@@ -172,6 +174,20 @@ public class DocumentGeneration {
         document.close();
 
         System.out.println("Hello world!");
+
+        File file = new File(path);
+        try {
+            if (file.toString().endsWith(".pdf"))
+                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+            else {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+        }
     }
 
 }
