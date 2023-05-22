@@ -51,4 +51,28 @@ public class DocumentDAO_DB {
 
 
 
+    public static Document updateDocument(Document doc) throws SQLException, DocumentNotFoundExeption{
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query ="UPDATE Documents " +
+                    "SET CustomerTaskId = ?, Description = ?, Remarks = ? " +
+                    "WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, doc.getCustomerTaskId());
+            statement.setString(2, doc.getDescription());
+            statement.setString(3, doc.getRemarks());
+            statement.setInt(4, doc.getId());
+
+            var rs = statement.executeUpdate();
+
+            if(rs == 0) throw new DocumentNotFoundExeption("Document not found");
+        }
+
+        return getDocument(doc.getId());
+    }
+
+    public static void deleteDocument(int id){
+        throw new RuntimeException("Not implemnted yet");
+    }
+
 }
