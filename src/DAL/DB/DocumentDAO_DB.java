@@ -40,7 +40,7 @@ public class DocumentDAO_DB {
             if(rs.next()){
                 return new Document(
                         id,
-                        rs.getInt("CustomerTaskId")
+                        rs.getInt("CustomerTaskId"),
                         rs.getString("Description"),
                         rs.getString("Remarks")
                 );
