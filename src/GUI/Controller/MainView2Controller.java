@@ -598,6 +598,18 @@ public class MainView2Controller extends BaseController implements Initializable
         stackpaneBtnEditTask.setVisible(false);
         stackPaneViewAllCompletedTasks.setVisible(true);
 
+        CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+        this.customerTaskModel = customerTaskModel;
+
+        columnAllCompletedTasksNo.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnAllCompletedTasksDescription.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+
+        try {
+            tableViewAllCompletedTasks.setItems(CustomerTaskModel.getAllCustomerTasks());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -625,6 +637,20 @@ public class MainView2Controller extends BaseController implements Initializable
         stackpaneBtnEditUser.setVisible(false);
         stackpaneBtnEditTask.setVisible(false);
         stackPaneViewAllCompletedTasks.setVisible(false);
+
+        CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+        this.customerTaskModel = customerTaskModel;
+
+        columnAllCompletedTasksNoPm.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnAllCompletedTasksDescriptionPm.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+
+
+
+        try {
+            tableViewAllCompletedTasksPm.setItems(CustomerTaskModel.getAllCustomerTasks());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -658,13 +684,13 @@ public class MainView2Controller extends BaseController implements Initializable
 
         this.customerTaskModel = customerTaskModel;
 
-        //columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
-        //columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
+        columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
 
 
 
         try {
-            tableViewAllTasksCeo.setItems(CustomerTaskModel.getAllCustomerTasks());
+            tableViewAllTasksTech.setItems(CustomerTaskModel.getAllCustomerTasks());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
