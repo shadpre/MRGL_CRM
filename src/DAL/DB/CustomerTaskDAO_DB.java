@@ -11,7 +11,7 @@ public class CustomerTaskDAO_DB {
     public static CustomerTask CreateCustomerTask(CustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "INSERT INTO CustomerTasks (Date, Description, Remarks, Status, CustomerId VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO CustomerTasks (Date, Description, Remarks, Status, CustomerId) VALUES (?,?,?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, ct.GetDateString());

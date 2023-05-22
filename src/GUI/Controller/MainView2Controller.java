@@ -358,7 +358,7 @@ public class MainView2Controller extends BaseController implements Initializable
         String Remarks = txtFieldRemarksTask.getText();
         LocalDateTime Date = datePickerTask.getValue().atStartOfDay();
 
-        CustomerTask customerTask = new CustomerTask(-1, Date, Description, Remarks,-1, -1);
+        CustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks,0, 3);
         try {
 
             customerTaskManager.createCustomerTask(customerTask);
