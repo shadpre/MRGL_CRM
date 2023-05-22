@@ -143,126 +143,6 @@
             </Label>
          </children>
       </StackPane>
-      <StackPane fx:id="paneSketch" layoutX="339.0" layoutY="86.0" prefHeight="801.0" prefWidth="985.0" style="-fx-background-color: #f2f2f2;">
-         <children>
-            <TextArea fx:id="txtAreaSketch" prefHeight="333.0" prefWidth="335.0" stylesheets="@../StyleSheet/Styleguide.css">
-               <StackPane.margin>
-                  <Insets bottom="470.0" left="500.0" right="20.0" top="155.0" />
-               </StackPane.margin>
-            </TextArea>
-            <Label text="Giv en title til Installations Tegning" textFill="#318bb2">
-               <font>
-                  <Font name="Gill Sans MT" size="24.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="680.0" left="490.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
-               <font>
-                  <Font name="Gill Sans MT" size="24.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="280.0" right="450.0" />
-               </StackPane.margin>
-            </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
-               <StackPane.margin>
-                  <Insets bottom="350.0" top="440.0" />
-               </StackPane.margin>
-            </HBox>
-            <Button fx:id="btnSaveSketch" mnemonicParsing="false" onAction="#handleSaveSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Tegning" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="25.0" left="480.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="btnCloseSketch" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleFinishSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="10.0" left="480.0" top="700.0" />
-               </StackPane.margin>
-            </Button>
-            <Label layoutX="373.0" layoutY="474.0" text="Installations Tegning" textFill="#c34f0d">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="28.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="740.0" />
-               </StackPane.margin>
-            </Label>
-            <TableView fx:id="tableSketch" prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
-               <columns>
-                  <TableColumn prefWidth="448.0" text="Alle Installations Tegninger knyttet til opgaven">
-                     <columns>
-                        <TableColumn fx:id="columnSketchTitle" prefWidth="378.0" text="Titel" />
-                        <TableColumn fx:id="columnSketchID" prefWidth="100.0" text="ID" />
-                     </columns>
-                  </TableColumn>
-               </columns>
-               <StackPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="450.0" top="460.0" />
-               </StackPane.margin>
-            </TableView>
-            <Button fx:id="btnShowSketch" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleShowSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Tegning">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="480.0" top="500.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="btnRemoveSketch" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleRemoveSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Tegning">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="480.0" top="300.0" />
-               </StackPane.margin>
-            </Button>
-            <ImageView fx:id="canvasImageView" fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
-               <StackPane.margin>
-                  <Insets bottom="400.0" right="450.0" />
-               </StackPane.margin>
-               <image>
-                  <Image url="@../../data/images/Installations.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnAddSketch" layoutX="610.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleAddSketch" prefHeight="60.0" prefWidth="143.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Ny Tegning" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="25.0" right="670.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="btnUploadSketch" layoutX="391.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleUploadSketch" prefHeight="60.0" prefWidth="190.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Tegning" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Cambria Bold" size="19.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="25.0" right="280.0" />
-               </StackPane.margin>
-            </Button>
-            <TextField fx:id="txtTitleSketch" stylesheets="@../StyleSheet/Styleguide.css">
-               <StackPane.margin>
-                  <Insets bottom="620.0" left="500.0" right="20.0" />
-               </StackPane.margin>
-            </TextField>
-            <Label layoutX="562.0" layoutY="56.0" text="Kommentar til Installations Tegning" textFill="#318bb2">
-               <font>
-                  <Font name="Gill Sans MT" size="24.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="530.0" left="490.0" />
-               </StackPane.margin>
-            </Label>
-         </children>
-      </StackPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="40.0" layoutY="984.0" stroke="#333333" strokeType="INSIDE" width="1440.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="80.0" stroke="BLACK" strokeType="INSIDE" width="1440.0" />
       <VBox prefHeight="250.0" prefWidth="450.0">
@@ -798,6 +678,126 @@
                   <Insets bottom="550.0" left="510.0" right="20.0" />
                </StackPane.margin>
             </TextField>
+         </children>
+      </StackPane>
+      <StackPane fx:id="paneSketch" layoutX="339.0" layoutY="86.0" prefHeight="801.0" prefWidth="985.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <TextArea fx:id="txtAreaSketch" prefHeight="333.0" prefWidth="335.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="470.0" left="500.0" right="20.0" top="155.0" />
+               </StackPane.margin>
+            </TextArea>
+            <Label text="Giv en title til Installations Tegning" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="680.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
+            <Label layoutX="173.0" layoutY="109.0" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="280.0" right="450.0" />
+               </StackPane.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #333333;">
+               <StackPane.margin>
+                  <Insets bottom="350.0" top="440.0" />
+               </StackPane.margin>
+            </HBox>
+            <Button fx:id="btnSaveSketch" mnemonicParsing="false" onAction="#handleSaveSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Tegning" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" left="480.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnCloseSketch" layoutX="582.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleFinishSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="480.0" top="700.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="373.0" layoutY="474.0" text="Installations Tegning" textFill="#c34f0d">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="740.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="tableSketch" prefHeight="332.0" prefWidth="539.0" stylesheets="@../StyleSheet/Styleguide.css">
+               <columns>
+                  <TableColumn prefWidth="448.0" text="Alle Installations Tegninger knyttet til opgaven">
+                     <columns>
+                        <TableColumn fx:id="columnSketchTitle" prefWidth="378.0" text="Titel" />
+                        <TableColumn fx:id="columnSketchID" prefWidth="100.0" text="ID" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="450.0" top="460.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="btnShowSketch" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#handleShowSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Tegning">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnRemoveSketch" layoutX="582.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleRemoveSketch" prefHeight="60.0" prefWidth="232.0" stylesheets="@../StyleSheet/Styleguide.css" text="Fjern Tegning">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="480.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <ImageView fx:id="canvasImageView" fitHeight="301.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets bottom="400.0" right="450.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../data/images/Installations.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnAddSketch" layoutX="610.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleAddSketch" prefHeight="60.0" prefWidth="143.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Ny Tegning" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" right="670.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btnUploadSketch" layoutX="391.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleUploadSketch" prefHeight="60.0" prefWidth="190.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Tegning" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="25.0" right="280.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="txtTitleSketch" stylesheets="@../StyleSheet/Styleguide.css">
+               <StackPane.margin>
+                  <Insets bottom="620.0" left="500.0" right="20.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label layoutX="562.0" layoutY="56.0" text="Kommentar til Installations Tegning" textFill="#318bb2">
+               <font>
+                  <Font name="Gill Sans MT" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="530.0" left="490.0" />
+               </StackPane.margin>
+            </Label>
          </children>
       </StackPane>
    </children>

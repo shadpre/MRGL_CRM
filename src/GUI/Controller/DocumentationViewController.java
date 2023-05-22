@@ -367,18 +367,31 @@ public class DocumentationViewController extends BaseController implements Initi
     public void handleUploadSketch(ActionEvent actionEvent) {uploadSketch();}
 
     public void handleFinishSketch(ActionEvent actionEvent) {
+        setSketchTable();
+        txtAreaSketch.setText("");
+        txtTitleSketch.setText("");
+        canvasImageView.setImage(null);
     }
 
     public void handleSaveSketch(ActionEvent actionEvent) throws IOException {
 
 
-    if(btnSaveSketch.getText().equals("Gem Tegning"))
+    if(btnSaveSketch.getText().equals("Gem Tegning")) {
 
         saveSketch();
         setSketchTable();
     }
+    else if(btnSaveSketch.getText().equals("Opdater Tegning")){
+        updateSketch();
+        setSketchTable();
+        btnSaveSketch.setText("Gem Tegning");
+        btnShowSketch.setText("Vis Tegning");
+    }
+    }
 
     public void handleShowSketch(ActionEvent actionEvent) {
+        
+        imgFile = null;
 
         txtAreaSketch.setWrapText(true);
 
@@ -776,26 +789,21 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void updateButtonsSketch(){
 
-        if (btnSaveSketch.getText().equals("Vis Tegning")) {
 
-            // Run current method
-            btnSaveSketch.setText("Opdater Tegning");
-            btnShowSketch.setText("Stop Visning");
+            System.out.println("Button Text: " + btnSaveSketch.getText()); // Debug output
+            if (btnShowSketch.getText().equals("Vis Tegning")) {
+                // Run current method
+                btnSaveSketch.setText("Opdater Tegning");
+                btnShowSketch.setText("Stop Visning");
+            } else if (btnShowSketch.getText().equals("Stop Visning")) {
+                tableSketch.getSelectionModel().clearSelection();
+                txtTitleSketch.setText("");
+                txtAreaSketch.setText("");
+                canvasImageView.setImage(null);
+                btnSaveSketch.setText("Gem Tegning");
+                btnShowSketch.setText("Vis Tegning");
+            }
 
-        }
-
-        else if (btnSaveSketch.getText().equals("Stop Visning")) {
-
-            tableSketch.getSelectionModel().clearSelection();
-
-            txtTitleSketch.setText("");
-            txtAreaSketch.setText("");
-
-            canvasImageView.setImage(null);
-
-            btnSaveSketch.setText("Gem Tegning");
-            btnShowSketch.setText("Vis Tegning");
-        }
     }
     public void saveSketch() {
         if (canvasImageView != null) {
@@ -849,15 +857,33 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void updateSketch() throws IOException {
 
-        billagKommentar.setWrapText(true);
+        txtAreaSketch.setWrapText(true);
         BE.DBEnteties.Image selectedImage = tableSketch.getSelectionModel().getSelectedItem();
 
         String description = txtTitleSketch.getText();
         String remarks = txtAreaSketch.getText();
         int imageType = selectedImage.getImageType();
-        byte[] data = selectedImage.getData();
+        javafx.scene.image.Image fxImage = canvasImageView.getImage();
 
-        if (imgFile == null) {
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(fxImage, null);
+
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        System.out.println("Image dimensions: " + width + "x" + height);
+
+        byte[] data;
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            if (!ImageIO.write(bufferedImage, "png", outputStream)) {
+                throw new IOException("Failed to write the image as Png");
+            }
+            data = outputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (imgFile != null) {
 
             BufferedImage bImage = ImageIO.read(imgFile);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -884,6 +910,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
 
         setSketchTable();
+        imgFile = null;
     }
 
     public void setSketchTable(){
