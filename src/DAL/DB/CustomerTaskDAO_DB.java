@@ -81,8 +81,8 @@ public class CustomerTaskDAO_DB {
     public static ArrayList<CustomerTask> getAllUserCustomerTasks(int userId) throws SQLException{
         ArrayList<CustomerTask> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            String query = "SELECT Id, CustomerId, Date, Description, Remarks, Status FROM CustomerTasks" +
-                    "WHERE Id IN (SELECT CustomerTaskId FROM UserCustomerTasksRel" +
+            String query = "SELECT Id, CustomerId, Date, Description, Remarks, Status FROM CustomerTasks " +
+                    "WHERE Id IN (SELECT CustomerTaskId FROM UserCustomerTasksRel " +
                     "WHERE UserId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);

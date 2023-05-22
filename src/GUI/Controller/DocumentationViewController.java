@@ -2,6 +2,7 @@ package GUI.Controller;
 
 
 import BE.DBEnteties.Device;
+import BE.DBEnteties.Installation;
 import BE.DBEnteties.Network;
 import BE.DBEnteties.WiFi;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
@@ -118,10 +119,27 @@ public class DocumentationViewController extends BaseController implements Initi
 
     private Network network;
 
+    private InstallationModel installationModel;
+
+    private Installation selectedInstallation;
+
     private File imgFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        paneWiFi.setVisible(false);
+        paneNetwork.setVisible(false);
+        paneSketch.setVisible(true);
+        paneDevice.setVisible(false);
+        paneAttachment.setVisible(false);
+
+        setSketchTable();
+    }
+
+    public void setUpDocu(Installation selectedInstallation, InstallationModel installationModel){
+
+        this.selectedInstallation = selectedInstallation;
+        this.installationModel = installationModel;
 
         paneWiFi.setVisible(false);
         paneNetwork.setVisible(false);

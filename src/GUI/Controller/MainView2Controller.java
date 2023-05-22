@@ -358,7 +358,7 @@ public class MainView2Controller extends BaseController implements Initializable
         String Remarks = txtFieldRemarksTask.getText();
         LocalDateTime Date = datePickerTask.getValue().atStartOfDay();
 
-        CustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks,0, 3);
+        CustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks,0, 2);
         try {
 
             customerTaskManager.createCustomerTask(customerTask);
@@ -710,7 +710,7 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

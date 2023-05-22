@@ -153,32 +153,36 @@ TableView {
 
 
 
-.text-area
-{
-    -fx-text-fill: #333333;
-    -fx-font-family: "Gill Sans MT";
+.text-field {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
-    -fx-control-inner-background: white;
-    -fx-border-color: rgba(20, 20, 220, 0.3);
-    -fx-border-width: 2px;
-    -fx-border-radius: 7px;
-    -fx-border-style: solid solid solid solid;
-    -fx-background-radius: 7px;
-    -fx-effect: dropshadow(gaussian, rgba(20,20,220,0.3), 10, 0, 3, 3);
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.4, 0, 1);
 }
 
-.text-field {
-    -fx-text-fill: #333333;
-    -fx-font-family: "Gill Sans MT";
+.text-area {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
-    -fx-wrap-text: true;
-    -fx-control-inner-background: white;
-    -fx-border-color: rgba(20, 20, 220, 0.3);
-    -fx-border-width: 2px;
-    -fx-border-radius: 7px;
-    -fx-border-style: solid solid solid solid;
-    -fx-background-radius: 7px;
-    -fx-effect: dropshadow(gaussian, rgba(20,20,220,0.3), 10, 0, 3, 3);
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.4, 0, 1);
+}
+
+.text-area .content {
+    -fx-background-color: #f2f2f2;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
 }
 
 

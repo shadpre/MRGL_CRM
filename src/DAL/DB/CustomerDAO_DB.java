@@ -11,7 +11,7 @@ public class CustomerDAO_DB {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
 
-            String query = "INSERT INTO CUSTOMERS (Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category,TaxNo) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            String query = "INSERT INTO CUSTOMERS (Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, customer.getName());
