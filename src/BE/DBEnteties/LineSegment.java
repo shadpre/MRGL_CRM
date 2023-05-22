@@ -1,10 +1,13 @@
 package BE.DBEnteties;
 
+import javafx.scene.paint.Color;
+
 public class LineSegment {
     private double startX;
     private double startY;
     private double endX;
     private double endY;
+    private Color color;
 
     public double getStartX() {
         return startX;
@@ -38,10 +41,19 @@ public class LineSegment {
         this.endY = endY;
     }
 
-    public LineSegment(double startX, double startY, double endX, double endY) {
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public LineSegment(double startX, double startY, double endX, double endY, Color color) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
+        this.color = color;
     }
 }
