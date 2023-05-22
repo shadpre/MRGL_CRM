@@ -1,9 +1,9 @@
 USE master
-DROP DATABASE IF EXISTS MrglCRM
+DROP DATABASE IF EXISTS Mrgl_CRM
 
-CREATE DATABASE MrglCRM
+CREATE DATABASE Mrgl_CRM
 GO
-USE MrglCRM
+USE Mrgl_CRM
 
 CREATE TABLE Users(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
@@ -32,8 +32,8 @@ CREATE TABLE Customers(
 CREATE TABLE CustomerTasks(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[Date] DATETIME NOT NULL,
-	[Description] NVARCHAR(255) NULL,
-	[Remarks] NVARCHAR(MAX) NULL,
+	[Description] NVARCHAR(100) NULL,
+	[Remarks] NVARCHAR(255) NULL,
 	[Status] TINYINT NOT NULL,
 	[CustomerId] INT FOREIGN KEY REFERENCES Customers(Id)
 );
@@ -44,25 +44,20 @@ CREATE TABLE UserCustomerTasksRel(
 	[CustomerTaskId] INT FOREIGN KEY REFERENCES CustomerTasks(Id)
 );
 
-CREATE TABLE Documents(
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[CustomerTaskId] INT FOREIGN KEY REFERENCES CustomerTasks(Id),
-	[Description] NVARCHAR(255) NOT NULL,
-	[Remarks] NVARCHAR(MAX) NOT NULL
-);
+
 
 CREATE TABLE Installations(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
-	[DocumentId] INT FOREIGN KEY REFERENCES Documents(Id),
-	[Description] NVARCHAR(255) NOT NULL,
-	[Remarks] NVARCHAR(MAX) NOT NULL
+	[CustomerTasksId] INT FOREIGN KEY REFERENCES CustomerTasks(Id),
+	[Description] NVARCHAR(100) NOT NULL,
+	[Remarks] NVARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Devices(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
-	[Description] NVARCHAR(255) NOT NULL,
-	[Remarks] NVARCHAR(MAX) NOT NULL,
+	[Description] NVARCHAR(100) NOT NULL,
+	[Remarks] NVARCHAR(255) NOT NULL,
 	[IP] NVARCHAR(15) NOT NULL,
 	[SubnetMask] NVARCHAR(15) NOT NULL,
 	[UserName] NVARCHAR(255) NOT NULL,
@@ -73,28 +68,28 @@ CREATE TABLE Devices(
 CREATE TABLE Networks(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
-	[Description] NVARCHAR(255) NOT NULL,
-	[Remarks] NVARCHAR(MAX) NOT NULL,
-	[NetworkIP] NVARCHAR(255) NOT NULL,
-	[SubnetMask] NVARCHAR(255) NOT NULL,
-	[DefaultGateway] NVARCHAR(255) NOT NULL,
+	[Description] NVARCHAR(100) NOT NULL,
+	[Remarks] NVARCHAR(255) NOT NULL,
+	[NetworkIP] NVARCHAR(15) NOT NULL,
+	[SubnetMask] NVARCHAR(15) NOT NULL,
+	[DefaultGateway] NVARCHAR(15) NOT NULL,
 	[HasPOE] BIT NOT NULL
 );
 
 CREATE TABLE WiFis(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
-	[Description] NVARCHAR(255) NOT NULL,
-	[Remarks] NVARCHAR(MAX) NOT NULL,
-	[SSID] NVARCHAR(255) NOT NULL,
-	[PSK] NVARCHAR(255) NOT NULL
+	[Description] NVARCHAR(10) NOT NULL,
+	[Remarks] NVARCHAR(255) NOT NULL,
+	[SSID] NVARCHAR(32) NOT NULL,
+	[PSK] NVARCHAR(63) NOT NULL
 );
 
 CREATE TABLE Images(
 	[Id] INT PRIMARY KEY IDENTITY(1,1),
 	[InstallationId] INT FOREIGN KEY REFERENCES Installations(Id),
-	[Description] NVARCHAR(255) NOT NULL,
-	[Remarks] NVARCHAR(MAX) NOT NULL,
+	[Description] NVARCHAR(10) NOT NULL,
+	[Remarks] NVARCHAR(255) NOT NULL,
 	[Data] VARBINARY(MAX) NOT NULL,
 	[ImageType] TINYINT NOT NULL,
 );
@@ -107,13 +102,15 @@ DELETE WiFis
 DELETE Networks
 DELETE Devices
 DELETE Installations
-DELETE Documents
 DELETE UserCustomerTasksRel
 DELETE CustomerTasks
 DELETE Customers
 DELETE Users
 
 INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('ADM', 'Admin', 'Admin', 'admin@wuav.dk', '$2a$10$o2rPhDPzNtmPo9mVNuohVOHkHP0uLau8XFaleRsulSk0XXU0fVjPO', 1)
+INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('TECH', 'Tech', 'Tech', 'tech@wuav.dk', '$2a$10$6MXOEMhN/iQgQYLCVNmd1upeMuuYKm1hjOqLaIGe0mGFsIgxomDLq', 0)
+INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('PM', 'PM', 'PM', 'pm@wuav.dk', '$2a$10$c2MvZKH/ZehQNb97IZ0BsuIz0UUP4.JhDFuyeoMXzeu12OIJ8qvKG', 2)
+INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('SALG', 'Salg', 'Salg', 'salg@wuav.dk', '$2a$10$pmrLP.xrxBmTxMQBFdkrY.zlk9vNGgJMpMsFtift69VeMwx8efraW', 3)
 
 Go
 

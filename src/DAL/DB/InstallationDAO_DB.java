@@ -13,7 +13,7 @@ public class InstallationDAO_DB {
             String query = "INSERT INTO Insallations (DocumentId, Description, Remarks) VALUES (?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1,inst.getDocumentId());
+            statement.setInt(1,inst.getCustomerId());
             statement.setString(2,inst.getDescription());
             statement.setString(3, inst.getRemarks());
 
@@ -78,7 +78,7 @@ public class InstallationDAO_DB {
                     "Where Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,inst.getDocumentId());
+            statement.setInt(1,inst.getCustomerId());
             statement.setString(2, inst.getDescription());
             statement.setString(3, inst.getRemarks());
             statement.setInt(4, inst.getId());

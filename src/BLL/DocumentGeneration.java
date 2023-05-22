@@ -35,32 +35,12 @@ public class DocumentGeneration {
 
         String path = "data/documents/Invtest.pdf";
 
-        ArrayList<BE.DBEnteties.Document> out = new ArrayList<>();
 
-        Connection conn = DatabaseConnector.getInstance().getConnection();{
-            String query =
-                    "SELECT Id, CustomerTaskId, Description, Remarks, FROM Documents";
 
-            PreparedStatement statement = conn.prepareStatement(query);
 
-            var rs = statement.executeQuery();
-
-            while(rs.next()){
-                out.add(new BE.DBEnteties.Document(
-                        rs.getInt("Id"),
-                        rs.getInt("CustomerTaskId"),
-                        rs.getString("Description"),
-                        rs.getString("Remarks")
-                ));
-            }
-            if (out.size() == 0){
-                throw new DocumentNotFoundExeption("No Document Found");
-            }
-        }
 
         String sketchDescription = "";
-        String taskDescription = conn.getSchema();
-        PdfWriter pdfWriter = new PdfWriter(path);
+                PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
 
@@ -162,7 +142,7 @@ public class DocumentGeneration {
                 .setBorder(Border.NO_BORDER)
                 .setMarginTop(15f)
         );
-        Paragraph paragraph = new Paragraph(taskDescription);
+        Paragraph paragraph = new Paragraph("taskDescription");
 
 
         document.add(table);
