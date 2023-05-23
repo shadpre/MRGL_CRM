@@ -2,13 +2,13 @@ package BE.DBEnteties;
 
 public class Installation {
     private int Id;
-    private int CustomerId;
+    private int CustomerTaskId;
     private String Description;
     private String Remarks;
 
-    public Installation(int id, int documentId, String description, String remarks) {
+    public Installation(int id, int customerTaskId, String description, String remarks) {
         Id = id;
-        CustomerId = documentId;
+        CustomerTaskId = customerTaskId;
         Description = description;
         Remarks = remarks;
     }
@@ -17,8 +17,8 @@ public class Installation {
         return Id;
     }
 
-    public int getCustomerId() {
-        return CustomerId;
+    public int getCustomerTaskId() {
+        return CustomerTaskId;
     }
 
     public String getDescription() {
