@@ -932,7 +932,7 @@
                         </VBox>
                         <VBox prefHeight="244.0" prefWidth="217.0">
                            <children>
-                              <Button mnemonicParsing="false" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="--&gt;">
+                              <Button fx:id="btnAddTech" mnemonicParsing="false" onAction="#btnHandleAddTech" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="--&gt;">
                                  <font>
                                     <Font name="Cambria Bold" size="25.0" />
                                  </font>
@@ -940,7 +940,7 @@
                                     <Insets left="45.0" top="55.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="&lt;--">
+                              <Button fx:id="btnRemoveTech" mnemonicParsing="false" onAction="#btnHandleRemoveTech" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="&lt;--">
                                  <font>
                                     <Font name="Cambria Bold" size="25.0" />
                                  </font>
