@@ -31,35 +31,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DocumentGeneration {
-    public static void documentGeneration(String[] args) throws FileNotFoundException, MalformedURLException, SQLException, DocumentNotFoundExeption {
+    public static void documentGeneration() throws FileNotFoundException, MalformedURLException, SQLException, DocumentNotFoundExeption {
 
-        String path = "data/documents/Invtest.pdf";
+        String path = "C:\\out\\test.pdf";
 
-        ArrayList<BE.DBEnteties.Document> out = new ArrayList<>();
 
-        Connection conn = DatabaseConnector.getInstance().getConnection();{
-            String query =
-                    "SELECT Id, CustomerTaskId, Description, Remarks, FROM Documents";
-
-            PreparedStatement statement = conn.prepareStatement(query);
-
-            var rs = statement.executeQuery();
-
-            while(rs.next()){
-                out.add(new BE.DBEnteties.Document(
-                        rs.getInt("Id"),
-                        rs.getInt("CustomerTaskId"),
-                        rs.getString("Description"),
-                        rs.getString("Remarks")
-                ));
-            }
-            if (out.size() == 0){
-                throw new DocumentNotFoundExeption("No Document Found");
-            }
-        }
-
-        String sketchDescription = "";
-        String taskDescription = conn.getSchema();
+        String sketchDescription = "Skitse af installation";
+        String taskDescription = "Montage af SmartTV i venteværelse af SVS";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
@@ -73,7 +51,7 @@ public class DocumentGeneration {
 
         table.setBackgroundColor(Color.DARK_GRAY);
 
-        String imgPath = "data/images/Wuavlogoprgtest.JPG";
+        String imgPath = "C:\\out\\Wuavlogoprgtest.JPG";
         ImageData imageData = ImageDataFactory.create(imgPath);
         Image image = new Image(imageData);
 
@@ -126,7 +104,7 @@ public class DocumentGeneration {
         float sketchColumnWidth[] = {560f};
 
         Table sketchTable = new Table(sketchColumnWidth);
-        String sketchPath = "data/images/sketch1.jpg";
+        String sketchPath = "C:\\out\\sketch1.jpg";
 
         ImageData imageData1 = ImageDataFactory.create(sketchPath);
         Image sketch = new Image(imageData1);
@@ -173,7 +151,7 @@ public class DocumentGeneration {
 
         document.close();
 
-        System.out.println("Hello world!");
+        System.out.println("Document Created");
 
         File file = new File(path);
         try {

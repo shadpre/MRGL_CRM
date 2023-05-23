@@ -2,6 +2,8 @@ package DAL.DB;
 
 import BE.DBEnteties.Customer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -128,8 +130,24 @@ public class CustomerDAO_DB {
         throw new RuntimeException("Not Implemented");
     }
 
-    public static void deleteCustomer(int ID){
+    public static void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
 
-        throw new RuntimeException("Not implemented");
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            String query = "DELETE Customers WHERE Id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+
+            var rs = statement.executeUpdate();
+
+            if (rs == 0)
+                   throw new ImageNotFoundExeption("Customer not found");
+
+            //throw new RuntimeException("Not implemented");
+
+        } catch (ImageNotFoundExeption e) {
+            throw new RuntimeException(e);
+        }
     }
-}
+
+    }

@@ -1,12 +1,12 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Customer;
-import BE.DBEnteties.User;
-import BLL.PasswordHash;
+import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import DAL.DB.CustomerDAO_DB;
-import DAL.DB.UserDAO_DB;
 
 
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CustomerManager {
@@ -19,10 +19,10 @@ public class CustomerManager {
         return CustomerDAO_DB.createCustomer(customer);
     }
 
-   // public static Customer deleteCustomer(Customer selectedCustomer) throws Exception {
+    public static void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
 
-    //    return CustomerDAO_DB.deleteCustomer();
-    //}
+        CustomerDAO_DB.deleteCustomer(id);
+    }
 
     }
 
