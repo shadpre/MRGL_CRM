@@ -1,7 +1,9 @@
 package DAL.DB;
 
+import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
 import BE.DBEnteties.Installation;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,12 +11,12 @@ import java.util.ArrayList;
 public class InstallationDAO_DB {
     public static Installation createInstallation(Installation inst) throws SQLException, InstallationNotFoundExeption {
         int ID;
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO Installations (CustomerTaskId, Description, Remarks) VALUES (?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1,inst.getCustomerTaskId());
-            statement.setString(2,inst.getDescription());
+            statement.setInt(1, inst.getCustomerTaskId());
+            statement.setString(2, inst.getDescription());
             statement.setString(3, inst.getRemarks());
 
             var rs = statement.executeQuery();
@@ -26,8 +28,8 @@ public class InstallationDAO_DB {
         return getInstallation(ID);
     }
 
-    public static Installation getInstallation(int id) throws SQLException, InstallationNotFoundExeption{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public static Installation getInstallation(int id) throws SQLException, InstallationNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT CustomerTaskId, Description, Remarks FROM Installations WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -35,29 +37,28 @@ public class InstallationDAO_DB {
 
             var rs = statement.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 return new Installation(
                         id,
                         rs.getInt("CustomerTaskId"),
                         rs.getString("Description"),
                         rs.getString("Remarks")
                 );
-            }
-            else throw new InstallationNotFoundExeption("Installation not found");
+            } else throw new InstallationNotFoundExeption("Installation not found");
         }
     }
 
-    public static ArrayList<Installation> getInstallations(int customerTaskId) throws SQLException, InstallationNotFoundExeption{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public static ArrayList<Installation> getInstallations(int customerTaskId) throws SQLException, InstallationNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             ArrayList<Installation> out = new ArrayList<>();
             String query = "SELECT Id, Description, Remarks FROM Installations WHERE CustomerTaskId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,customerTaskId);
+            statement.setInt(1, customerTaskId);
 
             var rs = statement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new Installation(
                         rs.getInt("Id"),
                         customerTaskId,
@@ -71,9 +72,9 @@ public class InstallationDAO_DB {
         }
     }
 
-    public static ArrayList<Installation> getAllInstallations() throws SQLException, InstallationNotFoundExeption{
+    public static ArrayList<Installation> getAllInstallations() throws SQLException, InstallationNotFoundExeption {
 
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             ArrayList<Installation> out = new ArrayList<>();
             String query = "SELECT Id, CustomerTaskId, Description, Remarks FROM Installations";
 
@@ -82,7 +83,7 @@ public class InstallationDAO_DB {
 
             var rs = statement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new Installation(
                         rs.getInt("Id"),
                         rs.getInt("customerTaskId"),
@@ -94,14 +95,16 @@ public class InstallationDAO_DB {
             return out;
         }
     }
-    public static Installation updateInstallation(Installation inst) throws SQLException, InstallationNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+
+    public static Installation updateInstallation(Installation inst) throws SQLException, InstallationNotFoundExeption {
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "UPDATE Installations" +
                     "SET CustomerTaskId = ?, Description = ?, Remarks = ?" +
                     "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,inst.getCustomerTaskId());
+            statement.setInt(1, inst.getCustomerTaskId());
             statement.setString(2, inst.getDescription());
             statement.setString(3, inst.getRemarks());
             statement.setInt(4, inst.getId());
@@ -112,6 +115,43 @@ public class InstallationDAO_DB {
         }
         return getInstallation(inst.getId());
     }
+
+    public static ArrayList<Installation> getInstallationsForUser(User selectedUser) throws SQLException {
+            ArrayList<Installation> installationsForUser = new ArrayList<>();
+
+            String sqlQuery = "SELECT i.* " +
+                    "FROM Installations i " +
+                    "JOIN CustomerTasks ct ON i.customerTaskId = ct.id " +
+                    "JOIN UserCustomerTasksRel uoct ON ct.id = uoct.customerTaskId " +
+                    "JOIN Users u ON uoct.userId = u.id " +
+                    "WHERE u.loginName = ?";
+
+            try (Connection connection = DatabaseConnector.getInstance().getConnection();
+                 PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+
+                statement.setString(1, selectedUser.getLoginName());
+
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()) {
+                    Installation installation = new Installation(
+                            rs.getInt("Id"),
+                            rs.getInt("customerTaskId"),
+                            rs.getString("Description"),
+                            rs.getString("Remarks"));
+                    installationsForUser.add(installation);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw e; // Rethrow the exception to handle it at a higher level if needed
+            }
+
+            return installationsForUser;
+    }
+
+
+
 
     public static void deleteInstallation(int id) throws SQLException, InstallationNotFoundExeption{
         throw new RuntimeException("Not implemented yet");

@@ -112,11 +112,11 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<Customer, String> columnCustomerCity;
 
     @FXML
-    private TableView<CustomerTask> tableViewAllTasksTech;
+    private TableView<Installation> tableViewAllTasksTech;
     @FXML
-    private TableColumn<CustomerTask, String> columnAllMyTasksTech;
+    private TableColumn<Installation, Integer> columnAllMyTasksTech;
     @FXML
-    private TableColumn<CustomerTask, String> columnDescriptionTasksTech;
+    private TableColumn<Installation, String> columnDescriptionTasksTech;
     @FXML
     private TableView<CustomerTask> tableViewAllCompletedTasks;
     @FXML
@@ -495,12 +495,34 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleBeginTask(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("selectedUser.getLoginName()");
-        stage.show();
+        Installation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
+
+        if (selectedInstallation != null) {
+
+            this.installationModel = installationModel;
+
+            installationModel.setSelectedInstallation(selectedInstallation);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("selectedUser.getLoginName()");
+            stage.show();
+
+
+            DocumentationViewController controller = loader.getController();
+            controller.setInstallationModel(installationModel);
+
+
+            controller.setUpDocu(selectedInstallation, installationModel);
+        }
+
+        else{
+            System.out.println("get fucked nerd");
+        }
+
+        System.out.println("" + selectedUSer.getFirstName() + selectedUSer.getLoginName());
 
     }
 
@@ -591,17 +613,16 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllTasksTech.setVisible(true);
 
 
-        CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+        InstallationModel installationModel = new InstallationModel();
 
-        this.customerTaskModel = customerTaskModel;
+        this.installationModel = installationModel;
 
-        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
-        columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
-
+        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, Integer>("CustomerTaskId"));
+        columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, String>("Description"));
 
 
         try {
-            tableViewAllTasksTech.setItems(CustomerTaskModel.getAllCustomerTasks());
+            tableViewAllTasksTech.setItems(installationModel.getInstallationsForUser(selectedUSer));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -616,13 +637,34 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("selectedUser.getLoginName()");
-        stage.show();
+        Installation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
 
+        if (selectedInstallation != null) {
+
+            this.installationModel = installationModel;
+
+            installationModel.setSelectedInstallation(selectedInstallation);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("selectedUser.getLoginName()");
+            stage.show();
+
+
+            DocumentationViewController controller = loader.getController();
+            controller.setInstallationModel(installationModel);
+
+
+            controller.setUpDocu(selectedInstallation, installationModel);
+        }
+
+        else{
+            System.out.println("get fucked nerd");
+        }
+
+        System.out.println("" + selectedUSer.getFirstName() + selectedUSer.getLoginName());
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 
+import GUI.Model.InstallationModel;
 import GUI.Model.UserModel;
 
 public class BaseController {
@@ -19,4 +20,16 @@ public class BaseController {
     public void setUserModel(UserModel userModel){
 
         this.userModel = userModel;}
+
+    public InstallationModel getInstallationModel() {
+        return installationModel;
+    }
+
+    public void setInstallationModel(InstallationModel installationModel) {
+        this.installationModel = installationModel;
+    }
+
+    private InstallationModel installationModel;
+
+
 }

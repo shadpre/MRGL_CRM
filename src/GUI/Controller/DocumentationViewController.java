@@ -48,92 +48,55 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DocumentationViewController extends BaseController implements Initializable {
-
-
-
     @FXML
     private ImageView canvasImageView, billagBillede;
-
     @FXML
     private StackPane  paneSketch, paneWiFi, paneNetwork, paneAttachment, paneDevice;
-
     @FXML
     private Button btnExit, btnDeviceShow, btnAddDevice, btnShowSketch, btnSave, btnCreateWiFi, btnShowWiFi, btnSaveNetwork, btnShowNetwork;
-
     @FXML
     private Button  btnSaveSketch, billagSaveUpdate, btnShowAttachment, billagUpload, btnUploadSketch;
-
     @FXML
     private TextArea txtDeviceDescription, billagKommentar, txtAreaSketch, txtAreaWiFi, txtAreaNetwork;
-
     @FXML
-    private TextField txtDevicePassword, txtDeviceSubnet, txtDeviceUsername, txtDeviceIp, txtDeviceName;
-
+    private TextField txtDevicePassword, txtDeviceSubnet, txtDeviceUsername, txtDeviceIp, txtDeviceName, txtTitleSketch, txtBillagNavn;
     @FXML
     private TextField txtWiFiPassword, txtWiFiSSID, txtWiFiName, txtNetworkIP, txtNetworkName, txtNetworkDefault, txtNetworkSubnet;
-
-    @FXML
-    private TextField txtTitleSketch, txtBillagNavn;
-
     @FXML CheckBox txtDevicePOE, networkPOE;
-
     @FXML
     private TableView<WiFi> tableWiFi;
-
     @FXML
     private TableColumn<WiFi, String> columnWiFiSSID, columnWiFiName, columnWiFiPassword;
-
     @FXML
     private TableView<Network> tableNetwork;
-
     @FXML
     private TableColumn<Network, String> columnNetworkSubnet, columnNetworkName, columnNetworkIP, columnNetworkDefault;
-
     @FXML
     private TableColumn<Network, Boolean> columnNetworkPOE;
-
     @FXML
     private TableView<BE.DBEnteties.Image> tableSketch, tableBillag;
-
     @FXML
     private TableColumn<BE.DBEnteties.Image, String> columnSketchTitle, columnBillagNavn;
-
     @FXML
     private TableColumn<BE.DBEnteties.Image, Integer> columnSketchID, columnBillagID;
-
     @FXML
     private TableView<Device> tableDevice;
-
     @FXML
     private TableColumn<Device, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet, columnDeviceName;
-
     private DeviceManager deviceManager;
-
     private DeviceModel deviceModel;
-
     private NetworkModel networkModel;
-
     private ImageModel imageModel;
-
     private WiFiModel wiFiModel;
 
     private Network network;
-
     private InstallationModel installationModel;
-
     private Installation selectedInstallation;
 
     private File imgFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        paneWiFi.setVisible(false);
-        paneNetwork.setVisible(false);
-        paneSketch.setVisible(true);
-        paneDevice.setVisible(false);
-        paneAttachment.setVisible(false);
-
-        setSketchTable();
     }
 
     public void setUpDocu(Installation selectedInstallation, InstallationModel installationModel){
@@ -141,72 +104,41 @@ public class DocumentationViewController extends BaseController implements Initi
         this.selectedInstallation = selectedInstallation;
         this.installationModel = installationModel;
 
-        paneWiFi.setVisible(false);
-        paneNetwork.setVisible(false);
-        paneSketch.setVisible(true);
-        paneDevice.setVisible(false);
-        paneAttachment.setVisible(false);
-
+        handleSketch(null);
         setSketchTable();
     }
 
     public void handleNetwork(ActionEvent actionEvent) {
-        paneSketch.setVisible(false);
-        paneWiFi.setVisible(false);
+        turnOffPanes();
         paneNetwork.setVisible(true);
-        paneAttachment.setVisible(false);
-        paneDevice.setVisible(false);
-
         setTableNetwork();
     }
 
     public void handleWiFi(ActionEvent actionEvent) {
-        paneSketch.setVisible(false);
+        turnOffPanes();
         paneWiFi.setVisible(true);
-        paneNetwork.setVisible(false);
-        paneDevice.setVisible(false);
-        paneAttachment.setVisible(false);
-
         setTableWiFi();
     }
 
     public void handleAttachment(ActionEvent actionEvent) {
-
-        paneSketch.setVisible(false);
-        paneWiFi.setVisible(false);
-        paneNetwork.setVisible(false);
+        turnOffPanes();
         paneAttachment.setVisible(true);
-        paneDevice.setVisible(false);
-
         setTableBillag();
-
     }
 
     public void handleSketch(ActionEvent actionEvent) {
-
+        turnOffPanes();
         paneSketch.setVisible(true);
-        paneWiFi.setVisible(false);
-        paneNetwork.setVisible(false);
-        paneAttachment.setVisible(false);
-        paneDevice.setVisible(false);
-
         setSketchTable();
-
     }
 
     public void handleDevice(ActionEvent actionEvent) {
-
-        paneSketch.setVisible(false);
-        paneWiFi.setVisible(false);
-        paneNetwork.setVisible(false);
-        paneAttachment.setVisible(false);
+        turnOffPanes();
         paneDevice.setVisible(true);
-
         setTableDevice();
     }
 
     public void handleExit(ActionEvent actionEvent) {
-
         Stage stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
     }
@@ -289,27 +221,12 @@ public class DocumentationViewController extends BaseController implements Initi
         if (btnAddDevice.getText().equals("Gem Enhed")) {
 
             creatingDevice();
-
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDeviceName.setText("");
-            txtDevicePOE.setSelected(false);
-
+            turnOffDeviceFields();
 
         } else if (btnAddDevice.getText().equals("Opdater Enhed")) {
 
             updatingDevice();
-
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDeviceName.setText("");
-            txtDevicePOE.setSelected(false);
+            turnOffDeviceFields();
             btnAddDevice.setText("Gem Enhed");
             btnDeviceShow.setText("Vis Enhed");
         }
@@ -320,13 +237,7 @@ public class DocumentationViewController extends BaseController implements Initi
                 // Retrieve the selected device
                 Device selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
 
-                // Populate the UI elements with the selected device's data
-                txtDeviceDescription.setText(selectedDevice.getRemarks());
-                txtDeviceIp.setText(selectedDevice.getIP());
-                txtDevicePassword.setText(selectedDevice.getPassword());
-                txtDeviceSubnet.setText(selectedDevice.getSubnetMask());
-                txtDeviceUsername.setText(selectedDevice.getUserName());
-                txtDeviceName.setText(selectedDevice.getDescription());
+                turnOffDeviceFields();
 
                 if (selectedDevice.isPOE() == true) {
                     txtDevicePOE.setSelected(true);
@@ -342,13 +253,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
         tableDevice.getSelectionModel().clearSelection();
 
-        txtDeviceDescription.setText("");
-        txtDeviceIp.setText("");
-        txtDevicePassword.setText("");
-        txtDeviceSubnet.setText("");
-        txtDeviceUsername.setText("");
-        txtDevicePOE.setSelected(false);
-        txtDeviceName.setText("");
+        turnOffDeviceFields();
         btnAddDevice.setText("Gem Enhed");
         btnDeviceShow.setText("Vis Enhed");
     }
@@ -511,26 +416,12 @@ public class DocumentationViewController extends BaseController implements Initi
         if (btnSaveNetwork.getText().equals("Gem Netværk")) {
 
             createNetwork();
-
-            txtNetworkIP.setText("");
-            txtNetworkName.setText("");
-            txtNetworkDefault.setText("");
-            txtNetworkSubnet.setText("");
-            // Assuming you have a checkbox named networkPOE
-            networkPOE.setSelected(false);
-
+            turnOffNetworkFields();
 
         } else if (btnSaveNetwork.getText().equals("Opdater Netværk")) {
 
             updateNetwork();
-
-            txtNetworkIP.setText("");
-            txtNetworkName.setText("");
-            txtNetworkDefault.setText("");
-            txtNetworkSubnet.setText("");
-            // Assuming you have a checkbox named networkPOE
-            networkPOE.setSelected(false);
-
+            turnOffNetworkFields();
             btnSaveNetwork.setText("Gem Netværk");
             btnShowNetwork.setText("Vis Netværk");
         }
@@ -539,15 +430,8 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void handleCancelNetwork(ActionEvent actionEvent) {
         handleSketch(null);
-
         tableNetwork.getSelectionModel().clearSelection();
-
-        txtNetworkName.setText("");
-        txtAreaNetwork.setText("");
-        txtNetworkIP.setText("");
-        txtNetworkSubnet.setText("");
-        txtNetworkDefault.setText("");
-        networkPOE.setSelected(false);
+        turnOffNetworkFields();
         btnSaveNetwork.setText("Gem Netværk");
         btnShowNetwork.setText("Vis Netværk");
     }
@@ -583,7 +467,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
         billagKommentar.setWrapText(true);
 
-        int installationId = 1;
+        int installationId = selectedInstallation.getId();
         String description = txtBillagNavn.getText();
         String remarks = billagKommentar.getText();
         BufferedImage bImage = ImageIO.read(imgFile);
@@ -683,14 +567,13 @@ public class DocumentationViewController extends BaseController implements Initi
         columnBillagID.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, Integer>("Id"));
         columnBillagNavn.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, String>("Description"));
 
-        ObservableList<BE.DBEnteties.Image> allImages = imageModel.getImageList(1);
+        ObservableList<BE.DBEnteties.Image> allImages = imageModel.getImageList(selectedInstallation.getId());
         ObservableList<BE.DBEnteties.Image> filteredImages = FXCollections.observableArrayList();
 
         for (BE.DBEnteties.Image imageListing: allImages){
             if (imageListing.getImageType() == 1){
                 filteredImages.add(imageListing);
             }
-
         }
         try {
             tableBillag.setItems(filteredImages);
@@ -709,7 +592,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String IP = txtDeviceIp.getText();
         String password = txtDevicePassword.getText();
         String subnetMask = txtDeviceSubnet.getText();
-        int installationID = 1;
+        int installationID = selectedInstallation.getId();
         String userName = txtDeviceUsername.getText();
         Boolean isPOE = false;
 
@@ -743,7 +626,7 @@ public class DocumentationViewController extends BaseController implements Initi
         columnDeviceName.setCellValueFactory(new PropertyValueFactory<Device, String>("Description"));
 
         try {
-            tableDevice.setItems(DeviceModel.getDeviceList(1));
+            tableDevice.setItems(DeviceModel.getDeviceList(selectedInstallation.getId()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -793,13 +676,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
             tableDevice.getSelectionModel().clearSelection();
 
-            txtDeviceDescription.setText("");
-            txtDeviceIp.setText("");
-            txtDevicePassword.setText("");
-            txtDeviceSubnet.setText("");
-            txtDeviceUsername.setText("");
-            txtDeviceName.setText("");
-            txtDevicePOE.setSelected(false);
+            turnOffDeviceFields();
             btnAddDevice.setText("Gem Enhed");
             btnDeviceShow.setText("Vis Enhed");
         }
@@ -828,7 +705,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
             txtAreaSketch.setWrapText(true);
 
-            int installationId = 1;
+            int installationId = selectedInstallation.getId();
             String description = txtTitleSketch.getText();
             String remarks = txtAreaSketch.getText();
             int imageType = 2;
@@ -939,7 +816,7 @@ public class DocumentationViewController extends BaseController implements Initi
         columnSketchID.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, Integer>("Id"));
         columnSketchTitle.setCellValueFactory(new PropertyValueFactory<BE.DBEnteties.Image, String>("Description"));
 
-        ObservableList<BE.DBEnteties.Image> allImages = imageModel.getImageList(1);
+        ObservableList<BE.DBEnteties.Image> allImages = imageModel.getImageList(selectedInstallation.getId());
         ObservableList<BE.DBEnteties.Image> filteredImages = FXCollections.observableArrayList();
 
         for (BE.DBEnteties.Image imageListing: allImages){
@@ -984,7 +861,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String remarks = txtAreaWiFi.getText();
         String PSK = txtWiFiPassword.getText();
         String SSID = txtWiFiSSID.getText();
-        int installationID = 1;
+        int installationID = selectedInstallation.getId();
 
 
 
@@ -1061,7 +938,7 @@ public class DocumentationViewController extends BaseController implements Initi
         columnWiFiSSID.setCellValueFactory(new PropertyValueFactory<WiFi, String>("SSID"));
 
         try {
-            tableWiFi.setItems(WiFiModel.getWiFis(1));
+            tableWiFi.setItems(WiFiModel.getWiFis(selectedInstallation.getId()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1076,7 +953,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String subnetMask = txtNetworkSubnet.getText();
         String defaultGateway = txtNetworkDefault.getText();
         boolean hasPOE = networkPOE.isSelected();
-        int installationID = 1;
+        int installationID = selectedInstallation.getId();
 
         Network network = new Network(0, installationID, description, remarks, networkIP, subnetMask, defaultGateway, hasPOE);
 
@@ -1121,17 +998,10 @@ public class DocumentationViewController extends BaseController implements Initi
                 btnShowNetwork.setText("Stop Visning");
             } else if (btnShowNetwork.getText().equals("Stop Visning")) {
                 tableNetwork.getSelectionModel().clearSelection();
-
-                txtAreaNetwork.setText("");
-                txtNetworkIP.setText("");
-                txtNetworkName.setText("");
-                txtNetworkDefault.setText("");
-                txtNetworkSubnet.setText("");
+                turnOffNetworkFields();
                 btnSaveNetwork.setText("Gem Netværk");
                 btnShowNetwork.setText("Vis Netværk");
             }
-
-
     }
 
 
@@ -1147,11 +1017,37 @@ public class DocumentationViewController extends BaseController implements Initi
             columnNetworkPOE.setCellValueFactory(new PropertyValueFactory<Network, Boolean>("hasPOE"));
 
             try {
-                tableNetwork.setItems(NetworkModel.getNetworks(1));
+                tableNetwork.setItems(NetworkModel.getNetworks(selectedInstallation.getId()));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        
+
+        public void turnOffPanes(){
+        paneAttachment.setVisible(false);
+        paneDevice.setVisible(false);
+        paneWiFi.setVisible(false);
+        paneNetwork.setVisible(false);
+        paneSketch.setVisible(false);
+        }
+
+        public void turnOffNetworkFields(){
+            txtAreaNetwork.setText("");
+            txtNetworkIP.setText("");
+            txtNetworkName.setText("");
+            txtNetworkDefault.setText("");
+            txtNetworkSubnet.setText("");
+            networkPOE.setSelected(false);
+        }
+
+        public void turnOffDeviceFields(){
+            txtDeviceDescription.setText("");
+            txtDeviceIp.setText("");
+            txtDevicePassword.setText("");
+            txtDeviceSubnet.setText("");
+            txtDeviceUsername.setText("");
+            txtDeviceName.setText("");
+            txtDevicePOE.setSelected(false);
+        }
 
 }

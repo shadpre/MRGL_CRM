@@ -40,4 +40,14 @@ public class InstallationModel {
         }
         return output;
     }
+
+    public static ObservableList<Installation> getInstallationsForUser(User selectedUser){
+        ObservableList<Installation>  installations;
+        try {
+            installations =  FXCollections.observableArrayList(InstallationManager.getInstallationsForUSer(selectedUser));
+        } catch (Exception e) {
+            throw new RuntimeException("404");
+        }
+        return installations;
+    }
 }

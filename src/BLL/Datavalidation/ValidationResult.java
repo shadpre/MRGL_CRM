@@ -20,6 +20,6 @@ public class ValidationResult {
 
     public String errorString(){
         String out = "";
-
+    return  null;
     }
 }
