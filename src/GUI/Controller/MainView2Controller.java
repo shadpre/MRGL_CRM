@@ -862,6 +862,4 @@ public class MainView2Controller extends BaseController implements Initializable
 
             }
 
-
-        }
-    }
+}
