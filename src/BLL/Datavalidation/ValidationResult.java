@@ -25,7 +25,13 @@ public class ValidationResult {
     }
 
     public String errorString(){
-        String out = "";
-    return  null;
+        StringBuilder sb = new StringBuilder();
+        if (this.hasNoError()) return "";
+
+        for (int i = 0 ; errors.size() < i ; i++){
+            sb.append(errors.get(i));
+            if(i != errors.size()- 1 ) sb.append("\r\n");
+        }
+        return sb.toString();
     }
 }

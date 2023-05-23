@@ -24,7 +24,6 @@ public class Main extends Application{
                     props.load(input);
                 }
             }
-
             var dbServer = props.getProperty("DB_IP");
             var dbPort = Integer.parseInt(props.getProperty("DB_PORT"));
             var dbName = props.getProperty("DB_NAME");

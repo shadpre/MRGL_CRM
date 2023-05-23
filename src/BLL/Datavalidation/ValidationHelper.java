@@ -1,12 +1,12 @@
 package BLL.Datavalidation;
 
-import BE.DBEnteties.Customer;
-import BE.DBEnteties.CustomerTask;
-import BE.DBEnteties.Device;
+import BE.DBEnteties.*;
 import BE.Exptions.ValidationException;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class ValidationHelper {
 
@@ -47,6 +47,72 @@ public class ValidationHelper {
         return vr;
     }
 
+    public static ValidationResult validate(Image img) {
+        ValidationResult vr = new ValidationResult();
+        if (img.getDescription().length() > 100 ) vr.addError("Description");
+        if (img.getRemarks().length() > 255) vr.addError("Remarks");
+        if (img.getImageType() < 0 || img.getImageType() > 255) vr.addError("ImageType");
+
+        return vr;
+    }
+
+    public static ValidationResult validate(Installation inst){
+        ValidationResult vr = new ValidationResult();
+        if (inst.getDescription().length() > 100 ) vr.addError("Description");
+        if (inst.getRemarks().length() > 255) vr.addError("Remarks");
+
+        return vr;
+    }
+
+    public static ValidationResult validate(Network network) {
+        ValidationResult vr = new ValidationResult();
+        if (network.getDescription().length() > 100) vr.addError("Description");
+        if (network.getRemarks().length() > 255) vr.addError("Remarks");
+        if (!isValidIPv4(network.getNetworkIP())) vr.addError("NetworkIP");
+        if (!isValidSubnetMask(network.getSubnetMask())) vr.addError("SubnetMask");
+        // There is no check for Default GW actually is on the same network. Just check for Valid IP adr.
+        if (!isValidIPv4(network.getDefaultGateway())) vr.addError("DefaultGateway");
+
+        return vr;
+    }
+
+    public static ValidationResult validate(User user){
+        ValidationResult vr = new ValidationResult();
+
+        if (user.getLoginName().length() > 5) vr.addError("LoginName");
+        if (user.getFirstName().length() > 40) vr.addError("FirstName");
+        if (user.getLastName().length() > 40) vr.addError("LastName");
+        if (!isEmailValidFormat(user.getEMail())) vr.addError("Email");
+
+        return vr;
+    }
+
+    public static ValidationResult validate(WiFi wifi){
+        ValidationResult vr = new ValidationResult();
+
+        if (wifi.getDescription().length() > 100) vr.addError("Description");
+        if (wifi.getRemarks().length() > 255) vr.addError("Remarks");
+        if (wifi.getSSID().length() > 32) vr.addError("SSID");
+        if (wifi.getPSK().length() > 63) vr.addError("PSK");
+
+        return vr;
+     }
+
+    //Public due to unit test
+
+    public static boolean isEmailValidFormat(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+
     //Public due to unit test
     public static boolean isValidIPv4(String ip) {
         String[] octets = ip.split("\\.");
@@ -80,7 +146,7 @@ public class ValidationHelper {
         }
 
         boolean endOfOnes = false;
-        //Check for the IP address contains of 4 Octets separated by dot
+        //Check for the Subnet address contains of 4 Octets separated by dot
         if (octets.length != 4) return false;
 
         for (int i = 0; i < octets.length; i++) {

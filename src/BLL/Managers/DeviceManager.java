@@ -11,7 +11,6 @@ public class DeviceManager {
 
     public static Device createDevice(Device device) throws SQLException, DeviceNotFoundExeption {
         return DeviceDAO_DB.createDevice(device);
-
     }
 
     public static Device updateDevice(Device device) throws SQLException, DeviceNotFoundExeption {
