@@ -4,12 +4,14 @@
  **/
 package BLL.Managers;
 
+import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BE.Exptions.UserValidationExeption;
 import BE.DBEnteties.User;
 import BLL.PasswordHash;
 import DAL.DB.CustomerDAO_DB;
 import DAL.DB.UserDAO_DB;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserManager {
@@ -48,6 +50,11 @@ public class UserManager {
 
     public static ArrayList<User> getAllUsers() throws Exception{
         return UserDAO_DB.getAllUsers();
+    }
+
+    public static void deleteUser(int id) throws SQLException, UserNotFoundExeption {
+
+        UserDAO_DB.deleteUser(id);
     }
 
 
