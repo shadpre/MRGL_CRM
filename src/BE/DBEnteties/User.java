@@ -6,6 +6,8 @@ package BE.DBEnteties;
 
 import BE.Enums.UserRole;
 
+
+
 public class User {
 
     private int Id;
@@ -27,6 +29,7 @@ public class User {
     public int getId() {
         return Id;
     }
+    public void setId(int id){this.Id = id;}
 
     public String getLoginName() {
         return LoginName;

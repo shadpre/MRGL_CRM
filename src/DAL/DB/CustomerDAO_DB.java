@@ -16,6 +16,7 @@ public class CustomerDAO_DB {
             String query = "INSERT INTO CUSTOMERS (Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
+
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getAddress1());
             statement.setString(3, customer.getAddress2());

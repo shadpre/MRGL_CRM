@@ -4,18 +4,24 @@ import java.util.ArrayList;
 
 public class ValidationResult {
 
-    private ArrayList<String> Errors;
+
+
+    private ArrayList<String> errors;
+
+    public ArrayList<String> getErrors() {
+        return errors;
+    }
 
     public ValidationResult(){
-        Errors = new ArrayList<>();
+        errors = new ArrayList<>();
     }
 
     public void addError(String error){
-        Errors.add(error);
+        errors.add(error);
     }
 
     public boolean hasNoError(){
-        return Errors.size() == 0;
+        return errors.size() == 0;
     }
 
     public String errorString(){

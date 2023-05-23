@@ -12,16 +12,16 @@ public class ValidationHelper {
 
     public static ValidationResult validate(Customer customer){
         ValidationResult vr = new ValidationResult();
-        if (customer.getName().length() > 60) vr.addError("Name ");
+        if (customer.getName().length() > 60) vr.addError("Name");
         if(customer.getAddress1().length() > 60) vr.addError("Address1");
         if(customer.getAddress2().length() > 60) vr.addError("Address2");
         if(customer.getAddress3().length() > 60) vr.addError("Address3");
         if(customer.getZipcode().length() > 20) vr.addError("Zipcode");
-        if(customer.getCity().length() > 60) vr.addError("City");;
-        if(customer.getCountry().length() > 40) vr.addError("Country");;
-        if(customer.getPhone().length() > 20) vr.addError("Phone");;
-        if(customer.getCategory().length() > 20) vr.addError("Catgory");;
-        if(customer.getTaxNo().length() > 20) vr.addError("TaxNo");;
+        if(customer.getCity().length() > 60) vr.addError("City");
+        if(customer.getCountry().length() > 40) vr.addError("Country");
+        if(customer.getPhone().length() > 20) vr.addError("Phone");
+        if(customer.getCategory().length() > 20) vr.addError("Category");
+        if(customer.getTaxNo().length() > 20) vr.addError("TaxNo");
 
         return vr;
     }
@@ -38,6 +38,11 @@ public class ValidationHelper {
     public static ValidationResult validate(Device dev) {
         ValidationResult vr = new ValidationResult();
         if (dev.getDescription().length() > 100) vr.addError("Description");
+        if (dev.getRemarks().length() > 255) vr.addError("Remarks");
+        if (!isValidIPv4(dev.getIP())) vr.addError("IP");
+        if (!isValidSubnetMask(dev.getSubnetMask())) vr.addError("SubnetMask");
+        if (dev.getUserName().length() > 255) vr.addError("UserName");
+        if (dev.getPassword().length() > 255) vr.addError("Password");
 
         return vr;
     }
@@ -85,7 +90,6 @@ public class ValidationHelper {
                 int val = Integer.parseInt(octets[i]);
                 //Check for legal subnetmask val
                 if (! acceptedValues.contains(val)) return false;
-
                 //Check for Binary values contains 0
                 if (val == 255 && !endOfOnes) continue;
 
@@ -97,8 +101,6 @@ public class ValidationHelper {
                 if (val != 0 && endOfOnes){
                     return false;
                 }
-
-
             } catch (Exception ex) {
                 return false;
             }

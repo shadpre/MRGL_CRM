@@ -2,6 +2,7 @@ package BLL.Managers;
 
 import BE.DBEnteties.Customer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
+import BLL.Datavalidation.ValidationHelper;
 import DAL.DB.CustomerDAO_DB;
 
 
@@ -16,8 +17,12 @@ public class CustomerManager {
 
     public static Customer createCustomer(Customer customer) throws Exception {
 
+
         return CustomerDAO_DB.createCustomer(customer);
+
     }
+
+
 
     public static void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
 

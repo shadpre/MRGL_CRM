@@ -1,5 +1,6 @@
 package BE.DBEnteties;
 
+
 public class Customer {
     private int Id;
     private String Name;

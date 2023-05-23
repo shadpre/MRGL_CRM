@@ -9,6 +9,8 @@ import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
+import BLL.Datavalidation.ValidationHelper;
+import BLL.Datavalidation.ValidationResult;
 import BLL.DocumentGeneration;
 import BLL.Managers.*;
 import DAL.DB.CustomerTaskDAO_DB;
@@ -359,8 +361,25 @@ public class MainView2Controller extends BaseController implements Initializable
         Customer customer = new Customer(-1, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
 
         try {
-
+            ValidationResult vr = ValidationHelper.validate(customer);
+            if (vr.hasNoError()){
             customerManager.createCustomer(customer);
+            }
+            else {
+                for (String error: vr.getErrors()
+                     ) {
+                    switch (error){
+                        case "Name":
+                            //Do something
+                            break;
+                        case "Address1":
+                            int i = 0;//Do something2
+                            break;
+                        case "Address2":
+                            int ij = 1;
+                    }
+                }
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
