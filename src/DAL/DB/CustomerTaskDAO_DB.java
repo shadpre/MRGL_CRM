@@ -32,7 +32,7 @@ public class CustomerTaskDAO_DB {
 
     public static void addUserToCustomerTask(int userId, int ctId) throws SQLException{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            String query = "INSERT INTO (UserId, CustomerTaskId) VALUES (?,?)";
+            String query = "INSERT INTO UserCustomerTasksRel (UserId, CustomerTaskId) VALUES (?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, userId);
