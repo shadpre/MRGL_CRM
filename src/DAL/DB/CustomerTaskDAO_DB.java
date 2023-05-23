@@ -30,6 +30,19 @@ public class CustomerTaskDAO_DB {
         return getCustomerTask(ID);
     }
 
+    public static void addUserToCustomerTask(int userId, int ctId) throws SQLException{
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            String query = "INSERT INTO (UserId, CustomerTaskId) VALUES (?,?)";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, userId);
+            statement.setInt(2, ctId);
+
+            var rs = statement.executeUpdate();
+            if (rs == 0) throw new SQLDataException("Relation not saved");
+        }
+    }
+
     public static CustomerTask getCustomerTask(int id) throws SQLException, CustomerTaskNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Date, Description, Remarks, Status, CustomerID FROM CustomerTasks WHERE id = ?";
