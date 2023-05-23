@@ -3,17 +3,18 @@ package GUI.Controller;
 
 import BE.DBEnteties.Customer;
 import BE.DBEnteties.CustomerTask;
+import BE.DBEnteties.Installation;
 import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.DocumentGeneration;
-import BLL.Managers.CustomerTaskManager;
-import BLL.Managers.ImageManager;
+import BLL.Managers.*;
 import DAL.DB.CustomerTaskDAO_DB;
 import GUI.Model.CustomerModel;
 import GUI.Model.CustomerTaskModel;
+import GUI.Model.InstallationModel;
 import GUI.Model.UserModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,8 +29,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import BLL.Managers.UserManager;
-import BLL.Managers.CustomerManager;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -214,6 +213,8 @@ public class MainView2Controller extends BaseController implements Initializable
     private UserManager userManager;
     private CustomerModel customerModel;
     private CustomerManager customerManager;
+
+    private InstallationModel installationModel;
     private CustomerTaskManager customerTaskManager;
 
     private CustomerTaskModel customerTaskModel;
@@ -434,11 +435,22 @@ public class MainView2Controller extends BaseController implements Initializable
      } catch (Exception e) {
          throw new RuntimeException(e);
      }
+
      int taskInt = customerTaskModel.getAllCustomerTasks().size() - 1;
      CustomerTask selectedTask = customerTaskModel.getAllCustomerTasks().get(taskInt);
 
-     techTaskLink(selectedTask);
-
+     try {
+         techTaskLink(selectedTask);
+     } catch (SQLException e) {
+         throw new RuntimeException(e);
+     }
+    
+     int installationsNr = 1;
+     try{
+         createInstallation(selectedTask, installationsNr);
+     } catch (Exception e) {
+         throw new RuntimeException(e);
+     }
     }
     @FXML
     void btnHandleShowAllUsers(ActionEvent event) {
@@ -1067,6 +1079,24 @@ public class MainView2Controller extends BaseController implements Initializable
         LocalDateTime localDateTime = localDate.atTime(time.toLocalTime());
 
         return localDateTime;
+    }
+
+    public void createInstallation(CustomerTask selectedTask, int installationNr){
+
+        InstallationModel installationModel = new InstallationModel();
+        this.installationModel = installationModel;
+
+
+        String description = selectedTask.getDescription() + "Installation nr " + installationNr;
+
+        Installation inst = new Installation(0, selectedTask.getId(), description, "");
+
+        try{
+            InstallationManager.createInstallation(inst);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
