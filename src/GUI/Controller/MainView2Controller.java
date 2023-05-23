@@ -37,6 +37,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
@@ -136,7 +138,7 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private TableView<User> tableViewAddTaskTechAvalible;
     @FXML
-    private TableColumn<User, String> columnAddTaskAvalibleTech;
+    private TableColumn<User, String> columnAddTaskAvalibleTech, columnAddTaskAssignedTech;
 
     @FXML
     private TableView<User> tableViewAddTaskTechAssigned;
@@ -315,6 +317,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
         columnAddTaskAllCustomers.setCellValueFactory(new PropertyValueFactory<Customer, String>("Name"));
 
+
         // Try-Catch block for exeption handling.
         try {
             tableViewAddTaskAllCustomers.setItems(CustomerModel.getAllCustomers());
@@ -327,6 +330,7 @@ public class MainView2Controller extends BaseController implements Initializable
         this.userModel = userModel;
 
         columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
 
         ObservableList<User> allUsers = userModel.getAllUsers();
         ObservableList<User> filteredUsers = FXCollections.observableArrayList();
@@ -354,22 +358,16 @@ public class MainView2Controller extends BaseController implements Initializable
     void btnHandleAddTech(ActionEvent event){
 
         User selectedTech = tableViewAddTaskTechAvalible.getSelectionModel().getSelectedItem();
-
         tableViewAddTaskTechAvalible.getItems().remove(selectedTech);
-
         tableViewAddTaskTechAssigned.getItems().add(selectedTech);
 
     }
 
     @FXML
     void btnHandleRemoveTech(ActionEvent event){
-
         User selectedTech = tableViewAddTaskTechAssigned.getSelectionModel().getSelectedItem();
-
         tableViewAddTaskTechAssigned.getItems().remove(selectedTech);
-
         tableViewAddTaskTechAvalible.getItems().add(selectedTech);
-
     }
     @FXML
     void btnHandleSaveUserCeo(ActionEvent event) {
@@ -426,29 +424,20 @@ public class MainView2Controller extends BaseController implements Initializable
 
     }
     @FXML
-    void btnHandleSaveTaskCeo(ActionEvent event) {
+    void btnHandleSaveTaskCeo(ActionEvent event) throws SQLException {
 
         // Get the selected Customer from the Customer tableview.
+        Customer selectedCustomer = tableViewAddTaskAllCustomers.getSelectionModel().getSelectedItem();
+     try {
+         createTask(selectedCustomer);
 
-        tableViewAddTaskAllCustomers.getSelectionModel().getSelectedItem();
+     } catch (Exception e) {
+         throw new RuntimeException(e);
+     }
+     int taskInt = customerTaskModel.getAllCustomerTasks().size() - 1;
+     CustomerTask selectedTask = customerTaskModel.getAllCustomerTasks().get(taskInt);
 
-        // Get the user submitted data from the textfields and the datepicker.
-
-        String Description = txtFieldDescriptionTask.getText();
-        String Remarks = txtFieldRemarksTask.getText();
-        LocalDateTime Date = datePickerTask.getValue().atStartOfDay();
-
-        // Create the new Customer Task and send it up through the layers.
-
-        CustomerTask customerTask = new CustomerTask(-1, Date, Description, Remarks,-1, -1);
-
-        try {
-
-            customerTaskManager.createCustomerTask(customerTask);
-
-       } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+     techTaskLink(selectedTask);
 
     }
     @FXML
@@ -1037,5 +1026,48 @@ public class MainView2Controller extends BaseController implements Initializable
         System.out.println(selectedUser.getRole() + "");
 
     }
+
+    public void createTask(Customer selectedCustomer){
+
+        // Get the user submitted data from the textfields and the datepicker.
+
+        String Description = txtFieldDescriptionTask.getText();
+        String Remarks = txtFieldRemarksTask.getText();
+
+        LocalDateTime Date = localDateTimeSelector();
+
+        // Create the new Customer Task and send it up through the layers
+
+        CustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks,0, selectedCustomer.getId() );
+
+        try {
+
+            customerTaskManager.createCustomerTask(customerTask);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void techTaskLink(CustomerTask selectedTask) throws SQLException {
+
+        for (int i = 0; i < tableViewAddTaskTechAssigned.getItems().size(); i++) {
+
+            User user = tableViewAddTaskTechAssigned.getItems().get(i);
+
+            customerTaskManager.addUserToCustomerTask(user.getId(), selectedTask.getId());
+        }
+    }
+    public LocalDateTime localDateTimeSelector(){
+
+        LocalDate localDate = datePickerTask.getValue();
+        Time time = new Time(8, 00, 00);
+
+        LocalDateTime localDateTime = localDate.atTime(time.toLocalTime());
+
+        return localDateTime;
+    }
+
 
 }
