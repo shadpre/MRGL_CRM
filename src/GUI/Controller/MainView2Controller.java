@@ -444,7 +444,7 @@ public class MainView2Controller extends BaseController implements Initializable
      } catch (SQLException e) {
          throw new RuntimeException(e);
      }
-    
+
      int installationsNr = 1;
      try{
          createInstallation(selectedTask, installationsNr);
@@ -1089,7 +1089,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
         String description = selectedTask.getDescription() + "Installation nr " + installationNr;
 
-        Installation inst = new Installation(0, selectedTask.getId(), description, "");
+        Installation inst = new Installation(0, selectedTask.getId(), description, "Aktiv");
 
         try{
             InstallationManager.createInstallation(inst);
