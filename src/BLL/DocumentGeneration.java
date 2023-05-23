@@ -48,6 +48,7 @@ public class DocumentGeneration {
         documentData.setCustomer(CustomerDAO_DB.getCustomerByID(customerTask.getCustomerID()));
         documentData.setUsers(UserDAO_DB.getAllUsers(customerTask.getId()));
         documentData.setInstallations(installations);
+
         for (Installation inst: installations
              ) {
             networks.addAll(NetworkDAO_DB.getNetworks(inst.getId()));
