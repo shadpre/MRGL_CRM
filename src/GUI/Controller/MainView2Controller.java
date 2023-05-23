@@ -15,6 +15,8 @@ import DAL.DB.CustomerTaskDAO_DB;
 import GUI.Model.CustomerModel;
 import GUI.Model.CustomerTaskModel;
 import GUI.Model.UserModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +46,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales, btnShowAllFinishedTasksSales, btnShowAllMyTasksPManager,
-            btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument;
+            btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech;
 
 
 
@@ -138,15 +140,6 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private TableView<User> tableViewAddTaskTechAssigned;
-
-
-
-
-
-
-
-
-
 
     @FXML
     private TextField txtSearch;
@@ -331,17 +324,53 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
         // Add technicians to the Employee's avalible table
+        this.userModel = userModel;
 
         columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
 
+        ObservableList<User> allUsers = userModel.getAllUsers();
+        ObservableList<User> filteredUsers = FXCollections.observableArrayList();
         try {
-            tableViewAddTaskTechAvalible.setItems(userModel.getAllUsers());
+
+
+            for (User techList: allUsers){
+                if (techList.getRole() == 0){
+                    filteredUsers.add(techList);
+                }
+
+            }
+
+            try {
+                tableViewAddTaskTechAvalible.setItems(filteredUsers);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    @FXML
+    void btnHandleAddTech(ActionEvent event){
 
+        User selectedTech = tableViewAddTaskTechAvalible.getSelectionModel().getSelectedItem();
+
+        tableViewAddTaskTechAvalible.getItems().remove(selectedTech);
+
+        tableViewAddTaskTechAssigned.getItems().add(selectedTech);
+
+    }
+
+    @FXML
+    void btnHandleRemoveTech(ActionEvent event){
+
+        User selectedTech = tableViewAddTaskTechAssigned.getSelectionModel().getSelectedItem();
+
+        tableViewAddTaskTechAssigned.getItems().remove(selectedTech);
+
+        tableViewAddTaskTechAvalible.getItems().add(selectedTech);
+
+    }
     @FXML
     void btnHandleSaveUserCeo(ActionEvent event) {
 
@@ -547,9 +576,8 @@ public class MainView2Controller extends BaseController implements Initializable
             throw new RuntimeException(e);
         }
 
-
-
     }
+
 
     private int getRoleValue() {
 
