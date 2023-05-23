@@ -37,10 +37,12 @@ public class ValidationHelper {
 
     public static ValidationResult validate(Device dev) {
         ValidationResult vr = new ValidationResult();
+        if (dev.getDescription().length() > 100) vr.addError("Description");
 
         return vr;
     }
 
+    //Public due to unit test
     public static boolean isValidIPv4(String ip) {
         String[] octets = ip.split("\\.");
 
@@ -61,6 +63,7 @@ public class ValidationHelper {
         return true;
     }
 
+    //Public so it can be unit tested
     public static boolean isValidSubnetMask(String sm){
         String[] octets = sm.split("\\.");
         var ints = new int[]{0, 128, 192, 224, 240, 248, 252, 254, 255};

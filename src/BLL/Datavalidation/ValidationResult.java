@@ -17,4 +17,9 @@ public class ValidationResult {
     public boolean hasNoError(){
         return Errors.size() == 0;
     }
+
+    public String errorString(){
+        String out = "";
+
+    }
 }
