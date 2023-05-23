@@ -163,7 +163,6 @@ public class CustomerTaskDAO_DB {
 
         return getCustomerTask(ct.getId());
     }
-
     public static void deleteCustomerTask(int ID){
         throw new RuntimeException("Not implemented");
     }

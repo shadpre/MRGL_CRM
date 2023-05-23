@@ -10,7 +10,7 @@ public class InstallationDAO_DB {
     public static Installation createInstallation(Installation inst) throws SQLException, InstallationNotFoundExeption {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            String query = "INSERT INTO Insallations (CustomerTaskId, Description, Remarks) VALUES (?,?,?)";
+            String query = "INSERT INTO Installations (CustomerTaskId, Description, Remarks) VALUES (?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1,inst.getCustomerTaskId());
@@ -71,6 +71,29 @@ public class InstallationDAO_DB {
         }
     }
 
+    public static ArrayList<Installation> getAllInstallations() throws SQLException, InstallationNotFoundExeption{
+
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            ArrayList<Installation> out = new ArrayList<>();
+            String query = "SELECT Id, CustomerTaskId, Description, Remarks FROM Installations";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+
+
+            var rs = statement.executeQuery();
+
+            while (rs.next()){
+                out.add(new Installation(
+                        rs.getInt("Id"),
+                        rs.getInt("customerTaskId"),
+                        rs.getString("Description"),
+                        rs.getString("Remarks")
+                ));
+            }
+
+            return out;
+        }
+    }
     public static Installation updateInstallation(Installation inst) throws SQLException, InstallationNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "UPDATE Installations" +
