@@ -752,7 +752,7 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -842,7 +842,7 @@ public class MainView2Controller extends BaseController implements Initializable
    @FXML
     void btnHandleUpdateTask(ActionEvent event) {
 
-   // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView2.fxml"));
+   // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
     //Parent root = loader.load();
     //Stage stage = new Stage();
     //stage.setScene(new Scene(root));
