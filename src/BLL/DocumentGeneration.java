@@ -1,9 +1,13 @@
 package BLL;
 
-import BE.DBEnteties.Customer;
+
+import BE.DBEnteties.*;
+
+import BE.DocumentData;
+import BE.Exptions.NotFoundExeption;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
-import DAL.DB.DatabaseConnector;
+import DAL.DB.*;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.color.Color;
@@ -31,6 +35,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DocumentGeneration {
+
+    public static DocumentData CreateDocumentData(CustomerTask customerTask) throws SQLException, NotFoundExeption{
+        DocumentData documentData = new DocumentData(customerTask);
+
+        ArrayList<Installation> installations = InstallationDAO_DB.getInstallations(customerTask.getId());
+        ArrayList<Network> networks = new ArrayList<>();
+        ArrayList<BE.DBEnteties.Image> images = new ArrayList<>();
+        ArrayList<Device> devices = new ArrayList<>();
+        ArrayList<WiFi> wiFis = new ArrayList<>();
+
+        documentData.setCustomer(CustomerDAO_DB.getCustomerByID(customerTask.getCustomerID()));
+        documentData.setUsers(UserDAO_DB.getAllUsers(customerTask.getId()));
+        documentData.setInstallations(installations);
+        for (Installation inst: installations
+             ) {
+            networks.addAll(NetworkDAO_DB.getNetworks(inst.getId()));
+            images.addAll(ImageDAO_DB.getImageList(inst.getId()));
+            devices.addAll(DeviceDAO_DB.getDeviceList(inst.getId()));
+            wiFis.addAll(WiFiDAO_DB.getWiFis(inst.getId()));
+        }
+
+        return documentData;
+    }
+
     public static void documentGeneration() throws FileNotFoundException, MalformedURLException, SQLException, DocumentNotFoundExeption {
 
         String path = "C:\\out\\test.pdf";

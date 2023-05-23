@@ -83,7 +83,33 @@ public class UserDAO_DB {
         }
     }
 
-    public static ArrayList<User> getAllUsers() throws Exception{
+    public static ArrayList<User> getAllUsers(int customerTaskId) throws SQLException{
+        ArrayList<User> output = new ArrayList<>();
+
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Id, LoginName, FirstName, LastName, Email, Role FROM Users " +
+                    "WHERE Id IN (SELECT UserId FROM UserCustomerTasksRel " +
+                    "WHERE CustomerTaskId = ?)";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, customerTaskId);
+
+            var rs = statement.executeQuery();
+
+            while (rs.next()){
+                output.add(new User(
+                        rs.getInt("Id"),
+                        rs.getString("LoginName"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("Email"),
+                        rs.getInt("Role")
+                ));
+            }
+        }
+        return output;
+    }
+
+    public static ArrayList<User> getAllUsers() throws SQLException{
         ArrayList<User> output = new ArrayList<>();
 
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
