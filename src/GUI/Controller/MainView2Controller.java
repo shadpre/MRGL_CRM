@@ -51,8 +51,6 @@ public class MainView2Controller extends BaseController implements Initializable
     private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales, btnShowAllFinishedTasksSales, btnShowAllMyTasksPManager,
             btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech;
 
-
-
     @FXML
     private StackPane stackPaneAddCustomerCeo, stackPaneAddUserCeo, stackPaneAllUsersCeo, stackPaneCeoBtn, stackPaneTechBtn, stackPaneSalesBtn, stackPanePManagerBtn, stackPaneViewAllCustomersCeo,
             stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech, stackPaneViewAllCompletedTasks,
@@ -747,6 +745,19 @@ public class MainView2Controller extends BaseController implements Initializable
 
     }
 
+    @FXML
+    void btnHandleAssignInstallCEO(ActionEvent event){
+
+       CustomerTask selectedTask = tableViewAllTasksCeo.getSelectionModel().getSelectedItem();
+
+        int installationsNr = installationModel.getInstallations(selectedTask.getId()).size() + 1;
+
+        try{
+            createInstallation(selectedTask, installationsNr);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
    @FXML
     void btnHandleUpdateTask(ActionEvent event) {
 

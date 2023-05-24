@@ -983,37 +983,6 @@
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackpaneBtnEditTask" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="btnAssignUser" mnemonicParsing="false" onAction="#btnHandleAssignUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Medarbejder">
-                     <font>
-                        <Font name="Cambria Bold" size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="210.0" top="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
-                     <font>
-                        <Font name="Cambria Bold" size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="40.0" top="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnDeleteTask" mnemonicParsing="false" onAction="#btnHandleDeleteTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
-                     <HBox.margin>
-                        <Insets left="40.0" top="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Cambria Bold" size="20.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-         </children></StackPane>
       <StackPane fx:id="stackpaneBtnEditCustomer" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="786.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -1104,5 +1073,44 @@
             </HBox>
          </children>
       </StackPane>
+      <StackPane fx:id="stackpaneBtnEditTask" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnAssignInstallCEO" layoutX="220.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnHandleAssignInstallCEO" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Medarbejder">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnAssignUser" mnemonicParsing="false" onAction="#btnHandleAssignUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Medarbejder">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="70.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnDeleteTask" mnemonicParsing="false" onAction="#btnHandleDeleteTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
+                     <HBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children></StackPane>
    </children>
 </AnchorPane>
