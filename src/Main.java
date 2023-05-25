@@ -41,7 +41,7 @@ public class Main extends Application{
         try {
 
             CustomerTask ct = CustomerTaskDAO_DB.getCustomerTask(16);
-            DocumentGeneration.documentGeneration(ct,"");
+            DocumentGeneration.documentGeneration(ct,"C:\\out\\test.pdf");
         }
         catch (Exception ex){
                ex.printStackTrace();

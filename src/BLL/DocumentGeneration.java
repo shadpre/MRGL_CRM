@@ -3,6 +3,7 @@ package BLL;
 
 import BE.DBEnteties.*;
 
+import BE.DBEnteties.Image;
 import BE.DocumentData;
 import BE.Exptions.NotFoundExeption;
 import DAL.DB.*;
@@ -14,10 +15,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
@@ -78,122 +76,69 @@ public class DocumentGeneration {
                 }
             }
         }
-        String path = "C:\\out\\test.pdf";
 
+        boolean needNewPage = false;
 
-        String sketchDescription = "Skitse af installation";
-        String taskDescription = "Montage af SmartTV i venteværelse af SVS";
-        PdfWriter pdfWriter = new PdfWriter(path);
+        //String path = "C:\\out\\test.pdf";
+
+        PdfWriter pdfWriter = new PdfWriter(FilePath);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
 
         pdfDocument.setDefaultPageSize(PageSize.A4);
-
-
-
-
-        float[] colWidth = {80, 300, 100, 80};
-        Table taskDescriptionTable = new Table(colWidth);
-
-        taskDescriptionTable.addCell(new Cell(0,4)
-                .add("Opgave Dokumentation")
-                .setBold()
-                .setFontSize(20f)
-        );
-
-        taskDescriptionTable.addCell(new Cell().add("Kunde")
-                .setBold());
-
-        taskDescriptionTable.addCell(new Cell().add("EASV Esbjerg"));
-
-        taskDescriptionTable.addCell(new Cell().add("CVR nr")
-                .setBold());
-
-        taskDescriptionTable.addCell(new Cell().add("65656565:"));
-
-        taskDescriptionTable.addCell(new Cell().add("Opgave nr")
-                .setBold());
-
-        taskDescriptionTable.addCell(new Cell().add("2300001"));
-
-        taskDescriptionTable.addCell(new Cell().add("Dato")
-                .setBold());
-
-        taskDescriptionTable.addCell(new Cell().add("16-05-2023"));
-
-        float sketchColumnWidth[] = {560f};
-
-        Table sketchTable = new Table(sketchColumnWidth);
-        String sketchPath = "C:\\out\\sketch1.jpg";
-
-        ImageData imageData1 = ImageDataFactory.create(sketchPath);
-        Image sketch = new Image(imageData1);
-
-        sketchTable.addCell(new Cell().add("Skitse")
-                .setFontSize(15f)
-                .setBold()
-                .setBorder(Border.NO_BORDER)
-                .setMarginTop(15f)
-        );
-
-        sketchTable.addCell(new Cell().add(sketch)
-                .setHorizontalAlignment(HorizontalAlignment.CENTER)
-                .setBorder(Border.NO_BORDER)
-        );
-
-        sketchTable.addCell(new Cell().add("Beskrivelse af Skitse")
-                .setFontSize(15f)
-                .setBold()
-                .setBorder(Border.NO_BORDER)
-        );
-        sketchTable.addCell(new Cell().add("Se min flotte tegning blah blah")
-                .setBorder(Border.NO_BORDER)
-        );
-
-        float taskColumnWidth[] = {560f};
-        Table taskTable = new Table(taskColumnWidth);
-
-        taskTable.addCell(new Cell().add("Opgave Beskrivelse")
-                .setFontSize(15f)
-                .setBold()
-                .setBorder(Border.NO_BORDER)
-                .setMarginTop(15f)
-        );
-
-
-
         document.add(generateDocumentHeader());
         document.add(new Paragraph());
         document.add(generateMetaDataForCustomer(dd));
         document.add(new Paragraph());
         if(sketches.size() > 0){
             for (BE.DBEnteties.Image image : sketches){
-                document.add(generateImageTable(image));
-                document.add(new Paragraph());
+                document.add(new Paragraph(image.getDescription()).setBold());
+                document.add(new Paragraph(image.getRemarks()).setFontSize(9f));
+                document.add(generateImage(image));
+                document.add(new AreaBreak());
             }
         }
-        if(dd.getNetworks().size() > 0) document.add(generateNetworkTable(dd.getNetworks()));
-        document.add(new Paragraph());
-        //document.add(new Paragraph());
-        if(dd.getNetworks().size() > 0) document.add(generateWiFiTable(dd.getWiFis()));
-        document.add(new Paragraph());
-        if(dd.getDevices().size() > 0) document.add(generateDeviceTable(dd.getDevices()));
-        document.add(new Paragraph());
+        if(dd.getNetworks().size() > 0) {
+            document.add(generateNetworkTable(dd.getNetworks()));
+            document.add(new Paragraph());
+            needNewPage = true;
+        }
+
+        if(dd.getNetworks().size() > 0) {
+            document.add(generateWiFiTable(dd.getWiFis()));
+            document.add(new Paragraph());
+            needNewPage = true;
+        }
+
+        if(dd.getDevices().size() > 0) {
+            document.add(generateDeviceTable(dd.getDevices()));
+            document.add(new Paragraph());
+            needNewPage = true;
+        }
+
+        if(needNewPage){
+            document.add(new AreaBreak());
+            needNewPage = false;
+        }
+
         if(images.size() > 0){
+            int i = 1;
             for (BE.DBEnteties.Image image : images){
-                document.add(generateImageTable(image));
-                document.add(new Paragraph());
+                document.add(new Paragraph(image.getDescription()).setBold());
+                document.add(new Paragraph(image.getRemarks()).setFontSize(9f));
+                document.add(generateImage(image));
+                if(i != images.size()) {
+                    document.add(new AreaBreak());
+                }
+                i++;
             }
         }
-        //document.add(sketchTable);
-        //document.add(taskTable);
-        //document.add(paragraph);
 
         document.close();
 
         System.out.println("Document Created");
 
-        File file = new File(path);
+        File file = new File(FilePath);
         try {
             if (file.toString().endsWith(".pdf"))
                 Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
@@ -218,7 +163,7 @@ public class DocumentGeneration {
 
         String imgPath = "C:\\out\\Wuavlogoprgtest.JPG";
         ImageData imageData = ImageDataFactory.create(imgPath);
-        Image image = new Image(imageData);
+        com.itextpdf.layout.element.Image image = new com.itextpdf.layout.element.Image(imageData);
 
         table.addCell(new Cell().add(image)
                 .setBorder(Border.NO_BORDER)
@@ -319,15 +264,8 @@ public class DocumentGeneration {
         return out;
     }
 
-    private static Table generateImageTable(BE.DBEnteties.Image image){
-        float[] ColumnWidth = {560f};
-        Table out = new Table(ColumnWidth);
-
-        out.addCell(image.getDescription()).setBold().setBorder(Border.NO_BORDER);
-        out.addCell(image.getRemarks()).setBorder(Border.NO_BORDER);
-        out.addCell(new Image(ImageDataFactory.create(image.getData())).setWidth(500f)).setBorder(Border.NO_BORDER);
-
-        return out;
+    private static com.itextpdf.layout.element.Image generateImage(BE.DBEnteties.Image image){
+        return new com.itextpdf.layout.element.Image(ImageDataFactory.create(image.getData())).setAutoScale(true);
     }
 
     private static Cell headerCell(String header){
