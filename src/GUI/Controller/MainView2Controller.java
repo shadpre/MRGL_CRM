@@ -27,12 +27,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -49,12 +55,13 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales, btnShowAllFinishedTasksSales, btnShowAllMyTasksPManager,
-            btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech;
+            btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech, bthShowAllInstallations,
+            btnOpenInstallation, btnUpdateInstallation, btnDeleteInstallation;
 
     @FXML
     private StackPane stackPaneAddCustomerCeo, stackPaneAddUserCeo, stackPaneAllUsersCeo, stackPaneCeoBtn, stackPaneTechBtn, stackPaneSalesBtn, stackPanePManagerBtn, stackPaneViewAllCustomersCeo,
             stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech, stackPaneViewAllCompletedTasks,
-            stackPaneViewAllCompletedTasksPm;
+            stackPaneViewAllCompletedTasksPm, stackPaneViewAllInstallations, stackpaneBtnEditInstallation;
 
     @FXML
     private Button btnUpdateCustomer;
@@ -74,7 +81,7 @@ public class MainView2Controller extends BaseController implements Initializable
     private Button btnDeleteUser;
 
     @FXML
-    private Button btnAssignUser;
+    private Button btnFinishTask;
 
     @FXML
     private TableView<CustomerTask> tableViewAllTasksCeo;
@@ -141,6 +148,19 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private TableView<User> tableViewAddTaskTechAssigned;
+
+    @FXML
+    private TableView<Installation> tableViewAllInstallations;
+
+    @FXML
+    private TableColumn<Installation, String> columnInstallationNo;
+    @FXML
+    private TableColumn<Installation, String> columnInstallationDescription;
+
+
+
+
+
 
     @FXML
     private TextField txtSearch;
@@ -368,8 +388,8 @@ public class MainView2Controller extends BaseController implements Initializable
                      ) {
                     switch (error){
                         case "Name":
-                            //Do something
-                            break;
+                            txtFieldCustomerName.setStyle();
+                        break;
                         case "Address1":
                             int i = 0;//Do something2
                             break;
@@ -493,6 +513,32 @@ public class MainView2Controller extends BaseController implements Initializable
         }
 
     }
+
+    @FXML
+    void btnHandleShowAllInstallations(ActionEvent event){
+
+        setAllStackPanesFalse();
+        setAllTableViewsFalse();
+        stackPaneViewAllInstallations.setVisible(true);
+        stackpaneBtnEditInstallation.setVisible(true);
+        stackPaneCeoBtn.setVisible(true);
+        tableViewAllInstallations.setVisible(true);
+
+
+        this.installationModel = new InstallationModel();
+
+        columnInstallationNo.setCellValueFactory(new PropertyValueFactory<Installation, String>("CustomerTaskId"));
+        columnInstallationDescription.setCellValueFactory(new PropertyValueFactory<Installation, String>("Description"));
+
+
+
+        try {
+            tableViewAllInstallations.setItems(InstallationModel.getAllInstallations());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        }
 
 
     private int getRoleValue() {
@@ -651,6 +697,19 @@ public class MainView2Controller extends BaseController implements Initializable
 
     }
 
+   @FXML
+   void btnHandleOpenInstallation(ActionEvent event){
+
+   }
+   @FXML
+   void btnHandleUpdateInstallation(ActionEvent event){
+
+   }
+   @FXML
+   void btnHandleDeleteInstallation(ActionEvent event){
+
+   }
+
     @FXML
     void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
@@ -692,7 +751,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAssignUser(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
+    void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
 
         DocumentGeneration.documentGeneration();
 
@@ -806,6 +865,22 @@ public class MainView2Controller extends BaseController implements Initializable
             setAllStackPanesFalse();
             setAllTableViewsFalse();
             stackPaneTechBtn.setVisible(true);
+            stackPaneViewAllMyTasksTech.setVisible(true);
+            tableViewAllTasksTech.setVisible(true);
+
+            InstallationModel installationModel = new InstallationModel();
+
+            this.installationModel = installationModel;
+
+            columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, Integer>("CustomerTaskId"));
+            columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, String>("Description"));
+
+
+            try {
+                tableViewAllTasksTech.setItems(installationModel.getInstallationsForUser(selectedUSer));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
 
         } else if(role == 1) {
@@ -916,6 +991,8 @@ public class MainView2Controller extends BaseController implements Initializable
                 stackpaneBtnEditUser.setVisible(false);
                 stackpaneBtnEditTask.setVisible(false);
                 stackPaneViewAllCompletedTasks.setVisible(false);
+                stackPaneViewAllInstallations.setVisible(false);
+                stackpaneBtnEditInstallation.setVisible(true);
 
             }
 
@@ -930,6 +1007,7 @@ public class MainView2Controller extends BaseController implements Initializable
                 tableViewAddTaskTechAssigned.setVisible(false);
                 tableViewAddTaskTechAvalible.setVisible(false);
                 tableViewAddTaskAllCustomers.setVisible(false);
+                tableViewAllInstallations.setVisible(false);
 
 
             }
