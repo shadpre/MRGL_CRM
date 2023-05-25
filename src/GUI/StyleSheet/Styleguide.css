@@ -154,7 +154,7 @@ TableView {
 
 
 .text-field {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: WHITE;
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 5;
     -fx-border-width: 1;
@@ -162,7 +162,19 @@ TableView {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
     -fx-text-fill: #333333;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.4, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 1);
+}
+
+.text-field.invalid {
+    -fx-background-color: WHITE;
+    -fx-border-color:RED;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(gaussian, rgba(150, 50, 0, 0.2), 6, 0.5, 0, 2);
 }
 
 .text-area {
@@ -195,4 +207,6 @@ TableView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
+
+
 

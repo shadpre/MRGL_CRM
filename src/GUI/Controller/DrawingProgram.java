@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import BE.DBEnteties.LineSegment;
+import BE.DBEnteties.Symbol;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,14 +24,15 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DrawingProgram extends BaseController implements Initializable {
 
     private DocumentationViewController documentationViewController;
-
+    private Map<ImageView, Symbol> symbolMap;
     @FXML
-    private ImageView symbol1, imgTrash;
+    private ImageView symbol1, imgTrash, symbol2, symbol3;
 
     private Image canvasImage;
 
@@ -121,7 +123,7 @@ public class DrawingProgram extends BaseController implements Initializable {
         symbol1.setOnMouseEntered(event -> mouseEnterSymbol(event));
         canvas.setOnDragOver(event -> dragOverCanvas(event));
         canvas.setOnDragDropped(event -> dragDroppedCanvas(event));
-        
+
         gc = canvas.getGraphicsContext2D();
     }
 
