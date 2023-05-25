@@ -388,7 +388,7 @@ public class MainView2Controller extends BaseController implements Initializable
                      ) {
                     switch (error){
                         case "Name":
-                            txtFieldCustomerName.setStyle();
+                            //txtFieldCustomerName.setStyle();
                         break;
                         case "Address1":
                             int i = 0;//Do something2
