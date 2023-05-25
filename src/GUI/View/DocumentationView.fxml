@@ -335,7 +335,7 @@
                   <Insets bottom="230.0" left="20.0" right="490.0" />
                </StackPane.margin>
             </TextField>
-            <CheckBox fx:id="txtDevicePOE" mnemonicParsing="false" text="POE på netværk" textFill="#90aed6">
+            <CheckBox fx:id="txtDevicePOE" mnemonicParsing="false" text="POE" textFill="#90aed6">
                <font>
                   <Font name="Gill Sans MT" size="24.0" />
                </font>
