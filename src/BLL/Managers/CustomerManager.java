@@ -18,6 +18,9 @@ public class CustomerManager {
     public static Customer createCustomer(Customer customer) throws Exception {
         return CustomerDAO_DB.createCustomer(customer);
     }
+        public static Customer updateCustomer(Customer selectedCustomer) throws Exception {
+        return CustomerDAO_DB.updateCustomer(selectedCustomer);
+    }
 
     public static void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
         CustomerDAO_DB.deleteCustomer(id);
