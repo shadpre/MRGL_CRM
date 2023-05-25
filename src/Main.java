@@ -1,3 +1,6 @@
+import BE.DBEnteties.CustomerTask;
+import BLL.DocumentGeneration;
+import DAL.DB.CustomerTaskDAO_DB;
 import DAL.DB.DBLogin;
 import DAL.DB.DatabaseConnector;
 import DAL.DB.TESTDB_DAO;
@@ -33,7 +36,17 @@ public class Main extends Application{
             DBLogin.init(dbServer, dbPort, dbName, dbUsername, dbPassword);
             DatabaseConnector.init(DBLogin.getInstance());
 
-            launch(args);
+
+            //test
+        try {
+
+            CustomerTask ct = CustomerTaskDAO_DB.getCustomerTask(16);
+            DocumentGeneration.documentGeneration(ct,"");
+        }
+        catch (Exception ex){
+               ex.printStackTrace();
+            }
+            //launch(args);
         }
 
         @Override

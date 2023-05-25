@@ -4,6 +4,9 @@ import BE.DBEnteties.*;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class DocumentData {
     private CustomerTask customerTask;
     private Customer customer;
@@ -16,8 +19,12 @@ public class DocumentData {
 
     public DocumentData(){};
 
-    public DocumentData(CustomerTask ct){
-        this.customerTask = ct;
+    /**
+     *
+     * @param customerTask
+     */
+    public DocumentData(CustomerTask customerTask){
+        this.customerTask = customerTask;
     }
 
     public CustomerTask getCustomerTask() {

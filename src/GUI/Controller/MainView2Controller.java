@@ -687,14 +687,14 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleGenerateDocument(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
 
-        DocumentGeneration.documentGeneration();
+      //  DocumentGeneration.documentGeneration();
 
     }
 
     @FXML
     void btnHandleAssignUser(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
 
-        DocumentGeneration.documentGeneration();
+       // DocumentGeneration.documentGeneration();
 
     }
 
