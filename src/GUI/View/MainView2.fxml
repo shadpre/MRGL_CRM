@@ -258,7 +258,7 @@
                <children>
                   <HBox prefHeight="30.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                      <children>
                         <Label text="Bruger Administration" textFill="#90aed6">
@@ -273,7 +273,7 @@
                   </HBox>
                   <HBox prefHeight="70.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                      <children>
                         <Button fx:id="btnShowAllUsers" mnemonicParsing="false" onAction="#btnHandleShowAllUsers" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Alle Brugere">
@@ -288,7 +288,7 @@
                   </HBox>
                   <HBox prefHeight="70.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                      <children>
                         <Button fx:id="btnAddUser" mnemonicParsing="false" onAction="#btnHandleAddUser" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Bruger">
@@ -303,7 +303,7 @@
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                      <children>
                         <Label text="Kunde Administration" textFill="#90aed6">
@@ -318,7 +318,7 @@
                   </HBox>
                   <HBox prefHeight="70.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                      <children>
                         <Button fx:id="btnShowAllCustomers" mnemonicParsing="false" onAction="#btnHandleShowAllCustomers" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Alle Kunder">
@@ -343,12 +343,12 @@
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                      <children>
                         <Label text="Opgave Administration" textFill="#90aed6">
@@ -363,7 +363,7 @@
                   </HBox>
                   <HBox prefHeight="70.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                      <children>
                         <Button fx:id="btnShowAllTasksCeo" mnemonicParsing="false" onAction="#btnHandleShowAllTasksCeo" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Alle Opgaver">
@@ -378,7 +378,22 @@
                   </HBox>
                   <HBox prefHeight="70.0" prefWidth="300.0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <children>
+                        <Button fx:id="btnShowAllInstallations" mnemonicParsing="false" onAction="#btnHandleShowAllInstallations" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Alle Installationer">
+                           <HBox.margin>
+                              <Insets left="50.0" top="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Cambria Bold" size="19.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="70.0" prefWidth="300.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
                      </VBox.margin>
                      <children>
                         <Button fx:id="btnAddNewTask" mnemonicParsing="false" onAction="#btnHandleAddNewTask" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Opgave">
@@ -399,13 +414,13 @@
          <children>
             <HBox prefHeight="580.0" prefWidth="913.0">
                <children>
-                  <TableView fx:id="tableViewAllCustomersCeo" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
+                  <TableView fx:id="tableViewAllCustomersCeo" prefHeight="576.0" prefWidth="924.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
                         <TableColumn fx:id="columnCustomerName" prefWidth="195.0" text="Navn" />
                         <TableColumn fx:id="columnCustomerAddress" prefWidth="285.0" text="Adresse" />
                         <TableColumn fx:id="columnCustomerPhone" minWidth="0.0" prefWidth="171.0" text="Telefon" />
-                        <TableColumn fx:id="columnCustomerZipCode" minWidth="0.0" prefWidth="76.0" text="Post nr" />
-                        <TableColumn fx:id="columnCustomerCity" minWidth="0.0" prefWidth="180.0" text="By" />
+                        <TableColumn fx:id="columnCustomerZipCode" minWidth="0.0" prefWidth="104.0" text="Post nr" />
+                        <TableColumn fx:id="columnCustomerCity" minWidth="0.0" prefWidth="164.0" text="By" />
                      </columns>
                   </TableView>
                </children>
@@ -654,12 +669,12 @@
          <children>
             <HBox prefHeight="616.0" prefWidth="930.0">
                <children>
-                  <TableView fx:id="tableViewAllTasksCeo" prefHeight="605.0" prefWidth="910.0" stylesheets="@../StyleSheet/Styleguide.css">
+                  <TableView fx:id="tableViewAllTasksCeo" prefHeight="576.0" prefWidth="936.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
                         <TableColumn fx:id="columnTaskNo" prefWidth="117.0" text="Opgave nr:" />
                         <TableColumn fx:id="columnDate" prefWidth="111.0" text="Dato:" />
-                        <TableColumn fx:id="columnDescription" prefWidth="547.0" text="Beskrivelse:" />
-                        <TableColumn fx:id="columnStatus" minWidth="0.0" prefWidth="129.0" text="Status:" />
+                        <TableColumn fx:id="columnDescription" prefWidth="562.0" text="Beskrivelse:" />
+                        <TableColumn fx:id="columnStatus" minWidth="0.0" prefWidth="139.0" text="Status:" />
                      </columns>
                   </TableView>
                </children>
@@ -1031,14 +1046,14 @@
             </HBox>
          </children>
       </StackPane>
-      <StackPane fx:id="stackPaneViewAllMyTasksTech" layoutX="480.0" layoutY="296.0" prefHeight="576.0" prefWidth="940.0">
+      <StackPane fx:id="stackPaneViewAllMyTasksTech" layoutX="480.0" layoutY="296.0" prefHeight="576.0" prefWidth="947.0">
          <children>
-            <HBox prefHeight="616.0" prefWidth="930.0">
+            <HBox prefHeight="576.0" prefWidth="947.0">
                <children>
-                  <TableView fx:id="tableViewAllTasksTech" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
+                  <TableView fx:id="tableViewAllTasksTech" prefHeight="576.0" prefWidth="948.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
                         <TableColumn fx:id="columnAllMyTasksTech" prefWidth="117.0" text="Opgave nr:" />
-                        <TableColumn fx:id="columnDescriptionTasksTech" prefWidth="547.0" text="Beskrivelse:" />
+                        <TableColumn fx:id="columnDescriptionTasksTech" prefWidth="830.0" text="Beskrivelse:" />
                      </columns>
                   </TableView>
                </children>
@@ -1052,7 +1067,7 @@
                   <TableView fx:id="tableViewAllCompletedTasks" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
                         <TableColumn fx:id="columnAllCompletedTasksNo" prefWidth="117.0" text="Opgave nr:" />
-                        <TableColumn fx:id="columnAllCompletedTasksDescription" prefWidth="547.0" text="Beskrivelse:" />
+                        <TableColumn fx:id="columnAllCompletedTasksDescription" prefWidth="829.0" text="Beskrivelse:" />
                      </columns>
                   </TableView>
                </children>
@@ -1066,7 +1081,7 @@
                   <TableView fx:id="tableViewAllCompletedTasksPm" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
                      <columns>
                         <TableColumn fx:id="columnAllCompletedTasksNoPm" prefWidth="117.0" text="Opgave nr:" />
-                        <TableColumn fx:id="columnAllCompletedTasksDescriptionPm" prefWidth="547.0" text="Beskrivelse:" />
+                        <TableColumn fx:id="columnAllCompletedTasksDescriptionPm" prefWidth="829.0" text="Beskrivelse:" />
                      </columns>
                   </TableView>
                </children>
@@ -1077,7 +1092,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnAssignInstallCEO" layoutX="220.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnHandleAssignInstallCEO" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Medarbejder">
+                  <Button fx:id="btnAssignInstallCEO" layoutX="220.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnHandleAssignInstallCEO" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tildel Installation">
                      <font>
                         <Font name="Cambria Bold" size="12.0" />
                      </font>
@@ -1085,7 +1100,7 @@
                         <Insets left="50.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnAssignUser" mnemonicParsing="false" onAction="#btnHandleAssignUser" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tilføj Medarbejder">
+                  <Button fx:id="btnFinishTask" mnemonicParsing="false" onAction="#btnHandleFinishTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut Opgave">
                      <font>
                         <Font name="Cambria Bold" size="12.0" />
                      </font>
@@ -1112,5 +1127,51 @@
                </children>
             </HBox>
          </children></StackPane>
+      <StackPane fx:id="stackpaneBtnEditInstallation" layoutX="610.0" layoutY="888.0" prefHeight="117.0" prefWidth="776.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnOpenInstallation" mnemonicParsing="false" onAction="#btnHandleOpenInstallation" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Åben ">
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="70.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnUpdateInstallation" mnemonicParsing="false" onAction="#btnHandleUpdateInstallation" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnDeleteInstallation" mnemonicParsing="false" onAction="#btnHandleDeleteInstallation" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Slet">
+                     <HBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stackPaneViewAllInstallations" layoutX="480.0" layoutY="295.0" prefHeight="576.0" prefWidth="970.0">
+         <children>
+            <HBox prefHeight="616.0" prefWidth="930.0">
+               <children>
+                  <TableView fx:id="tableViewAllInstallations" prefHeight="576.0" prefWidth="947.0" stylesheets="@../StyleSheet/Styleguide.css">
+                     <columns>
+                        <TableColumn fx:id="columnInstallationNo" prefWidth="117.0" text="Installations nr" />
+                        <TableColumn fx:id="columnInstallationDescription" prefWidth="829.0" text="Beskrivelse" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
