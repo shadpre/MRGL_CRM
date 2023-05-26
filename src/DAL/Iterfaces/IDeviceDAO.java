@@ -1,4 +1,4 @@
-package DAL.DB.Iterfaces;
+package DAL.Iterfaces;
 
 import BE.DBEnteties.Interfaces.IDevice;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
@@ -6,7 +6,7 @@ import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface IDeviceDAO_DB {
+public interface IDeviceDAO {
     IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption;
 
     IDevice getDevice(int id) throws SQLException, DeviceNotFoundExeption;

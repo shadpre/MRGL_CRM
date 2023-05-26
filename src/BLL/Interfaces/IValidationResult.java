@@ -1,4 +1,4 @@
-package BLL.Datavalidation;
+package BLL.Interfaces;
 
 import java.util.ArrayList;
 

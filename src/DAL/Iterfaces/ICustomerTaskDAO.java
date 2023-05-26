@@ -1,4 +1,4 @@
-package DAL.DB.Iterfaces;
+package DAL.Iterfaces;
 
 import BE.DBEnteties.Interfaces.ICustomerTask;
 import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundExeption;
@@ -6,7 +6,7 @@ import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundExeption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ICustomerTaskDAO_DB {
+public interface ICustomerTaskDAO {
     ICustomerTask CreateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption;
 
     void addUserToCustomerTask(int userId, int ctId) throws SQLException;

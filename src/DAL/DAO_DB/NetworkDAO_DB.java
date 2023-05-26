@@ -1,13 +1,17 @@
-package DAL.DB;
+package DAL.DAO_DB;
 
+import BE.DBEnteties.Interfaces.INetwork;
 import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
 import BE.DBEnteties.Network;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.INetworkDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class NetworkDAO_DB {
-    public static Network createNetwork(Network net) throws SQLException, NetworkNotFoundExeption{
+public class NetworkDAO_DB implements INetworkDAO {
+    @Override
+    public INetwork createNetwork(INetwork net) throws SQLException, NetworkNotFoundExeption{
         int ID;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "INSERT INTO Networks (InstallationId, Description, Remarks, NetworkIP, SubnetMask, DefaultGateway, HasPOE) " +
@@ -31,7 +35,8 @@ public class NetworkDAO_DB {
         return getNetwork(ID);
     }
 
-    public static Network getNetwork(int id) throws SQLException, NetworkNotFoundExeption{
+    @Override
+    public INetwork getNetwork(int id) throws SQLException, NetworkNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT InstallationId, Description, Remarks, NetworkIP, SubnetMask, DefaultGateway, HasPOE FROM Networks WHERE Id = ?";
 
@@ -55,8 +60,9 @@ public class NetworkDAO_DB {
         }
     }
 
-    public static ArrayList<Network> getNetworks(int InstallationId) throws SQLException{
-        ArrayList<Network> out = new ArrayList<>();
+    @Override
+    public ArrayList<INetwork> getNetworks(int InstallationId) throws SQLException{
+        ArrayList<INetwork> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Description, Remarks, NetworkIP, SubnetMask, DefaultGateway, HasPOE FROM Networks WHERE InstallationId = ?";
 
@@ -77,12 +83,12 @@ public class NetworkDAO_DB {
                         rs.getBoolean("HasPOE")
                 ));
             }
-
             return  out;
         }
     }
 
-    public static Network updateNetwork(Network network) throws SQLException, NetworkNotFoundExeption{
+    @Override
+    public INetwork updateNetwork(INetwork network) throws SQLException, NetworkNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "UPDATE Networks " +
                     "SET InstallationId = ?, Description = ?, Remarks = ?, NetworkIP = ?, SubnetMask =?, DefaultGateway = ?, HasPOE =? " +
@@ -105,7 +111,8 @@ public class NetworkDAO_DB {
         return getNetwork(network.getId());
     }
 
-    public static void deleteNetwork(int id) throws SQLException, NetworkNotFoundExeption{
+    @Override
+    public void deleteNetwork(int id) throws SQLException, NetworkNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Networks WHERE Id = ?";
 
@@ -118,7 +125,8 @@ public class NetworkDAO_DB {
         }
     }
 
-    public static int deleteNetworks(int installationId) throws SQLException, NetworkNotFoundExeption{
+    @Override
+    public int deleteNetworks(int installationId) throws SQLException, NetworkNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Networks WHERE InstallationId = ?";
 
@@ -132,5 +140,3 @@ public class NetworkDAO_DB {
         }
     }
 }
-
-//testing today

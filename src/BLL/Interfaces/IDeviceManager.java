@@ -1,9 +1,7 @@
-package BLL.Managers.Interfaces;
+package BLL.Interfaces;
 
-import BE.DBEnteties.Device;
 import BE.DBEnteties.Interfaces.IDevice;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
-import DAL.DB.DeviceDAO_DB;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

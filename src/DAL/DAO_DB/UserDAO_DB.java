@@ -2,19 +2,23 @@
  * Gruppe bagrækken
  * Klavs, Alexander og Jesper
  **/
-package DAL.DB;
+package DAL.DAO_DB;
 
+import BE.DBEnteties.Interfaces.IUser;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BE.Exptions.UserValidationExeption;
 import BE.DBEnteties.User;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.IUserDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 
-public class UserDAO_DB {
+public class UserDAO_DB implements IUserDAO {
 
-    public static User createUser(User user, String hash) throws  SQLException,UserNotFoundExeption{
+    @Override
+    public IUser createUser(IUser user, String hash) throws  SQLException,UserNotFoundExeption{
         int ID;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) Values (?,?,?,?,?,?)";
@@ -35,7 +39,8 @@ public class UserDAO_DB {
         }
         return getUser(ID);
     }
-    public static User getUser(String LoginName) throws SQLException, UserValidationExeption {
+    @Override
+    public IUser getUser(String LoginName) throws SQLException, UserValidationExeption {
         User output = null;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, FirstName, LastName, Email, Role FROM Users WHERE LoginName = ?";
@@ -59,7 +64,8 @@ public class UserDAO_DB {
         }
     }
 
-    public static User getUser(int Id) throws SQLException, UserNotFoundExeption {
+    @Override
+    public IUser getUser(int Id) throws SQLException, UserNotFoundExeption {
         User output = null;
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT LoginName, FirstName, LastName, Email, Role FROM Users WHERE Id = ?";
@@ -83,8 +89,9 @@ public class UserDAO_DB {
         }
     }
 
-    public static ArrayList<User> getAllUsers(int customerTaskId) throws SQLException{
-        ArrayList<User> output = new ArrayList<>();
+    @Override
+    public ArrayList<IUser> getAllUsers(int customerTaskId) throws SQLException{
+        ArrayList<IUser> output = new ArrayList<>();
 
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, LoginName, FirstName, LastName, Email, Role FROM Users " +
@@ -109,8 +116,9 @@ public class UserDAO_DB {
         return output;
     }
 
-    public static ArrayList<User> getAllUsers() throws SQLException{
-        ArrayList<User> output = new ArrayList<>();
+    @Override
+    public ArrayList<IUser> getAllUsers() throws SQLException{
+        ArrayList<IUser> output = new ArrayList<>();
 
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, LoginName, FirstName, LastName, Email, Role FROM Users";
@@ -131,7 +139,8 @@ public class UserDAO_DB {
         return output;
     }
 
-    public static String getUserHash(String loginName) throws SQLException, UserValidationExeption{
+    @Override
+    public String getUserHash(String loginName) throws SQLException, UserValidationExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Hash FROM Users WHERE LoginName = ?";
             PreparedStatement statement = conn.prepareStatement(query);
@@ -148,7 +157,8 @@ public class UserDAO_DB {
         }
     }
 
-    public static boolean loginNameAvailible(String LoginName) throws UserValidationExeption, SQLException{
+    @Override
+    public boolean loginNameAvailable(String LoginName) throws UserValidationExeption, SQLException{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT COUNT(ID) FROM Users WHERE LoginName = ?";
             PreparedStatement statement = conn.prepareStatement(query);
@@ -164,7 +174,8 @@ public class UserDAO_DB {
         }
     }
 
-    public static void resetPassword(int id, String hash) throws Exception{
+    @Override
+    public void resetPassword(int id, String hash) throws SQLException{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "UPDATE Users SET Hash = ? WHERE Id = ?";
 
@@ -178,11 +189,8 @@ public class UserDAO_DB {
         }
     }
 
-    public static void anonymizeUser(int Id) throws  SQLException, UserNotFoundExeption{
-        throw new RuntimeException("Not implemented");
-    }
-
-    public static void deleteUser(int Id) throws SQLException, UserNotFoundExeption{
+     @Override
+     public void deleteUser(int Id) throws SQLException, UserNotFoundExeption{
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             try {
                 conn.setAutoCommit(false);
@@ -200,5 +208,4 @@ public class UserDAO_DB {
             }
         }
     }
-
 }

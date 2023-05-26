@@ -1,6 +1,7 @@
-package BLL.Datavalidation;
+package BLL.Interfaces;
 
 import BE.DBEnteties.*;
+import BLL.Datavalidation.ValidationResult;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;

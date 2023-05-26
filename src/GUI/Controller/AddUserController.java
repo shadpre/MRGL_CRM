@@ -2,7 +2,7 @@ package GUI.Controller;
 
 import BE.DBEnteties.User;
 import BLL.Managers.UserManager;
-import DAL.DB.UserDAO_DB;
+import DAL.DAO_DB.UserDAO_DB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

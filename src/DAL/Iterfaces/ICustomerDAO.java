@@ -1,13 +1,12 @@
-package DAL.DB.Iterfaces;
+package DAL.Iterfaces;
 
-import BE.DBEnteties.Customer;
 import BE.DBEnteties.Interfaces.ICustomer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ICustomerDAO_DB {
+public interface ICustomerDAO {
     ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption;
 
     ICustomer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption;

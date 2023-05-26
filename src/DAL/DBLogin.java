@@ -1,4 +1,4 @@
-package DAL.DB;
+package DAL;
 
 public class DBLogin {
     //Designpattern: Singleton

@@ -1,14 +1,15 @@
-package DAL.DB;
+package DAL.DAO_DB;
 
 import BE.DBEnteties.Device;
 import BE.DBEnteties.Interfaces.IDevice;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
-import javafx.scene.paint.Stop;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.IDeviceDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DeviceDAO_DB implements DAL.DB.Iterfaces.IDeviceDAO_DB {
+public class DeviceDAO_DB implements IDeviceDAO {
     @Override
     public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
         int ID;

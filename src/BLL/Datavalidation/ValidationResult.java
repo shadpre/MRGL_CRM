@@ -1,5 +1,7 @@
 package BLL.Datavalidation;
 
+import BLL.Interfaces.IValidationResult;
+
 import java.util.ArrayList;
 
 public class ValidationResult implements IValidationResult {

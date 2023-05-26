@@ -1,8 +1,6 @@
-package BLL.Managers.Interfaces;
+package BLL.Interfaces;
 
-import BE.DBEnteties.CustomerTask;
 import BE.DBEnteties.Interfaces.ICustomerTask;
-import DAL.DB.CustomerTaskDAO_DB;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

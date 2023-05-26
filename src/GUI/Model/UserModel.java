@@ -1,33 +1,28 @@
 package GUI.Model;
+import BE.DBEnteties.Interfaces.IUser;
 import BE.DBEnteties.User;
+import BLL.Interfaces.IUserManager;
 import BLL.PasswordHash;
 import BLL.Managers.UserManager;
-import DAL.DB.UserDAO_DB;
+import DAL.DAO_DB.UserDAO_DB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class UserModel {
     public User selectedUser;
-
-    private UserManager userManager;
+    private static IUserManager userManager = new UserManager();
 
     private int role;
 
-    public UserManager getUserManager() {
-        return userManager;
+
+
+    public IUser getUser(String LoginName, String Password) throws Exception {
+        return userManager.getUser(LoginName, Password);
     }
 
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
-
-    public User getUser(String LoginName, String Password) throws Exception {
-        return UserManager.getUser(LoginName, Password);
-    }
-
-    public static User createUser(User user, String Password) throws Exception {
+    public static IUser createUser(IUser user, String Password) throws Exception {
         String hash = PasswordHash.encryptPassword(Password);
-        if (UserDAO_DB.loginNameAvailible(user.getLoginName())) {
+        if (userManager.loginNameAvailable(user.getLoginName())) {
             return UserDAO_DB.createUser(user, hash);
         } else throw new RuntimeException("User not created");
     }

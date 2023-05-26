@@ -1,8 +1,8 @@
 import BE.DBEnteties.CustomerTask;
 import BLL.DocumentGeneration;
-import DAL.DB.CustomerTaskDAO_DB;
-import DAL.DB.DBLogin;
-import DAL.DB.DatabaseConnector;
+import DAL.DAO_DB.CustomerTaskDAO_DB;
+import DAL.DBLogin;
+import DAL.DatabaseConnector;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

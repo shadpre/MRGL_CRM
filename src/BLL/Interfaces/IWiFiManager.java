@@ -1,4 +1,4 @@
-package BLL.Managers.Interfaces;
+package BLL.Interfaces;
 
 import BE.DBEnteties.Interfaces.IWiFi;
 import BE.DBEnteties.WiFi;

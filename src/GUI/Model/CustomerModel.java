@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.ICustomer;
-import DAL.DB.DBFacade;
+import DAL.DBFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

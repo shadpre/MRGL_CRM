@@ -11,7 +11,7 @@ import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.Datavalidation.ValidationHelper;
 import BLL.Datavalidation.ValidationResult;
 import BLL.Managers.*;
-import DAL.DB.DBFacade;
+import DAL.DBFacade;
 import GUI.Model.CustomerModel;
 import GUI.Model.CustomerTaskModel;
 import GUI.Model.InstallationModel;

@@ -3,7 +3,7 @@
  * Klavs, Alexander og Jesper
  **/
 
-package DAL.DB;
+package DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;

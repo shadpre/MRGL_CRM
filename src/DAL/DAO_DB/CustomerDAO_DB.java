@@ -1,16 +1,16 @@
-package DAL.DB;
+package DAL.DAO_DB;
 
 import BE.DBEnteties.Customer;
 import BE.DBEnteties.Interfaces.ICustomer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
-import DAL.DB.Iterfaces.ICustomerDAO_DB;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.ICustomerDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAO_DB implements ICustomerDAO_DB {
+public class CustomerDAO_DB implements ICustomerDAO {
     public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){

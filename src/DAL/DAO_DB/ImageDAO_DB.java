@@ -1,13 +1,15 @@
-package DAL.DB;
+package DAL.DAO_DB;
 
 import BE.DBEnteties.Interfaces.IImage;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BE.DBEnteties.Image;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.IImageDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ImageDAO_DB implements DAL.DB.Iterfaces.IImageDAO_DB {
+public class ImageDAO_DB implements IImageDAO {
     @Override
     public IImage createImage(IImage image) throws SQLException, ImageNotFoundExeption {
         int ID;

@@ -1,4 +1,4 @@
-package DAL.DB.Iterfaces;
+package DAL.Iterfaces;
 
 import BE.DBEnteties.Interfaces.IImage;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
@@ -6,7 +6,7 @@ import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface IImageDAO_DB {
+public interface IImageDAO {
     IImage createImage(IImage image) throws SQLException, ImageNotFoundExeption;
 
     IImage getImage(int id) throws SQLException, ImageNotFoundExeption;

@@ -1,13 +1,15 @@
-package DAL.DB;
+package DAL.DAO_DB;
 
 import BE.DBEnteties.CustomerTask;
 import BE.DBEnteties.Interfaces.ICustomerTask;
 import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundExeption;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.ICustomerTaskDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerTaskDAO_DB implements DAL.DB.Iterfaces.ICustomerTaskDAO_DB {
+public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
 
     @Override
     public ICustomerTask CreateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption {

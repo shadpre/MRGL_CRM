@@ -1,4 +1,4 @@
-package DAL.DB.Iterfaces;
+package DAL.Iterfaces;
 
 import BE.DBEnteties.Interfaces.IInstallation;
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
@@ -6,7 +6,7 @@ import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface IInstallationDAO_DB {
+public interface IInstallationDAO {
     IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundExeption;
 
     IInstallation getInstallation(int id) throws SQLException, InstallationNotFoundExeption;

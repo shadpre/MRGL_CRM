@@ -1,4 +1,4 @@
-package BLL.Managers.Interfaces;
+package BLL.Interfaces;
 
 import BE.DBEnteties.Interfaces.INetwork;
 import BE.DBEnteties.Network;

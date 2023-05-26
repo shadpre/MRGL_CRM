@@ -1,15 +1,15 @@
-package DAL.DB;
+package DAL.DAO_DB;
 
 import BE.DBEnteties.Interfaces.IInstallation;
-import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
 import BE.DBEnteties.Installation;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import DAL.DatabaseConnector;
+import DAL.Iterfaces.IInstallationDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class InstallationDAO_DB implements DAL.DB.Iterfaces.IInstallationDAO_DB {
+public class InstallationDAO_DB implements IInstallationDAO {
 
     @Override
     public IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundExeption {

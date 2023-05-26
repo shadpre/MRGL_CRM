@@ -7,7 +7,9 @@ import BE.DBEnteties.Interfaces.*;
 
 import BE.DocumentData;
 import BE.Exptions.NotFoundExeption;
-import DAL.DB.*;
+import BLL.Interfaces.*;
+import BLL.Managers.*;
+import DAL.DAO_DB.*;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.color.Color;
@@ -17,7 +19,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 
@@ -29,27 +30,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DocumentGeneration {
-
-    
-    public static DocumentData CreateDocumentData(ICustomerTask customerTask) throws SQLException, NotFoundExeption{
+    public static DocumentData CreateDocumentData(ICustomerTask customerTask) throws Exception{
         DocumentData documentData = new DocumentData(customerTask);
 
-        ArrayList<IInstallation> installations = InstallationDAO_DB.getInstallations(customerTask.getId());
+        IInstallationManager iInstallationManager = new InstallationManager();
+        ICustomerManager iCustomerManager = new CustomerManager();
+        IUserManager iUserManager = new UserManager();
+        INetworkManager iNetworkManager = new NetworkManager();
+        IImageManager iImageManager = new ImageManager();
+        IDeviceManager iDeviceManager = new DeviceManager();
+        IWiFiManager iWiFiManager = new WiFiManager();
+
+        ArrayList<IInstallation> installations = iInstallationManager.getInstallations(customerTask.getId());
 
         ArrayList<INetwork> networks = new ArrayList<>();
         ArrayList<IImage> images = new ArrayList<>();
         ArrayList<IDevice> devices = new ArrayList<>();
         ArrayList<IWiFi> wiFis = new ArrayList<>();
 
-        documentData.setCustomer(CustomerDAO_DB.getCustomerByID(customerTask.getCustomerID()));
-        documentData.setUsers(UserDAO_DB.getAllUsers(customerTask.getId()));
+        documentData.setCustomer(iCustomerManager.getCustomerById(customerTask.getCustomerID()));
+        documentData.setUsers(iUserManager.getAllUsers(customerTask.getId()));
         documentData.setInstallations(installations);
 
-        for (Installation inst: installations){
-            networks.addAll(NetworkDAO_DB.getNetworks(inst.getId()));
-            images.addAll(ImageDAO_DB.getImageList(inst.getId()));
-            devices.addAll(DeviceDAO_DB.getDeviceList(inst.getId()));
-            wiFis.addAll(WiFiDAO_DB.getWiFis(inst.getId()));
+        for (IInstallation inst: installations){
+            networks.addAll(iNetworkManager.getNetworks(inst.getId()));
+            images.addAll(iImageManager.getImageList(inst.getId()));
+            devices.addAll(iDeviceManager.getDeviceList(inst.getId()));
+            wiFis.addAll(iWiFiManager.getWiFis(inst.getId()));
         }
         documentData.setNetworks(networks);
         documentData.setImages(images);
@@ -59,14 +66,14 @@ public class DocumentGeneration {
         return documentData;
     }
 
-    public static void documentGeneration(CustomerTask customerTask, String FilePath) throws FileNotFoundException, MalformedURLException, SQLException, NotFoundExeption {
+    public static void documentGeneration(CustomerTask customerTask, String FilePath) throws Exception {
 
 
         DocumentData dd = CreateDocumentData(customerTask);
-        ArrayList<BE.DBEnteties.Image> images = new ArrayList<>();
-        ArrayList<BE.DBEnteties.Image> sketches = new ArrayList<>();
+        ArrayList<IImage> images = new ArrayList<>();
+        ArrayList<IImage> sketches = new ArrayList<>();
         if (dd.getImages().size() > 0){
-            for (BE.DBEnteties.Image image : dd.getImages()){
+            for (IImage image : dd.getImages()){
                 switch (image.getImageType()){
                     case 1:
                         images.add(image);
@@ -92,7 +99,7 @@ public class DocumentGeneration {
         document.add(generateMetaDataForCustomer(dd));
         document.add(new Paragraph());
         if(sketches.size() > 0){
-            for (BE.DBEnteties.Image image : sketches){
+            for (IImage image : sketches){
                 document.add(new Paragraph(image.getDescription()).setBold());
                 document.add(new Paragraph(image.getRemarks()).setFontSize(9f));
                 document.add(generateImage(image));
@@ -124,7 +131,7 @@ public class DocumentGeneration {
 
         if(images.size() > 0){
             int i = 1;
-            for (BE.DBEnteties.Image image : images){
+            for (IImage image : images){
                 document.add(new Paragraph(image.getDescription()).setBold());
                 document.add(new Paragraph(image.getRemarks()).setFontSize(9f));
                 document.add(generateImage(image));
@@ -199,7 +206,7 @@ public class DocumentGeneration {
         return out.add(sb.toString());
     }
 
-    private static Table generateNetworkTable(ArrayList<Network> networks) {
+    private static Table generateNetworkTable(ArrayList<INetwork> networks) {
         float colWidth[] = {120, 185, 85, 85, 85};
         Table out = new Table(colWidth);
         out.addCell(new Cell(0,5).add("Information om netværk").setBold().setTextAlignment(TextAlignment.CENTER));
@@ -209,7 +216,7 @@ public class DocumentGeneration {
         out.addCell(headerCell("Subnetmask"));
         out.addCell(headerCell("Default Gateway"));
 
-        for (Network network:networks
+        for (INetwork network:networks
              ) {
             out.addCell(infoCell(network.getDescription()));
             out.addCell(infoCell(network.getRemarks()));
@@ -220,7 +227,7 @@ public class DocumentGeneration {
         return out;
     }
 
-    private static Table generateWiFiTable(ArrayList<WiFi> wiFis){
+    private static Table generateWiFiTable(ArrayList<IWiFi> wiFis){
         float colWidth[] = {120, 185, 127.5f, 127.5f};
         Table out = new Table(colWidth);
         out.addCell(new Cell(0,4).add("Information om WiFi").setBold().setTextAlignment(TextAlignment.CENTER));
@@ -229,17 +236,16 @@ public class DocumentGeneration {
         out.addCell(headerCell("SSID"));
         out.addCell(headerCell("PSK"));
 
-        for(WiFi wiFi : wiFis){
+        for(IWiFi wiFi : wiFis){
             out.addCell(infoCell(wiFi.getDescription()));
             out.addCell(infoCell(wiFi.getRemarks()));
             out.addCell(infoCell(wiFi.getSSID()));
             out.addCell(infoCell(wiFi.getPSK()));
         }
-
         return out;
     }
 
-    private static Table generateDeviceTable(ArrayList<Device> devices){
+    private static Table generateDeviceTable(ArrayList<IDevice> devices){
         float colWidth[] = {120, 185, 70, 70, 40, 40, 20};
         Table out = new Table(colWidth);
         out.addCell(new Cell(0,7).add("Information om enheder").setBold().setTextAlignment(TextAlignment.CENTER));
@@ -251,7 +257,7 @@ public class DocumentGeneration {
         out.addCell(headerCell("Kode"));
         out.addCell(headerCell("POE"));
 
-        for(Device device : devices){
+        for(IDevice device : devices){
             out.addCell(infoCell(device.getDescription()));
             out.addCell(infoCell(device.getRemarks()));
             out.addCell(infoCell(device.getIP()));
@@ -265,7 +271,7 @@ public class DocumentGeneration {
         return out;
     }
 
-    private static com.itextpdf.layout.element.Image generateImage(BE.DBEnteties.Image image){
+    private static com.itextpdf.layout.element.Image generateImage(IImage image){
         return new com.itextpdf.layout.element.Image(ImageDataFactory.create(image.getData())).setAutoScale(true);
     }
 
