@@ -1,15 +1,17 @@
 package DAL.DB;
 
 import BE.DBEnteties.Customer;
+import BE.DBEnteties.Interfaces.ICustomer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
+import DAL.DB.Iterfaces.ICustomerDAO_DB;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAO_DB {
-    public static Customer createCustomer(Customer customer) throws SQLException, CustomerNotFoundExeption {
+public class CustomerDAO_DB implements ICustomerDAO_DB {
+    public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
 
@@ -37,7 +39,7 @@ public class CustomerDAO_DB {
         return getCustomerByID(ID);
     }
 
-    public static Customer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption{
+    public ICustomer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
 
             String query = "SELECT Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers WHERE ID = ?";
@@ -65,8 +67,8 @@ public class CustomerDAO_DB {
         }
     }
 
-    public static ArrayList<Customer> getAllCustomers() throws SQLException, CustomerNotFoundExeption{
-        ArrayList<Customer> out = new ArrayList<>();
+    public ArrayList<ICustomer> getAllCustomers() throws SQLException, CustomerNotFoundExeption{
+        ArrayList<ICustomer> out = new ArrayList<>();
         try( Connection conn = DatabaseConnector.getInstance().getConnection()){
 
             String query = "SELECT Id, Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers";
@@ -97,7 +99,7 @@ public class CustomerDAO_DB {
         }
     }
 
-    public static Customer updateCustomer(Customer customer) throws CustomerNotFoundExeption, SQLException{
+    public ICustomer updateCustomer(ICustomer customer) throws CustomerNotFoundExeption, SQLException{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query =
                     "UPDATE Customers " +
@@ -125,13 +127,11 @@ public class CustomerDAO_DB {
         return getCustomerByID(customer.getId());
     }
 
-    public static void anonymizeCustomer(int ID){
-
-
+    public void anonymizeCustomer(int id) throws SQLException, CustomerNotFoundExeption{
         throw new RuntimeException("Not Implemented");
     }
 
-    public static void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
+    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Customers WHERE Id = ?";
@@ -150,5 +150,4 @@ public class CustomerDAO_DB {
             throw new RuntimeException(e);
         }
     }
-
     }

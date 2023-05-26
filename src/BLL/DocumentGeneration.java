@@ -2,8 +2,9 @@ package BLL;
 
 
 import BE.DBEnteties.*;
+import BE.DBEnteties.Interfaces.*;
 
-import BE.DBEnteties.Image;
+
 import BE.DocumentData;
 import BE.Exptions.NotFoundExeption;
 import DAL.DB.*;
@@ -30,15 +31,15 @@ import java.util.ArrayList;
 public class DocumentGeneration {
 
     
-    public static DocumentData CreateDocumentData(CustomerTask customerTask) throws SQLException, NotFoundExeption{
+    public static DocumentData CreateDocumentData(ICustomerTask customerTask) throws SQLException, NotFoundExeption{
         DocumentData documentData = new DocumentData(customerTask);
 
-        ArrayList<Installation> installations = InstallationDAO_DB.getInstallations(customerTask.getId());
+        ArrayList<IInstallation> installations = InstallationDAO_DB.getInstallations(customerTask.getId());
 
-        ArrayList<Network> networks = new ArrayList<>();
-        ArrayList<BE.DBEnteties.Image> images = new ArrayList<>();
-        ArrayList<Device> devices = new ArrayList<>();
-        ArrayList<WiFi> wiFis = new ArrayList<>();
+        ArrayList<INetwork> networks = new ArrayList<>();
+        ArrayList<IImage> images = new ArrayList<>();
+        ArrayList<IDevice> devices = new ArrayList<>();
+        ArrayList<IWiFi> wiFis = new ArrayList<>();
 
         documentData.setCustomer(CustomerDAO_DB.getCustomerByID(customerTask.getCustomerID()));
         documentData.setUsers(UserDAO_DB.getAllUsers(customerTask.getId()));

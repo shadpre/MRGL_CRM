@@ -1,6 +1,8 @@
 package BE.DBEnteties;
 
-public class Image extends InstallationUnit{
+import BE.DBEnteties.Interfaces.IImage;
+
+public class Image extends InstallationUnit implements IImage {
     private byte[] Data;
     private int ImageType;
 
@@ -10,10 +12,12 @@ public class Image extends InstallationUnit{
         ImageType = imageType;
     }
 
+    @Override
     public byte[] getData() {
         return Data;
     }
 
+    @Override
     public int getImageType() {
         return ImageType;
     }

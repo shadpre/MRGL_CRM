@@ -1,29 +1,31 @@
 package BLL.Managers;
 
-import BE.DBEnteties.Device;
-import BE.DBEnteties.WiFi;
-import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
+import BE.DBEnteties.Interfaces.IWiFi;
 import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
-import DAL.DB.DeviceDAO_DB;
+import BLL.Managers.Interfaces.IWiFiManager;
 import DAL.DB.WiFiDAO_DB;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WiFiManager {
-    public static WiFi createWiFi(WiFi wiFi) throws SQLException, WiFiNotFoundExeption{
+public class WiFiManager implements IWiFiManager {
+    @Override
+    public IWiFi createWiFi(IWiFi wiFi) throws SQLException, WiFiNotFoundExeption{
         return WiFiDAO_DB.createWiFi(wiFi);
     }
 
-    public static WiFi updateWiFi(WiFi wifi) throws SQLException, WiFiNotFoundExeption {
+    @Override
+    public IWiFi updateWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption {
         return WiFiDAO_DB.updateWiFi(wifi);
     }
 
-    public static ArrayList<WiFi> getWiFis(int installationID) throws SQLException {
+    @Override
+    public ArrayList<IWiFi> getWiFis(int installationID) throws SQLException {
         return WiFiDAO_DB.getWiFis(installationID);
     }
 
-    public static void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption {
+    @Override
+    public void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption {
         WiFiDAO_DB.deleteWiFi(id);
     }
 }

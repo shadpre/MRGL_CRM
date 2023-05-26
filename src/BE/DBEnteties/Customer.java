@@ -1,7 +1,7 @@
 package BE.DBEnteties;
 
 
-public class Customer {
+public class Customer implements BE.DBEnteties.Interfaces.ICustomer {
     private int Id;
     private String Name;
     private String Address1;
@@ -28,46 +28,57 @@ public class Customer {
         TaxNo = taxNo;
     }
 
+    @Override
     public int getId() {
         return Id;
     }
 
+    @Override
     public String getName() {
         return Name;
     }
 
+    @Override
     public String getAddress1() {
         return Address1;
     }
 
+    @Override
     public String getAddress2() {
         return Address2;
     }
 
+    @Override
     public String getAddress3() {
         return Address3;
     }
 
+    @Override
     public String getZipcode() {
         return Zipcode;
     }
 
+    @Override
     public String getCity() {
         return City;
     }
 
+    @Override
     public String getCountry() {
         return Country;
     }
 
+    @Override
     public String getPhone() {
         return Phone;
     }
 
+    @Override
     public String getCategory() {
         return Category;
     }
 
+    @Override
     public String getTaxNo() {
         return TaxNo;
     }

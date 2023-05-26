@@ -7,13 +7,11 @@ import BE.DBEnteties.Installation;
 import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.Datavalidation.ValidationHelper;
 import BLL.Datavalidation.ValidationResult;
-import BLL.DocumentGeneration;
 import BLL.Managers.*;
-import DAL.DB.CustomerTaskDAO_DB;
+import DAL.DB.DBFacade;
 import GUI.Model.CustomerModel;
 import GUI.Model.CustomerTaskModel;
 import GUI.Model.InstallationModel;
@@ -30,15 +28,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -47,8 +39,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MainView2Controller extends BaseController implements Initializable {
@@ -1022,7 +1012,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
         try {
 
-            customerTaskManager.createCustomerTask(customerTask);
+            DBFacade.getInstance().CreateCustomerTask(customerTask);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

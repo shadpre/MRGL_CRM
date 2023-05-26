@@ -4,11 +4,10 @@
  **/
 package BE.DBEnteties;
 
-import BE.Enums.UserRole;
+import BE.DBEnteties.Interfaces.IUser;
 
 
-
-public class User {
+public class User implements IUser {
 
     private int Id;
     private String LoginName;
@@ -26,27 +25,34 @@ public class User {
         Role = role;
     }
 
+    @Override
     public int getId() {
         return Id;
     }
+    @Override
     public void setId(int id){this.Id = id;}
 
+    @Override
     public String getLoginName() {
         return LoginName;
     }
 
+    @Override
     public String getFirstName() {
         return FirstName;
     }
 
+    @Override
     public String getLastName() {
         return LastName;
     }
 
+    @Override
     public String getEMail() {
         return EMail;
     }
 
+    @Override
     public int getRole() {
         return Role;
     }

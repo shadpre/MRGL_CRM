@@ -1,6 +1,8 @@
 package BE.DBEnteties;
 
-public class WiFi extends InstallationUnit{
+import BE.DBEnteties.Interfaces.IWiFi;
+
+public class WiFi extends InstallationUnit implements IWiFi {
     private String SSID;
     private String PSK;
 
@@ -10,10 +12,12 @@ public class WiFi extends InstallationUnit{
         this.PSK = PSK;
     }
 
+    @Override
     public String getSSID() {
         return SSID;
     }
 
+    @Override
     public String getPSK() {
         return PSK;
     }

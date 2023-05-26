@@ -1,29 +1,35 @@
 package BLL.Managers;
 
-import BE.DBEnteties.Customer;
+import BE.DBEnteties.Interfaces.ICustomer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
-import BLL.Datavalidation.ValidationHelper;
-import DAL.DB.CustomerDAO_DB;
-
+import BLL.Managers.Interfaces.ICustomerManager;
+import DAL.DB.DBFacade;
 
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CustomerManager {
-    public static ArrayList<Customer> getAllCustomers() throws Exception{
-        return CustomerDAO_DB.getAllCustomers();
+public class CustomerManager implements ICustomerManager {
+
+    @Override
+    public ICustomer createCustomer(ICustomer customer) throws Exception {
+        return DBFacade.getInstance().createCustomer(customer);
     }
 
-    public static Customer createCustomer(Customer customer) throws Exception {
-        return CustomerDAO_DB.createCustomer(customer);
-    }
-        public static Customer updateCustomer(Customer selectedCustomer) throws Exception {
-        return CustomerDAO_DB.updateCustomer(selectedCustomer);
+    @Override
+    public ArrayList<ICustomer> getAllCustomers() throws Exception {
+        return DBFacade.getInstance().getAllCustomers();
     }
 
-    public static void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
-        CustomerDAO_DB.deleteCustomer(id);
+    @Override
+    public ICustomer updateCustomer(ICustomer selectedCustomer) throws Exception {
+        return DBFacade.getInstance().updateCustomer(selectedCustomer);
     }
+
+    @Override
+    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption{
+        DBFacade.getInstance().deleteCustomer(id);
+    }
+
 }
 

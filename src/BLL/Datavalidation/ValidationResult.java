@@ -2,12 +2,13 @@ package BLL.Datavalidation;
 
 import java.util.ArrayList;
 
-public class ValidationResult {
+public class ValidationResult implements IValidationResult {
 
 
 
     private ArrayList<String> errors;
 
+    @Override
     public ArrayList<String> getErrors() {
         return errors;
     }
@@ -16,14 +17,17 @@ public class ValidationResult {
         errors = new ArrayList<>();
     }
 
+    @Override
     public void addError(String error){
         errors.add(error);
     }
 
+    @Override
     public boolean hasNoError(){
         return errors.size() == 0;
     }
 
+    @Override
     public String errorString(){
         StringBuilder sb = new StringBuilder();
         if (this.hasNoError()) return "";

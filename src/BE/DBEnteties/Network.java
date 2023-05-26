@@ -1,6 +1,6 @@
 package BE.DBEnteties;
 
-public class Network extends InstallationUnit{
+public class Network extends InstallationUnit implements BE.DBEnteties.Interfaces.INetwork {
    private String NetworkIP;
    private String SubnetMask;
    private String DefaultGateway;
@@ -14,18 +14,22 @@ public class Network extends InstallationUnit{
         HasPOE = hasPOE;
     }
 
+    @Override
     public String getNetworkIP() {
         return NetworkIP;
     }
 
+    @Override
     public String getSubnetMask() {
         return SubnetMask;
     }
 
+    @Override
     public String getDefaultGateway() {
         return DefaultGateway;
     }
 
+    @Override
     public boolean isHasPOE() {
         return HasPOE;
     }

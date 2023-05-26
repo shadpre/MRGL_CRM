@@ -1,6 +1,6 @@
 package BE.DBEnteties;
 
-public class Device extends InstallationUnit{
+public class Device extends InstallationUnit implements BE.DBEnteties.Interfaces.IDevice {
 
     private String IP;
     private String SubnetMask;
@@ -17,22 +17,27 @@ public class Device extends InstallationUnit{
         IsPOE = isPOE;
     }
 
+    @Override
     public String getIP() {
         return IP;
     }
 
+    @Override
     public String getSubnetMask() {
         return SubnetMask;
     }
 
+    @Override
     public String getUserName() {
         return UserName;
     }
 
+    @Override
     public String getPassword() {
         return Password;
     }
 
+    @Override
     public boolean isPOE() {
         return IsPOE;
     }

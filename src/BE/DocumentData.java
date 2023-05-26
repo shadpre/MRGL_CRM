@@ -1,21 +1,22 @@
 package BE;
 
 import BE.DBEnteties.*;
+import BE.DBEnteties.Interfaces.*;
 
 import java.util.ArrayList;
 
 /**
  *
  */
-public class DocumentData {
-    private CustomerTask customerTask;
-    private Customer customer;
-    private ArrayList<User> users;
-    private ArrayList<Installation> installations;
-    private ArrayList<Network> networks;
-    private ArrayList<Image> images;
-    private ArrayList<Device> devices;
-    private ArrayList<WiFi> wiFis;
+public class DocumentData implements IDocumentData {
+    private ICustomerTask customerTask;
+    private ICustomer customer;
+    private ArrayList<IUser> users;
+    private ArrayList<IInstallation> installations;
+    private ArrayList<INetwork> networks;
+    private ArrayList<IImage> images;
+    private ArrayList<IDevice> devices;
+    private ArrayList<IWiFi> wiFis;
 
     public DocumentData(){};
 
@@ -23,71 +24,87 @@ public class DocumentData {
      *
      * @param customerTask
      */
-    public DocumentData(CustomerTask customerTask){
+    public DocumentData(ICustomerTask customerTask){
         this.customerTask = customerTask;
     }
 
-    public CustomerTask getCustomerTask() {
+    @Override
+    public ICustomerTask getCustomerTask() {
         return customerTask;
     }
 
-    public void setCustomerTask(CustomerTask customerTask) {
+    @Override
+    public void setCustomerTask(ICustomerTask customerTask) {
         this.customerTask = customerTask;
     }
 
-    public Customer getCustomer() {
+    @Override
+    public ICustomer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    @Override
+    public void setCustomer(ICustomer customer) {
         this.customer = customer;
     }
 
-    public ArrayList<User> getUsers() {
+    @Override
+    public ArrayList<IUser> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    @Override
+    public void setUsers(ArrayList<IUser> users) {
         this.users = users;
     }
 
-    public ArrayList<Installation> getInstallations() {
+    @Override
+    public ArrayList<IInstallation> getInstallations() {
         return installations;
     }
 
-    public void setInstallations(ArrayList<Installation> installations) {
+    @Override
+    public void setInstallations(ArrayList<IInstallation> installations) {
         this.installations = installations;
     }
 
-    public ArrayList<Network> getNetworks() {
+    @Override
+    public ArrayList<INetwork> getNetworks() {
         return networks;
     }
 
-    public void setNetworks(ArrayList<Network> networks) {
+    @Override
+    public void setNetworks(ArrayList<INetwork> networks) {
         this.networks = networks;
     }
 
-    public ArrayList<Image> getImages() {
+    @Override
+    public ArrayList<IImage> getImages() {
         return images;
     }
 
-    public void setImages(ArrayList<Image> images) {
+    @Override
+    public void setImages(ArrayList<IImage> images) {
         this.images = images;
     }
 
-    public ArrayList<Device> getDevices() {
+    @Override
+    public ArrayList<IDevice> getDevices() {
         return devices;
     }
 
-    public void setDevices(ArrayList<Device> devices) {
+    @Override
+    public void setDevices(ArrayList<IDevice> devices) {
         this.devices = devices;
     }
 
-    public ArrayList<WiFi> getWiFis() {
+    @Override
+    public ArrayList<IWiFi> getWiFis() {
         return wiFis;
     }
 
-    public void setWiFis(ArrayList<WiFi> wiFis) {
+    @Override
+    public void setWiFis(ArrayList<IWiFi> wiFis) {
         this.wiFis = wiFis;
     }
 }

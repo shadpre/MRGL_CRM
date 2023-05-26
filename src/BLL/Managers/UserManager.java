@@ -4,23 +4,22 @@
  **/
 package BLL.Managers;
 
+import BE.DBEnteties.Interfaces.IUser;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BE.Exptions.UserValidationExeption;
-import BE.DBEnteties.User;
+import BE.Exptions.ValidationException;
+import BLL.Managers.Interfaces.IUserManager;
 import BLL.PasswordHash;
-import DAL.DB.CustomerDAO_DB;
 import DAL.DB.UserDAO_DB;
 
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserManager {
+public class UserManager implements IUserManager {
 
-    public static User getUser(String LoginName, String Password) throws Exception {
-        //Hardcoded Admin
-        if(LoginName == "SYS" && Password == "King_Mrgl"){
-            return new User(0,"SYS","Admin", "Bruger", "", 0);
-        }
+    @Override
+    public IUser getUser(String LoginName, String Password) throws Exception {
 
         if (validateUser(LoginName, Password)){
             return UserDAO_DB.getUser(LoginName);
@@ -30,31 +29,35 @@ public class UserManager {
         }
     }
 
-    private static boolean validateUser(String LoginName, String Password) throws Exception {
-        String hash = UserDAO_DB.getUserHash(LoginName);
-        return PasswordHash.chkPassword(Password, hash);
-    }
-
-    public static User createUser(User user, String Password, String PasswordRetype) throws Exception{
+    @Override
+    public IUser createUser(IUser user, String Password, String PasswordRetype) throws Exception{
+        if (Password != PasswordRetype) throw new ValidationException("Passwords are different");
         String hash = PasswordHash.encryptPassword(Password);
         if (UserDAO_DB.loginNameAvailible(user.getLoginName())){
             return UserDAO_DB.createUser(user, hash);
         }
-        else throw new RuntimeException("User not created");
+        else throw new SQLDataException("User not created");
     }
 
-    public static void resetPassword(User user, String Password) throws Exception{
+    @Override
+    public void resetPassword(IUser user, String Password) throws Exception{
         String hash = PasswordHash.encryptPassword(Password);
         UserDAO_DB.resetPassword(user.getId(), hash);
     }
 
-    public static ArrayList<User> getAllUsers() throws Exception{
+    @Override
+    public ArrayList<IUser> getAllUsers() throws Exception{
         return UserDAO_DB.getAllUsers();
     }
 
-    public static void deleteUser(int id) throws SQLException, UserNotFoundExeption {
-
+    @Override
+    public void deleteUser(int id) throws SQLException, UserNotFoundExeption {
         UserDAO_DB.deleteUser(id);
+    }
+
+    private boolean validateUser(String LoginName, String Password) throws Exception {
+        String hash = UserDAO_DB.getUserHash(LoginName);
+        return PasswordHash.chkPassword(Password, hash);
     }
 
 

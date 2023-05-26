@@ -1,14 +1,16 @@
 package DAL.DB;
 
 import BE.DBEnteties.Device;
+import BE.DBEnteties.Interfaces.IDevice;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import javafx.scene.paint.Stop;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DeviceDAO_DB {
-    public static Device createDevice(Device device) throws SQLException, DeviceNotFoundExeption {
+public class DeviceDAO_DB implements DAL.DB.Iterfaces.IDeviceDAO_DB {
+    @Override
+    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO Devices (InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE) VALUES (?,?,?,?,?,?,?,?)";
@@ -29,11 +31,11 @@ public class DeviceDAO_DB {
                 ID = rs.getInt(1);
             } else throw new SQLDataException("Device not saved");
         }
-
         return getDevice(ID);
     }
 
-    public static Device getDevice(int id) throws SQLException, DeviceNotFoundExeption {
+    @Override
+    public IDevice getDevice(int id) throws SQLException, DeviceNotFoundExeption {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE Id = ?";
 
@@ -58,8 +60,9 @@ public class DeviceDAO_DB {
         }
     }
 
-    public static ArrayList<Device> getDeviceList(int installationId) throws SQLException{
-        ArrayList<Device> out = new ArrayList<>();
+    @Override
+    public ArrayList<IDevice> getDeviceList(int installationId) throws SQLException{
+        ArrayList<IDevice> out = new ArrayList<>();
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE InstallationId = ?";
 
@@ -81,19 +84,17 @@ public class DeviceDAO_DB {
                         rs.getBoolean("IsPOE")
                 ));
             }
-
            return out;
         }
     }
 
-    public static Device updateDevice(Device device) throws SQLException, DeviceNotFoundExeption {
+    @Override
+    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query =
                     "UPDATE Devices " +
                     "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ? " +
                     "WHERE Id = ?";
-
-
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, device.getInstallationId());
@@ -113,7 +114,8 @@ public class DeviceDAO_DB {
         return getDevice(device.getId());
     }
 
-    public static void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
+    @Override
+    public void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Devices WHERE Id = ?";
 
@@ -124,7 +126,8 @@ public class DeviceDAO_DB {
             if (rs == 0) throw new DeviceNotFoundExeption("Device not found");
         }
     }
-    public static int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption{
+    @Override
+    public  int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption{
         try (Connection conn = DatabaseConnector.getInstance().getConnection()){
             String query = "DELETE Devices WHERE InstallationId = ?";
 

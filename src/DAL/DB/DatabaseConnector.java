@@ -16,7 +16,6 @@ public class DatabaseConnector {
         private SQLServerDataSource dataSource;
 
         private DatabaseConnector(DBLogin dbLogin) {
-
             dataSource = new SQLServerDataSource();
             dataSource.setServerName(dbLogin.getServer());
             dataSource.setDatabaseName(dbLogin.getDBName());
@@ -28,7 +27,6 @@ public class DatabaseConnector {
 
         public static void init(DBLogin dbLogin){
             if (instance!=null) return;
-
             instance = new DatabaseConnector(dbLogin);
         }
 
@@ -40,20 +38,5 @@ public class DatabaseConnector {
         {
             return dataSource.getConnection();
         }
-
-
-//Test if there is an open connection.
-/*
-        public static void main(String[] args) throws SQLException
-        {
-            DatabaseConnector databaseConnector = new DatabaseConnector();
-
-            try (Connection connection = databaseConnector.getConnection())
-            {
-                System.out.println("Is it open? " + !connection.isClosed());
-            }
-        }
-
- */
 }
 

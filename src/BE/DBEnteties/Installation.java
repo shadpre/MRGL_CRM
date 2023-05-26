@@ -1,6 +1,6 @@
 package BE.DBEnteties;
 
-public class Installation {
+public class Installation implements BE.DBEnteties.Interfaces.IInstallation {
     private int Id;
     private int CustomerTaskId;
     private String Description;
@@ -13,18 +13,22 @@ public class Installation {
         Remarks = remarks;
     }
 
+    @Override
     public int getId() {
         return Id;
     }
 
+    @Override
     public int getCustomerTaskId() {
         return CustomerTaskId;
     }
 
+    @Override
     public String getDescription() {
         return Description;
     }
 
+    @Override
     public String getRemarks() {
         return Remarks;
     }
