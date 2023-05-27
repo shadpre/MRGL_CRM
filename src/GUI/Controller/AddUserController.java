@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import BE.DBEnteties.User;
+import BLL.Interfaces.IUserManager;
 import BLL.Managers.UserManager;
 import DAL.DAO_DB.UserDAO_DB;
 import javafx.event.ActionEvent;
@@ -14,9 +15,8 @@ import java.util.ResourceBundle;
 
 public class AddUserController {
 
-    private UserManager userManager;
+    private IUserManager userManager;
 
-    private UserDAO_DB userDAO_db;
     @FXML
     private Button btnSave;
 
@@ -71,32 +71,31 @@ public class AddUserController {
             RoleValue = 2;
         } else if (chkBoxSales.isSelected()) {
             RoleValue = 3;
-        } else { System.out.println("Du skal vælge en Rolle til Medarbejderen");
-
+        } else {
+            System.out.println("Du skal vælge en Rolle til Medarbejderen");
         }
 
         User user = new User(0, loginName, firstName, lastName, email, RoleValue);
         try {
-
-            userManager.createUser(user, password, passwordRetype );
+            if (passwordRetype != password){
+                //set border red
+            }
+            userManager.createUser(user, password);
 
         } catch (Exception e) {
 
             throw new RuntimeException(e);
         }
-
-
     }
-    public void initialize (URL location, ResourceBundle resources){
+
+    public void initialize(URL location, ResourceBundle resources) {
         try {
             userManager = new UserManager();
-            userDAO_db = new UserDAO_DB();
             mainView2Controller = new MainView2Controller();
             logInController = new LogInController();
 
 
             this.userManager = userManager;
-            this.userDAO_db = userDAO_db;
             this.mainView2Controller = new MainView2Controller();
 
         } catch (Exception e) {

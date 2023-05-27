@@ -1,10 +1,8 @@
 package BLL.Managers;
 
-import BE.DBEnteties.Device;
 import BE.DBEnteties.Interfaces.IDevice;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BLL.Interfaces.IDeviceManager;
-import DAL.DAO_DB.DeviceDAO_DB;
 import DAL.DBFacade;
 
 import java.sql.SQLException;
@@ -23,7 +21,7 @@ public class DeviceManager implements IDeviceManager {
     }
 
     @Override
-    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption{
+    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
         return DBFacade.getInstance().updateDevice(device);
     }
 

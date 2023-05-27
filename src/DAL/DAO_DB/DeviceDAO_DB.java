@@ -37,14 +37,14 @@ public class DeviceDAO_DB implements IDeviceDAO {
 
     @Override
     public IDevice getDevice(int id) throws SQLException, DeviceNotFoundExeption {
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, id);
 
             var rs = statement.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return new Device(
                         id,
                         rs.getInt("InstallationId"),
@@ -56,15 +56,14 @@ public class DeviceDAO_DB implements IDeviceDAO {
                         rs.getString("Password"),
                         rs.getBoolean("IsPOE")
                 );
-            }
-            else throw new DeviceNotFoundExeption("Device not found");
+            } else throw new DeviceNotFoundExeption("Device not found");
         }
     }
 
     @Override
-    public ArrayList<IDevice> getDeviceList(int installationId) throws SQLException{
+    public ArrayList<IDevice> getDeviceList(int installationId) throws SQLException {
         ArrayList<IDevice> out = new ArrayList<>();
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -72,7 +71,7 @@ public class DeviceDAO_DB implements IDeviceDAO {
 
             var rs = statement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new Device(
                         rs.getInt("Id"),
                         installationId,
@@ -85,17 +84,17 @@ public class DeviceDAO_DB implements IDeviceDAO {
                         rs.getBoolean("IsPOE")
                 ));
             }
-           return out;
+            return out;
         }
     }
 
     @Override
     public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query =
                     "UPDATE Devices " +
-                    "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ? " +
-                    "WHERE Id = ?";
+                            "SET InstallationId = ?, Description = ?, Remarks = ?, IP = ?, SubnetMask = ?, UserName = ?, Password = ?, IsPOE = ? " +
+                            "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, device.getInstallationId());
@@ -106,7 +105,7 @@ public class DeviceDAO_DB implements IDeviceDAO {
             statement.setString(6, device.getUserName());
             statement.setString(7, device.getPassword());
             statement.setBoolean(8, device.isPOE());
-            statement.setInt(9,device.getId());
+            statement.setInt(9, device.getId());
 
             var rs = statement.executeUpdate();
 
@@ -117,7 +116,7 @@ public class DeviceDAO_DB implements IDeviceDAO {
 
     @Override
     public void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Devices WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -127,9 +126,10 @@ public class DeviceDAO_DB implements IDeviceDAO {
             if (rs == 0) throw new DeviceNotFoundExeption("Device not found");
         }
     }
+
     @Override
-    public  int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Devices WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);

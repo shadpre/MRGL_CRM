@@ -1,18 +1,19 @@
 package GUI.Model;
 
-import BE.DBEnteties.Device;
+import BE.DBEnteties.Interfaces.IWiFi;
 import BE.DBEnteties.WiFi;
-import BLL.Managers.DeviceManager;
+import BLL.Interfaces.IWiFiManager;
 import BLL.Managers.WiFiManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class WiFiModel {
 
-    public static ObservableList<WiFi> getWiFis(int installationID){
-        ObservableList<WiFi>  out;
+    public static ObservableList<IWiFi> getWiFis(int installationID) {
+        IWiFiManager wiFiManager = new WiFiManager();
+        ObservableList<IWiFi> out;
         try {
-            out =  FXCollections.observableArrayList(WiFiManager.getWiFis(installationID));
+            out = FXCollections.observableArrayList(wiFiManager.getWiFis(installationID));
         } catch (Exception e) {
             throw new RuntimeException("404");
         }

@@ -1,7 +1,6 @@
 package BLL.Interfaces;
 
 import BE.DBEnteties.Interfaces.IInstallation;
-import BE.DBEnteties.Interfaces.IUser;
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
 
 import java.sql.SQLException;

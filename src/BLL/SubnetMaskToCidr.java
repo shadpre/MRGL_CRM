@@ -1,15 +1,17 @@
 package BLL;
 
 import BLL.Datavalidation.ValidationHelper;
+import BLL.Interfaces.IValidationHelper;
 
 public class SubnetMaskToCidr {
-    public static int getCidr(String subnetmask){
+    public static int getCidr(String subnetmask) {
         int cidr = 0;
-        if (ValidationHelper.isValidSubnetMask(subnetmask)){
+        IValidationHelper validationHelper = new ValidationHelper();
+        if (validationHelper.isValidSubnetMask(subnetmask)) {
             String[] octets = subnetmask.split("\\.");
-            for (String octet: octets
-                 ) {
-                switch (octet){
+            for (String octet : octets
+            ) {
+                switch (octet) {
                     case "0":
                         cidr += 0;
                         break;
@@ -37,7 +39,8 @@ public class SubnetMaskToCidr {
                     case "255":
                         cidr += 8;
                         break;
-                    default: throw new RuntimeException("Someting went wrong");
+                    default:
+                        throw new RuntimeException("Someting went wrong");
                 }
             }
         }

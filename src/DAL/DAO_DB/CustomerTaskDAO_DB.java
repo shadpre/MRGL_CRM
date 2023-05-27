@@ -14,7 +14,7 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
     @Override
     public ICustomerTask CreateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption {
         int ID;
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO CustomerTasks (Date, Description, Remarks, Status, CustomerId) VALUES (?,?,?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -26,17 +26,16 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
 
             var rs = statement.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 ID = rs.getInt(1);
-            }
-            else throw new SQLDataException("CustomerTask not saved");
+            } else throw new SQLDataException("CustomerTask not saved");
         }
         return getCustomerTask(ID);
     }
 
     @Override
-    public void addUserToCustomerTask(int userId, int ctId) throws SQLException{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
+    public void addUserToCustomerTask(int userId, int ctId) throws SQLException {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO UserCustomerTasksRel (UserId, CustomerTaskId) VALUES (?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -49,8 +48,8 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
     }
 
     @Override
-    public ICustomerTask getCustomerTask(int id) throws SQLException, CustomerTaskNotFoundExeption{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public ICustomerTask getCustomerTask(int id) throws SQLException, CustomerTaskNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Date, Description, Remarks, Status, CustomerID FROM CustomerTasks WHERE id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -58,7 +57,7 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
 
             var rs = statement.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 return new CustomerTask(
                         id,
                         rs.getTimestamp("Date").toLocalDateTime(),
@@ -67,22 +66,21 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
                         rs.getInt("Status"),
                         rs.getInt("CustomerID")
                 );
-            }
-            else throw new CustomerTaskNotFoundExeption("CustomerTask not found");
+            } else throw new CustomerTaskNotFoundExeption("CustomerTask not found");
         }
     }
 
     @Override
-    public ArrayList<ICustomerTask> getAllCustomerTasks() throws SQLException, CustomerTaskNotFoundExeption{
+    public ArrayList<ICustomerTask> getAllCustomerTasks() throws SQLException, CustomerTaskNotFoundExeption {
         ArrayList<ICustomerTask> out = new ArrayList<>();
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, Date, Description, Remarks, Status, CustomerId FROM CustomerTasks";
 
             PreparedStatement statement = conn.prepareStatement(query);
 
             var rs = statement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new CustomerTask(
                         rs.getInt("Id"),
                         rs.getTimestamp("Date").toLocalDateTime(),
@@ -99,7 +97,7 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
     }
 
     @Override
-    public ArrayList<ICustomerTask> getAllUserCustomerTasks(int userId) throws SQLException{
+    public ArrayList<ICustomerTask> getAllUserCustomerTasks(int userId) throws SQLException {
         ArrayList<ICustomerTask> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, CustomerId, Date, Description, Remarks, Status FROM CustomerTasks " +
@@ -110,7 +108,7 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
             statement.setInt(1, userId);
 
             var rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new CustomerTask(
                         rs.getInt("Id"),
                         rs.getTimestamp("Date").toLocalDateTime(),
@@ -125,17 +123,17 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
     }
 
     @Override
-    public ArrayList<ICustomerTask> getAllCustomerTasks(int customerId) throws SQLException, CustomerTaskNotFoundExeption{
+    public ArrayList<ICustomerTask> getAllCustomerTasks(int customerId) throws SQLException, CustomerTaskNotFoundExeption {
         ArrayList<ICustomerTask> out = new ArrayList<>();
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, Date, Description, Remarks, Status, FROM CustomerTasks WHERE CustomerId= ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,customerId);
+            statement.setInt(1, customerId);
 
             var rs = statement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new CustomerTask(
                         rs.getInt("Id"),
                         rs.getTimestamp("Date").toLocalDateTime(),
@@ -146,18 +144,18 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
                 ));
             }
 
-            if (out.size() == 0) throw new CustomerTaskNotFoundExeption ("No CustomerTasks found for Customer");
+            if (out.size() == 0) throw new CustomerTaskNotFoundExeption("No CustomerTasks found for Customer");
             else return out;
         }
     }
 
     @Override
     public ICustomerTask updateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption {
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query =
                     "UPDATE CustomerTasks" +
-                    "SET Date = ?, Description = ?, Remarks = ?, Status = ?, CustomerId = ? " +
-                    "WHERE Id = ?";
+                            "SET Date = ?, Description = ?, Remarks = ?, Status = ?, CustomerId = ? " +
+                            "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, ct.GetDateString());
@@ -173,8 +171,9 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
 
         return getCustomerTask(ct.getId());
     }
+
     @Override
-    public void deleteCustomerTask(int ID){
+    public void deleteCustomerTask(int ID) {
         throw new RuntimeException("Not implemented");
     }
 }

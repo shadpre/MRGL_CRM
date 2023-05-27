@@ -4,13 +4,21 @@ package GUI.Controller;
 import BE.DBEnteties.Customer;
 import BE.DBEnteties.CustomerTask;
 import BE.DBEnteties.Installation;
+import BE.DBEnteties.Interfaces.ICustomer;
+import BE.DBEnteties.Interfaces.ICustomerTask;
+import BE.DBEnteties.Interfaces.IInstallation;
+import BE.DBEnteties.Interfaces.IUser;
 import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.Datavalidation.ValidationHelper;
 import BLL.Datavalidation.ValidationResult;
-import BLL.Managers.*;
+import BLL.Interfaces.*;
+import BLL.Managers.CustomerManager;
+import BLL.Managers.CustomerTaskManager;
+import BLL.Managers.InstallationManager;
+import BLL.Managers.UserManager;
 import DAL.DBFacade;
 import GUI.Model.CustomerModel;
 import GUI.Model.CustomerTaskModel;
@@ -25,8 +33,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -42,7 +48,6 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class MainView2Controller extends BaseController implements Initializable {
-
     @FXML
     private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales, btnShowAllFinishedTasksSales, btnShowAllMyTasksPManager,
             btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech, bthShowAllInstallations,
@@ -77,79 +82,75 @@ public class MainView2Controller extends BaseController implements Initializable
     private Button btnFinishTask;
 
     @FXML
-    private TableView<CustomerTask> tableViewAllTasksCeo;
+    private TableView<ICustomerTask> tableViewAllTasksCeo;
 
     @FXML
-    private TableColumn<CustomerTask, String> columnDate;
+    private TableColumn<ICustomerTask, String> columnDate;
     @FXML
-    private TableColumn<CustomerTask, String> columnDescription;
+    private TableColumn<ICustomerTask, String> columnDescription;
     @FXML
-    private TableColumn<CustomerTask, String> columnStatus;
+    private TableColumn<ICustomerTask, String> columnStatus;
 
     @FXML
-    private TableView<User> tableViewAllUsersCeo;
+    private TableView<IUser> tableViewAllUsersCeo;
     @FXML
-    private TableColumn<User, String> columnLastName;
+    private TableColumn<IUser, String> columnLastName;
     @FXML
-    private TableColumn<User, String> columnFirstName;
+    private TableColumn<IUser, String> columnFirstName;
     @FXML
-    private TableColumn<User, String> columnEmail;
+    private TableColumn<IUser, String> columnEmail;
 
     @FXML
-    private TableView<Customer> tableViewAllCustomersCeo;
+    private TableView<ICustomer> tableViewAllCustomersCeo;
     @FXML
-    private TableColumn<Customer, String> columnCustomerName;
+    private TableColumn<ICustomer, String> columnCustomerName;
     @FXML
-    private TableColumn<Customer, String> columnCustomerAddress;
+    private TableColumn<ICustomer, String> columnCustomerAddress;
     @FXML
-    private TableColumn<Customer, String> columnCustomerPhone;
+    private TableColumn<ICustomer, String> columnCustomerPhone;
     @FXML
-    private TableColumn<Customer, String> columnCustomerZipCode;
+    private TableColumn<ICustomer, String> columnCustomerZipCode;
     @FXML
-    private TableColumn<Customer, String> columnCustomerCity;
+    private TableColumn<ICustomer, String> columnCustomerCity;
 
     @FXML
-    private TableView<Installation> tableViewAllTasksTech;
+    private TableView<IInstallation> tableViewAllTasksTech;
     @FXML
-    private TableColumn<Installation, Integer> columnAllMyTasksTech;
+    private TableColumn<IInstallation, Integer> columnAllMyTasksTech;
     @FXML
-    private TableColumn<Installation, String> columnDescriptionTasksTech;
+    private TableColumn<IInstallation, String> columnDescriptionTasksTech;
     @FXML
-    private TableView<CustomerTask> tableViewAllCompletedTasks;
+    private TableView<ICustomerTask> tableViewAllCompletedTasks;
     @FXML
-    private TableColumn<CustomerTask, String> columnAllCompletedTasksNo;
+    private TableColumn<ICustomerTask, String> columnAllCompletedTasksNo;
     @FXML
-    private TableColumn<CustomerTask, String> columnAllCompletedTasksDescription;
+    private TableColumn<ICustomerTask, String> columnAllCompletedTasksDescription;
     @FXML
-    private TableView<CustomerTask> tableViewAllCompletedTasksPm;
+    private TableView<ICustomerTask> tableViewAllCompletedTasksPm;
     @FXML
-    private TableColumn<CustomerTask, String> columnAllCompletedTasksNoPm;
+    private TableColumn<ICustomerTask, String> columnAllCompletedTasksNoPm;
     @FXML
-    private TableColumn<CustomerTask, String> columnAllCompletedTasksDescriptionPm;
+    private TableColumn<ICustomerTask, String> columnAllCompletedTasksDescriptionPm;
     @FXML
-    private TableView<Customer> tableViewAddTaskAllCustomers;
+    private TableView<ICustomer> tableViewAddTaskAllCustomers;
     @FXML
-    private TableColumn<Customer, String> columnAddTaskAllCustomers;
+    private TableColumn<ICustomer, String> columnAddTaskAllCustomers;
 
     @FXML
-    private TableView<User> tableViewAddTaskTechAvalible;
+    private TableView<IUser> tableViewAddTaskTechAvalible;
     @FXML
-    private TableColumn<User, String> columnAddTaskAvalibleTech, columnAddTaskAssignedTech;
-
-    @FXML
-    private TableView<User> tableViewAddTaskTechAssigned;
+    private TableColumn<IUser, String> columnAddTaskAvalibleTech, columnAddTaskAssignedTech;
 
     @FXML
-    private TableView<Installation> tableViewAllInstallations;
+    private TableView<IUser> tableViewAddTaskTechAssigned;
 
     @FXML
-    private TableColumn<Installation, String> columnInstallationNo;
+    private TableView<IInstallation> tableViewAllInstallations;
+
     @FXML
-    private TableColumn<Installation, String> columnInstallationDescription;
-
-
-
-
+    private TableColumn<IInstallation, String> columnInstallationNo;
+    @FXML
+    private TableColumn<IInstallation, String> columnInstallationDescription;
 
 
     @FXML
@@ -214,21 +215,30 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private DatePicker datePickerTask;
-
+    private IValidationHelper iValidationHelper = new ValidationHelper();
     private UserModel userModel;
 
-    private CustomerTask customerTask;
+    private ICustomerTask customerTask;
 
-    private User selectedUSer;
-    private UserManager userManager;
+    private IInstallationManager installationManager;
+
+    private IUser selectedUSer;
+    private IUserManager userManager;
     private CustomerModel customerModel;
-    private CustomerManager customerManager;
+    private ICustomerManager customerManager;
 
     private InstallationModel installationModel;
-    private CustomerTaskManager customerTaskManager;
+    private ICustomerTaskManager customerTaskManager;
 
     private CustomerTaskModel customerTaskModel;
 
+    public static void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @FXML
     void btnHandleAddUser(ActionEvent event) {
@@ -245,7 +255,7 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleUpdateCustomerbtn(ActionEvent event) {
 
-        Customer infoCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
+        ICustomer infoCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
         // The save Button in the Add Customer Window.
         //Get Customer Information
 
@@ -264,14 +274,13 @@ public class MainView2Controller extends BaseController implements Initializable
         Customer selectedCustomer = new Customer(Id, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
 
         try {
-            ValidationResult vr = ValidationHelper.validate(selectedCustomer);
-            if (vr.hasNoError()){
+            IValidationResult vr = iValidationHelper.validate(selectedCustomer);
+            if (vr.hasNoError()) {
                 customerManager.updateCustomer(selectedCustomer);
-            }
-            else {
-                for (String error: vr.getErrors()
+            } else {
+                for (String error : vr.getErrors()
                 ) {
-                    switch (error){
+                    switch (error) {
                         case "Name":
                             txtFieldCustomerName.getStyleClass().add("invalid");
                             break;
@@ -287,10 +296,9 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         resetFieldsCustomer();
-
     }
+
     @FXML
     void btnHandleAddCustomer(ActionEvent event) {
 
@@ -303,6 +311,7 @@ public class MainView2Controller extends BaseController implements Initializable
         btnSaveCustomerCeo.setVisible(true);
 
     }
+
     @FXML
     void btnHandleAddNewTask(ActionEvent event) throws IOException {
 
@@ -321,7 +330,7 @@ public class MainView2Controller extends BaseController implements Initializable
         CustomerModel customerModel = new CustomerModel();
         this.customerModel = customerModel;
 
-        columnAddTaskAllCustomers.setCellValueFactory(new PropertyValueFactory<Customer, String>("Name"));
+        columnAddTaskAllCustomers.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Name"));
 
 
         // Try-Catch block for exeption handling.
@@ -335,16 +344,16 @@ public class MainView2Controller extends BaseController implements Initializable
         // Add technicians to the Employee's avalible table
         this.userModel = userModel;
 
-        columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
-        columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
+        columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
 
-        ObservableList<User> allUsers = userModel.getAllUsers();
-        ObservableList<User> filteredUsers = FXCollections.observableArrayList();
+        ObservableList<IUser> allUsers = userModel.getAllUsers();
+        ObservableList<IUser> filteredUsers = FXCollections.observableArrayList();
         try {
 
 
-            for (User techList: allUsers){
-                if (techList.getRole() == 0){
+            for (IUser techList : allUsers) {
+                if (techList.getRole() == 0) {
                     filteredUsers.add(techList);
                 }
 
@@ -358,25 +367,24 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @FXML
-    void btnHandleAddTech(ActionEvent event){
+    void btnHandleAddTech(ActionEvent event) {
 
-        User selectedTech = tableViewAddTaskTechAvalible.getSelectionModel().getSelectedItem();
+        IUser selectedTech = tableViewAddTaskTechAvalible.getSelectionModel().getSelectedItem();
         tableViewAddTaskTechAvalible.getItems().remove(selectedTech);
         tableViewAddTaskTechAssigned.getItems().add(selectedTech);
 
     }
 
     @FXML
-    void btnHandleRemoveTech(ActionEvent event){
-        User selectedTech = tableViewAddTaskTechAssigned.getSelectionModel().getSelectedItem();
+    void btnHandleRemoveTech(ActionEvent event) {
+        IUser selectedTech = tableViewAddTaskTechAssigned.getSelectionModel().getSelectedItem();
         tableViewAddTaskTechAssigned.getItems().remove(selectedTech);
         tableViewAddTaskTechAvalible.getItems().add(selectedTech);
     }
+
     @FXML
     void btnHandleSaveUserCeo(ActionEvent event) {
 
@@ -393,8 +401,10 @@ public class MainView2Controller extends BaseController implements Initializable
 
         User user = new User(-1, loginName, firstName, lastName, email, roleValue);
         try {
-
-            userManager.createUser(user, password, passwordRetype );
+            if (password != passwordRetype){
+                //set red border
+            }
+            userManager.createUser(user, password);
 
         } catch (Exception e) {
 
@@ -425,17 +435,16 @@ public class MainView2Controller extends BaseController implements Initializable
         Customer customer = new Customer(-1, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
 
         try {
-            ValidationResult vr = ValidationHelper.validate(customer);
-            if (vr.hasNoError()){
-            customerManager.createCustomer(customer);
-            }
-            else {
-                for (String error: vr.getErrors()
-                     ) {
-                    switch (error){
+            IValidationResult vr = iValidationHelper.validate(customer);
+            if (vr.hasNoError()) {
+                customerManager.createCustomer(customer);
+            } else {
+                for (String error : vr.getErrors()
+                ) {
+                    switch (error) {
                         case "Name":
                             txtFieldCustomerName.getStyleClass().add("invalid");
-                        break;
+                            break;
                         case "Address1":
                             int i = 0;//Do something2
                             break;
@@ -448,40 +457,39 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         resetFieldsCustomer();
-
-
     }
+
     @FXML
     void btnHandleSaveTaskCeo(ActionEvent event) throws SQLException {
 
         // Get the selected Customer from the Customer tableview.
-        Customer selectedCustomer = tableViewAddTaskAllCustomers.getSelectionModel().getSelectedItem();
-     try {
-         createTask(selectedCustomer);
+        ICustomer selectedCustomer = tableViewAddTaskAllCustomers.getSelectionModel().getSelectedItem();
+        try {
+            createTask(selectedCustomer);
 
-     } catch (Exception e) {
-         throw new RuntimeException(e);
-     }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-     int taskInt = customerTaskModel.getAllCustomerTasks().size() - 1;
-     CustomerTask selectedTask = customerTaskModel.getAllCustomerTasks().get(taskInt);
+        int taskInt = customerTaskModel.getAllCustomerTasks().size() - 1;
+        ICustomerTask selectedTask = customerTaskModel.getAllCustomerTasks().get(taskInt);
 
-     try {
-         techTaskLink(selectedTask);
-     } catch (SQLException e) {
-         throw new RuntimeException(e);
-     }
+        try {
+            techTaskLink(selectedTask);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-     int installationsNr = 1;
-     try{
-         createInstallation(selectedTask, installationsNr);
-     } catch (Exception e) {
-         throw new RuntimeException(e);
-     }
-     resetFieldsTasks();
+        int installationsNr = 1;
+        try {
+            createInstallation(selectedTask, installationsNr);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        resetFieldsTasks();
     }
+
     @FXML
     void btnHandleShowAllUsers(ActionEvent event) {
 
@@ -496,9 +504,9 @@ public class MainView2Controller extends BaseController implements Initializable
         UserModel userModel = new UserModel();
         this.userModel = userModel;
 
-        columnFirstName.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
-        columnLastName.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
-        columnEmail.setCellValueFactory(new PropertyValueFactory<User, String>("EMail"));
+        columnFirstName.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
+        columnLastName.setCellValueFactory(new PropertyValueFactory<IUser, String>("lastName"));
+        columnEmail.setCellValueFactory(new PropertyValueFactory<IUser, String>("EMail"));
 
 
         try {
@@ -508,6 +516,7 @@ public class MainView2Controller extends BaseController implements Initializable
         }
 
     }
+
     @FXML
     void btnHandleShowAllCustomers(ActionEvent event) {
 
@@ -522,11 +531,11 @@ public class MainView2Controller extends BaseController implements Initializable
         CustomerModel customerModel = new CustomerModel();
         this.customerModel = customerModel;
 
-        columnCustomerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("Name"));
-        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("Address1"));
-        columnCustomerPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("Phone"));
-        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("Zipcode"));
-        columnCustomerCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("City"));
+        columnCustomerName.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Name"));
+        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Address1"));
+        columnCustomerPhone.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Phone"));
+        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Zipcode"));
+        columnCustomerCity.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("City"));
 
 
         try {
@@ -534,8 +543,8 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
+
     @FXML
     void btnHandleShowAllTasksCeo(ActionEvent event) {
 
@@ -550,9 +559,9 @@ public class MainView2Controller extends BaseController implements Initializable
         CustomerTaskModel customerTaskModel = new CustomerTaskModel();
         this.customerTaskModel = customerTaskModel;
 
-        columnDate.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Date"));
-        columnDescription.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
-        columnStatus.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Status"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("Date"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("Description"));
+        columnStatus.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("Status"));
 
 
         try {
@@ -564,7 +573,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllInstallations(ActionEvent event){
+    void btnHandleShowAllInstallations(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -576,30 +585,31 @@ public class MainView2Controller extends BaseController implements Initializable
 
         this.installationModel = new InstallationModel();
 
-        columnInstallationNo.setCellValueFactory(new PropertyValueFactory<Installation, String>("CustomerTaskId"));
-        columnInstallationDescription.setCellValueFactory(new PropertyValueFactory<Installation, String>("Description"));
-
-
+        columnInstallationNo.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("CustomerTaskId"));
+        columnInstallationDescription.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("Description"));
 
         try {
             tableViewAllInstallations.setItems(InstallationModel.getAllInstallations());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        }
-
+    }
 
     private int getRoleValue() {
 
         // Get the User RoleValue
 
-        switch (choiceBoxRoleCeo.getValue()){
-            case "Tekniker": return 0;
-            case "CEO": return 1;
-            case "Projekt Manager": return 2;
-            case "Salg": return 3;
-            default: throw new RuntimeException("Rolle ikke gyldig");
+        switch (choiceBoxRoleCeo.getValue()) {
+            case "Tekniker":
+                return 0;
+            case "CEO":
+                return 1;
+            case "Projekt Manager":
+                return 2;
+            case "Salg":
+                return 3;
+            default:
+                throw new RuntimeException("Rolle ikke gyldig");
         }
 
     }
@@ -607,7 +617,7 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleBeginTask(ActionEvent event) throws IOException {
 
-        Installation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
+        IInstallation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
 
         if (selectedInstallation != null) {
 
@@ -628,9 +638,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
             controller.setUpDocu(selectedInstallation, installationModel);
-        }
-
-        else{
+        } else {
             System.out.println("get fucked nerd");
         }
 
@@ -652,11 +660,11 @@ public class MainView2Controller extends BaseController implements Initializable
         CustomerModel customerModel = new CustomerModel();
         this.customerModel = customerModel;
 
-        columnCustomerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("Name"));
-        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("Address1"));
-        columnCustomerPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("Phone"));
-        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("Zipcode"));
-        columnCustomerCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("City"));
+        columnCustomerName.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Name"));
+        columnCustomerAddress.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Address1"));
+        columnCustomerPhone.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Phone"));
+        columnCustomerZipCode.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Zipcode"));
+        columnCustomerCity.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("City"));
 
 
         try {
@@ -664,7 +672,6 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @FXML
@@ -679,8 +686,8 @@ public class MainView2Controller extends BaseController implements Initializable
         CustomerTaskModel customerTaskModel = new CustomerTaskModel();
         this.customerTaskModel = customerTaskModel;
 
-        columnAllCompletedTasksNo.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
-        columnAllCompletedTasksDescription.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+        columnAllCompletedTasksNo.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("CustomerId"));
+        columnAllCompletedTasksDescription.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("Description"));
 
         try {
             tableViewAllCompletedTasks.setItems(CustomerTaskModel.getAllCustomerTasks());
@@ -704,8 +711,8 @@ public class MainView2Controller extends BaseController implements Initializable
         CustomerTaskModel customerTaskModel = new CustomerTaskModel();
         this.customerTaskModel = customerTaskModel;
 
-        columnAllCompletedTasksNoPm.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("CustomerId"));
-        columnAllCompletedTasksDescriptionPm.setCellValueFactory(new PropertyValueFactory<CustomerTask, String>("Description"));
+        columnAllCompletedTasksNoPm.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("CustomerId"));
+        columnAllCompletedTasksDescriptionPm.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("Description"));
 
         try {
             tableViewAllCompletedTasksPm.setItems(CustomerTaskModel.getAllCustomerTasks());
@@ -729,8 +736,8 @@ public class MainView2Controller extends BaseController implements Initializable
 
         this.installationModel = installationModel;
 
-        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, Integer>("CustomerTaskId"));
-        columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, String>("Description"));
+        columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<IInstallation, Integer>("CustomerTaskId"));
+        columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("Description"));
 
 
         try {
@@ -746,50 +753,53 @@ public class MainView2Controller extends BaseController implements Initializable
 
     }
 
-   @FXML
-   void btnHandleOpenInstallation(ActionEvent event) throws IOException {
+    @FXML
+    void btnHandleOpenInstallation(ActionEvent event) throws IOException {
 
-       Installation selectedInstallation = tableViewAllInstallations.getSelectionModel().getSelectedItem();
+        IInstallation selectedInstallation = tableViewAllInstallations.getSelectionModel().getSelectedItem();
 
-       if (selectedInstallation != null) {
+        if (selectedInstallation != null) {
 
-           this.installationModel = installationModel;
+            this.installationModel = installationModel;
 
-           installationModel.setSelectedInstallation(selectedInstallation);
+            installationModel.setSelectedInstallation(selectedInstallation);
 
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
-           Parent root = loader.load();
-           Stage stage = new Stage();
-           stage.setScene(new Scene(root));
-           stage.setTitle("selectedUser.getLoginName()");
-           stage.show();
-
-
-           DocumentationViewController controller = loader.getController();
-           controller.setInstallationModel(installationModel);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("selectedUser.getLoginName()");
+            stage.show();
 
 
-           controller.setUpDocu(selectedInstallation, installationModel);
-       }
+            DocumentationViewController controller = loader.getController();
+            controller.setInstallationModel(installationModel);
 
-   }
-   @FXML
-   void btnHandleUpdateInstallation(ActionEvent event){
 
-   }
-   @FXML
-   void btnHandleDeleteInstallation(ActionEvent event){
+            controller.setUpDocu(selectedInstallation, installationModel);
+        }
 
-   }
-@FXML
-    void btnHandleGenDocumentation(ActionEvent event){
+    }
+
+    @FXML
+    void btnHandleUpdateInstallation(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnHandleDeleteInstallation(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnHandleGenDocumentation(ActionEvent event) {
 
     }
 
     @FXML
     void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
-        Installation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
+        IInstallation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
 
         if (selectedInstallation != null) {
 
@@ -813,31 +823,29 @@ public class MainView2Controller extends BaseController implements Initializable
         }
 
 
-
-
     }
 
     @FXML
     void btnHandleGenerateDocument(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
 
-      //  DocumentGeneration.documentGeneration();
+        //  DocumentGeneration.documentGeneration();
 
     }
 
     @FXML
     void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
 
-       // DocumentGeneration.documentGeneration();
+        // DocumentGeneration.documentGeneration();
 
     }
 
     @FXML
     void btnHandleDeleteCustomer(ActionEvent event) throws CustomerNotFoundExeption, SQLException {
 
-       Customer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
-       CustomerManager.deleteCustomer(selectedCustomer.getId());
+        ICustomer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
+        customerManager.deleteCustomer(selectedCustomer.getId());
 
-       btnHandleShowAllCustomers(null);
+        btnHandleShowAllCustomers(null);
 
 
     }
@@ -850,8 +858,8 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleDeleteUser(ActionEvent event) throws UserNotFoundExeption, SQLException {
 
-        User selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
-        UserManager.deleteUser(selectedUser.getId());
+        IUser selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
+        userManager.deleteUser(selectedUser.getId());
 
     }
 
@@ -864,7 +872,7 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAddCustomerCeo.setVisible(true);
 
 
-        Customer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
+        ICustomer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
 
         txtFieldCustomerName.setText(selectedCustomer.getName());
         txtFieldCustomerAddress.setText(selectedCustomer.getAddress1());
@@ -884,28 +892,29 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAssignInstallCEO(ActionEvent event){
+    void btnHandleAssignInstallCEO(ActionEvent event) {
 
-       CustomerTask selectedTask = tableViewAllTasksCeo.getSelectionModel().getSelectedItem();
+        ICustomerTask selectedTask = tableViewAllTasksCeo.getSelectionModel().getSelectedItem();
 
         int installationsNr = installationModel.getInstallations(selectedTask.getId()).size() + 1;
 
-        try{
+        try {
             createInstallation(selectedTask, installationsNr);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         showAlert("Ny Installation oprettet til " + selectedTask.getDescription());
     }
-   @FXML
+
+    @FXML
     void btnHandleUpdateTask(ActionEvent event) {
 
-   // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
-    //Parent root = loader.load();
-    //Stage stage = new Stage();
-    //stage.setScene(new Scene(root));
-    //stage.setTitle("selectedUser.getLoginName()");
-    //stage.show();
+        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
+        //Parent root = loader.load();
+        //Stage stage = new Stage();
+        //stage.setScene(new Scene(root));
+        //stage.setTitle("selectedUser.getLoginName()");
+        //stage.show();
 
     }
 
@@ -913,6 +922,7 @@ public class MainView2Controller extends BaseController implements Initializable
     void btnHandleUpdateUser(ActionEvent event) {
 
     }
+
     @FXML
     void btnHandleShowUpdateUser(ActionEvent event) {
 
@@ -922,30 +932,26 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAddUserCeo.setVisible(true);
 
 
-        User selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
+        IUser selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
 
         txtFieldLoginName.setText(selectedUser.getLoginName());
         txtFieldFirstName.setText(selectedUser.getFirstName());
         txtFieldLastName.setText(selectedUser.getLastName());
         txtFieldEmail.setText(selectedUser.getEMail());
-
     }
 
-
-
-@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
     }
 
-    public void Setup(User selectedUser, LogInController logInController, UserModel userModel, int role){
+    public void Setup(IUser selectedUser, LogInController logInController, UserModel userModel, int role) {
 
         this.selectedUSer = selectedUser;
         this.userModel = userModel;
 
 
-        if (role == 0){
+        if (role == 0) {
 
             setAllStackPanesFalse();
             setAllTableViewsFalse();
@@ -957,8 +963,8 @@ public class MainView2Controller extends BaseController implements Initializable
 
             this.installationModel = installationModel;
 
-            columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, Integer>("CustomerTaskId"));
-            columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<Installation, String>("Description"));
+            columnAllMyTasksTech.setCellValueFactory(new PropertyValueFactory<IInstallation, Integer>("CustomerTaskId"));
+            columnDescriptionTasksTech.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("Description"));
 
 
             try {
@@ -968,7 +974,7 @@ public class MainView2Controller extends BaseController implements Initializable
             }
 
 
-        } else if(role == 1) {
+        } else if (role == 1) {
 
             setAllStackPanesFalse();
             setAllTableViewsFalse();
@@ -976,7 +982,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
             choiceBoxRoleCeo.getItems().addAll("Tekniker", "CEO", "Projekt Manager", "Salg");
 
-        } else if (role == 2){
+        } else if (role == 2) {
 
             setAllStackPanesFalse();
             setAllTableViewsFalse();
@@ -988,16 +994,11 @@ public class MainView2Controller extends BaseController implements Initializable
             setAllStackPanesFalse();
             setAllTableViewsFalse();
             stackPaneSalesBtn.setVisible(true);
-
-
         }
-
-
         System.out.println(selectedUser.getRole() + "");
-
     }
 
-    public void createTask(Customer selectedCustomer){
+    public void createTask(ICustomer selectedCustomer) {
 
         // Get the user submitted data from the textfields and the datepicker.
 
@@ -1008,11 +1009,11 @@ public class MainView2Controller extends BaseController implements Initializable
 
         // Create the new Customer Task and send it up through the layers
 
-        CustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks,0, selectedCustomer.getId() );
+        ICustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks, 0, selectedCustomer.getId());
 
         try {
 
-            DBFacade.getInstance().CreateCustomerTask(customerTask);
+            customerTaskManager.createCustomerTask(customerTask);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -1020,16 +1021,17 @@ public class MainView2Controller extends BaseController implements Initializable
 
     }
 
-    public void techTaskLink(CustomerTask selectedTask) throws SQLException {
+    public void techTaskLink(ICustomerTask selectedTask) throws SQLException {
 
         for (int i = 0; i < tableViewAddTaskTechAssigned.getItems().size(); i++) {
 
-            User user = tableViewAddTaskTechAssigned.getItems().get(i);
+            IUser user = tableViewAddTaskTechAssigned.getItems().get(i);
 
             customerTaskManager.addUserToCustomerTask(user.getId(), selectedTask.getId());
         }
     }
-    public LocalDateTime localDateTimeSelector(){
+
+    public LocalDateTime localDateTimeSelector() {
 
         LocalDate localDate = datePickerTask.getValue();
         Time time = new Time(8, 00, 00);
@@ -1039,7 +1041,7 @@ public class MainView2Controller extends BaseController implements Initializable
         return localDateTime;
     }
 
-    public void createInstallation(CustomerTask selectedTask, int installationNr) {
+    public void createInstallation(ICustomerTask selectedTask, int installationNr) {
 
         InstallationModel installationModel = new InstallationModel();
         this.installationModel = installationModel;
@@ -1047,65 +1049,54 @@ public class MainView2Controller extends BaseController implements Initializable
 
         String description = selectedTask.getDescription() + "Installation nr " + installationNr;
 
-        Installation inst = new Installation(0, selectedTask.getId(), description, "Aktiv");
+        IInstallation inst = new Installation(0, selectedTask.getId(), description, "Aktiv");
 
         try {
-            InstallationManager.createInstallation(inst);
+            installationManager.createInstallation(inst);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    private void setAllStackPanesFalse() {
 
-            private void setAllStackPanesFalse () {
+        stackPaneCeoBtn.setVisible(false);
+        stackPaneSalesBtn.setVisible(false);
+        stackPanePManagerBtn.setVisible(false);
+        stackPaneTechBtn.setVisible(false);
+        stackPaneAddUserCeo.setVisible(false);
+        stackPaneAddCustomerCeo.setVisible(false);
+        stackPaneAddTaskCeo.setVisible(false);
+        stackPaneAllUsersCeo.setVisible(false);
+        stackPaneViewAllCustomersCeo.setVisible(false);
+        stackPaneViewAllCustomersTasks.setVisible(false);
+        stackPaneViewAllMyTasksTech.setVisible(false);
+        stackPaneViewAllCompletedTasksPm.setVisible(false);
+        stackpaneBtnEditCustomer.setVisible(false);
+        stackpaneBtnEditUser.setVisible(false);
+        stackpaneBtnEditTask.setVisible(false);
+        stackPaneViewAllCompletedTasks.setVisible(false);
+        stackPaneViewAllInstallations.setVisible(false);
+        stackpaneBtnEditInstallation.setVisible(false);
 
-                stackPaneCeoBtn.setVisible(false);
-                stackPaneSalesBtn.setVisible(false);
-                stackPanePManagerBtn.setVisible(false);
-                stackPaneTechBtn.setVisible(false);
-                stackPaneAddUserCeo.setVisible(false);
-                stackPaneAddCustomerCeo.setVisible(false);
-                stackPaneAddTaskCeo.setVisible(false);
-                stackPaneAllUsersCeo.setVisible(false);
-                stackPaneViewAllCustomersCeo.setVisible(false);
-                stackPaneViewAllCustomersTasks.setVisible(false);
-                stackPaneViewAllMyTasksTech.setVisible(false);
-                stackPaneViewAllCompletedTasksPm.setVisible(false);
-                stackpaneBtnEditCustomer.setVisible(false);
-                stackpaneBtnEditUser.setVisible(false);
-                stackpaneBtnEditTask.setVisible(false);
-                stackPaneViewAllCompletedTasks.setVisible(false);
-                stackPaneViewAllInstallations.setVisible(false);
-                stackpaneBtnEditInstallation.setVisible(false);
-
-            }
-            private void setAllTableViewsFalse () {
-
-                tableViewAllTasksTech.setVisible(false);
-                tableViewAllUsersCeo.setVisible(false);
-                tableViewAllCustomersCeo.setVisible(false);
-                tableViewAllTasksCeo.setVisible(false);
-                tableViewAllCompletedTasks.setVisible(false);
-                tableViewAllCompletedTasksPm.setVisible(false);
-                tableViewAddTaskTechAssigned.setVisible(false);
-                tableViewAddTaskTechAvalible.setVisible(false);
-                tableViewAddTaskAllCustomers.setVisible(false);
-                tableViewAllInstallations.setVisible(false);
-
-
-            }
-
-
-    public static void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Alert");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
-    public void resetFieldsUser(){
+    private void setAllTableViewsFalse() {
+
+        tableViewAllTasksTech.setVisible(false);
+        tableViewAllUsersCeo.setVisible(false);
+        tableViewAllCustomersCeo.setVisible(false);
+        tableViewAllTasksCeo.setVisible(false);
+        tableViewAllCompletedTasks.setVisible(false);
+        tableViewAllCompletedTasksPm.setVisible(false);
+        tableViewAddTaskTechAssigned.setVisible(false);
+        tableViewAddTaskTechAvalible.setVisible(false);
+        tableViewAddTaskAllCustomers.setVisible(false);
+        tableViewAllInstallations.setVisible(false);
+    }
+
+    public void resetFieldsUser() {
 
         txtFieldLoginName.setText("");
         txtFieldFirstName.setText("");
@@ -1114,26 +1105,24 @@ public class MainView2Controller extends BaseController implements Initializable
         txtFieldPasswordRetype.setText("");
         txtFieldEmail.setText("");
         choiceBoxRoleCeo.setValue("");
+    }
 
+    public void resetFieldsCustomer() {
+
+        txtFieldCustomerName.setText("");
+        txtFieldCustomerAddress.setText("");
+        txtFieldCustomerAddress2.setText("");
+        txtFieldCustomerAddress3.setText("");
+        txtFieldCustomerZipCode.setText("");
+        txtFieldCustomerCity.setText("");
+        txtFieldCustomerCountry.setText("");
+        txtFieldCustomerTelephone.setText("");
+        txtFieldCustomerEmail.setText("");
+        txtFieldCustomerTaxNo.setText("");
 
     }
 
-    public void resetFieldsCustomer(){
-
-    txtFieldCustomerName.setText("");
-    txtFieldCustomerAddress.setText("");
-    txtFieldCustomerAddress2.setText("");
-    txtFieldCustomerAddress3.setText("");
-    txtFieldCustomerZipCode.setText("");
-    txtFieldCustomerCity.setText("");
-    txtFieldCustomerCountry.setText("");
-    txtFieldCustomerTelephone.setText("");
-    txtFieldCustomerEmail.setText("");
-    txtFieldCustomerTaxNo.setText("");
-
-    }
-
-    public void resetFieldsTasks(){
+    public void resetFieldsTasks() {
 
         tableViewAddTaskAllCustomers.getSelectionModel().clearSelection();
         txtFieldDescriptionTask.setText("");
@@ -1145,16 +1134,16 @@ public class MainView2Controller extends BaseController implements Initializable
         // Add technicians to the Employee's avalible table
         this.userModel = userModel;
 
-        columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
-        columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
+        columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
 
-        ObservableList<User> allUsers = userModel.getAllUsers();
-        ObservableList<User> filteredUsers = FXCollections.observableArrayList();
+        ObservableList<IUser> allUsers = userModel.getAllUsers();
+        ObservableList<IUser> filteredUsers = FXCollections.observableArrayList();
         try {
 
 
-            for (User techList: allUsers){
-                if (techList.getRole() == 0){
+            for (IUser techList : allUsers) {
+                if (techList.getRole() == 0) {
                     filteredUsers.add(techList);
                 }
 

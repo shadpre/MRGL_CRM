@@ -1,8 +1,8 @@
 package DAL.DAO_DB;
 
+import BE.DBEnteties.Image;
 import BE.DBEnteties.Interfaces.IImage;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
-import BE.DBEnteties.Image;
 import DAL.DatabaseConnector;
 import DAL.Iterfaces.IImageDAO;
 
@@ -17,7 +17,7 @@ public class ImageDAO_DB implements IImageDAO {
             String query = "INSERT INTO Images (InstallationId, Description, Remarks, Data, ImageType) VALUES (?,?,?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1,image.getInstallationId());
+            statement.setInt(1, image.getInstallationId());
             statement.setString(2, image.getDescription());
             statement.setString(3, image.getRemarks());
             statement.setBytes(4, image.getData());
@@ -33,8 +33,8 @@ public class ImageDAO_DB implements IImageDAO {
     }
 
     @Override
-    public IImage getImage(int id) throws SQLException, ImageNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public IImage getImage(int id) throws SQLException, ImageNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT InstallationId, Description, Remarks, Data, ImageType FROM Images WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -42,7 +42,7 @@ public class ImageDAO_DB implements IImageDAO {
 
             var rs = statement.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 return new Image(
                         id,
                         rs.getInt("InstallationId"),
@@ -51,14 +51,13 @@ public class ImageDAO_DB implements IImageDAO {
                         rs.getBytes("Data"),
                         rs.getInt("ImageType")
                 );
-            }
-            else throw new ImageNotFoundExeption("Image not found");
+            } else throw new ImageNotFoundExeption("Image not found");
         }
     }
 
     @Override
-    public ArrayList<IImage> getImageList(int installationId) throws SQLException{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public ArrayList<IImage> getImageList(int installationId) throws SQLException {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             ArrayList<IImage> out = new ArrayList<>();
 
             String query = "SELECT Id, Description, Remarks, Data, ImageType FROM Images WHERE InstallationId = ?";
@@ -67,7 +66,7 @@ public class ImageDAO_DB implements IImageDAO {
             statement.setInt(1, installationId);
 
             var rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new Image(
                         rs.getInt("Id"),
                         installationId,
@@ -107,8 +106,8 @@ public class ImageDAO_DB implements IImageDAO {
 
 
     @Override
-    public void deleteImage(int id) throws SQLException, ImageNotFoundExeption{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public void deleteImage(int id) throws SQLException, ImageNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Images WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -121,7 +120,7 @@ public class ImageDAO_DB implements IImageDAO {
     }
 
     @Override
-    public int deleteImages(int installationId) throws SQLException, ImageNotFoundExeption{
+    public int deleteImages(int installationId) throws SQLException, ImageNotFoundExeption {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Images where InstallationId = ?";
 

@@ -1,7 +1,6 @@
 package BE.DBEnteties;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Symbol implements BE.DBEnteties.Interfaces.ISymbol {
     private javafx.scene.image.Image image;

@@ -1,8 +1,8 @@
 package DAL.DAO_DB;
 
 import BE.DBEnteties.Interfaces.IWiFi;
-import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
 import BE.DBEnteties.WiFi;
+import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
 import DAL.DatabaseConnector;
 import DAL.Iterfaces.IWiFiDAO;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class WiFiDAO_DB implements IWiFiDAO {
     @Override
-    public IWiFi createWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption{
+    public IWiFi createWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO WiFis (InstallationID, Description, Remarks, SSID, PSK) VALUES (?,?,?,?,?)";
@@ -25,17 +25,16 @@ public class WiFiDAO_DB implements IWiFiDAO {
 
             var rs = statement.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 ID = rs.getInt(1);
-            }
-            else throw new SQLDataException("Wifi not saved");
+            } else throw new SQLDataException("Wifi not saved");
         }
         return getWifi(ID);
     }
 
     @Override
-    public IWiFi getWifi(int id) throws SQLException, WiFiNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public IWiFi getWifi(int id) throws SQLException, WiFiNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "Select InstallationId, Description, Remarks, SSID, PSK FROM WiFis WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -43,7 +42,7 @@ public class WiFiDAO_DB implements IWiFiDAO {
 
             var rs = statement.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 return new WiFi(
                         id,
                         rs.getInt("InstallationId"),
@@ -52,23 +51,22 @@ public class WiFiDAO_DB implements IWiFiDAO {
                         rs.getString("SSID"),
                         rs.getString("PSK")
                 );
-            }
-            else throw new WiFiNotFoundExeption("WiFi not found");
+            } else throw new WiFiNotFoundExeption("WiFi not found");
         }
     }
 
     @Override
-    public ArrayList<IWiFi> getWiFis(int installationId) throws SQLException{
+    public ArrayList<IWiFi> getWiFis(int installationId) throws SQLException {
         ArrayList<IWiFi> out = new ArrayList<>();
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "Select Id, Description, Remarks, SSID, PSK FROM WiFis WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setInt(1,installationId);
+            statement.setInt(1, installationId);
 
             var rs = statement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 out.add(new WiFi(
                         rs.getInt("Id"),
                         installationId,
@@ -83,8 +81,8 @@ public class WiFiDAO_DB implements IWiFiDAO {
     }
 
     @Override
-    public IWiFi updateWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption{
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public IWiFi updateWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "UPDATE WiFis " +
                     "SET  InstallationId = ?, Description = ?, Remarks = ?, SSID =?, PSK =? " +
                     "WHERE Id = ?";
@@ -105,8 +103,8 @@ public class WiFiDAO_DB implements IWiFiDAO {
     }
 
     @Override
-    public void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE WiFis WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -114,13 +112,13 @@ public class WiFiDAO_DB implements IWiFiDAO {
 
             var rs = statement.executeUpdate();
 
-            if(rs == 0) throw new WiFiNotFoundExeption("WiFi not found");
+            if (rs == 0) throw new WiFiNotFoundExeption("WiFi not found");
         }
     }
 
     @Override
-    public int deleteWiFis(int installationId) throws SQLException, WiFiNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public int deleteWiFis(int installationId) throws SQLException, WiFiNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE WiFis WHERE InstallationId = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
@@ -128,7 +126,7 @@ public class WiFiDAO_DB implements IWiFiDAO {
 
             var rs = statement.executeUpdate();
 
-            if(rs == 0) throw new WiFiNotFoundExeption("No WiFis found");
+            if (rs == 0) throw new WiFiNotFoundExeption("No WiFis found");
             else return rs;
         }
     }

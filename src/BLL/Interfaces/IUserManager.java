@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface IUserManager {
     IUser getUser(String LoginName, String Password) throws Exception;
 
-    IUser createUser(IUser user, String Password, String PasswordRetype) throws SQLException, UserNotFoundExeption, ValidationException, UserValidationExeption;
+    IUser createUser(IUser user, String Password) throws SQLException, UserNotFoundExeption, ValidationException, UserValidationExeption;
 
     boolean loginNameAvailable(String LoginName) throws SQLException, UserValidationExeption;
 

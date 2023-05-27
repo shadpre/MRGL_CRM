@@ -3,7 +3,6 @@ package BLL.Managers;
 import BE.DBEnteties.Interfaces.IImage;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BLL.Interfaces.IImageManager;
-import DAL.DAO_DB.ImageDAO_DB;
 import DAL.DBFacade;
 
 import java.sql.SQLException;

@@ -5,7 +5,6 @@ import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BLL.Interfaces.ICustomerManager;
 import DAL.DBFacade;
 
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class CustomerManager implements ICustomerManager {
     }
 
     @Override
-    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption{
+    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
         DBFacade.getInstance().deleteCustomer(id);
     }
 

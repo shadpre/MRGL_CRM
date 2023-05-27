@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.DBEnteties.Interfaces.IUser;
 import BE.DBEnteties.User;
 import GUI.Model.UserModel;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ public class LogInController extends BaseController implements Initializable {
 
     private MainView2Controller mainView2Controller;
 
-    private User selectedUser;
+    private IUser selectedUser;
 
     @FXML
     private Button btnLogin;
@@ -34,10 +35,10 @@ public class LogInController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            userModel = new UserModel();
-            this.userModel = userModel;
-            mainView2Controller = new MainView2Controller();
-            this.mainView2Controller = mainView2Controller;
+        userModel = new UserModel();
+        this.userModel = userModel;
+        mainView2Controller = new MainView2Controller();
+        this.mainView2Controller = mainView2Controller;
 
     }
 
@@ -46,7 +47,7 @@ public class LogInController extends BaseController implements Initializable {
         String loginName = txtUsername.getText();
         String password = txtPassword.getText();
 
-        User selectedUser = userModel.getUser(loginName, password);
+        IUser selectedUser = userModel.getUser(loginName, password);
 
         if (selectedUser != null) {
 
@@ -70,5 +71,7 @@ public class LogInController extends BaseController implements Initializable {
         }
     }
 
-    public User setSelectedUser(User selectedUser){return selectedUser;}
+    public IUser setSelectedUser(IUser selectedUser) {
+        return selectedUser;
+    }
 }

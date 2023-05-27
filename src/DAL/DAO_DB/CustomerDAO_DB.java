@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CustomerDAO_DB implements ICustomerDAO {
     public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption {
         int ID;
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
 
             String query = "INSERT INTO CUSTOMERS (Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -31,16 +31,15 @@ public class CustomerDAO_DB implements ICustomerDAO {
             statement.setString(10, customer.getTaxNo());
 
             var rs = statement.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 ID = rs.getInt(1);
-            }
-            else throw new SQLDataException("User not saved");
+            } else throw new SQLDataException("User not saved");
         }
         return getCustomerByID(ID);
     }
 
-    public ICustomer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public ICustomer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
 
             String query = "SELECT Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers WHERE ID = ?";
 
@@ -48,7 +47,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
             statement.setInt(1, ID);
 
             var rs = statement.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return new Customer(
                         ID,
                         rs.getString("Name"),
@@ -62,14 +61,13 @@ public class CustomerDAO_DB implements ICustomerDAO {
                         rs.getString("Category"),
                         rs.getString("TaxNo")
                 );
-            }
-            else throw new CustomerNotFoundExeption("Customer Not Found");
+            } else throw new CustomerNotFoundExeption("Customer Not Found");
         }
     }
 
-    public ArrayList<ICustomer> getAllCustomers() throws SQLException, CustomerNotFoundExeption{
+    public ArrayList<ICustomer> getAllCustomers() throws SQLException, CustomerNotFoundExeption {
         ArrayList<ICustomer> out = new ArrayList<>();
-        try( Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
 
             String query = "SELECT Id, Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers";
 
@@ -77,7 +75,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
 
             var rs = statement.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 out.add(new Customer(
                         rs.getInt("Id"),
                         rs.getString("Name"),
@@ -92,19 +90,19 @@ public class CustomerDAO_DB implements ICustomerDAO {
                         rs.getString("TaxNo")
                 ));
             }
-            if (out.size() == 0){
+            if (out.size() == 0) {
                 throw new CustomerNotFoundExeption("No Customers Found");
             }
             return out;
         }
     }
 
-    public ICustomer updateCustomer(ICustomer customer) throws CustomerNotFoundExeption, SQLException{
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+    public ICustomer updateCustomer(ICustomer customer) throws CustomerNotFoundExeption, SQLException {
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query =
                     "UPDATE Customers " +
-                    "SET Name = ?, Address1 = ?, Address2 = ?, Address3 = ?, Zipcode = ?, City = ?, Country = ?, Phone = ?, Category = ?, TaxNo = ? " +
-                    "WHERE Id = ?";
+                            "SET Name = ?, Address1 = ?, Address2 = ?, Address3 = ?, Zipcode = ?, City = ?, Country = ?, Phone = ?, Category = ?, TaxNo = ? " +
+                            "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
 
@@ -121,13 +119,13 @@ public class CustomerDAO_DB implements ICustomerDAO {
             statement.setInt(11, customer.getId());
 
             var rs = statement.executeUpdate();
-            if(rs == 0) throw new CustomerNotFoundExeption("CustomerNotFound");
+            if (rs == 0) throw new CustomerNotFoundExeption("CustomerNotFound");
         }
 
         return getCustomerByID(customer.getId());
     }
 
-    public void anonymizeCustomer(int id) throws SQLException, CustomerNotFoundExeption{
+    public void anonymizeCustomer(int id) throws SQLException, CustomerNotFoundExeption {
         throw new RuntimeException("Not Implemented");
     }
 
@@ -142,7 +140,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
             var rs = statement.executeUpdate();
 
             if (rs == 0)
-                   throw new ImageNotFoundExeption("Customer not found");
+                throw new ImageNotFoundExeption("Customer not found");
 
             //throw new RuntimeException("Not implemented");
 
@@ -150,4 +148,4 @@ public class CustomerDAO_DB implements ICustomerDAO {
             throw new RuntimeException(e);
         }
     }
-    }
+}

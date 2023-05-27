@@ -1,16 +1,19 @@
 package GUI.Model;
 
 import BE.DBEnteties.Image;
+import BE.DBEnteties.Interfaces.IImage;
+import BLL.Interfaces.IImageManager;
 import BLL.Managers.ImageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ImageModel {
 
-    public static ObservableList<Image> getImageList(int installationID){
-        ObservableList<Image>  out;
+    public static ObservableList<IImage> getImageList(int installationID) {
+        IImageManager imageManager = new ImageManager();
+        ObservableList<IImage> out;
         try {
-            out =  FXCollections.observableArrayList(ImageManager.getImageList(installationID));
+            out = FXCollections.observableArrayList(imageManager.getImageList(installationID));
         } catch (Exception e) {
             throw new RuntimeException("404");
         }

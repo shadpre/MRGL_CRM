@@ -1,5 +1,7 @@
 package GUI.Controller;
 
+import BE.DBEnteties.Interfaces.ILineSegment;
+import BE.DBEnteties.Interfaces.ISymbol;
 import BE.DBEnteties.LineSegment;
 import BE.DBEnteties.Symbol;
 import javafx.embed.swing.SwingFXUtils;
@@ -17,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
@@ -30,14 +31,14 @@ import java.util.ResourceBundle;
 public class DrawingProgram extends BaseController implements Initializable {
 
     private DocumentationViewController documentationViewController;
-    private Map<ImageView, Symbol> symbolMap;
+    private Map<ImageView, ISymbol> symbolMap;
     @FXML
     private ImageView symbol1, imgTrash, symbol2, symbol3;
 
     private Image canvasImage;
 
-    private List<LineSegment> lines = new ArrayList<>();
-    private LineSegment currentLine;
+    private List<ILineSegment> lines = new ArrayList<>();
+    private ILineSegment currentLine;
 
 
     private GraphicsContext gc;
@@ -52,22 +53,20 @@ public class DrawingProgram extends BaseController implements Initializable {
     private Canvas canvas;
 
 
-
-
     public void handleSymbol1ButtonClicked(ActionEvent actionEvent) {
     }
 
     public void handleCloseWindow(ActionEvent actionEvent) {
 
-            // Create the canvas image
-            Image canvasImage = createCanvasImage();
+        // Create the canvas image
+        Image canvasImage = createCanvasImage();
 
-            // Set the image in the documentation controller
-            documentationViewController.setCanvasImage(canvasImage);
+        // Set the image in the documentation controller
+        documentationViewController.setCanvasImage(canvasImage);
 
-            // Close the drawing program window
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+        // Close the drawing program window
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
 
     }
 
@@ -197,7 +196,6 @@ public class DrawingProgram extends BaseController implements Initializable {
     }
 
 
-
     public void onAddLineButtonClicked(ActionEvent actionEvent) {
         startX = 0;
         startY = 0;
@@ -235,7 +233,7 @@ public class DrawingProgram extends BaseController implements Initializable {
         double endX = event.getX();
         double endY = event.getY();
         Color lineColor = colorPicker.getValue();
-        LineSegment newLine = new LineSegment(startX, startY, endX, endY, lineColor );
+        ILineSegment newLine = new LineSegment(startX, startY, endX, endY, lineColor);
         lines.add(newLine);
         redrawCanvas();
         startX = endX; // Update the startX and startY for the next line
@@ -247,22 +245,22 @@ public class DrawingProgram extends BaseController implements Initializable {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 
-
-        for (LineSegment line : lines) {
+        for (ILineSegment line : lines) {
             gc.setStroke(line.getColor());
             gc.setLineWidth(4.0);
             gc.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
-        }}
-    
+        }
+    }
+
 
     public void handleRemoveLastLine(ActionEvent actionEvent) {
         int max = lines.size();
-        lines.remove(max-1);
+        lines.remove(max - 1);
         redrawCanvas();
     }
 
     public void handleRemoveLines(MouseEvent event) {
-        if(imgTrash.isHover()) {
+        if (imgTrash.isHover()) {
             lines.clear();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         }

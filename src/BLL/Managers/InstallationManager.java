@@ -1,10 +1,8 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.IInstallation;
-import BE.DBEnteties.Interfaces.IUser;
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
 import BLL.Interfaces.IInstallationManager;
-import DAL.DAO_DB.InstallationDAO_DB;
 import DAL.DBFacade;
 
 import java.sql.SQLException;

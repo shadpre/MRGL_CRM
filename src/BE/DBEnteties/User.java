@@ -29,8 +29,11 @@ public class User implements IUser {
     public int getId() {
         return Id;
     }
+
     @Override
-    public void setId(int id){this.Id = id;}
+    public void setId(int id) {
+        this.Id = id;
+    }
 
     @Override
     public String getLoginName() {

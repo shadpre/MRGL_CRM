@@ -6,10 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CustomerModel {
-    public static ObservableList<ICustomer> getAllCustomers(){
-        ObservableList<ICustomer>  out;
+    public static ObservableList<ICustomer> getAllCustomers() {
+        ObservableList<ICustomer> out;
         try {
-            out =  FXCollections.observableArrayList(DBFacade.getInstance().getAllCustomers());
+            out = FXCollections.observableArrayList(DBFacade.getInstance().getAllCustomers());
         } catch (Exception e) {
             throw new RuntimeException("404");
         }

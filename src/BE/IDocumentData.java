@@ -1,6 +1,5 @@
 package BE;
 
-import BE.DBEnteties.*;
 import BE.DBEnteties.Interfaces.*;
 
 import java.util.ArrayList;

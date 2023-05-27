@@ -102,7 +102,7 @@ public class DBFacade {
 
     //Device Methods
 
-    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption{
+    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
         return DeviceDAO_DB.createDevice(device);
     }
 
@@ -153,7 +153,7 @@ public class DBFacade {
 
     //Installation Methods
 
-    public IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundExeption{
+    public IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundExeption {
         return InstallationDAO_DB.createInstallation(inst);
     }
 
@@ -248,7 +248,7 @@ public class DBFacade {
     }
 
     //WiFi Methods
-    public IWiFi createWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption{
+    public IWiFi createWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption {
         return WiFiDAO_DB.createWiFi(wifi);
     }
 

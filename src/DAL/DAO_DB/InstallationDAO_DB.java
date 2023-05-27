@@ -1,8 +1,8 @@
 package DAL.DAO_DB;
 
+import BE.DBEnteties.Installation;
 import BE.DBEnteties.Interfaces.IInstallation;
 import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
-import BE.DBEnteties.Installation;
 import DAL.DatabaseConnector;
 import DAL.Iterfaces.IInstallationDAO;
 
@@ -130,47 +130,47 @@ public class InstallationDAO_DB implements IInstallationDAO {
 
     @Override
     public ArrayList<IInstallation> getInstallationsForUser(int selectedUserID) throws SQLException {
-            ArrayList<IInstallation> installationsForUser = new ArrayList<>();
+        ArrayList<IInstallation> installationsForUser = new ArrayList<>();
 
-            String sqlQuery = "SELECT i.* " +
-                    "FROM Installations i " +
-                    "JOIN CustomerTasks ct ON i.customerTaskId = ct.id " +
-                    "JOIN UserCustomerTasksRel uoct ON ct.id = uoct.customerTaskId " +
-                    "JOIN Users u ON uoct.userId = u.id " +
-                    "WHERE u.id = ?";
+        String sqlQuery = "SELECT i.* " +
+                "FROM Installations i " +
+                "JOIN CustomerTasks ct ON i.customerTaskId = ct.id " +
+                "JOIN UserCustomerTasksRel uoct ON ct.id = uoct.customerTaskId " +
+                "JOIN Users u ON uoct.userId = u.id " +
+                "WHERE u.id = ?";
 
-            try (Connection connection = DatabaseConnector.getInstance().getConnection();
-                 PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (Connection connection = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
 
-                statement.setInt(1, selectedUserID);
+            statement.setInt(1, selectedUserID);
 
-                ResultSet rs = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
 
-                while (rs.next()) {
-                    Installation installation = new Installation(
-                            rs.getInt("Id"),
-                            rs.getInt("customerTaskId"),
-                            rs.getString("Description"),
-                            rs.getString("Remarks"));
-                    installationsForUser.add(installation);
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw e; // Rethrow the exception to handle it at a higher level if needed
+            while (rs.next()) {
+                Installation installation = new Installation(
+                        rs.getInt("Id"),
+                        rs.getInt("customerTaskId"),
+                        rs.getString("Description"),
+                        rs.getString("Remarks"));
+                installationsForUser.add(installation);
             }
-            return installationsForUser;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; // Rethrow the exception to handle it at a higher level if needed
+        }
+        return installationsForUser;
     }
 
 
     @Override
-    public void deleteInstallation(int id) throws SQLException, InstallationNotFoundExeption{
+    public void deleteInstallation(int id) throws SQLException, InstallationNotFoundExeption {
         throw new RuntimeException("Not implemented yet");
     }
 
 
     @Override
-    public void deleteInstallations(int customerTaskId) throws SQLException, InstallationNotFoundExeption{
+    public void deleteInstallations(int customerTaskId) throws SQLException, InstallationNotFoundExeption {
         throw new RuntimeException("Not implemented yet");
     }
 }

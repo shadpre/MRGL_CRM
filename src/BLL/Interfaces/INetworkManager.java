@@ -1,7 +1,6 @@
 package BLL.Interfaces;
 
 import BE.DBEnteties.Interfaces.INetwork;
-import BE.DBEnteties.Network;
 import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
 
 import java.sql.SQLException;

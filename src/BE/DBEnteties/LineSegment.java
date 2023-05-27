@@ -9,6 +9,14 @@ public class LineSegment implements BE.DBEnteties.Interfaces.ILineSegment {
     private double endY;
     private Color color;
 
+    public LineSegment(double startX, double startY, double endX, double endY, Color color) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+        this.color = color;
+    }
+
     @Override
     public double getStartX() {
         return startX;
@@ -56,14 +64,6 @@ public class LineSegment implements BE.DBEnteties.Interfaces.ILineSegment {
 
     @Override
     public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public LineSegment(double startX, double startY, double endX, double endY, Color color) {
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
         this.color = color;
     }
 }

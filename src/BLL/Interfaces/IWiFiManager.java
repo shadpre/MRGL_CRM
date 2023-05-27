@@ -1,7 +1,6 @@
 package BLL.Interfaces;
 
 import BE.DBEnteties.Interfaces.IWiFi;
-import BE.DBEnteties.WiFi;
 import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
 
 import java.sql.SQLException;

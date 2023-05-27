@@ -2,7 +2,6 @@ package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.ICustomerTask;
 import BLL.Interfaces.ICustomerTaskManager;
-import DAL.DAO_DB.CustomerTaskDAO_DB;
 import DAL.DBFacade;
 
 import java.sql.SQLException;
@@ -22,7 +21,7 @@ public class CustomerTaskManager implements ICustomerTaskManager {
     }
 
     @Override
-    public void addUserToCustomerTask(int userID, int customerTaskID) throws SQLException{
+    public void addUserToCustomerTask(int userID, int customerTaskID) throws SQLException {
         DBFacade.getInstance().addUserToCustomerTask(userID, customerTaskID);
     }
 }

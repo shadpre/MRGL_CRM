@@ -1,6 +1,5 @@
 package BE;
 
-import BE.DBEnteties.*;
 import BE.DBEnteties.Interfaces.*;
 
 import java.util.ArrayList;
@@ -18,13 +17,15 @@ public class DocumentData implements IDocumentData {
     private ArrayList<IDevice> devices;
     private ArrayList<IWiFi> wiFis;
 
-    public DocumentData(){};
+    public DocumentData() {
+    }
+
+    ;
 
     /**
-     *
      * @param customerTask
      */
-    public DocumentData(ICustomerTask customerTask){
+    public DocumentData(ICustomerTask customerTask) {
         this.customerTask = customerTask;
     }
 

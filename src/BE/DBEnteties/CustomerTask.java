@@ -30,7 +30,7 @@ public class CustomerTask implements BE.DBEnteties.Interfaces.ICustomerTask {
     }
 
     @Override
-    public String GetDateString(){
+    public String GetDateString() {
         int y = Date.getYear();
         int m = Date.getMonthValue();
         int d = Date.getDayOfMonth();
@@ -38,12 +38,12 @@ public class CustomerTask implements BE.DBEnteties.Interfaces.ICustomerTask {
 
         sb.append(y + "-");
 
-        if (m<10){
+        if (m < 10) {
             sb.append(0);
         }
-        sb.append(m +"-");
+        sb.append(m + "-");
 
-        if (d< 10){
+        if (d < 10) {
             sb.append(0);
         }
         sb.append(d);

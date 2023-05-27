@@ -12,14 +12,17 @@ public class BaseController {
 
 
     private UserModel userModel;
+    private InstallationModel installationModel;
 
-    public UserModel getModel(){
+    public UserModel getModel() {
 
-        return userModel;}
+        return userModel;
+    }
 
-    public void setUserModel(UserModel userModel){
+    public void setUserModel(UserModel userModel) {
 
-        this.userModel = userModel;}
+        this.userModel = userModel;
+    }
 
     public InstallationModel getInstallationModel() {
         return installationModel;
@@ -28,8 +31,6 @@ public class BaseController {
     public void setInstallationModel(InstallationModel installationModel) {
         this.installationModel = installationModel;
     }
-
-    private InstallationModel installationModel;
 
 
 }
