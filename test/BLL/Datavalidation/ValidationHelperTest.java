@@ -1,6 +1,9 @@
 package BLL.Datavalidation;
 
 import BE.DBEnteties.Customer;
+import BLL.Interfaces.IValidationHelper;
+import BLL.Interfaces.IValidationResult;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -8,6 +11,9 @@ import java.sql.ResultSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ValidationHelperTest {
+
+
+    IValidationHelper ValidationHelper = new ValidationHelper();
 
     @Test
     void isValidIPv4() {
@@ -102,7 +108,7 @@ class ValidationHelperTest {
                 "33473344",
                 "B2B",
                 "12345678");
-        ValidationResult vr = ValidationHelper.validate(customer);
+        IValidationResult vr = ValidationHelper.validate(customer);
 
         assertEquals(true, vr.hasNoError());
         System.out.println();
@@ -124,7 +130,7 @@ class ValidationHelperTest {
                 "B2B",
                 "12345678");
 
-        ValidationResult vr = ValidationHelper.validate(customer);
+        IValidationResult vr = ValidationHelper.validate(customer);
 
         assertEquals(false, vr.hasNoError());
         assertEquals("Phone", vr.getErrors().get(0));

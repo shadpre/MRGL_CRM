@@ -220,15 +220,16 @@ public class MainView2Controller extends BaseController implements Initializable
 
     private ICustomerTask customerTask;
 
-    private IInstallationManager installationManager;
+    private IInstallationManager installationManager = new InstallationManager();
 
     private IUser selectedUSer;
-    private IUserManager userManager;
+    private IUserManager userManager = new UserManager();
+
     private CustomerModel customerModel;
-    private ICustomerManager customerManager;
+    private ICustomerManager customerManager = new CustomerManager();
 
     private InstallationModel installationModel;
-    private ICustomerTaskManager customerTaskManager;
+    private ICustomerTaskManager customerTaskManager = new CustomerTaskManager();
 
     private CustomerTaskModel customerTaskModel;
 
@@ -253,6 +254,11 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
+    void bthHandleUpdateUser(ActionEvent event){
+
+    }
+
+    @FXML
     void btnHandleUpdateCustomerbtn(ActionEvent event) {
 
         ICustomer infoCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
@@ -271,7 +277,7 @@ public class MainView2Controller extends BaseController implements Initializable
         String taxNo = txtFieldCustomerTaxNo.getText();
         int Id = infoCustomer.getId();
 
-        Customer selectedCustomer = new Customer(Id, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
+        ICustomer selectedCustomer = new Customer(Id, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
 
         try {
             IValidationResult vr = iValidationHelper.validate(selectedCustomer);
@@ -292,7 +298,6 @@ public class MainView2Controller extends BaseController implements Initializable
                     }
                 }
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1012,7 +1017,6 @@ public class MainView2Controller extends BaseController implements Initializable
         ICustomerTask customerTask = new CustomerTask(0, Date, Description, Remarks, 0, selectedCustomer.getId());
 
         try {
-
             customerTaskManager.createCustomerTask(customerTask);
 
         } catch (Exception e) {
@@ -1140,8 +1144,6 @@ public class MainView2Controller extends BaseController implements Initializable
         ObservableList<IUser> allUsers = userModel.getAllUsers();
         ObservableList<IUser> filteredUsers = FXCollections.observableArrayList();
         try {
-
-
             for (IUser techList : allUsers) {
                 if (techList.getRole() == 0) {
                     filteredUsers.add(techList);
