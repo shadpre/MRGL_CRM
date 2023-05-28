@@ -182,7 +182,7 @@ public class MainView2Controller extends BaseController implements Initializable
     private final InstallationModel installationModel = new InstallationModel();
     private final CustomerTaskModel customerTaskModel = new CustomerTaskModel();
 
-    public static void showAlert(String message) {
+    private static void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
@@ -191,7 +191,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAddUser(ActionEvent event) {
+    private void btnHandleAddUser(ActionEvent event) {
         // open the Add User window.
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -200,7 +200,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleUpdateCustomerbtn(ActionEvent event) {
+    private void btnHandleUpdateCustomerbtn(ActionEvent event) {
 
         ICustomer infoCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
         // The save Button in the Add Customer Window.
@@ -233,7 +233,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAddCustomer(ActionEvent event) {
+    private void btnHandleAddCustomer(ActionEvent event) {
 
         //Opens the add Customer Window.
         setAllStackPanesFalse();
@@ -245,7 +245,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAddNewTask(ActionEvent event) throws IOException {
+    private void btnHandleAddNewTask(ActionEvent event) throws IOException {
 
         //Opens the Add Task Window.
         setAllStackPanesFalse();
@@ -292,21 +292,21 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAddTech(ActionEvent event) {
+    private void btnHandleAddTech(ActionEvent event) {
         IUser selectedTech = tableViewAddTaskTechAvailable.getSelectionModel().getSelectedItem();
         tableViewAddTaskTechAvailable.getItems().remove(selectedTech);
         tableViewAddTaskTechAssigned.getItems().add(selectedTech);
     }
 
     @FXML
-    void btnHandleRemoveTech(ActionEvent event) {
+    private void btnHandleRemoveTech(ActionEvent event) {
         IUser selectedTech = tableViewAddTaskTechAssigned.getSelectionModel().getSelectedItem();
         tableViewAddTaskTechAssigned.getItems().remove(selectedTech);
         tableViewAddTaskTechAvailable.getItems().add(selectedTech);
     }
 
     @FXML
-    void btnHandleUpdateUserCEO(ActionEvent event) {
+    private void btnHandleUpdateUserCEO(ActionEvent event) {
         // The save Button in the Add User Window.
         //Get Customer Information
 
@@ -336,7 +336,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleSaveUserCeo(ActionEvent event) {
+    private void btnHandleSaveUserCeo(ActionEvent event) {
 
         // The save Button in the Add User Window.
 
@@ -370,7 +370,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
     @FXML
-    void btnHandleSaveCustomerCeo(ActionEvent event) {
+    private void btnHandleSaveCustomerCeo(ActionEvent event) {
 
         // The save Button in the Add Customer Window.
         //Get Customer Information
@@ -400,7 +400,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleSaveTaskCeo(ActionEvent event) throws SQLException {
+    private void btnHandleSaveTaskCeo(ActionEvent event) throws SQLException {
 
         // Get the selected Customer from the Customer tableview.
         ICustomer selectedCustomer = tableViewAddTaskAllCustomers.getSelectionModel().getSelectedItem();
@@ -430,7 +430,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllUsers(ActionEvent event) {
+    private void btnHandleShowAllUsers(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -451,7 +451,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllCustomers(ActionEvent event) {
+    private void btnHandleShowAllCustomers(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -474,7 +474,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllTasksCeo(ActionEvent event) {
+    private void btnHandleShowAllTasksCeo(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -495,7 +495,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllInstallations(ActionEvent event) {
+    private void btnHandleShowAllInstallations(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -531,7 +531,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleBeginTask(ActionEvent event) throws IOException {
+    private void btnHandleBeginTask(ActionEvent event) throws IOException {
 
         IInstallation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
 
@@ -558,7 +558,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllCustomersSales(ActionEvent event) {
+    private void btnHandleShowAllCustomersSales(ActionEvent event) {
         setAllStackPanesFalse();
         setAllTableViewsFalse();
         stackPaneSalesBtn.setVisible(true);
@@ -580,7 +580,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllFinishedTasksSales(ActionEvent event) {
+    private void btnHandleShowAllFinishedTasksSales(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -599,7 +599,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllMyTasksPManager(ActionEvent event) {
+    private void btnHandleShowAllMyTasksPManager(ActionEvent event) {
         setAllStackPanesFalse();
         setAllTableViewsFalse();
         stackPanePManagerBtn.setVisible(true);
@@ -617,7 +617,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllMyTasksTech(ActionEvent event) {
+    private void btnHandleShowAllMyTasksTech(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -636,12 +636,12 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleShowAllTasks(ActionEvent event) {
+    private void btnHandleShowAllTasks(ActionEvent event) {
 
     }
 
     @FXML
-    void btnHandleOpenInstallation(ActionEvent event) throws IOException {
+    private void btnHandleOpenInstallation(ActionEvent event) throws IOException {
 
         IInstallation selectedInstallation = tableViewAllInstallations.getSelectionModel().getSelectedItem();
 
@@ -664,22 +664,22 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleUpdateInstallation(ActionEvent event) {
+    private void btnHandleUpdateInstallation(ActionEvent event) {
 
     }
 
     @FXML
-    void btnHandleDeleteInstallation(ActionEvent event) {
+    private void btnHandleDeleteInstallation(ActionEvent event) {
 
     }
 
     @FXML
-    void btnHandleGenDocumentation(ActionEvent event) {
+    private void btnHandleGenDocumentation(ActionEvent event) {
 
     }
 
     @FXML
-    void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
+    private void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
         IInstallation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
 
@@ -699,17 +699,17 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleGenerateDocument(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
+    private void btnHandleGenerateDocument(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
         //  DocumentGeneration.documentGeneration();
     }
 
     @FXML
-    void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
+    private void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
         // DocumentGeneration.documentGeneration();
     }
 
     @FXML
-    void btnHandleDeleteCustomer(ActionEvent event) throws CustomerNotFoundExeption, SQLException {
+    private void btnHandleDeleteCustomer(ActionEvent event) throws CustomerNotFoundExeption, SQLException {
 
         ICustomer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
         customerModel.deleteCustomer(selectedCustomer.getId());
@@ -718,19 +718,19 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleDeleteTask(ActionEvent event) {
+    private void btnHandleDeleteTask(ActionEvent event) {
 
     }
 
     @FXML
-    void btnHandleDeleteUser(ActionEvent event) throws UserNotFoundExeption, SQLException {
+    private void btnHandleDeleteUser(ActionEvent event) throws UserNotFoundExeption, SQLException {
 
         IUser selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
         userModel.deleteUser(selectedUser.getId());
     }
 
     @FXML
-    void btnHandleUpdateCustomer(ActionEvent event) {
+    private void btnHandleUpdateCustomer(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
@@ -755,7 +755,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleAssignInstallCEO(ActionEvent event) {
+    private void btnHandleAssignInstallCEO(ActionEvent event) {
 
         ICustomerTask selectedTask = tableViewAllTasksCeo.getSelectionModel().getSelectedItem();
         int installationsNr = installationModel.getInstallations(selectedTask.getId()).size() + 1;
@@ -769,7 +769,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleUpdateTask(ActionEvent event) {
+    private void btnHandleUpdateTask(ActionEvent event) {
 
         // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
         //Parent root = loader.load();
@@ -780,12 +780,12 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    void btnHandleUpdateUser(ActionEvent event) {
+    private void btnHandleUpdateUser(ActionEvent event) {
 
     }
 
     @FXML
-    void btnHandleShowUpdateUser(ActionEvent event) {
+    private void btnHandleShowUpdateUser(ActionEvent event) {
 
         setAllStackPanesFalse();
         setAllTableViewsFalse();
