@@ -3,7 +3,6 @@ package DAL.DAO_DB;
 import BE.DBEnteties.Customer;
 import BE.DBEnteties.Interfaces.ICustomer;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import DAL.DatabaseConnector;
 import DAL.Iterfaces.ICustomerDAO;
 
@@ -121,7 +120,6 @@ public class CustomerDAO_DB implements ICustomerDAO {
             var rs = statement.executeUpdate();
             if (rs == 0) throw new CustomerNotFoundExeption("CustomerNotFound");
         }
-
         return getCustomerByID(customer.getId());
     }
 
@@ -130,22 +128,95 @@ public class CustomerDAO_DB implements ICustomerDAO {
     }
 
     public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
+        Connection conn = DatabaseConnector.getInstance().getConnection();
+        String query = "";
+        PreparedStatement statement;
+        try {
+            conn.setAutoCommit(false);
+            ArrayList<int> customerTaskIds = new ArrayList<int>();
+            ArrayList<int> installationsIds = new ArrayList<int>();
 
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            String query = "DELETE Customers WHERE Id = ?";
+            //Find CustomerTaskId's related to Customer
+            query = "SELECT Id FROM CustomerTasks WHERE CustomerId = ?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet customerTaskIdsResults = statement.executeQuery();
+            while (customerTaskIdsResults.next()) {
+                customerTaskIds.add(customerTaskIdsResults.getInt("Id"));
+            }
 
-            PreparedStatement statement = conn.prepareStatement(query);
+            //Get installations
+            if (customerTaskIds.size() > 0) {
+                query = "SELECT Id FROM Installations WHERE CustomerTaskId = ?";
+                statement = conn.prepareStatement(query);
+                for (int cutomerTaskId : customerTaskIds) {
+                    statement.setInt(1, cutomerTaskId);
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        installationsIds.add(resultSet.getInt("Id"));
+                    }
+                }
+            }
+
+            //Start delete
+            if (installationsIds.size() > 0) {
+                for (int installationId : installationsIds) {
+                    query = "DELETE Images WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+
+                    query = "DELETE Devices WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+
+                    query = "DELETE Networks WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+
+                    query = "DELETE WiFis WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+                }
+            }
+
+            if (customerTaskIds.size() > 0) {
+                for (int customerTaskId : customerTaskIds){
+                    query = "DELETE Installations WHERE CustomerTaskId = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, customerTaskId);
+                    statement.executeUpdate();
+
+                    query = "DELETE CustomerTasksRel WHERE CustomerTaskId = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, customerTaskId);
+                    statement.executeUpdate();
+
+                    query = "DELETE CustomerTasks WHERE Id = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, customerTaskId);
+                    statement.executeUpdate();
+                }
+            }
+
+            query = "DELETE Customers WHERE Id = ?";
+
+            statement = conn.prepareStatement(query);
             statement.setInt(1, id);
 
-            var rs = statement.executeUpdate();
+            statement.executeUpdate();
 
-            if (rs == 0)
-                throw new ImageNotFoundExeption("Customer not found");
-
-            //throw new RuntimeException("Not implemented");
-
-        } catch (ImageNotFoundExeption e) {
-            throw new RuntimeException(e);
+            //Commit the transaction
+            conn.commit();
+        } catch (Exception exception) {
+            conn.rollback();
+            //rethrow exception
+            throw exception;
+        } finally {
+            conn.close();
         }
     }
 }

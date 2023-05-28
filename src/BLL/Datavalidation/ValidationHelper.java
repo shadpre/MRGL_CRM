@@ -161,7 +161,6 @@ public class ValidationHelper implements IValidationHelper {
                     endOfOnes = true;
                     continue;
                 }
-
                 if (val != 0 && endOfOnes) {
                     return false;
                 }
