@@ -17,7 +17,7 @@ public class UserModel {
     private IUser selectedUser;
     private int role;
 
-    public static IUser createUser(IUser user, String Password) throws Exception {
+    public IUser createUser(IUser user, String Password) throws Exception {
         String hash = PasswordHash.encryptPassword(Password);
         if (userManager.loginNameAvailable(user.getLoginName())) {
             return userManager.createUser(user, hash);

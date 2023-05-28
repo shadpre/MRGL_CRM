@@ -2,15 +2,19 @@ package GUI.Model;
 
 import BE.DBEnteties.Image;
 import BE.DBEnteties.Interfaces.IImage;
+import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BLL.Interfaces.IImageManager;
 import BLL.Managers.ImageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
+
 public class ImageModel {
 
-    public static ObservableList<IImage> getImageList(int installationID) {
-        IImageManager imageManager = new ImageManager();
+    private IImageManager imageManager = new ImageManager();
+    public ObservableList<IImage> getImageList(int installationID) {
+
         ObservableList<IImage> out;
         try {
             out = FXCollections.observableArrayList(imageManager.getImageList(installationID));
@@ -18,5 +22,17 @@ public class ImageModel {
             throw new RuntimeException("404");
         }
         return out;
+    }
+
+    public void deleteImage (int id) throws SQLException, ImageNotFoundExeption {
+        imageManager.deleteImage(id);
+    }
+
+    public IImage createImage (IImage image) throws SQLException, ImageNotFoundExeption {
+        return imageManager.createImage(image);
+    }
+
+    public IImage updateImage(IImage image) throws SQLException, ImageNotFoundExeption {
+        return imageManager.updateImage(image);
     }
 }

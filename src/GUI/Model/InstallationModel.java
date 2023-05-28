@@ -16,7 +16,7 @@ public class InstallationModel {
     private IInstallation selectedInstallation;
     private IInstallationManager installationManager = new InstallationManager();
 
-    public static ObservableList<IInstallation> getInstallations(int customerTaskId) {
+    public ObservableList<IInstallation> getInstallations(int customerTaskId) {
         IInstallationManager installationManager = new InstallationManager();
         ObservableList<IInstallation> out;
         try {
@@ -27,7 +27,7 @@ public class InstallationModel {
         return out;
     }
 
-    public static ObservableList<IInstallation> getAllInstallations() {
+    public ObservableList<IInstallation> getAllInstallations() {
         IInstallationManager installationManager = new InstallationManager();
         ObservableList<IInstallation> output;
         try {
@@ -38,7 +38,7 @@ public class InstallationModel {
         return output;
     }
 
-    public static ObservableList<IInstallation> getInstallationsForUser(IUser selectedUser) {
+    public ObservableList<IInstallation> getInstallationsForUser(IUser selectedUser) {
         IInstallationManager installationManager = new InstallationManager();
         ObservableList<IInstallation> installations;
         try {

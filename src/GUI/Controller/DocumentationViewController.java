@@ -2,7 +2,6 @@ package GUI.Controller;
 
 
 import BE.DBEnteties.Device;
-import BE.DBEnteties.Installation;
 import BE.DBEnteties.Interfaces.*;
 import BE.DBEnteties.Network;
 import BE.DBEnteties.WiFi;
@@ -10,14 +9,7 @@ import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
-import BLL.Interfaces.IDeviceManager;
-import BLL.Interfaces.IImageManager;
-import BLL.Interfaces.INetworkManager;
-import BLL.Interfaces.IWiFiManager;
-import BLL.Managers.DeviceManager;
-import BLL.Managers.ImageManager;
-import BLL.Managers.NetworkManager;
-import BLL.Managers.WiFiManager;
+import BLL.Interfaces.IValidationResult;
 import GUI.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -83,21 +75,13 @@ public class DocumentationViewController extends BaseController implements Initi
     private TableView<IDevice> tableDevice;
     @FXML
     private TableColumn<IDevice, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet, columnDeviceName;
-    private IDeviceManager deviceManager;
-    private IImageManager imageManager;// = new ImageManager();
-
-    private IWiFiManager wiFiManager;
-
-    private INetworkManager networkManager;
-    private DeviceModel deviceModel;
-    private NetworkModel networkModel;
-    private ImageModel imageModel;
-    private WiFiModel wiFiModel;
-
-    private INetwork network;
-    private InstallationModel installationModel;
+    private DeviceModel deviceModel = new DeviceModel();
+    private NetworkModel networkModel = new NetworkModel();
+    private ImageModel imageModel = new ImageModel();
+    private WiFiModel wiFiModel = new WiFiModel();
+    private InstallationModel installationModel = new InstallationModel();
+    private ValidationModel validationModel = new ValidationModel();
     private IInstallation selectedInstallation;
-
     private File imgFile;
 
     @Override
@@ -153,16 +137,12 @@ public class DocumentationViewController extends BaseController implements Initi
         if (billagSaveUpdate.getText().equals("Gem Billag")) {
 
             createBillag();
-
             billagBillede.setImage(null);
             billagKommentar.setText("");
             txtBillagNavn.setText("");
-
-
         } else if (billagSaveUpdate.getText().equals("Opdater Billag")) {
 
             updateBillag();
-
             txtBillagNavn.setText("");
             billagKommentar.setText("");
             billagBillede.setImage(null);
@@ -180,7 +160,6 @@ public class DocumentationViewController extends BaseController implements Initi
         handleSketch(null);
 
         tableBillag.getSelectionModel().clearSelection();
-
         billagKommentar.setText("");
         billagBillede.setImage(null);
         imgFile = null;
@@ -192,7 +171,6 @@ public class DocumentationViewController extends BaseController implements Initi
     public void handleShowBillag(ActionEvent actionEvent) {
 
         txtAreaSketch.setWrapText(true);
-
         IImage selectedImage = tableBillag.getSelectionModel().getSelectedItem();
         ByteArrayInputStream inputStream = new ByteArrayInputStream(selectedImage.getData());
 
@@ -209,10 +187,8 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void handleDeleteBillag(ActionEvent actionEvent) throws ImageNotFoundExeption {
         IImage selectedImage = tableBillag.getSelectionModel().getSelectedItem();
-
-
         try {
-            imageManager.deleteImage(selectedImage.getId());
+            imageModel.deleteImage(selectedImage.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ImageNotFoundExeption e) {
@@ -224,40 +200,28 @@ public class DocumentationViewController extends BaseController implements Initi
     public void handleAddDevice(ActionEvent actionEvent) {
 
         if (btnAddDevice.getText().equals("Gem Enhed")) {
-
             creatingDevice();
             turnOffDeviceFields();
 
         } else if (btnAddDevice.getText().equals("Opdater Enhed")) {
-
             updatingDevice();
             turnOffDeviceFields();
             btnAddDevice.setText("Gem Enhed");
             btnDeviceShow.setText("Vis Enhed");
         }
-
     }
 
     public void handleDeviceShow(ActionEvent actionEvent) {
-
         // Retrieve the selected device
         IDevice selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
-
         turnOffDeviceFields();
-
-        if (selectedDevice.isPOE() == true) {
-            txtDevicePOE.setSelected(true);
-        } else if (selectedDevice.isPOE() == false) {
-            txtDevicePOE.setSelected(false);
-        }
+        txtDevicePOE.setSelected(selectedDevice.isPOE());
         updateButtonAndFieldsDevice();
     }
 
     public void handleCancelDevice(ActionEvent actionEvent) {
         handleSketch(null);
-
         tableDevice.getSelectionModel().clearSelection();
-
         turnOffDeviceFields();
         btnAddDevice.setText("Gem Enhed");
         btnDeviceShow.setText("Vis Enhed");
@@ -266,13 +230,11 @@ public class DocumentationViewController extends BaseController implements Initi
     public void handleDeleteDevice(ActionEvent actionEvent) throws DeviceNotFoundExeption {
 
         IDevice selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
-
         try {
-            deviceManager.deleteDevice(selectedDevice.getId());
+            deviceModel.deleteDevice(selectedDevice.getId());
         } catch (SQLException e) {
             throw new DeviceNotFoundExeption("device not found");
         }
-
         setTableDevice();
     }
 
@@ -287,7 +249,6 @@ public class DocumentationViewController extends BaseController implements Initi
 
         stage.setTitle("Tegne Program");
         stage.show();
-
     }
 
     public void setCanvasImage(Image canvasImage) {
@@ -307,9 +268,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
     public void handleSaveSketch(ActionEvent actionEvent) throws IOException {
 
-
         if (btnSaveSketch.getText().equals("Gem Tegning")) {
-
             saveSketch();
             setSketchTable();
         } else if (btnSaveSketch.getText().equals("Opdater Tegning")) {
@@ -323,7 +282,6 @@ public class DocumentationViewController extends BaseController implements Initi
     public void handleShowSketch(ActionEvent actionEvent) {
 
         imgFile = null;
-
         txtAreaSketch.setWrapText(true);
 
         IImage selectedImage = tableSketch.getSelectionModel().getSelectedItem();
@@ -344,10 +302,8 @@ public class DocumentationViewController extends BaseController implements Initi
         IImage selectedImage = tableSketch.getSelectionModel().getSelectedItem();
 
         try {
-            imageManager.deleteImage(selectedImage.getId());
-
+            imageModel.deleteImage(selectedImage.getId());
         } catch (SQLException e) {
-
             throw new RuntimeException(e);
         } catch (ImageNotFoundExeption e) {
             throw new RuntimeException(e);
@@ -365,8 +321,6 @@ public class DocumentationViewController extends BaseController implements Initi
             txtAreaWiFi.setText("");
             txtWiFiPassword.setText("");
             txtWiFiSSID.setText("");
-
-
         } else if (btnCreateWiFi.getText().equals("Opdater WiFi")) {
 
             updateWiFi();
@@ -410,7 +364,7 @@ public class DocumentationViewController extends BaseController implements Initi
         IWiFi selectedWiFi = tableWiFi.getSelectionModel().getSelectedItem();
 
         try {
-            wiFiManager.deleteWiFi(selectedWiFi.getId());
+            wiFiModel.deleteWiFi(selectedWiFi.getId());
         } catch (WiFiNotFoundExeption e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -423,7 +377,6 @@ public class DocumentationViewController extends BaseController implements Initi
         if (btnSaveNetwork.getText().equals("Gem Netværk")) {
             createNetwork();
             turnOffNetworkFields();
-
         } else if (btnSaveNetwork.getText().equals("Opdater Netværk")) {
             updateNetwork();
             turnOffNetworkFields();
@@ -457,13 +410,12 @@ public class DocumentationViewController extends BaseController implements Initi
         INetwork selectedNetwork = tableNetwork.getSelectionModel().getSelectedItem();
 
         try {
-            networkManager.deleteNetwork(selectedNetwork.getId());
+            networkModel.deleteNetwork(selectedNetwork.getId());
         } catch (NetworkNotFoundExeption e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         setTableNetwork();
     }
 
@@ -483,19 +435,17 @@ public class DocumentationViewController extends BaseController implements Initi
         IImage image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
 
         try {
-
-            imageManager.createImage(image);
+            IValidationResult vr = validate(image);
+            if (!vr.hasNoError()) return;
+            imageModel.createImage(image);
 
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
 
 
         billagKommentar.setText("");
-
         billagBillede.setImage(null);
-
         setTableBillag();
     }
 
@@ -519,32 +469,25 @@ public class DocumentationViewController extends BaseController implements Initi
         IImage image = new BE.DBEnteties.Image(selectedImage.getId(), selectedImage.getInstallationId(), description, remarks, data, imageType);
 
         try {
-
-            imageManager.updateImage(image);
-
+            IValidationResult vr = validate(image);
+            if (!vr.hasNoError()) return;
+            imageModel.updateImage(image);
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
-
-
         billagKommentar.setText("");
-
         billagBillede.setImage(null);
-
         setTableBillag();
     }
 
     public void updateFieldsBillag() {
 
         if (btnShowAttachment.getText().equals("Vis Billag")) {
-
             // Run current method
             billagSaveUpdate.setText("Opdater Billag");
             btnShowAttachment.setText("Stop Visning");
 
         } else if (btnShowAttachment.getText().equals("Stop Visning")) {
-
             tableBillag.getSelectionModel().clearSelection();
 
             txtBillagNavn.setText("");
@@ -555,13 +498,9 @@ public class DocumentationViewController extends BaseController implements Initi
             billagSaveUpdate.setText("Gem Billag");
             btnShowAttachment.setText("Vis Billag");
         }
-
     }
 
     public void setTableBillag() {
-
-        ImageModel imageModel = new ImageModel();
-        this.imageModel = imageModel;
 
         columnBillagID.setCellValueFactory(new PropertyValueFactory<IImage, Integer>("Id"));
         columnBillagNavn.setCellValueFactory(new PropertyValueFactory<IImage, String>("Description"));
@@ -600,20 +539,16 @@ public class DocumentationViewController extends BaseController implements Initi
         IDevice device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
 
         try {
-            deviceManager.createDevice(device);
-
+            IValidationResult vr = validate(device);
+            if (!vr.hasNoError()) return;
+            deviceModel.createDevice(device);
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
-
         setTableDevice();
     }
 
     public void setTableDevice() {
-
-        DeviceModel deviceModel = new DeviceModel();
-        this.deviceModel = deviceModel;
 
         columnDeviceIP.setCellValueFactory(new PropertyValueFactory<IDevice, String>("IP"));
         columnDeviceSubnet.setCellValueFactory(new PropertyValueFactory<IDevice, String>("SubnetMask"));
@@ -622,7 +557,7 @@ public class DocumentationViewController extends BaseController implements Initi
         columnDeviceName.setCellValueFactory(new PropertyValueFactory<IDevice, String>("Description"));
 
         try {
-            tableDevice.setItems(DeviceModel.getDeviceList(selectedInstallation.getId()));
+            tableDevice.setItems(deviceModel.getDeviceList(selectedInstallation.getId()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -631,7 +566,6 @@ public class DocumentationViewController extends BaseController implements Initi
     public void updatingDevice() {
 
         // Get Device Information
-
         IDevice selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
 
         String description = txtDeviceName.getText();
@@ -650,12 +584,11 @@ public class DocumentationViewController extends BaseController implements Initi
 
         IDevice device = new Device(Id, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
 
-
         try {
-            deviceManager.updateDevice(device);
-
+            IValidationResult vr = validate(device);
+            if (!vr.hasNoError()) return;
+            deviceModel.updateDevice(device);
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
         setTableDevice();
@@ -667,7 +600,6 @@ public class DocumentationViewController extends BaseController implements Initi
             // Run current method
             btnAddDevice.setText("Opdater Enhed");
             btnDeviceShow.setText("Stop Visning");
-
         } else if (btnDeviceShow.getText().equals("Stop Visning")) {
 
             tableDevice.getSelectionModel().clearSelection();
@@ -679,8 +611,6 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void updateButtonsSketch() {
-
-
         System.out.println("Button Text: " + btnSaveSketch.getText()); // Debug output
         if (btnShowSketch.getText().equals("Vis Tegning")) {
             // Run current method
@@ -694,7 +624,6 @@ public class DocumentationViewController extends BaseController implements Initi
             btnSaveSketch.setText("Gem Tegning");
             btnShowSketch.setText("Vis Tegning");
         }
-
     }
 
     public void saveSketch() {
@@ -734,17 +663,17 @@ public class DocumentationViewController extends BaseController implements Initi
             BE.DBEnteties.Image image = new BE.DBEnteties.Image(0, installationId, description, remarks, data, imageType);
 
             try {
-                imageManager.createImage(image);
+                IValidationResult vr = validate(image);
+                if (!vr.hasNoError())return;
+                imageModel.createImage(image);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
             txtAreaSketch.setText("");
             txtTitleSketch.setText("");
             canvasImageView.setImage(null);
         }
     }
-
 
     public void updateSketch() throws IOException {
 
@@ -785,11 +714,10 @@ public class DocumentationViewController extends BaseController implements Initi
         IImage image = new BE.DBEnteties.Image(selectedImage.getId(), selectedImage.getInstallationId(), description, remarks, data, imageType);
 
         try {
-
-            imageManager.updateImage(image);
-
+            IValidationResult vr = validate(image);
+            if (!vr.hasNoError()) return;
+            imageModel.updateImage(image);
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
 
@@ -803,9 +731,6 @@ public class DocumentationViewController extends BaseController implements Initi
     }
 
     public void setSketchTable() {
-
-        ImageModel imageModel = new ImageModel();
-        this.imageModel = imageModel;
 
         columnSketchID.setCellValueFactory(new PropertyValueFactory<IImage, Integer>("Id"));
         columnSketchTitle.setCellValueFactory(new PropertyValueFactory<IImage, String>("Description"));
@@ -857,20 +782,17 @@ public class DocumentationViewController extends BaseController implements Initi
         String SSID = txtWiFiSSID.getText();
         int installationID = selectedInstallation.getId();
 
-
         IWiFi wifi = new WiFi(0, installationID, description, remarks, SSID, PSK);
 
         try {
-
-            wiFiManager.createWiFi(wifi);
+            IValidationResult vr = validate(wifi);
+            if(!vr.hasNoError()) return;
+            wiFiModel.createWiFi(wifi);
 
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
-
         setTableWiFi();
-
     }
 
     public void updateWiFi() {
@@ -888,14 +810,14 @@ public class DocumentationViewController extends BaseController implements Initi
 
 
         try {
+            IValidationResult vr = validate(wifi);
+            if (!vr.hasNoError()) return;
 
-            wiFiManager.updateWiFi(wifi);
+            wiFiModel.updateWiFi(wifi);
 
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
-
         setTableWiFi();
     }
 
@@ -918,26 +840,18 @@ public class DocumentationViewController extends BaseController implements Initi
             btnCreateWiFi.setText("Gem WiFi");
             btnShowWiFi.setText("Vis WiFi");
         }
-
     }
 
     public void setTableWiFi() {
-
-
-        WiFiModel wiFiModel = new WiFiModel();
-        this.wiFiModel = new WiFiModel();
-
-
         columnWiFiName.setCellValueFactory(new PropertyValueFactory<IWiFi, String>("Description"));
         columnWiFiPassword.setCellValueFactory(new PropertyValueFactory<IWiFi, String>("PSK"));
         columnWiFiSSID.setCellValueFactory(new PropertyValueFactory<IWiFi, String>("SSID"));
 
         try {
-            tableWiFi.setItems(WiFiModel.getWiFis(selectedInstallation.getId()));
+            tableWiFi.setItems(wiFiModel.getWiFis(selectedInstallation.getId()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void createNetwork() {
@@ -953,13 +867,13 @@ public class DocumentationViewController extends BaseController implements Initi
         Network network = new Network(0, installationID, description, remarks, networkIP, subnetMask, defaultGateway, hasPOE);
 
         try {
-            networkManager.createNetwork(network);
+            IValidationResult vr = validate(network);
+            if (!vr.hasNoError()) return;
+            networkModel.createNetwork(network);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         setTableNetwork();
-
     }
 
     public void updateNetwork() {
@@ -978,7 +892,9 @@ public class DocumentationViewController extends BaseController implements Initi
         Network network = new Network(id, installationID, description, remarks, networkIP, subnetMask, defaultGateway, hasPOE);
 
         try {
-            networkManager.updateNetwork(network);
+            IValidationResult vr = validate(network);
+            if (!vr.hasNoError()) return;
+            networkModel.updateNetwork(network);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -999,11 +915,7 @@ public class DocumentationViewController extends BaseController implements Initi
         }
     }
 
-
     public void setTableNetwork() {
-
-        NetworkModel networkModel = new NetworkModel();
-        this.networkModel = new NetworkModel();
 
         columnNetworkName.setCellValueFactory(new PropertyValueFactory<INetwork, String>("Description"));
         columnNetworkIP.setCellValueFactory(new PropertyValueFactory<INetwork, String>("NetworkIP"));
@@ -1012,7 +924,7 @@ public class DocumentationViewController extends BaseController implements Initi
         columnNetworkPOE.setCellValueFactory(new PropertyValueFactory<INetwork, Boolean>("hasPOE"));
 
         try {
-            tableNetwork.setItems(NetworkModel.getNetworks(selectedInstallation.getId()));
+            tableNetwork.setItems(networkModel.getNetworks(selectedInstallation.getId()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1045,4 +957,100 @@ public class DocumentationViewController extends BaseController implements Initi
         txtDevicePOE.setSelected(false);
     }
 
+    private IValidationResult validate(IImage image) {
+        IValidationResult result = validationModel.validate(image);
+        if (!result.hasNoError()) {
+            for (String error : result.getErrors()) {
+                switch (error) {
+                    case "Description":
+                        txtBillagNavn.getStyleClass().add("invalid");
+                        break;
+                    case "Remarks":
+                        billagKommentar.getStyleClass().add("invalid");
+                        break;
+                    case "ImageType":
+                        throw new RuntimeException("Wrong ImageType");
+                }
+            }
+        }
+        return result;
+    }
+
+    private IValidationResult validate(IDevice device){
+        IValidationResult result = validationModel.validate(device);
+        if(!result.hasNoError()){
+            for (String error : result.getErrors()){
+                switch (error){
+                    case "Description":
+                        txtDeviceName.getStyleClass().add("invalid");
+                        break;
+                    case "Remarks":
+                        txtDeviceDescription.getStyleClass().add("invalid");
+                        break;
+                    case "IP":
+                        txtDeviceIp.getStyleClass().add("invalid");
+                        break;
+                    case "SubnetMask":
+                        txtDeviceSubnet.getStyleClass().add("invalid");
+                        break;
+                    case "UserName":
+                        txtDeviceUsername.getStyleClass().add("invalid");
+                        break;
+                    case "Password":
+                        txtDevicePassword.getStyleClass().add("invalid");
+                        break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private IValidationResult validate(IWiFi wiFi){
+        IValidationResult result = validationModel.validate(wiFi);
+        if(!result.hasNoError()){
+            for (String error : result.getErrors()){
+                switch (error){
+                    case "Description":
+                        txtWiFiName.getStyleClass().add("invalid");
+                        break;
+                    case "Remarks":
+                        txtAreaWiFi.getStyleClass().add("invalid");
+                        break;
+                    case "SSID":
+                        txtWiFiSSID.getStyleClass().add("invalid");
+                        break;
+                    case "PSK":
+                        txtWiFiPassword.getStyleClass().add("invalid");
+                        break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private IValidationResult validate(INetwork network){
+        IValidationResult result = validationModel.validate(network);
+        if (!result.hasNoError()){
+            for (String error : result.getErrors()){
+                switch (error){
+                    case "Description":
+                        txtNetworkName.getStyleClass().add("invalid");
+                        break;
+                    case "Remarks":
+                        txtAreaNetwork.getStyleClass().add("invalid");
+                        break;
+                    case "NetworkIP":
+                        txtNetworkIP.getStyleClass().add("invalid");
+                        break;
+                    case "SubnetMask":
+                        txtNetworkSubnet.getStyleClass().add("invalid");
+                        break;
+                    case "DefaultGateway":
+                        txtNetworkDefault.getStyleClass().add("invalid");
+                        break;
+                }
+            }
+        }
+        return result;
+    }
 }

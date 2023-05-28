@@ -511,7 +511,7 @@ public class MainView2Controller extends BaseController implements Initializable
         columnInstallationDescription.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("Description"));
 
         try {
-            tableViewAllInstallations.setItems(InstallationModel.getAllInstallations());
+            tableViewAllInstallations.setItems(installationModel.getAllInstallations());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -18,25 +18,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LogInController extends BaseController implements Initializable {
-    private UserModel userModel;
-
+    private UserModel userModel = new UserModel();
     private MainView2Controller mainView2Controller;
-
     private IUser selectedUser;
-
     @FXML
     private Button btnLogin;
-
     @FXML
     private TextField txtUsername;
-
     @FXML
     private PasswordField txtPassword;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userModel = new UserModel();
-        this.userModel = userModel;
         mainView2Controller = new MainView2Controller();
         this.mainView2Controller = mainView2Controller;
 
@@ -53,7 +45,6 @@ public class LogInController extends BaseController implements Initializable {
 
             userModel.setSelectedUser(selectedUser);
 
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView2.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
@@ -64,7 +55,6 @@ public class LogInController extends BaseController implements Initializable {
             MainView2Controller controller = loader.getController();
             controller.setUserModel(userModel);
             controller.Setup(selectedUser, this, userModel, selectedUser.getRole());
-
 
         } else {
             throw new Exception("Invalid Username or password");
