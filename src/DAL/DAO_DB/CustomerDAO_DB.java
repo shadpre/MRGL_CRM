@@ -133,8 +133,8 @@ public class CustomerDAO_DB implements ICustomerDAO {
         PreparedStatement statement;
         try {
             conn.setAutoCommit(false);
-            ArrayList<int> customerTaskIds = new ArrayList<int>();
-            ArrayList<int> installationsIds = new ArrayList<int>();
+            ArrayList<Integer> customerTaskIds = new ArrayList<>();
+            ArrayList<Integer> installationsIds = new ArrayList<>();
 
             //Find CustomerTaskId's related to Customer
             query = "SELECT Id FROM CustomerTasks WHERE CustomerId = ?";
