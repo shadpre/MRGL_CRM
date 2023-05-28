@@ -721,10 +721,10 @@
                             <children>
                                 <VBox prefHeight="244.0" prefWidth="380.0">
                                     <children>
-                                        <TableView fx:id="tableViewAddTaskTechAvalible" prefHeight="247.0"
+                                        <TableView fx:id="tableViewAddTaskTechAvailable" prefHeight="247.0"
                                                    prefWidth="380.0" stylesheets="@../StyleSheet/Styleguide.css">
                                             <columns>
-                                                <TableColumn fx:id="columnAddTaskAvalibleTech" prefWidth="376.0"
+                                                <TableColumn fx:id="columnAddTaskAvailableTech" prefWidth="376.0"
                                                              text="Disponible Medarbejdere"/>
                                             </columns>
                                         </TableView>
@@ -1207,7 +1207,7 @@
                                 <Insets top="40.0"/>
                             </VBox.margin>
                             <children>
-                                <Button fx:id="btnUpdateUser" mnemonicParsing="false" onAction="#bthHandleUpdateUser"
+                                <Button fx:id="btnUpdateUser" mnemonicParsing="false" onAction="#btnHandleUpdateUserCEO"
                                         prefHeight="60.0" prefWidth="120.0" text="Opdater">
                                     <font>
                                         <Font name="Cambria Bold" size="20.0"/>

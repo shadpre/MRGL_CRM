@@ -235,6 +235,10 @@ public class DBFacade {
         return UserDAO_DB.getUserHash(loginName);
     }
 
+    public IUser updateUser(IUser user, String hash) throws SQLException, UserNotFoundExeption{
+        return UserDAO_DB.updateUser(user, hash);
+    }
+
     public boolean loginNameAvailable(String LoginName) throws UserValidationExeption, SQLException {
         return UserDAO_DB.loginNameAvailable(LoginName);
     }

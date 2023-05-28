@@ -24,5 +24,7 @@ public interface IUserDAO {
 
     void resetPassword(int id, String hash) throws SQLException;
 
+    IUser updateUser(IUser user, String hash) throws SQLException, UserNotFoundExeption;
+
     void deleteUser(int Id) throws SQLException, UserNotFoundExeption;
 }

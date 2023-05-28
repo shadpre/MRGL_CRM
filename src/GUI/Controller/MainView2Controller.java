@@ -13,13 +13,11 @@ import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.Datavalidation.ValidationHelper;
-import BLL.Datavalidation.ValidationResult;
 import BLL.Interfaces.*;
 import BLL.Managers.CustomerManager;
 import BLL.Managers.CustomerTaskManager;
 import BLL.Managers.InstallationManager;
 import BLL.Managers.UserManager;
-import DAL.DBFacade;
 import GUI.Model.CustomerModel;
 import GUI.Model.CustomerTaskModel;
 import GUI.Model.InstallationModel;
@@ -83,14 +81,12 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private TableView<ICustomerTask> tableViewAllTasksCeo;
-
     @FXML
     private TableColumn<ICustomerTask, String> columnDate;
     @FXML
     private TableColumn<ICustomerTask, String> columnDescription;
     @FXML
     private TableColumn<ICustomerTask, String> columnStatus;
-
     @FXML
     private TableView<IUser> tableViewAllUsersCeo;
     @FXML
@@ -99,7 +95,6 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<IUser, String> columnFirstName;
     @FXML
     private TableColumn<IUser, String> columnEmail;
-
     @FXML
     private TableView<ICustomer> tableViewAllCustomersCeo;
     @FXML
@@ -112,7 +107,6 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<ICustomer, String> columnCustomerZipCode;
     @FXML
     private TableColumn<ICustomer, String> columnCustomerCity;
-
     @FXML
     private TableView<IInstallation> tableViewAllTasksTech;
     @FXML
@@ -135,102 +129,70 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableView<ICustomer> tableViewAddTaskAllCustomers;
     @FXML
     private TableColumn<ICustomer, String> columnAddTaskAllCustomers;
-
     @FXML
-    private TableView<IUser> tableViewAddTaskTechAvalible;
+    private TableView<IUser> tableViewAddTaskTechAvailable;
     @FXML
-    private TableColumn<IUser, String> columnAddTaskAvalibleTech, columnAddTaskAssignedTech;
-
+    private TableColumn<IUser, String> columnAddTaskAvailableTech, columnAddTaskAssignedTech;
     @FXML
     private TableView<IUser> tableViewAddTaskTechAssigned;
-
     @FXML
     private TableView<IInstallation> tableViewAllInstallations;
-
     @FXML
     private TableColumn<IInstallation, String> columnInstallationNo;
     @FXML
     private TableColumn<IInstallation, String> columnInstallationDescription;
-
-
     @FXML
     private TextField txtSearch;
-
     @FXML
     private TextField txtFieldEmail;
-
     @FXML
     private TextField txtFieldFirstName;
-
     @FXML
     private TextField txtFieldLastName;
-
     @FXML
     private TextField txtFieldLoginName;
-
     @FXML
     private TextField txtFieldPassword;
-
     @FXML
     private TextField txtFieldPasswordRetype;
-
     @FXML
     private ChoiceBox<String> choiceBoxRoleCeo;
     @FXML
     private TextField txtFieldCustomerAddress;
-
     @FXML
     private TextField txtFieldCustomerAddress2;
-
     @FXML
     private TextField txtFieldCustomerAddress3;
-
     @FXML
     private TextField txtFieldCustomerCity;
-
     @FXML
     private TextField txtFieldCustomerCountry;
-
     @FXML
     private TextField txtFieldCustomerEmail;
-
     @FXML
     private TextField txtFieldCustomerName;
-
     @FXML
     private TextField txtFieldCustomerTaxNo;
-
     @FXML
     private TextField txtFieldCustomerTelephone;
-
     @FXML
     private TextField txtFieldCustomerZipCode;
-
-
     @FXML
     private TextField txtFieldDescriptionTask;
-
     @FXML
     private TextField txtFieldRemarksTask;
-
     @FXML
     private DatePicker datePickerTask;
     private IValidationHelper iValidationHelper = new ValidationHelper();
     private UserModel userModel;
-
     private ICustomerTask customerTask;
-
     private IInstallationManager installationManager = new InstallationManager();
-
-    private IUser selectedUSer;
+    private IUser selectedUser;
     private IUserManager userManager = new UserManager();
-
     private CustomerModel customerModel;
     private ICustomerManager customerManager = new CustomerManager();
-
     private InstallationModel installationModel;
     private ICustomerTaskManager customerTaskManager = new CustomerTaskManager();
-
     private CustomerTaskModel customerTaskModel;
 
     public static void showAlert(String message) {
@@ -243,19 +205,11 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     void btnHandleAddUser(ActionEvent event) {
-
         // open the Add User window.
-
         setAllStackPanesFalse();
         setAllTableViewsFalse();
         stackPaneAddUserCeo.setVisible(true);
         stackPaneCeoBtn.setVisible(true);
-
-    }
-
-    @FXML
-    void bthHandleUpdateUser(ActionEvent event){
-
     }
 
     @FXML
@@ -279,25 +233,12 @@ public class MainView2Controller extends BaseController implements Initializable
 
         ICustomer selectedCustomer = new Customer(Id, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
 
+        IValidationResult vr = validate(selectedCustomer);
+        if (!vr.hasNoError()) {
+            return;
+        }
         try {
-            IValidationResult vr = iValidationHelper.validate(selectedCustomer);
-            if (vr.hasNoError()) {
-                customerManager.updateCustomer(selectedCustomer);
-            } else {
-                for (String error : vr.getErrors()
-                ) {
-                    switch (error) {
-                        case "Name":
-                            txtFieldCustomerName.getStyleClass().add("invalid");
-                            break;
-                        case "Address1":
-                            int i = 0;//Do something2
-                            break;
-                        case "Address2":
-                            int ij = 1;
-                    }
-                }
-            }
+            customerManager.updateCustomer(selectedCustomer);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -326,7 +267,7 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneCeoBtn.setVisible(true);
         stackPaneAddTaskCeo.setVisible(true);
         tableViewAddTaskTechAssigned.setVisible(true);
-        tableViewAddTaskTechAvalible.setVisible(true);
+        tableViewAddTaskTechAvailable.setVisible(true);
         tableViewAddTaskAllCustomers.setVisible(true);
 
 
@@ -336,7 +277,6 @@ public class MainView2Controller extends BaseController implements Initializable
         this.customerModel = customerModel;
 
         columnAddTaskAllCustomers.setCellValueFactory(new PropertyValueFactory<ICustomer, String>("Name"));
-
 
         // Try-Catch block for exeption handling.
         try {
@@ -349,23 +289,19 @@ public class MainView2Controller extends BaseController implements Initializable
         // Add technicians to the Employee's avalible table
         this.userModel = userModel;
 
-        columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
+        columnAddTaskAvailableTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
         columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
 
         ObservableList<IUser> allUsers = userModel.getAllUsers();
         ObservableList<IUser> filteredUsers = FXCollections.observableArrayList();
         try {
-
-
             for (IUser techList : allUsers) {
                 if (techList.getRole() == 0) {
                     filteredUsers.add(techList);
                 }
-
             }
-
             try {
-                tableViewAddTaskTechAvalible.setItems(filteredUsers);
+                tableViewAddTaskTechAvailable.setItems(filteredUsers);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -377,8 +313,8 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     void btnHandleAddTech(ActionEvent event) {
 
-        IUser selectedTech = tableViewAddTaskTechAvalible.getSelectionModel().getSelectedItem();
-        tableViewAddTaskTechAvalible.getItems().remove(selectedTech);
+        IUser selectedTech = tableViewAddTaskTechAvailable.getSelectionModel().getSelectedItem();
+        tableViewAddTaskTechAvailable.getItems().remove(selectedTech);
         tableViewAddTaskTechAssigned.getItems().add(selectedTech);
 
     }
@@ -387,7 +323,33 @@ public class MainView2Controller extends BaseController implements Initializable
     void btnHandleRemoveTech(ActionEvent event) {
         IUser selectedTech = tableViewAddTaskTechAssigned.getSelectionModel().getSelectedItem();
         tableViewAddTaskTechAssigned.getItems().remove(selectedTech);
-        tableViewAddTaskTechAvalible.getItems().add(selectedTech);
+        tableViewAddTaskTechAvailable.getItems().add(selectedTech);
+    }
+
+    @FXML
+    void btnHandleUpdateUserCEO(ActionEvent event) {
+        // The save Button in the Add User Window.
+        //Get Customer Information
+
+        int id = selectedUser.getId();
+        String loginName = txtFieldLoginName.getText();
+        String firstName = txtFieldFirstName.getText();
+        String lastName = txtFieldLastName.getText();
+        String password = txtFieldPassword.getText();
+        String passwordRetype = txtFieldPasswordRetype.getText();
+        String email = txtFieldEmail.getText();
+        int roleValue = getRoleValue();
+
+        try {
+            IUser user = new User(-1, loginName, firstName, lastName, email, roleValue);
+            if (password != passwordRetype) {
+                return;
+            }
+            userManager.updateUser(user, password);
+            resetFieldsUser();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -404,9 +366,9 @@ public class MainView2Controller extends BaseController implements Initializable
         String email = txtFieldEmail.getText();
         int roleValue = getRoleValue();
 
-        User user = new User(-1, loginName, firstName, lastName, email, roleValue);
+        IUser user = new User(-1, loginName, firstName, lastName, email, roleValue);
         try {
-            if (password != passwordRetype){
+            if (password != passwordRetype) {
                 //set red border
             }
             userManager.createUser(user, password);
@@ -415,10 +377,9 @@ public class MainView2Controller extends BaseController implements Initializable
 
             throw new RuntimeException(e);
         }
-
         resetFieldsUser();
-
     }
+
 
     @FXML
     void btnHandleSaveCustomerCeo(ActionEvent event) {
@@ -437,7 +398,7 @@ public class MainView2Controller extends BaseController implements Initializable
         String email = txtFieldCustomerEmail.getText();
         String taxNo = txtFieldCustomerTaxNo.getText();
 
-        Customer customer = new Customer(-1, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
+        ICustomer customer = new Customer(-1, name, address1, address2, address3, zipcode, city, country, telephone, email, taxNo);
 
         try {
             IValidationResult vr = iValidationHelper.validate(customer);
@@ -647,7 +608,7 @@ public class MainView2Controller extends BaseController implements Initializable
             System.out.println("get fucked nerd");
         }
 
-        System.out.println("" + selectedUSer.getFirstName() + selectedUSer.getLoginName());
+        System.out.println("" + selectedUser.getFirstName() + selectedUser.getLoginName());
 
     }
 
@@ -746,7 +707,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
         try {
-            tableViewAllTasksTech.setItems(installationModel.getInstallationsForUser(selectedUSer));
+            tableViewAllTasksTech.setItems(installationModel.getInstallationsForUser(selectedUser));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -937,7 +898,7 @@ public class MainView2Controller extends BaseController implements Initializable
         stackPaneAddUserCeo.setVisible(true);
 
 
-        IUser selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
+        selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
 
         txtFieldLoginName.setText(selectedUser.getLoginName());
         txtFieldFirstName.setText(selectedUser.getFirstName());
@@ -952,7 +913,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
     public void Setup(IUser selectedUser, LogInController logInController, UserModel userModel, int role) {
 
-        this.selectedUSer = selectedUser;
+        this.selectedUser = selectedUser;
         this.userModel = userModel;
 
 
@@ -973,7 +934,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
 
             try {
-                tableViewAllTasksTech.setItems(installationModel.getInstallationsForUser(selectedUSer));
+                tableViewAllTasksTech.setItems(installationModel.getInstallationsForUser(selectedUser));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -1095,7 +1056,7 @@ public class MainView2Controller extends BaseController implements Initializable
         tableViewAllCompletedTasks.setVisible(false);
         tableViewAllCompletedTasksPm.setVisible(false);
         tableViewAddTaskTechAssigned.setVisible(false);
-        tableViewAddTaskTechAvalible.setVisible(false);
+        tableViewAddTaskTechAvailable.setVisible(false);
         tableViewAddTaskAllCustomers.setVisible(false);
         tableViewAllInstallations.setVisible(false);
     }
@@ -1138,7 +1099,7 @@ public class MainView2Controller extends BaseController implements Initializable
         // Add technicians to the Employee's avalible table
         this.userModel = userModel;
 
-        columnAddTaskAvalibleTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
+        columnAddTaskAvailableTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
         columnAddTaskAssignedTech.setCellValueFactory(new PropertyValueFactory<IUser, String>("firstName"));
 
         ObservableList<IUser> allUsers = userModel.getAllUsers();
@@ -1152,14 +1113,54 @@ public class MainView2Controller extends BaseController implements Initializable
             }
 
             try {
-                tableViewAddTaskTechAvalible.setItems(filteredUsers);
+                tableViewAddTaskTechAvailable.setItems(filteredUsers);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    private IValidationResult validate(ICustomer customer) {
+
+        IValidationResult result = iValidationHelper.validate(customer);
+        if (!result.hasNoError()) {
+            for (String error : result.getErrors()) {
+                switch (error) {
+                    case "Name":
+                        txtFieldCustomerName.getStyleClass().add("invalid");
+                        break;
+                    case "Address1":
+                        txtFieldCustomerAddress.getStyleClass().add("invalid");
+                        break;
+                    case "Address2":
+                        txtFieldCustomerAddress2.getStyleClass().add("invalid");
+                        break;
+                    case "Address3":
+                        txtFieldCustomerAddress3.getStyleClass().add("invalid");
+                        break;
+                    case "Zipcode":
+                        txtFieldCustomerZipCode.getStyleClass().add("invalid");
+                        break;
+                    case "City":
+                        txtFieldCustomerCity.getStyleClass().add("invalid");
+                        break;
+                    case "Country":
+                        txtFieldCustomerCountry.getStyleClass().add("invalid");
+                        break;
+                    case "Phone":
+                        txtFieldCustomerTelephone.getStyleClass().add("invalid");
+                        break;
+                    case "Category":
+                        txtFieldCustomerEmail.getStyleClass().add("invalid");
+                        break;
+                    case "TaxNo":
+                        txtFieldCustomerTaxNo.getStyleClass().add("invalid");
+                        break;
+                }
+            }
+        }
+        return result;
+    }
 }

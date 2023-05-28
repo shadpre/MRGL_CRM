@@ -21,7 +21,7 @@ class ValidationHelperTest {
         String ip = "192.168.1.4";
         System.out.println(ip);
         boolean result = ValidationHelper.isValidIPv4(ip);
-        assertEquals(true, result);
+        assertTrue(result);
         System.out.println();
     }
 
@@ -31,7 +31,7 @@ class ValidationHelperTest {
         String ip = "192.558.1.4";
         System.out.println(ip);
         boolean result = ValidationHelper.isValidIPv4(ip);
-        assertEquals(false, result);
+        assertFalse(result);
         System.out.println();
     }
     @Test
@@ -40,7 +40,7 @@ class ValidationHelperTest {
         String ip = "192.168.1.a";
         System.out.println(ip);
         boolean result = ValidationHelper.isValidIPv4(ip);
-        assertEquals(false, result);
+        assertFalse(result);
         System.out.println();
     }
     @Test
@@ -49,7 +49,7 @@ class ValidationHelperTest {
         String subnetMask  = "255.255.128.0";
         System.out.println(subnetMask);
         boolean result = ValidationHelper.isValidSubnetMask(subnetMask);
-        assertEquals(true,result);
+        assertTrue(result);
         System.out.println();
     }
 
@@ -59,7 +59,7 @@ class ValidationHelperTest {
         String subnetMask  = "255.255.128.254";
         System.out.println(subnetMask);
         boolean result = ValidationHelper.isValidSubnetMask(subnetMask);
-        assertEquals(false,result);
+        assertFalse(result);
         System.out.println();
     }
 
@@ -69,7 +69,7 @@ class ValidationHelperTest {
         String subnetMask  = "Not a Subnet Mask";
         System.out.println(subnetMask);
         boolean result = ValidationHelper.isValidSubnetMask(subnetMask);
-        assertEquals(false,result);
+        assertFalse(result);
         System.out.println();
     }
 
@@ -79,7 +79,7 @@ class ValidationHelperTest {
         String GoodEmail = "Test@test.dk";
         System.out.println(GoodEmail);
         boolean result = ValidationHelper.isEmailValidFormat(GoodEmail);
-        assertEquals(true,result);
+        assertTrue(result);
         System.out.println();
     }
 
@@ -89,7 +89,7 @@ class ValidationHelperTest {
         String BadEmail = "Not at mail";
         System.out.println(BadEmail);
         boolean result = ValidationHelper.isEmailValidFormat(BadEmail);
-        assertEquals(false,result);
+        assertFalse(result);
         System.out.println();
     }
 
@@ -110,7 +110,7 @@ class ValidationHelperTest {
                 "12345678");
         IValidationResult vr = ValidationHelper.validate(customer);
 
-        assertEquals(true, vr.hasNoError());
+        assertTrue(vr.hasNoError());
         System.out.println();
     }
 
@@ -132,8 +132,7 @@ class ValidationHelperTest {
 
         IValidationResult vr = ValidationHelper.validate(customer);
 
-        assertEquals(false, vr.hasNoError());
+        assertFalse(vr.hasNoError());
         assertEquals("Phone", vr.getErrors().get(0));
-
     }
 }

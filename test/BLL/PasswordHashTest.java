@@ -12,7 +12,7 @@ class PasswordHashTest {
         String hashedPw = PasswordHash.encryptPassword(password);
 
         boolean result = PasswordHash.chkPassword(password,hashedPw);
-        assertEquals(true, result);
+        assertTrue(result);
         System.out.println();
     }
 
@@ -23,7 +23,7 @@ class PasswordHashTest {
         String hashedPw = PasswordHash.encryptPassword(password);
 
         boolean result = PasswordHash.chkPassword("badpassword",hashedPw);
-        assertEquals(false,result);
+        assertFalse(result);
         System.out.println();
     }
 }
