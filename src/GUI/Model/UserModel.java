@@ -2,12 +2,15 @@ package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IUser;
 import BE.DBEnteties.User;
+import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.Interfaces.IUserManager;
 import BLL.Managers.UserManager;
 import BLL.PasswordHash;
 import DAL.DAO_DB.UserDAO_DB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.SQLException;
 
 public class UserModel {
     private final static IUserManager userManager = new UserManager();
@@ -36,15 +39,19 @@ public class UserModel {
     }
 
     public IUser getSelectedUser(IUser selectedUser) {
-
         return selectedUser;
     }
 
     public void setSelectedUser(IUser selectedUser) {
-
         this.selectedUser = selectedUser;
     }
 
+    public IUser updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException {
+        return userManager.updateUser(user,password);
+    }
 
+    public void deleteUser (int userId) throws UserNotFoundExeption, SQLException {
+        userManager.deleteUser(userId);
+    }
 }
 

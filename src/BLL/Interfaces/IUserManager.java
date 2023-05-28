@@ -17,7 +17,7 @@ public interface IUserManager {
 
     void resetPassword(IUser user, String Password) throws SQLException, UserNotFoundExeption;
 
-    void updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException;
+    IUser updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException;
 
     ArrayList<IUser> getAllUsers() throws SQLException, UserNotFoundExeption;
 

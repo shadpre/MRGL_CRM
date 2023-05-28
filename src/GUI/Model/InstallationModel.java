@@ -4,14 +4,17 @@ import BE.DBEnteties.Installation;
 import BE.DBEnteties.Interfaces.IInstallation;
 import BE.DBEnteties.Interfaces.IUser;
 import BE.DBEnteties.User;
+import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
 import BLL.Interfaces.IInstallationManager;
 import BLL.Managers.InstallationManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
+
 public class InstallationModel {
     private IInstallation selectedInstallation;
-
+    private IInstallationManager installationManager = new InstallationManager();
 
     public static ObservableList<IInstallation> getInstallations(int customerTaskId) {
         IInstallationManager installationManager = new InstallationManager();
@@ -54,5 +57,9 @@ public class InstallationModel {
     public void setSelectedInstallation(IInstallation selectedInstallation) {
 
         this.selectedInstallation = selectedInstallation;
+    }
+
+    public IInstallation createInstallation(IInstallation installation) throws SQLException, InstallationNotFoundExeption {
+        return  installationManager.createInstallation(installation);
     }
 }
