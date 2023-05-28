@@ -1,11 +1,6 @@
 package BLL.Interfaces;
 
-import BE.DBEnteties.*;
 import BE.DBEnteties.Interfaces.*;
-import BLL.Datavalidation.ValidationResult;
-
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public interface IValidationHelper {
     IValidationResult validate(ICustomer customer);

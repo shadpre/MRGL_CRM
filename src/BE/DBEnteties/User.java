@@ -10,11 +10,11 @@ import BE.DBEnteties.Interfaces.IUser;
 public class User implements IUser {
 
     private int Id;
-    private String LoginName;
-    private String FirstName;
-    private String LastName;
-    private String EMail;
-    private int Role;
+    private final String LoginName;
+    private final String FirstName;
+    private final String LastName;
+    private final String EMail;
+    private final int Role;
 
     public User(int id, String loginName, String firstName, String lastName, String email, int role) {
         Id = id;

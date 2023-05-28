@@ -184,7 +184,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
             }
 
             if (customerTaskIds.size() > 0) {
-                for (int customerTaskId : customerTaskIds){
+                for (int customerTaskId : customerTaskIds) {
                     query = "DELETE Installations WHERE CustomerTaskId = ?";
                     statement = conn.prepareStatement(query);
                     statement.setInt(1, customerTaskId);

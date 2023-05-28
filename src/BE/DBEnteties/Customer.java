@@ -2,17 +2,17 @@ package BE.DBEnteties;
 
 
 public class Customer implements BE.DBEnteties.Interfaces.ICustomer {
-    private int Id;
-    private String Name;
-    private String Address1;
-    private String Address2;
-    private String Address3;
-    private String Zipcode;
-    private String City;
-    private String Country;
-    private String Phone;
-    private String Category;
-    private String TaxNo;
+    private final int Id;
+    private final String Name;
+    private final String Address1;
+    private final String Address2;
+    private final String Address3;
+    private final String Zipcode;
+    private final String City;
+    private final String Country;
+    private final String Phone;
+    private final String Category;
+    private final String TaxNo;
 
     public Customer(int id, String name, String address1, String address2, String address3, String zipcode, String city, String country, String phone, String category, String taxNo) {
         Id = id;

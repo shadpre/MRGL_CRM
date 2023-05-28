@@ -31,7 +31,6 @@ public class InstallationDAO_DB implements IInstallationDAO {
         return getInstallation(ID);
     }
 
-
     @Override
     public IInstallation getInstallation(int id) throws SQLException, InstallationNotFoundExeption {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
@@ -104,7 +103,6 @@ public class InstallationDAO_DB implements IInstallationDAO {
             return out;
         }
     }
-
 
     @Override
     public IInstallation updateInstallation(IInstallation inst) throws SQLException, InstallationNotFoundExeption {

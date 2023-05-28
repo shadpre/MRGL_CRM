@@ -1,7 +1,6 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.INetwork;
-import BE.DBEnteties.Network;
 import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
 import BLL.Interfaces.INetworkManager;
 import BLL.Managers.NetworkManager;
@@ -11,7 +10,8 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 public class NetworkModel {
-    private INetworkManager networkManager = new NetworkManager();
+    private final INetworkManager networkManager = new NetworkManager();
+
     public ObservableList<INetwork> getNetworks(int installationID) {
         INetworkManager networkManager = new NetworkManager();
         ObservableList<INetwork> out;

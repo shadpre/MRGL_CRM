@@ -3,8 +3,8 @@ package BE.DBEnteties;
 import BE.DBEnteties.Interfaces.IWiFi;
 
 public class WiFi extends InstallationUnit implements IWiFi {
-    private String SSID;
-    private String PSK;
+    private final String SSID;
+    private final String PSK;
 
     public WiFi(int id, int installationId, String description, String remarks, String SSID, String PSK) {
         super(id, installationId, description, remarks);

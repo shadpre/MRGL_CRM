@@ -6,9 +6,9 @@ import BLL.Interfaces.IValidationHelper;
 import BLL.Interfaces.IValidationResult;
 
 public class ValidationModel {
-    private IValidationHelper vh = new ValidationHelper();
+    private final IValidationHelper vh = new ValidationHelper();
 
-    public IValidationResult validate(ICustomer customer){
+    public IValidationResult validate(ICustomer customer) {
         return vh.validate(customer);
     }
 

@@ -1,10 +1,10 @@
 package BE.DBEnteties;
 
 public abstract class InstallationUnit implements BE.DBEnteties.Interfaces.IInstallationUnit {
-    private int Id;
-    private int InstallationId;
-    private String Description;
-    private String Remarks;
+    private final int Id;
+    private final int InstallationId;
+    private final String Description;
+    private final String Remarks;
 
     public InstallationUnit(int id, int installationId, String description, String remarks) {
         Id = id;

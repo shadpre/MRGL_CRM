@@ -187,26 +187,25 @@ public class UserDAO_DB implements IUserDAO {
 
     @Override
     public IUser updateUser(IUser user, String hash) throws SQLException, UserNotFoundExeption {
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "UPDATE Users" +
                     "SET LoginName = ?, FirstName = ?, LastName = ?, EMail = ?, Hash = ?, Role = ?" +
                     "WHERE Id = ?";
 
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1,user.getLoginName());
+            statement.setString(1, user.getLoginName());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
-            statement.setString(4,user.getEMail());
-            statement.setString(5,hash);
+            statement.setString(4, user.getEMail());
+            statement.setString(5, hash);
             statement.setInt(6, user.getRole());
             statement.setInt(7, user.getId());
 
             var rs = statement.executeUpdate();
 
-            if (rs == 1){
+            if (rs == 1) {
                 return user;
-            }
-            else throw new UserNotFoundExeption("User not found");
+            } else throw new UserNotFoundExeption("User not found");
         }
     }
 

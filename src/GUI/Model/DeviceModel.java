@@ -1,6 +1,5 @@
 package GUI.Model;
 
-import BE.DBEnteties.Device;
 import BE.DBEnteties.Interfaces.IDevice;
 import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
 import BLL.Interfaces.IDeviceManager;
@@ -11,7 +10,8 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 public class DeviceModel {
-    private IDeviceManager deviceManager = new DeviceManager();
+    private final IDeviceManager deviceManager = new DeviceManager();
+
     public ObservableList<IDevice> getDeviceList(int installationID) {
         ObservableList<IDevice> out;
         try {
@@ -30,7 +30,7 @@ public class DeviceModel {
         return deviceManager.createDevice(device);
     }
 
-    public IDevice updateDevice (IDevice device) throws SQLException, DeviceNotFoundExeption {
+    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
         return deviceManager.updateDevice(device);
     }
 }

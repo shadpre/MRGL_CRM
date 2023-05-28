@@ -17,5 +17,5 @@ public interface ICustomerDAO {
 
     void anonymizeCustomer(int ID) throws SQLException, CustomerNotFoundExeption;
 
-    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption;
+    void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption;
 }

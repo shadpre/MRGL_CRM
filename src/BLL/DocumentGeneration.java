@@ -1,7 +1,6 @@
 package BLL;
 
 
-import BE.DBEnteties.CustomerTask;
 import BE.DBEnteties.Interfaces.*;
 import BE.DocumentData;
 import BE.IDocumentData;
@@ -160,7 +159,7 @@ public class DocumentGeneration {
 
     private static Table generateDocumentHeader() throws MalformedURLException {
         float col = 280f;
-        float columnWidth[] = {col, col};
+        float[] columnWidth = {col, col};
 
         Table table = new Table(columnWidth);
 
@@ -204,7 +203,7 @@ public class DocumentGeneration {
     }
 
     private static Table generateNetworkTable(ArrayList<INetwork> networks) {
-        float colWidth[] = {120, 185, 85, 85, 85};
+        float[] colWidth = {120, 185, 85, 85, 85};
         Table out = new Table(colWidth);
         out.addCell(new Cell(0, 5).add("Information om netværk").setBold().setTextAlignment(TextAlignment.CENTER));
         out.addCell(headerCell("Beskrivelse"));
@@ -225,7 +224,7 @@ public class DocumentGeneration {
     }
 
     private static Table generateWiFiTable(ArrayList<IWiFi> wiFis) {
-        float colWidth[] = {120, 185, 127.5f, 127.5f};
+        float[] colWidth = {120, 185, 127.5f, 127.5f};
         Table out = new Table(colWidth);
         out.addCell(new Cell(0, 4).add("Information om WiFi").setBold().setTextAlignment(TextAlignment.CENTER));
         out.addCell(headerCell("Beskrivelse"));
@@ -243,7 +242,7 @@ public class DocumentGeneration {
     }
 
     private static Table generateDeviceTable(ArrayList<IDevice> devices) {
-        float colWidth[] = {120, 185, 70, 70, 40, 40, 20};
+        float[] colWidth = {120, 185, 70, 70, 40, 40, 20};
         Table out = new Table(colWidth);
         out.addCell(new Cell(0, 7).add("Information om enheder").setBold().setTextAlignment(TextAlignment.CENTER));
         out.addCell(headerCell("Beskrivelse"));

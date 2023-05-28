@@ -2,11 +2,11 @@ package BE.DBEnteties;
 
 public class Device extends InstallationUnit implements BE.DBEnteties.Interfaces.IDevice {
 
-    private String IP;
-    private String SubnetMask;
-    private String UserName;
-    private String Password;
-    private boolean IsPOE;
+    private final String IP;
+    private final String SubnetMask;
+    private final String UserName;
+    private final String Password;
+    private final boolean IsPOE;
 
     public Device(int id, int installationId, String description, String remarks, String IP, String subnetMask, String userName, String password, boolean isPOE) {
         super(id, installationId, description, remarks);

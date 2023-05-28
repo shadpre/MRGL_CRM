@@ -75,12 +75,12 @@ public class DocumentationViewController extends BaseController implements Initi
     private TableView<IDevice> tableDevice;
     @FXML
     private TableColumn<IDevice, String> columnDeviceIP, columnDevicePassword, columnDeviceUsername, columnDeviceSubnet, columnDeviceName;
-    private DeviceModel deviceModel = new DeviceModel();
-    private NetworkModel networkModel = new NetworkModel();
-    private ImageModel imageModel = new ImageModel();
-    private WiFiModel wiFiModel = new WiFiModel();
+    private final DeviceModel deviceModel = new DeviceModel();
+    private final NetworkModel networkModel = new NetworkModel();
+    private final ImageModel imageModel = new ImageModel();
+    private final WiFiModel wiFiModel = new WiFiModel();
     private InstallationModel installationModel = new InstallationModel();
-    private ValidationModel validationModel = new ValidationModel();
+    private final ValidationModel validationModel = new ValidationModel();
     private IInstallation selectedInstallation;
     private File imgFile;
 
@@ -532,7 +532,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String userName = txtDeviceUsername.getText();
         Boolean isPOE = false;
 
-        if (txtDevicePOE.isSelected() == true) {
+        if (txtDevicePOE.isSelected()) {
             isPOE = true;
         }
 
@@ -664,7 +664,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
             try {
                 IValidationResult vr = validate(image);
-                if (!vr.hasNoError())return;
+                if (!vr.hasNoError()) return;
                 imageModel.createImage(image);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -786,7 +786,7 @@ public class DocumentationViewController extends BaseController implements Initi
 
         try {
             IValidationResult vr = validate(wifi);
-            if(!vr.hasNoError()) return;
+            if (!vr.hasNoError()) return;
             wiFiModel.createWiFi(wifi);
 
         } catch (Exception e) {
@@ -836,7 +836,6 @@ public class DocumentationViewController extends BaseController implements Initi
             txtWiFiPassword.setText("");
             txtWiFiName.setText("");
             txtWiFiSSID.setText("");
-            ;
             btnCreateWiFi.setText("Gem WiFi");
             btnShowWiFi.setText("Vis WiFi");
         }
@@ -976,11 +975,11 @@ public class DocumentationViewController extends BaseController implements Initi
         return result;
     }
 
-    private IValidationResult validate(IDevice device){
+    private IValidationResult validate(IDevice device) {
         IValidationResult result = validationModel.validate(device);
-        if(!result.hasNoError()){
-            for (String error : result.getErrors()){
-                switch (error){
+        if (!result.hasNoError()) {
+            for (String error : result.getErrors()) {
+                switch (error) {
                     case "Description":
                         txtDeviceName.getStyleClass().add("invalid");
                         break;
@@ -1005,11 +1004,11 @@ public class DocumentationViewController extends BaseController implements Initi
         return result;
     }
 
-    private IValidationResult validate(IWiFi wiFi){
+    private IValidationResult validate(IWiFi wiFi) {
         IValidationResult result = validationModel.validate(wiFi);
-        if(!result.hasNoError()){
-            for (String error : result.getErrors()){
-                switch (error){
+        if (!result.hasNoError()) {
+            for (String error : result.getErrors()) {
+                switch (error) {
                     case "Description":
                         txtWiFiName.getStyleClass().add("invalid");
                         break;
@@ -1028,11 +1027,11 @@ public class DocumentationViewController extends BaseController implements Initi
         return result;
     }
 
-    private IValidationResult validate(INetwork network){
+    private IValidationResult validate(INetwork network) {
         IValidationResult result = validationModel.validate(network);
-        if (!result.hasNoError()){
-            for (String error : result.getErrors()){
-                switch (error){
+        if (!result.hasNoError()) {
+            for (String error : result.getErrors()) {
+                switch (error) {
                     case "Description":
                         txtNetworkName.getStyleClass().add("invalid");
                         break;

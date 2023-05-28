@@ -1,12 +1,10 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IUser;
-import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
 import BLL.Interfaces.IUserManager;
 import BLL.Managers.UserManager;
 import BLL.PasswordHash;
-import DAL.DAO_DB.UserDAO_DB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -47,10 +45,10 @@ public class UserModel {
     }
 
     public IUser updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException {
-        return userManager.updateUser(user,password);
+        return userManager.updateUser(user, password);
     }
 
-    public void deleteUser (int userId) throws UserNotFoundExeption, SQLException {
+    public void deleteUser(int userId) throws UserNotFoundExeption, SQLException {
         userManager.deleteUser(userId);
     }
 }

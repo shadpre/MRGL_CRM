@@ -3,7 +3,6 @@ package GUI.Controller;
 import BE.DBEnteties.User;
 import BLL.Interfaces.IUserManager;
 import BLL.Managers.UserManager;
-import DAL.DAO_DB.UserDAO_DB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -77,7 +76,7 @@ public class AddUserController {
 
         User user = new User(0, loginName, firstName, lastName, email, RoleValue);
         try {
-            if (passwordRetype != password){
+            if (passwordRetype != password) {
                 //set border red
             }
             userManager.createUser(user, password);

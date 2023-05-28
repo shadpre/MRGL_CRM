@@ -1,6 +1,5 @@
 package BLL.Datavalidation;
 
-import BE.DBEnteties.Customer;
 import BE.DBEnteties.Interfaces.*;
 import BLL.Interfaces.IValidationHelper;
 import BLL.Interfaces.IValidationResult;

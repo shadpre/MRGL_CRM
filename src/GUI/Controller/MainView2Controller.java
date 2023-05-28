@@ -12,12 +12,7 @@ import BE.DBEnteties.User;
 import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
 import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
-import BLL.Datavalidation.ValidationHelper;
-import BLL.Interfaces.*;
-import BLL.Managers.CustomerManager;
-import BLL.Managers.CustomerTaskManager;
-import BLL.Managers.InstallationManager;
-import BLL.Managers.UserManager;
+import BLL.Interfaces.IValidationResult;
 import GUI.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -181,11 +176,11 @@ public class MainView2Controller extends BaseController implements Initializable
     @FXML
     private DatePicker datePickerTask;
     private IUser selectedUser;
-    private ValidationModel validationModel = new ValidationModel();
-    private UserModel userModel = new UserModel();
-    private CustomerModel customerModel = new CustomerModel();
-    private InstallationModel installationModel = new InstallationModel();
-    private CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+    private final ValidationModel validationModel = new ValidationModel();
+    private final UserModel userModel = new UserModel();
+    private final CustomerModel customerModel = new CustomerModel();
+    private final InstallationModel installationModel = new InstallationModel();
+    private final CustomerTaskModel customerTaskModel = new CustomerTaskModel();
 
     public static void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -194,6 +189,7 @@ public class MainView2Controller extends BaseController implements Initializable
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     @FXML
     void btnHandleAddUser(ActionEvent event) {
         // open the Add User window.
@@ -402,6 +398,7 @@ public class MainView2Controller extends BaseController implements Initializable
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     void btnHandleSaveTaskCeo(ActionEvent event) throws SQLException {
 
@@ -719,6 +716,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
         btnHandleShowAllCustomers(null);
     }
+
     @FXML
     void btnHandleDeleteTask(ActionEvent event) {
 
@@ -870,6 +868,7 @@ public class MainView2Controller extends BaseController implements Initializable
             customerTaskModel.addUserToCustomerTask(user.getId(), selectedTask.getId());
         }
     }
+
     private LocalDateTime localDateTimeSelector() {
         LocalDate localDate = datePickerTask.getValue();
         Time time = new Time(8, 00, 00);
@@ -1070,11 +1069,11 @@ public class MainView2Controller extends BaseController implements Initializable
         return result;
     }
 
-    private IValidationResult validate (IInstallation inst){
+    private IValidationResult validate(IInstallation inst) {
         IValidationResult result = validationModel.validate(inst);
-        if (!result.hasNoError()){
-            for (String error : result.getErrors()){
-                switch (error){
+        if (!result.hasNoError()) {
+            for (String error : result.getErrors()) {
+                switch (error) {
                     case "Description":
                         break;
                     case "Remarks":

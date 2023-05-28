@@ -48,7 +48,7 @@ public class UserManager implements IUserManager {
 
     public IUser updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException {
         String hash = PasswordHash.encryptPassword(password);
-        return DBFacade.getInstance().updateUser(user,hash);
+        return DBFacade.getInstance().updateUser(user, hash);
     }
 
     @Override

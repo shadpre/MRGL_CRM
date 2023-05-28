@@ -15,5 +15,5 @@ public interface ICustomerManager {
 
     ICustomer updateCustomer(ICustomer selectedCustomer) throws SQLException, CustomerNotFoundExeption;
 
-    void deleteCustomer(int id) throws SQLException, SQLException, CustomerNotFoundExeption;
+    void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption;
 }

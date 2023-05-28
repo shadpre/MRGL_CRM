@@ -3,12 +3,12 @@ package BE.DBEnteties;
 import java.time.LocalDateTime;
 
 public class CustomerTask implements BE.DBEnteties.Interfaces.ICustomerTask {
-    private int Id;
-    private LocalDateTime Date;
-    private String Description;
-    private String Remarks;
-    private int Status;
-    private int CustomerID;
+    private final int Id;
+    private final LocalDateTime Date;
+    private final String Description;
+    private final String Remarks;
+    private final int Status;
+    private final int CustomerID;
 
     public CustomerTask(int id, LocalDateTime date, String description, String remarks, int status, int customerID) {
         Id = id;

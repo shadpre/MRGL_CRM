@@ -1,8 +1,3 @@
-import BE.DBEnteties.CustomerTask;
-import BE.DBEnteties.Interfaces.ICustomerTask;
-import BLL.DocumentGeneration;
-import DAL.DAO_DB.CustomerTaskDAO_DB;
-import DAL.DBFacade;
 import DAL.DBLogin;
 import DAL.DatabaseConnector;
 import javafx.application.Application;

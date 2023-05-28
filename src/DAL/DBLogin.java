@@ -3,11 +3,11 @@ package DAL;
 public class DBLogin {
     //Designpattern: Singleton
     private static DBLogin instance;
-    private String Server;
-    private int Port;
-    private String User;
-    private String Password;
-    private String DBName;
+    private final String Server;
+    private final int Port;
+    private final String User;
+    private final String Password;
+    private final String DBName;
 
     private DBLogin(String server, int port, String dbName, String user, String password) {
         Server = server;

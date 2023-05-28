@@ -1,7 +1,6 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IWiFi;
-import BE.DBEnteties.WiFi;
 import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
 import BLL.Interfaces.IWiFiManager;
 import BLL.Managers.WiFiManager;
@@ -11,7 +10,8 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 public class WiFiModel {
-    private IWiFiManager wiFiManager = new WiFiManager();
+    private final IWiFiManager wiFiManager = new WiFiManager();
+
     public ObservableList<IWiFi> getWiFis(int installationID) {
         ObservableList<IWiFi> out;
         try {

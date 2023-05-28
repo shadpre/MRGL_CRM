@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ValidationResult implements IValidationResult {
 
 
-    private ArrayList<String> errors;
+    private final ArrayList<String> errors;
 
     public ValidationResult() {
         errors = new ArrayList<>();

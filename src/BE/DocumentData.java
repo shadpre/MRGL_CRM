@@ -20,8 +20,6 @@ public class DocumentData implements IDocumentData {
     public DocumentData() {
     }
 
-    ;
-
     /**
      * @param customerTask
      */

@@ -1,7 +1,6 @@
 package GUI.Controller;
 
 import BE.DBEnteties.Interfaces.IUser;
-import BE.DBEnteties.User;
 import GUI.Model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LogInController extends BaseController implements Initializable {
-    private UserModel userModel = new UserModel();
+    private final UserModel userModel = new UserModel();
     private MainView2Controller mainView2Controller;
     private IUser selectedUser;
     @FXML
@@ -27,6 +26,7 @@ public class LogInController extends BaseController implements Initializable {
     private TextField txtUsername;
     @FXML
     private PasswordField txtPassword;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mainView2Controller = new MainView2Controller();

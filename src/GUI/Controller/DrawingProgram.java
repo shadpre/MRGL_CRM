@@ -3,7 +3,6 @@ package GUI.Controller;
 import BE.DBEnteties.Interfaces.ILineSegment;
 import BE.DBEnteties.Interfaces.ISymbol;
 import BE.DBEnteties.LineSegment;
-import BE.DBEnteties.Symbol;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +36,7 @@ public class DrawingProgram extends BaseController implements Initializable {
 
     private Image canvasImage;
 
-    private List<ILineSegment> lines = new ArrayList<>();
+    private final List<ILineSegment> lines = new ArrayList<>();
     private ILineSegment currentLine;
 
 

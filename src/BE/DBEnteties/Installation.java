@@ -1,10 +1,10 @@
 package BE.DBEnteties;
 
 public class Installation implements BE.DBEnteties.Interfaces.IInstallation {
-    private int Id;
-    private int CustomerTaskId;
-    private String Description;
-    private String Remarks;
+    private final int Id;
+    private final int CustomerTaskId;
+    private final String Description;
+    private final String Remarks;
 
     public Installation(int id, int customerTaskId, String description, String remarks) {
         Id = id;
