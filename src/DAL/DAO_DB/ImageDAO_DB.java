@@ -93,7 +93,7 @@ public class ImageDAO_DB implements IImageDAO {
             statement.setString(3, image.getRemarks());
             statement.setBytes(4, image.getData());
             statement.setInt(5, image.getImageType());
-            statement.setInt(6, image.getId()); // Use index 6 for the Id parameter
+            statement.setInt(6, image.getId()); // Use index 6 for the id parameter
 
             int rowsAffected = statement.executeUpdate();
 

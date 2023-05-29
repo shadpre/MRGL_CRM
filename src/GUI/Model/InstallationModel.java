@@ -48,7 +48,6 @@ public class InstallationModel {
     }
 
     public IInstallation getSelectedInstallation(IInstallation selectedInstallation) {
-
         return this.selectedInstallation;
     }
 

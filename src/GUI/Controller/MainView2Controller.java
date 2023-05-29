@@ -321,7 +321,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
         try {
             IUser user = new User(id, loginName, firstName, lastName, email, roleValue);
-            if (password != passwordRetype) {
+            if (!password.equals(passwordRetype)) {
                 txtFieldPasswordRetype.getStyleClass().add("invalid");
                 return;
             }
@@ -351,7 +351,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
         IUser user = new User(-1, loginName, firstName, lastName, email, roleValue);
         try {
-            if (password != passwordRetype) {
+            if (!password.equals(passwordRetype)) {
                 txtFieldPasswordRetype.getStyleClass().add("invalid");
                 return;
             }
@@ -871,7 +871,7 @@ public class MainView2Controller extends BaseController implements Initializable
 
     private LocalDateTime localDateTimeSelector() {
         LocalDate localDate = datePickerTask.getValue();
-        Time time = new Time(8, 00, 00);
+        Time time = new Time(8, 0, 0);
 
         LocalDateTime localDateTime = localDate.atTime(time.toLocalTime());
 
@@ -986,7 +986,6 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     private IValidationResult validate(ICustomer customer) {
-
         IValidationResult result = validationModel.validate(customer);
         if (!result.hasNoError()) {
             for (String error : result.getErrors()) {

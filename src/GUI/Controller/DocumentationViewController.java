@@ -79,7 +79,7 @@ public class DocumentationViewController extends BaseController implements Initi
     private final NetworkModel networkModel = new NetworkModel();
     private final ImageModel imageModel = new ImageModel();
     private final WiFiModel wiFiModel = new WiFiModel();
-    private InstallationModel installationModel = new InstallationModel();
+    private final InstallationModel installationModel = new InstallationModel();
     private final ValidationModel validationModel = new ValidationModel();
     private IInstallation selectedInstallation;
     private File imgFile;
@@ -91,7 +91,6 @@ public class DocumentationViewController extends BaseController implements Initi
     public void setUpDocu(IInstallation selectedInstallation, InstallationModel installationModel) {
 
         this.selectedInstallation = selectedInstallation;
-        this.installationModel = installationModel;
 
         handleSketch(null);
         setSketchTable();
@@ -530,11 +529,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String subnetMask = txtDeviceSubnet.getText();
         int installationID = selectedInstallation.getId();
         String userName = txtDeviceUsername.getText();
-        Boolean isPOE = false;
-
-        if (txtDevicePOE.isSelected()) {
-            isPOE = true;
-        }
+        boolean isPOE = txtDevicePOE.isSelected();
 
         IDevice device = new Device(0, installationID, description, remarks, IP, subnetMask, userName, password, isPOE);
 
@@ -575,7 +570,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String subnetMask = txtDeviceSubnet.getText();
         int installationID = selectedDevice.getInstallationId();
         String userName = txtDeviceUsername.getText();
-        Boolean isPOE = false;
+        boolean isPOE = false;
         int Id = selectedDevice.getId();
 
         if (txtDevicePOE.isSelected()) {
@@ -886,7 +881,7 @@ public class DocumentationViewController extends BaseController implements Initi
         String defaultGateway = txtNetworkDefault.getText();
         int installationID = selectedNetwork.getInstallationId();
         int id = selectedNetwork.getId();
-        Boolean hasPOE = networkPOE.isSelected();
+        boolean hasPOE = networkPOE.isSelected();
 
         Network network = new Network(id, installationID, description, remarks, networkIP, subnetMask, defaultGateway, hasPOE);
 

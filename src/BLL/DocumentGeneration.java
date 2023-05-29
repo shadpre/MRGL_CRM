@@ -191,12 +191,12 @@ public class DocumentGeneration {
         Paragraph out = new Paragraph();
         StringBuilder sb = new StringBuilder();
         //sb.append("\r\n");
-        if (!dd.getCustomer().getName().isBlank()) sb.append(dd.getCustomer().getName() + "\r\n");
-        if (!dd.getCustomer().getAddress1().isBlank()) sb.append(dd.getCustomer().getAddress1() + "\r\n");
-        if (!dd.getCustomer().getAddress2().isBlank()) sb.append(dd.getCustomer().getAddress2() + "\r\n");
-        if (!dd.getCustomer().getAddress3().isBlank()) sb.append(dd.getCustomer().getAddress3() + "\r\n");
-        if (!dd.getCustomer().getZipcode().isBlank()) sb.append(dd.getCustomer().getZipcode() + " ");
-        if (!dd.getCustomer().getCity().isBlank()) sb.append(dd.getCustomer().getCity() + "\r\n");
+        if (!dd.getCustomer().getName().isBlank()) sb.append(dd.getCustomer().getName()).append("\r\n");
+        if (!dd.getCustomer().getAddress1().isBlank()) sb.append(dd.getCustomer().getAddress1()).append("\r\n");
+        if (!dd.getCustomer().getAddress2().isBlank()) sb.append(dd.getCustomer().getAddress2()).append("\r\n");
+        if (!dd.getCustomer().getAddress3().isBlank()) sb.append(dd.getCustomer().getAddress3()).append("\r\n");
+        if (!dd.getCustomer().getZipcode().isBlank()) sb.append(dd.getCustomer().getZipcode()).append(" ");
+        if (!dd.getCustomer().getCity().isBlank()) sb.append(dd.getCustomer().getCity()).append("\r\n");
         if (!dd.getCustomer().getCountry().isBlank()) sb.append(dd.getCustomer().getCountry());
 
         return out.add(sb.toString());

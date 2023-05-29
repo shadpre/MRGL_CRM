@@ -129,7 +129,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
 
     public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
         Connection conn = DatabaseConnector.getInstance().getConnection();
-        String query = "";
+        String query;
         PreparedStatement statement;
         try {
             conn.setAutoCommit(false);
@@ -149,8 +149,8 @@ public class CustomerDAO_DB implements ICustomerDAO {
             if (customerTaskIds.size() > 0) {
                 query = "SELECT Id FROM Installations WHERE CustomerTaskId = ?";
                 statement = conn.prepareStatement(query);
-                for (int cutomerTaskId : customerTaskIds) {
-                    statement.setInt(1, cutomerTaskId);
+                for (int customerTaskId : customerTaskIds) {
+                    statement.setInt(1, customerTaskId);
                     ResultSet resultSet = statement.executeQuery();
                     while (resultSet.next()) {
                         installationsIds.add(resultSet.getInt("Id"));

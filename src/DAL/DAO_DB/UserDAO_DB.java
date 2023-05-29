@@ -41,7 +41,6 @@ public class UserDAO_DB implements IUserDAO {
 
     @Override
     public IUser getUser(String LoginName) throws SQLException, UserValidationExeption {
-        User output = null;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, FirstName, LastName, Email, Role FROM Users WHERE LoginName = ?";
             PreparedStatement statement = conn.prepareStatement(query);
@@ -65,7 +64,6 @@ public class UserDAO_DB implements IUserDAO {
 
     @Override
     public IUser getUser(int Id) throws SQLException, UserNotFoundExeption {
-        User output = null;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT LoginName, FirstName, LastName, Email, Role FROM Users WHERE Id = ?";
             PreparedStatement statement = conn.prepareStatement(query);
