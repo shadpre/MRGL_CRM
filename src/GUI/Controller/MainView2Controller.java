@@ -9,9 +9,9 @@ import BE.DBEnteties.Interfaces.ICustomerTask;
 import BE.DBEnteties.Interfaces.IInstallation;
 import BE.DBEnteties.Interfaces.IUser;
 import BE.DBEnteties.User;
-import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.DocumentNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.CustomerNotFoundException;
+import BE.Exptions.NotFoundExeptions.DocumentNotFoundException;
+import BE.Exptions.NotFoundExeptions.UserNotFoundException;
 import BLL.Interfaces.IValidationResult;
 import GUI.Model.*;
 import javafx.collections.FXCollections;
@@ -266,7 +266,6 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
 
         // Add technicians to the Employee's avalible table
 
@@ -699,17 +698,17 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    private void btnHandleGenerateDocument(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
+    private void btnHandleGenerateDocument(ActionEvent event) throws MalformedURLException, DocumentNotFoundException, SQLException, FileNotFoundException {
         //  DocumentGeneration.documentGeneration();
     }
 
     @FXML
-    private void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundExeption, SQLException, FileNotFoundException {
+    private void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundException, SQLException, FileNotFoundException {
         // DocumentGeneration.documentGeneration();
     }
 
     @FXML
-    private void btnHandleDeleteCustomer(ActionEvent event) throws CustomerNotFoundExeption, SQLException {
+    private void btnHandleDeleteCustomer(ActionEvent event) throws CustomerNotFoundException, SQLException {
 
         ICustomer selectedCustomer = tableViewAllCustomersCeo.getSelectionModel().getSelectedItem();
         customerModel.deleteCustomer(selectedCustomer.getId());
@@ -723,7 +722,7 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    private void btnHandleDeleteUser(ActionEvent event) throws UserNotFoundExeption, SQLException {
+    private void btnHandleDeleteUser(ActionEvent event) throws UserNotFoundException, SQLException {
 
         IUser selectedUser = tableViewAllUsersCeo.getSelectionModel().getSelectedItem();
         userModel.deleteUser(selectedUser.getId());

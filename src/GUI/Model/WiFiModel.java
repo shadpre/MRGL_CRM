@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IWiFi;
-import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.WiFiNotFoundException;
 import BLL.Interfaces.IWiFiManager;
 import BLL.Managers.WiFiManager;
 import javafx.collections.FXCollections;
@@ -22,15 +22,15 @@ public class WiFiModel {
         return out;
     }
 
-    public void deleteWiFi(int id) throws WiFiNotFoundExeption, SQLException {
+    public void deleteWiFi(int id) throws WiFiNotFoundException, SQLException {
         wiFiManager.deleteWiFi(id);
     }
 
-    public IWiFi createWiFi(IWiFi wiFi) throws WiFiNotFoundExeption, SQLException {
+    public IWiFi createWiFi(IWiFi wiFi) throws WiFiNotFoundException, SQLException {
         return wiFiManager.createWiFi(wiFi);
     }
 
-    public IWiFi updateWiFi(IWiFi wiFi) throws WiFiNotFoundExeption, SQLException {
+    public IWiFi updateWiFi(IWiFi wiFi) throws WiFiNotFoundException, SQLException {
         return wiFiManager.updateWiFi(wiFi);
     }
 }

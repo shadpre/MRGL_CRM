@@ -1,7 +1,7 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.IImage;
-import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.ImageNotFoundException;
 import BLL.Interfaces.IImageManager;
 import DAL.DBFacade;
 
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class ImageManager implements IImageManager {
 
     @Override
-    public IImage createImage(IImage image) throws SQLException, ImageNotFoundExeption {
+    public IImage createImage(IImage image) throws SQLException, ImageNotFoundException {
         return DBFacade.getInstance().createImage(image);
     }
 
     @Override
-    public IImage updateImage(IImage image) throws SQLException, ImageNotFoundExeption {
+    public IImage updateImage(IImage image) throws SQLException, ImageNotFoundException {
 
         return DBFacade.getInstance().updateImage(image);
     }
@@ -27,7 +27,7 @@ public class ImageManager implements IImageManager {
     }
 
     @Override
-    public void deleteImage(int id) throws SQLException, ImageNotFoundExeption {
+    public void deleteImage(int id) throws SQLException, ImageNotFoundException {
         DBFacade.getInstance().deleteImage(id);
     }
 }

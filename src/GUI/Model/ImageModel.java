@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IImage;
-import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.ImageNotFoundException;
 import BLL.Interfaces.IImageManager;
 import BLL.Managers.ImageManager;
 import javafx.collections.FXCollections;
@@ -24,15 +24,15 @@ public class ImageModel {
         return out;
     }
 
-    public void deleteImage(int id) throws SQLException, ImageNotFoundExeption {
+    public void deleteImage(int id) throws SQLException, ImageNotFoundException {
         imageManager.deleteImage(id);
     }
 
-    public IImage createImage(IImage image) throws SQLException, ImageNotFoundExeption {
+    public IImage createImage(IImage image) throws SQLException, ImageNotFoundException {
         return imageManager.createImage(image);
     }
 
-    public IImage updateImage(IImage image) throws SQLException, ImageNotFoundExeption {
+    public IImage updateImage(IImage image) throws SQLException, ImageNotFoundException {
         return imageManager.updateImage(image);
     }
 }

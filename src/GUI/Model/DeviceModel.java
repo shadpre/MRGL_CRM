@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IDevice;
-import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.DeviceNotFoundException;
 import BLL.Interfaces.IDeviceManager;
 import BLL.Managers.DeviceManager;
 import javafx.collections.FXCollections;
@@ -22,15 +22,15 @@ public class DeviceModel {
         return out;
     }
 
-    public void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
+    public void deleteDevice(int id) throws SQLException, DeviceNotFoundException {
         deviceManager.deleteDevice(id);
     }
 
-    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
+    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundException {
         return deviceManager.createDevice(device);
     }
 
-    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
+    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundException {
         return deviceManager.updateDevice(device);
     }
 }

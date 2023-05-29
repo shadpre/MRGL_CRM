@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.ICustomer;
-import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.CustomerNotFoundException;
 import BLL.Interfaces.ICustomerManager;
 import BLL.Managers.CustomerManager;
 import javafx.collections.FXCollections;
@@ -23,15 +23,15 @@ public class CustomerModel {
         return out;
     }
 
-    public ICustomer updateCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption {
+    public ICustomer updateCustomer(ICustomer customer) throws SQLException, CustomerNotFoundException {
         return customerManager.updateCustomer(customer);
     }
 
-    public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption {
+    public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundException {
         return customerManager.createCustomer(customer);
     }
 
-    public void deleteCustomer(int customerId) throws SQLException, CustomerNotFoundExeption {
+    public void deleteCustomer(int customerId) throws SQLException, CustomerNotFoundException {
         customerManager.deleteCustomer(customerId);
     }
 }

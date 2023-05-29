@@ -2,21 +2,32 @@ package DAL.DAO_DB;
 
 import BE.DBEnteties.Customer;
 import BE.DBEnteties.Interfaces.ICustomer;
-import BE.Exptions.NotFoundExeptions.CustomerNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.CustomerNotFoundException;
 import DAL.DatabaseConnector;
-import DAL.Iterfaces.ICustomerDAO;
+import DAL.Interfaces.ICustomerDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The CustomerDAO_DB class is responsible for performing database operations related to customers.
+ */
 public class CustomerDAO_DB implements ICustomerDAO {
-    public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundExeption {
+
+    /**
+     * Creates a new customer in the database.
+     *
+     * @param customer The customer to create.
+     * @return The created customer.
+     * @throws SQLException              If a database access error occurs.
+     * @throws CustomerNotFoundException If the customer was not found.
+     */
+    public ICustomer createCustomer(ICustomer customer) throws SQLException, CustomerNotFoundException {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
 
             String query = "INSERT INTO CUSTOMERS (Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
 
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getAddress1());
@@ -37,7 +48,15 @@ public class CustomerDAO_DB implements ICustomerDAO {
         return getCustomerByID(ID);
     }
 
-    public ICustomer getCustomerByID(int ID) throws SQLException, CustomerNotFoundExeption {
+    /**
+     * Retrieves a customer by their ID from the database.
+     *
+     * @param ID The ID of the customer.
+     * @return The retrieved customer.
+     * @throws SQLException              If a database access error occurs.
+     * @throws CustomerNotFoundException If the customer was not found.
+     */
+    public ICustomer getCustomerByID(int ID) throws SQLException, CustomerNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
 
             String query = "SELECT Name, Address1, Address2, Address3, Zipcode, City, Country, Phone, Category, TaxNo FROM Customers WHERE ID = ?";
@@ -60,11 +79,18 @@ public class CustomerDAO_DB implements ICustomerDAO {
                         rs.getString("Category"),
                         rs.getString("TaxNo")
                 );
-            } else throw new CustomerNotFoundExeption("Customer Not Found");
+            } else throw new CustomerNotFoundException("Customer Not Found");
         }
     }
 
-    public ArrayList<ICustomer> getAllCustomers() throws SQLException, CustomerNotFoundExeption {
+    /**
+     * Retrieves a list of all customers from the database.
+     *
+     * @return An ArrayList of all customers.
+     * @throws SQLException              If a database access error occurs.
+     * @throws CustomerNotFoundException If no customers were found.
+     */
+    public ArrayList<ICustomer> getAllCustomers() throws SQLException, CustomerNotFoundException {
         ArrayList<ICustomer> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
 
@@ -90,13 +116,21 @@ public class CustomerDAO_DB implements ICustomerDAO {
                 ));
             }
             if (out.size() == 0) {
-                throw new CustomerNotFoundExeption("No Customers Found");
+                throw new CustomerNotFoundException("No Customers Found");
             }
             return out;
         }
     }
 
-    public ICustomer updateCustomer(ICustomer customer) throws CustomerNotFoundExeption, SQLException {
+    /**
+     * Updates an existing customer in the database.
+     *
+     * @param customer The customer to update.
+     * @return The updated customer.
+     * @throws CustomerNotFoundException If the customer was not found.
+     * @throws SQLException              If a database access error occurs.
+     */
+    public ICustomer updateCustomer(ICustomer customer) throws CustomerNotFoundException, SQLException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query =
                     "UPDATE Customers " +
@@ -118,16 +152,30 @@ public class CustomerDAO_DB implements ICustomerDAO {
             statement.setInt(11, customer.getId());
 
             var rs = statement.executeUpdate();
-            if (rs == 0) throw new CustomerNotFoundExeption("CustomerNotFound");
+            if (rs == 0) throw new CustomerNotFoundException("CustomerNotFound");
         }
         return getCustomerByID(customer.getId());
     }
 
-    public void anonymizeCustomer(int id) throws SQLException, CustomerNotFoundExeption {
+    /**
+     * Anonymizes a customer in the database.
+     *
+     * @param id The ID of the customer to anonymize.
+     * @throws SQLException              If a database access error occurs.
+     * @throws CustomerNotFoundException If the customer was not found.
+     */
+    public void anonymizeCustomer(int id) throws SQLException, CustomerNotFoundException {
         throw new RuntimeException("Not Implemented");
     }
 
-    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundExeption {
+    /**
+     * Deletes a customer and (sub)relations from the database.
+     *
+     * @param id The ID of the customer to delete.
+     * @throws SQLException              If a database access error occurs.
+     * @throws CustomerNotFoundException If the customer was not found.
+     */
+    public void deleteCustomer(int id) throws SQLException, CustomerNotFoundException {
         Connection conn = DatabaseConnector.getInstance().getConnection();
         String query;
         PreparedStatement statement;
@@ -136,7 +184,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
             ArrayList<Integer> customerTaskIds = new ArrayList<>();
             ArrayList<Integer> installationsIds = new ArrayList<>();
 
-            //Find CustomerTaskId's related to Customer
+            // Find CustomerTaskId's related to Customer
             query = "SELECT Id FROM CustomerTasks WHERE CustomerId = ?";
             statement = conn.prepareStatement(query);
             statement.setInt(1, id);
@@ -145,7 +193,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
                 customerTaskIds.add(customerTaskIdsResults.getInt("Id"));
             }
 
-            //Get installations
+            // Get installations
             if (customerTaskIds.size() > 0) {
                 query = "SELECT Id FROM Installations WHERE CustomerTaskId = ?";
                 statement = conn.prepareStatement(query);
@@ -158,7 +206,7 @@ public class CustomerDAO_DB implements ICustomerDAO {
                 }
             }
 
-            //Start delete
+            // Start delete
             if (installationsIds.size() > 0) {
                 for (int installationId : installationsIds) {
                     query = "DELETE Images WHERE InstallationID = ?";
@@ -209,11 +257,11 @@ public class CustomerDAO_DB implements ICustomerDAO {
 
             statement.executeUpdate();
 
-            //Commit the transaction
+            // Commit the transaction
             conn.commit();
         } catch (Exception exception) {
             conn.rollback();
-            //rethrow exception
+            // Rethrow exception
             throw exception;
         } finally {
             conn.close();

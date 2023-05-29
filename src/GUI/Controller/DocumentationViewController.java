@@ -5,10 +5,10 @@ import BE.DBEnteties.Device;
 import BE.DBEnteties.Interfaces.*;
 import BE.DBEnteties.Network;
 import BE.DBEnteties.WiFi;
-import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.ImageNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
-import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.DeviceNotFoundException;
+import BE.Exptions.NotFoundExeptions.ImageNotFoundException;
+import BE.Exptions.NotFoundExeptions.NetworkNotFoundException;
+import BE.Exptions.NotFoundExeptions.WiFiNotFoundException;
 import BLL.Interfaces.IValidationResult;
 import GUI.Model.*;
 import javafx.collections.FXCollections;
@@ -184,13 +184,13 @@ public class DocumentationViewController extends BaseController implements Initi
         imgFile = null;
     }
 
-    public void handleDeleteBillag(ActionEvent actionEvent) throws ImageNotFoundExeption {
+    public void handleDeleteBillag(ActionEvent actionEvent) throws ImageNotFoundException {
         IImage selectedImage = tableBillag.getSelectionModel().getSelectedItem();
         try {
             imageModel.deleteImage(selectedImage.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ImageNotFoundExeption e) {
+        } catch (ImageNotFoundException e) {
             throw new RuntimeException(e);
         }
         setTableBillag();
@@ -226,13 +226,13 @@ public class DocumentationViewController extends BaseController implements Initi
         btnDeviceShow.setText("Vis Enhed");
     }
 
-    public void handleDeleteDevice(ActionEvent actionEvent) throws DeviceNotFoundExeption {
+    public void handleDeleteDevice(ActionEvent actionEvent) throws DeviceNotFoundException {
 
         IDevice selectedDevice = tableDevice.getSelectionModel().getSelectedItem();
         try {
             deviceModel.deleteDevice(selectedDevice.getId());
         } catch (SQLException e) {
-            throw new DeviceNotFoundExeption("device not found");
+            throw new DeviceNotFoundException("device not found");
         }
         setTableDevice();
     }
@@ -296,7 +296,7 @@ public class DocumentationViewController extends BaseController implements Initi
         updateButtonsSketch();
     }
 
-    public void handleRemoveSketch(ActionEvent actionEvent) throws ImageNotFoundExeption {
+    public void handleRemoveSketch(ActionEvent actionEvent) throws ImageNotFoundException {
 
         IImage selectedImage = tableSketch.getSelectionModel().getSelectedItem();
 
@@ -304,7 +304,7 @@ public class DocumentationViewController extends BaseController implements Initi
             imageModel.deleteImage(selectedImage.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ImageNotFoundExeption e) {
+        } catch (ImageNotFoundException e) {
             throw new RuntimeException(e);
         }
         setSketchTable();
@@ -359,12 +359,12 @@ public class DocumentationViewController extends BaseController implements Initi
         updateFieldsWiFi();
     }
 
-    public void handleDeleteWiFi(ActionEvent actionEvent) throws WiFiNotFoundExeption {
+    public void handleDeleteWiFi(ActionEvent actionEvent) throws WiFiNotFoundException {
         IWiFi selectedWiFi = tableWiFi.getSelectionModel().getSelectedItem();
 
         try {
             wiFiModel.deleteWiFi(selectedWiFi.getId());
-        } catch (WiFiNotFoundExeption e) {
+        } catch (WiFiNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -405,12 +405,12 @@ public class DocumentationViewController extends BaseController implements Initi
         updateFieldsNetwork();
     }
 
-    public void handleDeleteNetwork(ActionEvent actionEvent) throws NetworkNotFoundExeption {
+    public void handleDeleteNetwork(ActionEvent actionEvent) throws NetworkNotFoundException {
         INetwork selectedNetwork = tableNetwork.getSelectionModel().getSelectedItem();
 
         try {
             networkModel.deleteNetwork(selectedNetwork.getId());
-        } catch (NetworkNotFoundExeption e) {
+        } catch (NetworkNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -2,7 +2,7 @@ package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IInstallation;
 import BE.DBEnteties.Interfaces.IUser;
-import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.InstallationNotFoundException;
 import BLL.Interfaces.IInstallationManager;
 import BLL.Managers.InstallationManager;
 import javafx.collections.FXCollections;
@@ -56,7 +56,7 @@ public class InstallationModel {
         this.selectedInstallation = selectedInstallation;
     }
 
-    public IInstallation createInstallation(IInstallation installation) throws SQLException, InstallationNotFoundExeption {
+    public IInstallation createInstallation(IInstallation installation) throws SQLException, InstallationNotFoundException {
         return installationManager.createInstallation(installation);
     }
 }

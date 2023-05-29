@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.INetwork;
-import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.NetworkNotFoundException;
 import BLL.Interfaces.INetworkManager;
 import BLL.Managers.NetworkManager;
 import javafx.collections.FXCollections;
@@ -23,15 +23,15 @@ public class NetworkModel {
         return out;
     }
 
-    public void deleteNetwork(int id) throws SQLException, NetworkNotFoundExeption {
+    public void deleteNetwork(int id) throws SQLException, NetworkNotFoundException {
         networkManager.deleteNetwork(id);
     }
 
-    public INetwork createNetwork(INetwork network) throws SQLException, NetworkNotFoundExeption {
+    public INetwork createNetwork(INetwork network) throws SQLException, NetworkNotFoundException {
         return networkManager.createNetwork(network);
     }
 
-    public INetwork updateNetwork(INetwork network) throws SQLException, NetworkNotFoundExeption {
+    public INetwork updateNetwork(INetwork network) throws SQLException, NetworkNotFoundException {
         return networkManager.updateNetwork(network);
     }
 }

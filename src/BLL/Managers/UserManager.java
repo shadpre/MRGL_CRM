@@ -5,8 +5,8 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.IUser;
-import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
-import BE.Exptions.UserValidationExeption;
+import BE.Exptions.NotFoundExeptions.UserNotFoundException;
+import BE.Exptions.UserValidationException;
 import BE.Exptions.ValidationException;
 import BLL.Interfaces.IUserManager;
 import BLL.PasswordHash;
@@ -24,16 +24,16 @@ public class UserManager implements IUserManager {
         if (validateUser(LoginName, Password)) {
             return DBFacade.getInstance().getUser(LoginName);
         } else {
-            throw new UserValidationExeption("Invalid Username or Password");
+            throw new UserValidationException("Invalid Username or Password");
         }
     }
 
-    public boolean loginNameAvailable(String loginName) throws SQLException, UserValidationExeption {
+    public boolean loginNameAvailable(String loginName) throws SQLException, UserValidationException {
         return DBFacade.getInstance().loginNameAvailable(loginName);
     }
 
     @Override
-    public IUser createUser(IUser user, String Password) throws SQLException, UserNotFoundExeption, ValidationException, UserValidationExeption {
+    public IUser createUser(IUser user, String Password) throws SQLException, UserNotFoundException, ValidationException, UserValidationException {
         String hash = PasswordHash.encryptPassword(Password);
         if (DBFacade.getInstance().loginNameAvailable(user.getLoginName())) {
             return DBFacade.getInstance().createUser(user, hash);
@@ -41,29 +41,29 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public void resetPassword(IUser user, String Password) throws SQLException, UserNotFoundExeption {
+    public void resetPassword(IUser user, String Password) throws SQLException, UserNotFoundException {
         String hash = PasswordHash.encryptPassword(Password);
         DBFacade.getInstance().resetPassword(user.getId(), hash);
     }
 
-    public IUser updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException {
+    public IUser updateUser(IUser user, String password) throws UserNotFoundException, SQLException {
         String hash = PasswordHash.encryptPassword(password);
         return DBFacade.getInstance().updateUser(user, hash);
     }
 
     @Override
-    public ArrayList<IUser> getAllUsers() throws SQLException, UserNotFoundExeption {
+    public ArrayList<IUser> getAllUsers() throws SQLException, UserNotFoundException {
         return DBFacade.getInstance().getAllUsers();
     }
 
     @Override
-    public ArrayList<IUser> getAllUsers(int installationId) throws SQLException, UserNotFoundExeption {
+    public ArrayList<IUser> getAllUsers(int installationId) throws SQLException, UserNotFoundException {
         return DBFacade.getInstance().getAllUsers(installationId);
     }
 
 
     @Override
-    public void deleteUser(int id) throws SQLException, UserNotFoundExeption {
+    public void deleteUser(int id) throws SQLException, UserNotFoundException {
         DBFacade.getInstance().deleteUser(id);
     }
 

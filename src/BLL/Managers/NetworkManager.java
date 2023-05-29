@@ -1,7 +1,7 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.INetwork;
-import BE.Exptions.NotFoundExeptions.NetworkNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.NetworkNotFoundException;
 import BLL.Interfaces.INetworkManager;
 import DAL.DBFacade;
 
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class NetworkManager implements INetworkManager {
 
     @Override
-    public INetwork createNetwork(INetwork net) throws SQLException, NetworkNotFoundExeption {
+    public INetwork createNetwork(INetwork net) throws SQLException, NetworkNotFoundException {
         return DBFacade.getInstance().createNetwork(net);
     }
 
     @Override
-    public INetwork updateNetwork(INetwork network) throws SQLException, NetworkNotFoundExeption {
+    public INetwork updateNetwork(INetwork network) throws SQLException, NetworkNotFoundException {
         return DBFacade.getInstance().updateNetwork(network);
     }
 
@@ -26,7 +26,7 @@ public class NetworkManager implements INetworkManager {
     }
 
     @Override
-    public void deleteNetwork(int id) throws SQLException, NetworkNotFoundExeption {
+    public void deleteNetwork(int id) throws SQLException, NetworkNotFoundException {
         DBFacade.getInstance().deleteNetwork(id);
     }
 }

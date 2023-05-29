@@ -6,9 +6,17 @@ import BLL.Interfaces.IValidationResult;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
+/**
+ The ValidationHelper class provides methods for validating various entities in the system.
+ */
 public class ValidationHelper implements IValidationHelper {
 
+    /**
+     * Validates a customer object.
+     *
+     * @param customer The customer object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(ICustomer customer) {
         IValidationResult vr = new ValidationResult();
         if (customer.getName().length() > 60) vr.addError("Name");
@@ -25,6 +33,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates a customer task object.
+     *
+     * @param ct The customer task object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(ICustomerTask ct) {
         IValidationResult vr = new ValidationResult();
         if (ct.getDescription().length() > 100) vr.addError("Description");
@@ -34,6 +48,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates a device object.
+     *
+     * @param dev The device object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(IDevice dev) {
         IValidationResult vr = new ValidationResult();
         if (dev.getDescription().length() > 100) vr.addError("Description");
@@ -46,6 +66,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates an image object.
+     *
+     * @param img The image object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(IImage img) {
         IValidationResult vr = new ValidationResult();
         if (img.getDescription().length() > 100) vr.addError("Description");
@@ -55,6 +81,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates an installation object.
+     *
+     * @param inst The installation object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(IInstallation inst) {
         IValidationResult vr = new ValidationResult();
         if (inst.getDescription().length() > 100) vr.addError("Description");
@@ -63,6 +95,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates a network object.
+     *
+     * @param network The network object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(INetwork network) {
         IValidationResult vr = new ValidationResult();
         if (network.getDescription().length() > 100) vr.addError("Description");
@@ -75,6 +113,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates a user object.
+     *
+     * @param user The user object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(IUser user) {
         IValidationResult vr = new ValidationResult();
 
@@ -86,6 +130,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
+    /**
+     * Validates a WiFi object.
+     *
+     * @param wifi The WiFi object to validate.
+     * @return The validation result.
+     */
     public IValidationResult validate(IWiFi wifi) {
         IValidationResult vr = new ValidationResult();
 
@@ -97,7 +147,12 @@ public class ValidationHelper implements IValidationHelper {
         return vr;
     }
 
-    //Public due to unit test
+    /**
+     * Checks if the provided email is in a valid format.
+     *
+     * @param email The email to validate.
+     * @return True if the email is valid, false otherwise.
+     */
     public boolean isEmailValidFormat(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
@@ -110,19 +165,24 @@ public class ValidationHelper implements IValidationHelper {
         return pat.matcher(email).matches();
     }
 
-    //Public due to unit test
+    /**
+     * Checks if the provided IP address is a valid IPv4 address.
+     *
+     * @param ip The IP address to validate.
+     * @return True if the IP address is valid, false otherwise.
+     */
     public boolean isValidIPv4(String ip) {
         String[] octets = ip.split("\\.");
 
-        //Check for the IP address contains of 4 Octets separated by dot
+        // Check if the IP address contains 4 octets separated by dots
         if (octets.length != 4) return false;
 
         for (int i = 0; i < octets.length; i++) {
-            //Checks all octets is an int value
+            // Check if each octet is an integer value
             try {
                 int val = Integer.parseInt(octets[i]);
 
-                //Just check for valid IP address format. No check for Reserved IP addresses
+                // Just check for valid IP address format. No check for reserved IP addresses
                 if (val > 255 || val < 0) return false;
             } catch (Exception ex) {
                 return false;
@@ -131,29 +191,32 @@ public class ValidationHelper implements IValidationHelper {
         return true;
     }
 
-    //Public so it can be unit tested
+    /**
+     * Checks if the provided subnet mask is a valid IPv4 subnet mask.
+     *
+     * @param sm The subnet mask to validate.
+     * @return True if the subnet mask is valid, false otherwise.
+     */
     public boolean isValidSubnetMask(String sm) {
         String[] octets = sm.split("\\.");
-        var ints = new int[]{0, 128, 192, 224, 240, 248, 252, 254, 255};
+        int[] ints = new int[]{0, 128, 192, 224, 240, 248, 252, 254, 255};
         ArrayList<Integer> acceptedValues = new ArrayList<>();
 
-        for (int i : ints
-        ) {
+        for (int i : ints) {
             acceptedValues.add(i);
         }
 
         boolean endOfOnes = false;
-        //Check for the Subnet address contains of 4 Octets separated by dot
+        // Check if the subnet address contains 4 octets separated by dots
         if (octets.length != 4) return false;
 
         for (int i = 0; i < octets.length; i++) {
-            //Checks all octets is an int value
+            // Check if each octet is an integer value
             try {
-                //Checks all octets is an int value
                 int val = Integer.parseInt(octets[i]);
-                //Check for legal subnetmask val
+                // Check for legal subnet mask value
                 if (!acceptedValues.contains(val)) return false;
-                //Check for Binary values contains 0
+                // Check for binary values containing 0
                 if (val == 255 && !endOfOnes) continue;
 
                 if (val != 255 && !endOfOnes) {
@@ -169,4 +232,5 @@ public class ValidationHelper implements IValidationHelper {
         }
         return true;
     }
+
 }

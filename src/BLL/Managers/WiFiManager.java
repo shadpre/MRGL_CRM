@@ -1,7 +1,7 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.IWiFi;
-import BE.Exptions.NotFoundExeptions.WiFiNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.WiFiNotFoundException;
 import BLL.Interfaces.IWiFiManager;
 import DAL.DBFacade;
 
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class WiFiManager implements IWiFiManager {
     @Override
-    public IWiFi createWiFi(IWiFi wiFi) throws SQLException, WiFiNotFoundExeption {
+    public IWiFi createWiFi(IWiFi wiFi) throws SQLException, WiFiNotFoundException {
         return DBFacade.getInstance().createWiFi(wiFi);
     }
 
     @Override
-    public IWiFi updateWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundExeption {
+    public IWiFi updateWiFi(IWiFi wifi) throws SQLException, WiFiNotFoundException {
         return DBFacade.getInstance().updateWiFi(wifi);
     }
 
@@ -25,7 +25,7 @@ public class WiFiManager implements IWiFiManager {
     }
 
     @Override
-    public void deleteWiFi(int id) throws SQLException, WiFiNotFoundExeption {
+    public void deleteWiFi(int id) throws SQLException, WiFiNotFoundException {
         DBFacade.getInstance().deleteWiFi(id);
     }
 }

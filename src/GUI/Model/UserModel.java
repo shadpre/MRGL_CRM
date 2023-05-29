@@ -1,7 +1,7 @@
 package GUI.Model;
 
 import BE.DBEnteties.Interfaces.IUser;
-import BE.Exptions.NotFoundExeptions.UserNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.UserNotFoundException;
 import BLL.Interfaces.IUserManager;
 import BLL.Managers.UserManager;
 import BLL.PasswordHash;
@@ -44,11 +44,11 @@ public class UserModel {
         this.selectedUser = selectedUser;
     }
 
-    public IUser updateUser(IUser user, String password) throws UserNotFoundExeption, SQLException {
+    public IUser updateUser(IUser user, String password) throws UserNotFoundException, SQLException {
         return userManager.updateUser(user, password);
     }
 
-    public void deleteUser(int userId) throws UserNotFoundExeption, SQLException {
+    public void deleteUser(int userId) throws UserNotFoundException, SQLException {
         userManager.deleteUser(userId);
     }
 }

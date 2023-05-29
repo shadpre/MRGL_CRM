@@ -2,16 +2,28 @@ package DAL.DAO_DB;
 
 import BE.DBEnteties.Device;
 import BE.DBEnteties.Interfaces.IDevice;
-import BE.Exptions.NotFoundExeptions.DeviceNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.DeviceNotFoundException;
 import DAL.DatabaseConnector;
-import DAL.Iterfaces.IDeviceDAO;
+import DAL.Interfaces.IDeviceDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The DeviceDAO_DB class is responsible for performing database operations related to devices.
+ */
 public class DeviceDAO_DB implements IDeviceDAO {
+
+    /**
+     * Creates a new device in the database.
+     *
+     * @param device The device to create.
+     * @return The created device.
+     * @throws SQLException                 If a database access error occurs.
+     * @throws DeviceNotFoundException      If the device was not found.
+     */
     @Override
-    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
+    public IDevice createDevice(IDevice device) throws SQLException, DeviceNotFoundException {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO Devices (InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE) VALUES (?,?,?,?,?,?,?,?)";
@@ -35,8 +47,16 @@ public class DeviceDAO_DB implements IDeviceDAO {
         return getDevice(ID);
     }
 
+    /**
+     * Retrieves a device from the database by its ID.
+     *
+     * @param id The ID of the device to retrieve.
+     * @return The retrieved device.
+     * @throws SQLException                 If a database access error occurs.
+     * @throws DeviceNotFoundException      If the device was not found.
+     */
     @Override
-    public IDevice getDevice(int id) throws SQLException, DeviceNotFoundExeption {
+    public IDevice getDevice(int id) throws SQLException, DeviceNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT InstallationId, Description, Remarks, IP, SubnetMask, Username, Password, IsPOE FROM Devices WHERE Id = ?";
 
@@ -56,10 +76,17 @@ public class DeviceDAO_DB implements IDeviceDAO {
                         rs.getString("Password"),
                         rs.getBoolean("IsPOE")
                 );
-            } else throw new DeviceNotFoundExeption("Device not found");
+            } else throw new DeviceNotFoundException("Device not found");
         }
     }
 
+    /**
+     * Retrieves a list of devices associated with a specific installation from the database.
+     *
+     * @param installationId The ID of the installation.
+     * @return An ArrayList of devices associated with the installation.
+     * @throws SQLException If a database access error occurs.
+     */
     @Override
     public ArrayList<IDevice> getDeviceList(int installationId) throws SQLException {
         ArrayList<IDevice> out = new ArrayList<>();
@@ -88,8 +115,16 @@ public class DeviceDAO_DB implements IDeviceDAO {
         }
     }
 
+    /**
+     * Updates an existing device in the database.
+     *
+     * @param device The device to update.
+     * @return The updated device.
+     * @throws SQLException                 If a database access error occurs.
+     * @throws DeviceNotFoundException      If the device was not found.
+     */
     @Override
-    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundExeption {
+    public IDevice updateDevice(IDevice device) throws SQLException, DeviceNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query =
                     "UPDATE Devices " +
@@ -109,13 +144,20 @@ public class DeviceDAO_DB implements IDeviceDAO {
 
             var rs = statement.executeUpdate();
 
-            if (rs == 0) throw new DeviceNotFoundExeption("Device not found");
+            if (rs == 0) throw new DeviceNotFoundException("Device not found");
         }
         return getDevice(device.getId());
     }
 
+    /**
+     * Deletes a device from the database by its ID.
+     *
+     * @param id The ID of the device to delete.
+     * @throws SQLException                 If a database access error occurs.
+     * @throws DeviceNotFoundException      If the device was not found.
+     */
     @Override
-    public void deleteDevice(int id) throws SQLException, DeviceNotFoundExeption {
+    public void deleteDevice(int id) throws SQLException, DeviceNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Devices WHERE Id = ?";
 
@@ -123,12 +165,20 @@ public class DeviceDAO_DB implements IDeviceDAO {
             statement.setInt(1, id);
 
             var rs = statement.executeUpdate();
-            if (rs == 0) throw new DeviceNotFoundExeption("Device not found");
+            if (rs == 0) throw new DeviceNotFoundException("Device not found");
         }
     }
 
+    /**
+     * Deletes all devices associated with a specific installation from the database.
+     *
+     * @param installationId The ID of the installation.
+     * @return The number of devices deleted.
+     * @throws SQLException                 If a database access error occurs.
+     * @throws DeviceNotFoundException      If no devices were found.
+     */
     @Override
-    public int deleteDevices(int installationId) throws SQLException, DeviceNotFoundExeption {
+    public int deleteDevices(int installationId) throws SQLException, DeviceNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "DELETE Devices WHERE InstallationId = ?";
 
@@ -136,7 +186,7 @@ public class DeviceDAO_DB implements IDeviceDAO {
             statement.setInt(1, installationId);
 
             var rs = statement.executeUpdate();
-            if (rs == 0) throw new DeviceNotFoundExeption("No devices found");
+            if (rs == 0) throw new DeviceNotFoundException("No devices found");
             return rs;
         }
     }

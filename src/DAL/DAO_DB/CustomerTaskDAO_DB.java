@@ -2,17 +2,28 @@ package DAL.DAO_DB;
 
 import BE.DBEnteties.CustomerTask;
 import BE.DBEnteties.Interfaces.ICustomerTask;
-import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.CustomerTaskNotFoundException;
 import DAL.DatabaseConnector;
-import DAL.Iterfaces.ICustomerTaskDAO;
+import DAL.Interfaces.ICustomerTaskDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The CustomerTaskDAO_DB class is responsible for performing database operations related to customer tasks.
+ */
 public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
 
+    /**
+     * Creates a new customer task in the database.
+     *
+     * @param ct The customer task to create.
+     * @return The created customer task.
+     * @throws SQLException                    If a database access error occurs.
+     * @throws CustomerTaskNotFoundException   If the customer task was not found.
+     */
     @Override
-    public ICustomerTask CreateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption {
+    public ICustomerTask CreateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundException {
         int ID;
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "INSERT INTO CustomerTasks (Date, Description, Remarks, Status, CustomerId) VALUES (?,?,?,?,?)";
@@ -33,6 +44,13 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
         return getCustomerTask(ID);
     }
 
+    /**
+     * Adds a user to a customer task in the database.
+     *
+     * @param userId The ID of the user.
+     * @param ctId   The ID of the customer task.
+     * @throws SQLException If a database access error occurs.
+     */
     @Override
     public void addUserToCustomerTask(int userId, int ctId) throws SQLException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
@@ -47,8 +65,16 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
         }
     }
 
+    /**
+     * Retrieves a customer task from the database by its ID.
+     *
+     * @param id The ID of the customer task to retrieve.
+     * @return The retrieved customer task.
+     * @throws SQLException                    If a database access error occurs.
+     * @throws CustomerTaskNotFoundException   If the customer task was not found.
+     */
     @Override
-    public ICustomerTask getCustomerTask(int id) throws SQLException, CustomerTaskNotFoundExeption {
+    public ICustomerTask getCustomerTask(int id) throws SQLException, CustomerTaskNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Date, Description, Remarks, Status, CustomerID FROM CustomerTasks WHERE id = ?";
 
@@ -66,12 +92,19 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
                         rs.getInt("Status"),
                         rs.getInt("CustomerID")
                 );
-            } else throw new CustomerTaskNotFoundExeption("CustomerTask not found");
+            } else throw new CustomerTaskNotFoundException("CustomerTask not found");
         }
     }
 
+    /**
+     * Retrieves a list of all customer tasks from the database.
+     *
+     * @return An ArrayList of all customer tasks.
+     * @throws SQLException                    If a database access error occurs.
+     * @throws CustomerTaskNotFoundException   If no customer tasks were found.
+     */
     @Override
-    public ArrayList<ICustomerTask> getAllCustomerTasks() throws SQLException, CustomerTaskNotFoundExeption {
+    public ArrayList<ICustomerTask> getAllCustomerTasks() throws SQLException, CustomerTaskNotFoundException {
         ArrayList<ICustomerTask> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, Date, Description, Remarks, Status, CustomerId FROM CustomerTasks";
@@ -91,11 +124,18 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
                 ));
             }
 
-            if (out.size() == 0) throw new CustomerTaskNotFoundExeption("No CustomerTasks found");
+            if (out.size() == 0) throw new CustomerTaskNotFoundException("No CustomerTasks found");
             else return out;
         }
     }
 
+    /**
+     * Retrieves a list of all customer tasks assigned to a specific user from the database.
+     *
+     * @param userId The ID of the user.
+     * @return An ArrayList of customer tasks assigned to the user.
+     * @throws SQLException If a database access error occurs.
+     */
     @Override
     public ArrayList<ICustomerTask> getAllUserCustomerTasks(int userId) throws SQLException {
         ArrayList<ICustomerTask> out = new ArrayList<>();
@@ -122,8 +162,16 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
         }
     }
 
+    /**
+     * Retrieves a list of all customer tasks associated with a specific customer from the database.
+     *
+     * @param customerId The ID of the customer.
+     * @return An ArrayList of customer tasks associated with the customer.
+     * @throws SQLException                    If a database access error occurs.
+     * @throws CustomerTaskNotFoundException   If no customer tasks were found for the customer.
+     */
     @Override
-    public ArrayList<ICustomerTask> getAllCustomerTasks(int customerId) throws SQLException, CustomerTaskNotFoundExeption {
+    public ArrayList<ICustomerTask> getAllCustomerTasks(int customerId) throws SQLException, CustomerTaskNotFoundException {
         ArrayList<ICustomerTask> out = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query = "SELECT Id, Date, Description, Remarks, Status, FROM CustomerTasks WHERE CustomerId= ?";
@@ -144,13 +192,21 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
                 ));
             }
 
-            if (out.size() == 0) throw new CustomerTaskNotFoundExeption("No CustomerTasks found for Customer");
+            if (out.size() == 0) throw new CustomerTaskNotFoundException("No CustomerTasks found for Customer");
             else return out;
         }
     }
 
+    /**
+     * Updates an existing customer task in the database.
+     *
+     * @param ct The customer task to update.
+     * @return The updated customer task.
+     * @throws SQLException                    If a database access error occurs.
+     * @throws CustomerTaskNotFoundException   If the customer task was not found.
+     */
     @Override
-    public ICustomerTask updateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundExeption {
+    public ICustomerTask updateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundException {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             String query =
                     "UPDATE CustomerTasks" +
@@ -166,14 +222,20 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
             statement.setInt(6, ct.getId());
 
             var rs = statement.executeUpdate();
-            if (rs == 0) throw new CustomerTaskNotFoundExeption("CustomerTask not found");
+            if (rs == 0) throw new CustomerTaskNotFoundException("CustomerTask not found");
         }
 
         return getCustomerTask(ct.getId());
     }
 
+    /**
+     * Deletes a customer task from the database.
+     *
+     * @param ID The ID of the customer task to delete.
+     * @throws SQLException                    If a database access error occurs.
+     */
     @Override
-    public void deleteCustomerTask(int ID) {
+    public void deleteCustomerTask(int ID) throws SQLException{
         throw new RuntimeException("Not implemented");
     }
 }

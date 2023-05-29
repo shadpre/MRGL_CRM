@@ -64,8 +64,6 @@ public class DocumentGeneration {
     }
 
     public static void documentGeneration(ICustomerTask customerTask, String FilePath) throws Exception {
-
-
         IDocumentData dd = CreateDocumentData(customerTask);
         ArrayList<IImage> images = new ArrayList<>();
         ArrayList<IImage> sketches = new ArrayList<>();
@@ -263,7 +261,6 @@ public class DocumentGeneration {
             if (device.isPOE()) out.addCell(infoCell("Ja"));
             else out.addCell(infoCell("Nej"));
         }
-
         return out;
     }
 

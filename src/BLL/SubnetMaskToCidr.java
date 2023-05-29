@@ -3,14 +3,24 @@ package BLL;
 import BLL.Datavalidation.ValidationHelper;
 import BLL.Interfaces.IValidationHelper;
 
+/**
+ * Utility class for converting a subnet mask to CIDR notation.
+ */
 public class SubnetMaskToCidr {
-    public static int getCidr(String subnetmask) {
+
+    /**
+     * Converts a subnet mask to CIDR notation.
+     *
+     * @param subnetMask The subnet mask to convert.
+     * @return The CIDR value.
+     * @throws RuntimeException if the subnet mask is invalid.
+     */
+    public static int getCidr(String subnetMask) {
         int cidr = 0;
         IValidationHelper validationHelper = new ValidationHelper();
-        if (validationHelper.isValidSubnetMask(subnetmask)) {
-            String[] octets = subnetmask.split("\\.");
-            for (String octet : octets
-            ) {
+        if (validationHelper.isValidSubnetMask(subnetMask)) {
+            String[] octets = subnetMask.split("\\.");
+            for (String octet : octets) {
                 switch (octet) {
                     case "0":
                         cidr += 0;
@@ -40,9 +50,11 @@ public class SubnetMaskToCidr {
                         cidr += 8;
                         break;
                     default:
-                        throw new RuntimeException("Someting went wrong");
+                        throw new RuntimeException("Something went wrong");
                 }
             }
+        } else {
+            throw new RuntimeException("Invalid subnet mask");
         }
         return cidr;
     }

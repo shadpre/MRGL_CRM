@@ -1,7 +1,7 @@
 package BLL.Managers;
 
 import BE.DBEnteties.Interfaces.IInstallation;
-import BE.Exptions.NotFoundExeptions.InstallationNotFoundExeption;
+import BE.Exptions.NotFoundExeptions.InstallationNotFoundException;
 import BLL.Interfaces.IInstallationManager;
 import DAL.DBFacade;
 
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class InstallationManager implements IInstallationManager {
 
     @Override
-    public ArrayList<IInstallation> getAllInstallations() throws SQLException, InstallationNotFoundExeption {
+    public ArrayList<IInstallation> getAllInstallations() throws SQLException, InstallationNotFoundException {
         return DBFacade.getInstance().getAllInstallations();
     }
 
     @Override
-    public ArrayList<IInstallation> getInstallations(int customerTaskId) throws SQLException, InstallationNotFoundExeption {
+    public ArrayList<IInstallation> getInstallations(int customerTaskId) throws SQLException, InstallationNotFoundException {
         return DBFacade.getInstance().getInstallations(customerTaskId);
     }
 
@@ -27,7 +27,7 @@ public class InstallationManager implements IInstallationManager {
     }
 
     @Override
-    public IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundExeption {
+    public IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundException {
         return DBFacade.getInstance().createInstallation(inst);
     }
 }
