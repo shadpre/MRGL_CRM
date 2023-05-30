@@ -152,6 +152,7 @@ public class MainView2Controller extends BaseController implements Initializable
     private final CustomerModel customerModel = new CustomerModel();
     private final InstallationModel installationModel = new InstallationModel();
     private final CustomerTaskModel customerTaskModel = new CustomerTaskModel();
+    private final DocumentModel documentModel = new DocumentModel();
 
     private static void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -568,28 +569,41 @@ public class MainView2Controller extends BaseController implements Initializable
         }
     }
     @FXML
-    private void btnHandleShowDocumentationSales (ActionEvent event){
+    private void btnHandleShowDocumentationSales (ActionEvent event) throws Exception {
+
+
+        ICustomerTask selectedTask = tableViewAllCompletedTasks.getSelectionModel().getSelectedItem();
+        documentModel.saveDocumentToDisk(selectedTask);
 
     }
 
     @FXML
-    private void btnHandleGenerateDocumentationSales (ActionEvent event){
+    private void btnHandleGenerateDocumentationSales (ActionEvent event) throws Exception {
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Gem Pdf");
+        fc.setInitialFileName("dokumentation.pdf");
+        Stage stage = (Stage) btnGenDocumentation.getScene().getWindow();
+        File file = fc.showSaveDialog(stage);
+        ICustomerTask selectedTask = tableViewAllCompletedTasks.getSelectionModel().getSelectedItem();
+        documentModel.saveDocumentToDisk(selectedTask, file.getAbsolutePath());
 
     }
 
     @FXML
     private void btnHandleShowAllMyTasksPManager(ActionEvent event) {
+
         setAllStackPanesFalse();
         setAllTableViewsFalse();
         stackPanePManagerBtn.setVisible(true);
-        tableViewAllCompletedTasksPm.setVisible(true);
-        stackPaneViewAllCompletedTasksPm.setVisible(true);
+        tableViewAllInstallations.setVisible(true);
+        stackPaneViewAllInstallations.setVisible(true);
 
-        columnAllCompletedTasksNoPm.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("CustomerId"));
-        columnAllCompletedTasksDescriptionPm.setCellValueFactory(new PropertyValueFactory<ICustomerTask, String>("Description"));
+        columnInstallationNo.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("CustomerTaskId"));
+        columnInstallationDescription.setCellValueFactory(new PropertyValueFactory<IInstallation, String>("Description"));
 
         try {
-            tableViewAllCompletedTasksPm.setItems(customerTaskModel.getAllCustomerTasks());
+            tableViewAllInstallations.setItems(installationModel.getAllInstallations());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -653,16 +667,27 @@ public class MainView2Controller extends BaseController implements Initializable
     }
 
     @FXML
-    private void btnHandleGenDocumentation(ActionEvent event) {
+    private void btnHandleGenDocumentation(ActionEvent event) throws Exception {
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Gem Pdf");
+        fc.setInitialFileName("dokumentation.pdf");
+        Stage stage = (Stage) btnGenDocumentation.getScene().getWindow();
+        File file = fc.showSaveDialog(stage);
+        ICustomerTask selectedTask = tableViewAllTasksCeo.getSelectionModel().getSelectedItem();
+        documentModel.saveDocumentToDisk(selectedTask, file.getAbsolutePath());
 
     }
 
     @FXML
     private void btnHandleUpdateTaskPManager(ActionEvent event) throws IOException {
 
-        IInstallation selectedInstallation = tableViewAllTasksTech.getSelectionModel().getSelectedItem();
+        IInstallation selectedInstallation = tableViewAllInstallations.getSelectionModel().getSelectedItem();
 
         if (selectedInstallation != null) {
+
+            installationModel.setSelectedInstallation(selectedInstallation);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DocumentationView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();

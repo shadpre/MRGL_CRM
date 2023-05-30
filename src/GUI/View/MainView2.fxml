@@ -230,59 +230,6 @@
                 </HBox>
             </children>
         </StackPane>
-        <StackPane fx:id="stackPaneTechBtn" layoutY="292.0" prefHeight="713.0" prefWidth="385.0">
-            <children>
-                <VBox prefHeight="705.0" prefWidth="375.0">
-                    <children>
-                        <HBox prefHeight="30.0" prefWidth="300.0">
-                            <VBox.margin>
-                                <Insets top="20.0" />
-                            </VBox.margin>
-                            <children>
-                                <Label text="Mine Opgaver" textFill="#90aed6">
-                                    <font>
-                                        <Font name="Cambria Bold" size="25.0" />
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets left="50.0" />
-                                    </HBox.margin>
-                                </Label>
-                            </children>
-                        </HBox>
-                        <HBox prefHeight="70.0" prefWidth="300.0">
-                            <VBox.margin>
-                                <Insets top="20.0" />
-                            </VBox.margin>
-                            <children>
-                                <Button fx:id="btnShowAllMyTasksTech" mnemonicParsing="false" onAction="#btnHandleShowAllMyTasksTech" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Mine Opgaver">
-                                    <font>
-                                        <Font name="Cambria Bold" size="23.0" />
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets left="50.0" top="5.0" />
-                                    </HBox.margin>
-                                </Button>
-                            </children>
-                        </HBox>
-                        <HBox prefHeight="70.0" prefWidth="300.0">
-                            <VBox.margin>
-                                <Insets top="10.0" />
-                            </VBox.margin>
-                            <children>
-                                <Button fx:id="btnBeginTask" mnemonicParsing="false" onAction="#btnHandleBeginTask" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Påbegynd Opgave">
-                                    <HBox.margin>
-                                        <Insets left="50.0" top="5.0" />
-                                    </HBox.margin>
-                                    <font>
-                                        <Font name="Cambria Bold" size="22.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </StackPane>
         <StackPane fx:id="stackPaneSalesBtn" layoutX="1.0" layoutY="291.0" prefHeight="724.0" prefWidth="394.0">
             <children>
                 <VBox prefHeight="705.0" prefWidth="375.0">
@@ -346,7 +293,7 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="231.0" prefHeight="70.0" prefWidth="300.0">
                      <children>
-                        <Button fx:id="btnGenerateDocumentationSales" mnemonicParsing="false" onAction="#btnHandleGenerateDocumentationSales" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Generer Dokumentation">
+                        <Button fx:id="btnGenerateDocumentationSales" mnemonicParsing="false" onAction="#btnHandleGenerateDocumentationSales" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Gem Dokumentation">
                            <HBox.margin>
                               <Insets left="50.0" top="5.0" />
                            </HBox.margin>
@@ -356,6 +303,59 @@
                         </Button>
                      </children>
                   </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+        <StackPane fx:id="stackPaneTechBtn" layoutY="292.0" prefHeight="713.0" prefWidth="385.0">
+            <children>
+                <VBox prefHeight="705.0" prefWidth="375.0">
+                    <children>
+                        <HBox prefHeight="30.0" prefWidth="300.0">
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <Label text="Mine Opgaver" textFill="#90aed6">
+                                    <font>
+                                        <Font name="Cambria Bold" size="25.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="50.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="70.0" prefWidth="300.0">
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <Button fx:id="btnShowAllMyTasksTech" mnemonicParsing="false" onAction="#btnHandleShowAllMyTasksTech" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Vis Mine Opgaver">
+                                    <font>
+                                        <Font name="Cambria Bold" size="23.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="50.0" top="5.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="70.0" prefWidth="300.0">
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                            <children>
+                                <Button fx:id="btnBeginTask" mnemonicParsing="false" onAction="#btnHandleBeginTask" prefHeight="60.0" prefWidth="220.0" stylesheets="@../StyleSheet/Styleguide.css" text="Påbegynd Opgave">
+                                    <HBox.margin>
+                                        <Insets left="50.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Cambria Bold" size="22.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
                     </children>
                 </VBox>
             </children>
@@ -475,46 +475,6 @@
                                 <TableColumn fx:id="columnAllCompletedTasksDescriptionPm" prefWidth="829.0" text="Beskrivelse:" />
                             </columns>
                         </TableView>
-                    </children>
-                </HBox>
-            </children>
-        </StackPane>
-        <StackPane fx:id="stackpaneBtnEditTask" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
-            <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Button fx:id="btnAssignInstallCEO" layoutX="220.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnHandleAssignInstallCEO" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tildel Installation">
-                            <font>
-                                <Font name="Cambria Bold" size="12.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets left="50.0" top="20.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="btnFinishTask" mnemonicParsing="false" onAction="#btnHandleFinishTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Afslut Opgave">
-                            <font>
-                                <Font name="Cambria Bold" size="12.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets left="70.0" top="20.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
-                            <font>
-                                <Font name="Cambria Bold" size="20.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets left="40.0" top="20.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="btnGenDocumentation" mnemonicParsing="false" onAction="#btnHandleGenDocumentation" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Dokumentation" textAlignment="CENTER" wrapText="true">
-                            <HBox.margin>
-                                <Insets left="40.0" top="20.0" />
-                            </HBox.margin>
-                            <font>
-                                <Font name="Cambria Bold" size="14.0" />
-                            </font>
-                        </Button>
                     </children>
                 </HBox>
             </children>
@@ -1181,6 +1141,38 @@
                             <HBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </StackPane>
+        <StackPane fx:id="stackpaneBtnEditTask" layoutX="600.0" layoutY="888.0" prefHeight="107.0" prefWidth="776.0">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="btnAssignInstallCEO" layoutX="220.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnHandleAssignInstallCEO" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Tildel Installation">
+                            <font>
+                                <Font name="Cambria Bold" size="12.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="210.0" top="20.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnUpdateTask" mnemonicParsing="false" onAction="#btnHandleUpdateTask" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Rediger">
+                            <font>
+                                <Font name="Cambria Bold" size="20.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="40.0" top="20.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnGenDocumentation" mnemonicParsing="false" onAction="#btnHandleGenDocumentation" styleClass="smbutton" stylesheets="@../StyleSheet/Styleguide.css" text="Opret Dokumentation" textAlignment="CENTER" wrapText="true">
+                            <HBox.margin>
+                                <Insets left="40.0" top="20.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="Cambria Bold" size="14.0" />
+                            </font>
                         </Button>
                     </children>
                 </HBox>
