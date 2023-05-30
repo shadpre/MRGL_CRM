@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class LogInController extends BaseController implements Initializable {
     private final UserModel userModel = new UserModel();
-    private MainView2Controller mainView2Controller;
+    private MainViewController mainViewController;
     private IUser selectedUser;
     @FXML
     private Button btnLogin;
@@ -29,8 +29,8 @@ public class LogInController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mainView2Controller = new MainView2Controller();
-        this.mainView2Controller = mainView2Controller;
+        mainViewController = new MainViewController();
+        this.mainViewController = mainViewController;
 
     }
 
@@ -45,14 +45,14 @@ public class LogInController extends BaseController implements Initializable {
 
             userModel.setSelectedUser(selectedUser);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView2.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(selectedUser.getLoginName());
             stage.show();
 
-            MainView2Controller controller = loader.getController();
+            MainViewController controller = loader.getController();
             controller.setUserModel(userModel);
             controller.Setup(selectedUser, this, userModel, selectedUser.getRole());
 

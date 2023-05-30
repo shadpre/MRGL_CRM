@@ -39,7 +39,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-public class MainView2Controller extends BaseController implements Initializable {
+public class MainViewController extends BaseController implements Initializable {
     @FXML
     private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales;
     @FXML

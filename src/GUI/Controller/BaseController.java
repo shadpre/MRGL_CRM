@@ -7,8 +7,8 @@ import GUI.Model.UserModel;
 public class BaseController {
 
     private LogInController logInController;
-    private MainView2Controller mainView2Controller;
-    private AddUserController addUserController;
+    private MainViewController mainViewController;
+
 
 
     private UserModel userModel;

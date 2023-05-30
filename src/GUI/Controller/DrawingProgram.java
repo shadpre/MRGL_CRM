@@ -1,7 +1,6 @@
 package GUI.Controller;
 
 import BE.DBEnteties.Interfaces.ILineSegment;
-import BE.DBEnteties.Interfaces.ISymbol;
 import BE.DBEnteties.LineSegment;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -24,7 +23,6 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DrawingProgram extends BaseController implements Initializable {
