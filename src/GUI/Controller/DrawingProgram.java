@@ -190,6 +190,7 @@ public class DrawingProgram extends BaseController implements Initializable {
     //setting event handlers for our symbols.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         symbol1.setOnDragDetected(event -> dragSymbolOne(event));
         symbol1.setOnDragDone(event -> dragDoneSymbolOne(event));
         symbol1.setOnMouseEntered(event -> mouseEnterSymbolOne(event));
@@ -208,6 +209,8 @@ public class DrawingProgram extends BaseController implements Initializable {
 
         //setting our graphicscontext as the one for the canvas.
         gc = canvas.getGraphicsContext2D();
+
+        colorPicker.setValue(Color.BLACK);
     }
 
 

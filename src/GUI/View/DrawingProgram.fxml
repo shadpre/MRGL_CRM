@@ -22,17 +22,17 @@
         <VBox spacing="10" style="-fx-padding: 10px;">
             <ImageView fx:id="symbol1" fitHeight="72.0" fitWidth="99.0" onDragDetected="#dragSymbolOne" onDragDone="#dragDoneSymbolOne" onMouseEntered="#mouseEnterSymbolOne" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../data/images/Editbtn01.png" />
+                    <Image url="@../../data/images/symbol%20enhed.png" />
                 </image>
             </ImageView>
             <ImageView fx:id="symbol2" fitHeight="71.0" fitWidth="74.0" onDragDetected="#dragSymbolTwo" onDragDone="#dragDoneSymbolTwo" onMouseEntered="#mouseEnterSymbolTwo" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../data/images/Trashbtn02.png" />
+                    <Image url="@../../data/images/230v%20forsyning.png" />
                 </image>
             </ImageView>
             <ImageView fx:id="symbol3" fitHeight="69.0" fitWidth="74.0" onDragDetected="#dragSymbolThree" onDragDone="#dragDoneSymbolThree" onMouseEntered="#mouseEnterSymbolThree" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../data/images/Upload.png" />
+                    <Image url="@../../data/images/230v%20forsyningny.png" />
                 </image>
             </ImageView>
         </VBox>
