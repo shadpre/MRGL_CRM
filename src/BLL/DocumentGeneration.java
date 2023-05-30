@@ -26,8 +26,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-public class DocumentGeneration {
-    public static IDocumentData CreateDocumentData(ICustomerTask customerTask) throws Exception {
+public class DocumentGeneration implements BLL.Interfaces.DocumentGeneration {
+    private static IDocumentData CreateDocumentData(ICustomerTask customerTask) throws Exception {
         DocumentData documentData = new DocumentData(customerTask);
 
         IInstallationManager iInstallationManager = new InstallationManager();
@@ -82,7 +82,6 @@ public class DocumentGeneration {
 
         boolean needNewPage = false;
 
-        //String path = "C:\\out\\test.pdf";
 
         PdfWriter pdfWriter = new PdfWriter(FilePath);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);

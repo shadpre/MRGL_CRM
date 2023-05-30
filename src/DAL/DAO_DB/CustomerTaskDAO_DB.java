@@ -19,8 +19,8 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
      *
      * @param ct The customer task to create.
      * @return The created customer task.
-     * @throws SQLException                    If a database access error occurs.
-     * @throws CustomerTaskNotFoundException   If the customer task was not found.
+     * @throws SQLException                  If a database access error occurs.
+     * @throws CustomerTaskNotFoundException If the customer task was not found.
      */
     @Override
     public ICustomerTask CreateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundException {
@@ -70,8 +70,8 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
      *
      * @param id The ID of the customer task to retrieve.
      * @return The retrieved customer task.
-     * @throws SQLException                    If a database access error occurs.
-     * @throws CustomerTaskNotFoundException   If the customer task was not found.
+     * @throws SQLException                  If a database access error occurs.
+     * @throws CustomerTaskNotFoundException If the customer task was not found.
      */
     @Override
     public ICustomerTask getCustomerTask(int id) throws SQLException, CustomerTaskNotFoundException {
@@ -100,8 +100,8 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
      * Retrieves a list of all customer tasks from the database.
      *
      * @return An ArrayList of all customer tasks.
-     * @throws SQLException                    If a database access error occurs.
-     * @throws CustomerTaskNotFoundException   If no customer tasks were found.
+     * @throws SQLException                  If a database access error occurs.
+     * @throws CustomerTaskNotFoundException If no customer tasks were found.
      */
     @Override
     public ArrayList<ICustomerTask> getAllCustomerTasks() throws SQLException, CustomerTaskNotFoundException {
@@ -167,8 +167,8 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
      *
      * @param customerId The ID of the customer.
      * @return An ArrayList of customer tasks associated with the customer.
-     * @throws SQLException                    If a database access error occurs.
-     * @throws CustomerTaskNotFoundException   If no customer tasks were found for the customer.
+     * @throws SQLException                  If a database access error occurs.
+     * @throws CustomerTaskNotFoundException If no customer tasks were found for the customer.
      */
     @Override
     public ArrayList<ICustomerTask> getAllCustomerTasks(int customerId) throws SQLException, CustomerTaskNotFoundException {
@@ -202,8 +202,8 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
      *
      * @param ct The customer task to update.
      * @return The updated customer task.
-     * @throws SQLException                    If a database access error occurs.
-     * @throws CustomerTaskNotFoundException   If the customer task was not found.
+     * @throws SQLException                  If a database access error occurs.
+     * @throws CustomerTaskNotFoundException If the customer task was not found.
      */
     @Override
     public ICustomerTask updateCustomerTask(ICustomerTask ct) throws SQLException, CustomerTaskNotFoundException {
@@ -231,11 +231,63 @@ public class CustomerTaskDAO_DB implements ICustomerTaskDAO {
     /**
      * Deletes a customer task from the database.
      *
-     * @param ID The ID of the customer task to delete.
-     * @throws SQLException                    If a database access error occurs.
+     * @param id The ID of the customer task to delete.
+     * @throws SQLException If a database access error occurs.
      */
     @Override
-    public void deleteCustomerTask(int ID) throws SQLException{
-        throw new RuntimeException("Not implemented");
+    public void deleteCustomerTask(int id) throws SQLException {
+
+        ArrayList<Integer> installationsIds = new ArrayList<>();
+        PreparedStatement statement;
+        String query;
+        Connection conn = DatabaseConnector.getInstance().getConnection();
+        try {
+            conn.setAutoCommit(false);
+
+            //Get all installations for CustomerTask
+            query="SELECT Id FROM Installations where CustomerTaskId = ?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1,id);
+
+            var rs = statement.executeQuery();
+
+            while(rs.next()){
+                installationsIds.add(rs.getInt("Id"));
+            }
+
+            //Delete each installation
+            if (installationsIds.size() > 0) {
+                for (int installationId : installationsIds) {
+                    query = "DELETE Images WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+
+                    query = "DELETE Devices WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+
+                    query = "DELETE Networks WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+
+                    query = "DELETE WiFis WHERE InstallationID = ?";
+                    statement = conn.prepareStatement(query);
+                    statement.setInt(1, installationId);
+                    statement.executeUpdate();
+                }
+            }
+
+            //If all went well
+            conn.commit();
+        }
+        catch (Exception e){
+            conn.rollback();
+            //rethrow
+            throw e;
+        }
+
     }
 }
