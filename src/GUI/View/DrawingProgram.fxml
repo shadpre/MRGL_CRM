@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
-            prefWidth="1350.0" xmlns="http://javafx.com/javafx/19"
-            fx:controller="GUI.Controller.DrawingProgram">
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.DrawingProgram">
     <center>
         <AnchorPane>
             <children>
-                <Canvas fx:id="canvas" height="853.0" onDragDropped="#dragDroppedCanvas" onDragOver="#dragOverCanvas"
-                        onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed"
-                        onMouseReleased="#onMouseReleased" width="1264.0"/>
+                <Canvas fx:id="canvas" height="853.0" onDragDropped="#dragDroppedCanvas" onDragOver="#dragOverCanvas" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" width="1264.0" />
             </children>
         </AnchorPane>
     </center>
 
     <right>
         <VBox spacing="10" style="-fx-padding: 10px;">
-            <ImageView fx:id="symbol1" fitHeight="72.0" fitWidth="99.0" onDragDetected="#dragSymbolOne"
-                       onDragDone="#dragDoneSymbolOne" onMouseEntered="#mouseEnterSymbol" pickOnBounds="true"
-                       preserveRatio="true">
+            <ImageView fx:id="symbol1" fitHeight="72.0" fitWidth="99.0" onDragDetected="#dragSymbolOne" onDragDone="#dragDoneSymbolOne" onMouseEntered="#mouseEnterSymbolOne" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../data/images/Editbtn01.png"/>
+                    <Image url="@../../data/images/Editbtn01.png" />
                 </image>
             </ImageView>
-            <ImageView fx:id="symbol2" fitHeight="71.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="symbol2" fitHeight="71.0" fitWidth="74.0" onDragDetected="#dragSymbolTwo" onDragDone="#dragDoneSymbolTwo" onMouseEntered="#mouseEnterSymbolTwo" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../data/images/Trashbtn02.png"/>
+                    <Image url="@../../data/images/Trashbtn02.png" />
                 </image>
             </ImageView>
-            <ImageView fx:id="symbol3" fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="symbol3" fitHeight="69.0" fitWidth="74.0" onDragDetected="#dragSymbolThree" onDragDone="#dragDoneSymbolThree" onMouseEntered="#mouseEnterSymbolThree" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../data/images/Upload.png"/>
+                    <Image url="@../../data/images/Upload.png" />
                 </image>
             </ImageView>
         </VBox>
@@ -44,26 +41,16 @@
     <bottom>
         <AnchorPane prefHeight="51.0" prefWidth="1350.0">
             <children>
-                <Button fx:id="addLineButton" layoutX="22.0" layoutY="5.0" onAction="#onAddLineButtonClicked"
-                        prefHeight="41.0" prefWidth="129.0" stylesheets="@../StyleSheet/Styleguide.css"
-                        text="Add Line"/>
-                <ColorPicker fx:id="colorPicker" layoutX="162.0" layoutY="3.0" prefHeight="46.0" prefWidth="86.0"/>
-                <Button fx:id="removeLastLine" layoutX="409.0" layoutY="5.0" onAction="#handleRemoveLastLine"
-                        prefHeight="41.0" prefWidth="129.0" stylesheets="@../StyleSheet/Styleguide.css"
-                        text="Remove Last Line"/>
-                <Button fx:id="closeButton" layoutX="1161.0" layoutY="5.0" onAction="#handleCloseWindow"
-                        prefHeight="41.0" prefWidth="165.0" stylesheets="@../StyleSheet/Styleguide.css"
-                        text="Upload Sketch"/>
-                <ImageView fx:id="imgTrash" fitHeight="55.0" fitWidth="63.0" layoutX="341.0" layoutY="-1.0"
-                           onMouseEntered="#handleEnterTrash" onMouseExited="#handleExitTrash"
-                           onMouseReleased="#handleRemoveLines" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="addLineButton" layoutX="22.0" layoutY="5.0" onAction="#onAddLineButtonClicked" prefHeight="41.0" prefWidth="129.0" stylesheets="@../StyleSheet/Styleguide.css" text="Add Line" />
+                <ColorPicker fx:id="colorPicker" layoutX="162.0" layoutY="3.0" prefHeight="46.0" prefWidth="86.0" />
+                <Button fx:id="removeLastLine" layoutX="409.0" layoutY="5.0" onAction="#handleRemoveLastLine" prefHeight="41.0" prefWidth="129.0" stylesheets="@../StyleSheet/Styleguide.css" text="Remove Last Line" />
+                <Button fx:id="closeButton" layoutX="1161.0" layoutY="5.0" onAction="#handleCloseWindow" prefHeight="41.0" prefWidth="165.0" stylesheets="@../StyleSheet/Styleguide.css" text="Upload Sketch" />
+                <ImageView fx:id="imgTrash" fitHeight="55.0" fitWidth="63.0" layoutX="341.0" layoutY="-1.0" onMouseEntered="#handleEnterTrash" onMouseExited="#handleExitTrash" onMouseReleased="#handleRemoveLines" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../data/images/Trashbtn01.png"/>
+                        <Image url="@../../data/images/Trashbtn01.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="removeLastLine1" layoutX="553.0" layoutY="5.0" onAction="#handleRemoveLastLine"
-                        prefHeight="41.0" prefWidth="129.0" stylesheets="@../StyleSheet/Styleguide.css"
-                        text="Remove Last Symbol"/>
+                <Button fx:id="removeLastLine1" layoutX="553.0" layoutY="5.0" onAction="#handleRemoveLastLine" prefHeight="41.0" prefWidth="129.0" stylesheets="@../StyleSheet/Styleguide.css" text="Remove Last Symbol" />
             </children>
         </AnchorPane>
     </bottom>
