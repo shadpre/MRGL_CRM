@@ -67,12 +67,5 @@ public interface IInstallationDAO {
      * @throws InstallationNotFoundException If the installation was not found.
      */
     void deleteInstallation(int id) throws SQLException, InstallationNotFoundException;
-    /**
-     * Deletes all installations associated with a specific customer task from the database.
-     *
-     * @param customerTaskId The ID of the customer task.
-     * @throws SQLException                 If a database access error occurs.
-     * @throws InstallationNotFoundException If the installations were not found.
-     */
-    void deleteInstallations(int customerTaskId) throws SQLException, InstallationNotFoundException;
+
 }

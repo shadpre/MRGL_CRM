@@ -212,18 +212,37 @@ public class InstallationDAO_DB implements IInstallationDAO {
      */
     @Override
     public void deleteInstallation(int id) throws SQLException, InstallationNotFoundException {
-        throw new RuntimeException("Not implemented yet");
-    }
+        Connection conn =DatabaseConnector.getInstance().getConnection();
+        PreparedStatement statement;
+        String query;
+        try{
+            conn.setAutoCommit(false);
 
-    /**
-     * Deletes all installations associated with a specific customer task from the database.
-     *
-     * @param customerTaskId The ID of the customer task.
-     * @throws SQLException                 If a database access error occurs.
-     * @throws InstallationNotFoundException If the installations were not found.
-     */
-    @Override
-    public void deleteInstallations(int customerTaskId) throws SQLException, InstallationNotFoundException {
-        throw new RuntimeException("Not implemented yet");
+            query = "DELETE Images WHERE InstallationID = ?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            query = "DELETE Devices WHERE InstallationID = ?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            query = "DELETE Networks WHERE InstallationID = ?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            query = "DELETE WiFis WHERE InstallationID = ?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            conn.commit();
+        }
+        catch (Exception e){
+            conn.rollback();
+            throw e;
+        }
     }
 }

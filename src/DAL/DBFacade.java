@@ -194,10 +194,6 @@ public class DBFacade {
         installationDAO.deleteInstallation(id);
     }
 
-    public void deleteInstallations(int customerTaskId) throws SQLException, InstallationNotFoundException {
-        installationDAO.deleteInstallations(customerTaskId);
-    }
-
     //Network Methods
     public INetwork createNetwork(INetwork net) throws SQLException, NetworkNotFoundException {
         return networkDAO.createNetwork(net);

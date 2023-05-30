@@ -288,11 +288,10 @@ public class UserDAO_DB implements IUserDAO {
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             try {
                 conn.setAutoCommit(false);
+
                 String query = "DELETE Users where Id = ?";
                 PreparedStatement statement = conn.prepareStatement(query);
                 statement.setInt(1, id);
-
-                // Delete relations
 
                 conn.commit();
             } catch (Exception ex) {
