@@ -59,4 +59,8 @@ public class InstallationModel {
     public IInstallation createInstallation(IInstallation installation) throws SQLException, InstallationNotFoundException {
         return installationManager.createInstallation(installation);
     }
+
+    public void deleteInstallation(int id) throws InstallationNotFoundException, SQLException{
+        installationManager.deleteInstallation(id);
+    }
 }

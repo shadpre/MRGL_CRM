@@ -14,4 +14,5 @@ public interface IInstallationManager {
     ArrayList<IInstallation> getInstallationsForUser(int selectedUserID) throws SQLException, InstallationNotFoundException;
 
     IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundException;
+    void deleteInstallation(int id) throws InstallationNotFoundException, SQLException;
 }

@@ -25,8 +25,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -682,7 +684,6 @@ public class MainView2Controller extends BaseController implements Initializable
 
     @FXML
     private void btnHandleFinishTask(ActionEvent event) throws MalformedURLException, DocumentNotFoundException, SQLException, FileNotFoundException {
-        // DocumentGeneration.documentGeneration();
     }
 
     @FXML
