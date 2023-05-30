@@ -108,6 +108,7 @@ DELETE Customers
 DELETE Users
 
 INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('ADM', 'Admin', 'Admin', 'admin@wuav.dk', '$2a$10$o2rPhDPzNtmPo9mVNuohVOHkHP0uLau8XFaleRsulSk0XXU0fVjPO', 1)
+INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('CEO', 'Ceo', 'Ceo', 'ceo@wuav.dk', '$2a$10$6MXOEMhN/iQgQYLCVNmd1upeMuuYKm1hjOqLaIGe0mGFsIgxomDLq', 0)
 INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('TECH', 'Tech', 'Tech', 'tech@wuav.dk', '$2a$10$6MXOEMhN/iQgQYLCVNmd1upeMuuYKm1hjOqLaIGe0mGFsIgxomDLq', 0)
 INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('PM', 'PM', 'PM', 'pm@wuav.dk', '$2a$10$c2MvZKH/ZehQNb97IZ0BsuIz0UUP4.JhDFuyeoMXzeu12OIJ8qvKG', 2)
 INSERT INTO Users (LoginName, FirstName, LastName, EMail, Hash, Role) VALUES ('SALG', 'Salg', 'Salg', 'salg@wuav.dk', '$2a$10$pmrLP.xrxBmTxMQBFdkrY.zlk9vNGgJMpMsFtift69VeMwx8efraW', 3)
