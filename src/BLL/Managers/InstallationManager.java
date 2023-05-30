@@ -30,4 +30,9 @@ public class InstallationManager implements IInstallationManager {
     public IInstallation createInstallation(IInstallation inst) throws SQLException, InstallationNotFoundException {
         return DBFacade.getInstance().createInstallation(inst);
     }
+
+    @Override
+    public void deleteInstallation(int id) throws InstallationNotFoundException, SQLException {
+        DBFacade.getInstance().deleteInstallation(id);
+    }
 }
