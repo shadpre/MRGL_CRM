@@ -39,37 +39,35 @@ import java.util.ResourceBundle;
 
 public class MainView2Controller extends BaseController implements Initializable {
     @FXML
-    private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales, btnShowAllFinishedTasksSales, btnShowAllMyTasksPManager,
-            btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask, btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech, bthShowAllInstallations,
-            btnOpenInstallation, btnUpdateInstallation, btnDeleteInstallation, btnGenDocumentation, btnUpdateCustomerbtn;
+    private Button btnAddCustomer, btnAddUser, btnBeginTask, btnSaveUserCeo, btnShowAllCustomers, btnShowAllCustomersSales;
+    @FXML
+    private Button btnShowAllFinishedTasksSales, btnShowAllMyTasksPManager, btnShowAllMyTasksTech, btnShowAllTasksCeo, btnAddNewTask;
+    @FXML
+    private Button btnShowAllUsers, btnSaveCustomerCeo, btnUpdateTaskPManager, btnGenerateDocument, btnAddTech, btnRemoveTech;
+    @FXML
+    private Button bthShowAllInstallations, btnOpenInstallation, btnUpdateInstallation, btnDeleteInstallation, btnGenDocumentation;
+    @FXML
+    private Button btnUpdateCustomerbtn, btnShowDocumentationSales, btnGenerateDocumentationSales, btnUpdateCustomer, btnUpdateTask;
+    @FXML
+    private Button btnShowUpdateUser, btnUpdateUser, btnDeleteCustomer, btnDeleteTask, btnSaveTaskCeo, btnDeleteUser, btnFinishTask;
 
     @FXML
-    private StackPane stackPaneAddCustomerCeo, stackPaneAddUserCeo, stackPaneAllUsersCeo, stackPaneCeoBtn, stackPaneTechBtn, stackPaneSalesBtn, stackPanePManagerBtn, stackPaneViewAllCustomersCeo,
-            stackPaneViewAllCustomersTasks, stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech, stackPaneViewAllCompletedTasks,
-            stackPaneViewAllCompletedTasksPm, stackPaneViewAllInstallations, stackpaneBtnEditInstallation;
+    private StackPane stackPaneAddCustomerCeo, stackPaneAddUserCeo, stackPaneAllUsersCeo, stackPaneCeoBtn, stackPaneTechBtn;
+    @FXML
+    private StackPane stackPaneSalesBtn, stackPanePManagerBtn, stackPaneViewAllCustomersCeo, stackPaneViewAllCustomersTasks;
+    @FXML
+    private StackPane stackpaneBtnEditCustomer, stackpaneBtnEditTask, stackpaneBtnEditUser, stackPaneAddTaskCeo, stackPaneViewAllMyTasksTech;
+    @FXML
+    private StackPane stackPaneViewAllCompletedTasks, stackPaneViewAllCompletedTasksPm, stackPaneViewAllInstallations;
+    @FXML
+    private StackPane stackpaneBtnEditInstallation;
 
-    @FXML
-    private Button btnUpdateCustomer;
-    @FXML
-    private Button btnUpdateTask;
-    @FXML
-    private Button btnShowUpdateUser;
-    @FXML
-    private Button btnUpdateUser;
 
-    @FXML
-    private Button btnDeleteCustomer;
 
-    @FXML
-    private Button btnDeleteTask;
-    @FXML
-    private Button btnSaveTaskCeo;
 
-    @FXML
-    private Button btnDeleteUser;
 
-    @FXML
-    private Button btnFinishTask;
+    
+
 
     @FXML
     private TableView<ICustomerTask> tableViewAllTasksCeo;
@@ -133,46 +131,17 @@ public class MainView2Controller extends BaseController implements Initializable
     private TableColumn<IInstallation, String> columnInstallationNo;
     @FXML
     private TableColumn<IInstallation, String> columnInstallationDescription;
+     @FXML
+    private TextField txtFieldEmail, txtFieldFirstName, txtFieldLastName ;
+
     @FXML
-    private TextField txtSearch;
-    @FXML
-    private TextField txtFieldEmail;
-    @FXML
-    private TextField txtFieldFirstName;
-    @FXML
-    private TextField txtFieldLastName;
-    @FXML
-    private TextField txtFieldLoginName;
-    @FXML
-    private TextField txtFieldPassword;
-    @FXML
-    private TextField txtFieldPasswordRetype;
+    private TextField txtFieldLoginName, txtFieldPassword, txtFieldPasswordRetype, txtFieldCustomerAddress, txtFieldCustomerAddress2;
+   @FXML
+   private TextField txtFieldCustomerAddress3, txtFieldCustomerCity, txtFieldCustomerCountry, txtFieldCustomerEmail, txtFieldCustomerName;
+   @FXML
+   private TextField txtFieldCustomerTaxNo, txtFieldCustomerTelephone, txtFieldCustomerZipCode, txtFieldDescriptionTask, txtFieldRemarksTask;
     @FXML
     private ChoiceBox<String> choiceBoxRoleCeo;
-    @FXML
-    private TextField txtFieldCustomerAddress;
-    @FXML
-    private TextField txtFieldCustomerAddress2;
-    @FXML
-    private TextField txtFieldCustomerAddress3;
-    @FXML
-    private TextField txtFieldCustomerCity;
-    @FXML
-    private TextField txtFieldCustomerCountry;
-    @FXML
-    private TextField txtFieldCustomerEmail;
-    @FXML
-    private TextField txtFieldCustomerName;
-    @FXML
-    private TextField txtFieldCustomerTaxNo;
-    @FXML
-    private TextField txtFieldCustomerTelephone;
-    @FXML
-    private TextField txtFieldCustomerZipCode;
-    @FXML
-    private TextField txtFieldDescriptionTask;
-    @FXML
-    private TextField txtFieldRemarksTask;
     @FXML
     private DatePicker datePickerTask;
     private IUser selectedUser;
@@ -595,6 +564,15 @@ public class MainView2Controller extends BaseController implements Initializable
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    @FXML
+    private void btnHandleShowDocumentationSales (ActionEvent event){
+
+    }
+
+    @FXML
+    private void btnHandleGenerateDocumentationSales (ActionEvent event){
+
     }
 
     @FXML
